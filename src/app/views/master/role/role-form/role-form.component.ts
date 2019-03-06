@@ -5,10 +5,10 @@ import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./role-create.component.html",
-  styleUrls: ["./role-create.component.scss"]
+  templateUrl: "./role-form.component.html",
+  styleUrls: ["./role-form.component.scss"]
 })
-export class RoleCreateComponent implements OnInit {
+export class RoleFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   radioGroup: FormGroup;

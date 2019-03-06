@@ -9,7 +9,7 @@ import { TextMaskModule } from "angular2-text-mask";
 
 import { MasterRoutingModule } from "./master-routing.module";
 import { UserListComponent } from "./user/user-list/user-list.component";
-import { RoleCreateComponent } from "./role/role-create/role-create.component";
+import { RoleFormComponent } from "./role/role-form/role-form.component";
 import { RoleListComponent } from "./role/role-list/role-list.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -27,6 +27,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     FormWizardModule,
     TextMaskModule
   ],
-  declarations: [UserListComponent, RoleCreateComponent, RoleListComponent]
+  declarations: [UserListComponent, RoleFormComponent, RoleListComponent]
 })
 export class MasterModule {}
