@@ -25,6 +25,8 @@ import { PackageFormComponent } from "./package/package-form/package-form.compon
 import { PackageListComponent } from "./package/package-list/package-list.component";
 import { MemberTypeListComponent } from "./member-type/member-type-list/member-type-list.component";
 import { MemberTypeFormComponent } from "./member-type/member-type-form/member-type-form.component";
+import { PriceListComponent } from "./price/price-list/price-list.component";
+import { PriceFormComponent } from "./price/price-form/price-form.component";
 
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -59,7 +61,9 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     PackageFormComponent,
     PackageListComponent,
     MemberTypeFormComponent,
-    MemberTypeListComponent
+    MemberTypeListComponent,
+    PriceFormComponent,
+    PriceListComponent
   ]
 })
 export class MasterModule {}

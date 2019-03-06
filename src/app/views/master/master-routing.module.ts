@@ -17,6 +17,8 @@ import { PackageListComponent } from "./package/package-list/package-list.compon
 import { PackageFormComponent } from "./package/package-form/package-form.component";
 import { MemberTypeListComponent } from "./member-type/member-type-list/member-type-list.component";
 import { MemberTypeFormComponent } from "./member-type/member-type-form/member-type-form.component";
+import { PriceListComponent } from "./price/price-list/price-list.component";
+import { PriceFormComponent } from "./price/price-form/price-form.component";
 
 const routes: Routes = [
   {
@@ -86,6 +88,14 @@ const routes: Routes = [
   {
     path: "member-type/create",
     component: MemberTypeFormComponent
+  },
+  {
+    path: "price",
+    component: PriceListComponent
+  },
+  {
+    path: "price/create",
+    component: PriceFormComponent
   }
 ];
 
