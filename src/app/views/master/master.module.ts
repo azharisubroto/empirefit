@@ -17,6 +17,8 @@ import { PersonalTrainerFormComponent } from "./personal-trainer/personal-traine
 import { PersonalTrainerListComponent } from "./personal-trainer/personal-trainer-list/personal-trainer-list.component";
 import { InstructureFormComponent } from "./instructure/instructure-form/instructure-form.component";
 import { InstructureListComponent } from "./instructure/instructure-list/instructure-list.component";
+import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.component";
+import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -42,7 +44,9 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     PersonalTrainerFormComponent,
     PersonalTrainerListComponent,
     InstructureFormComponent,
-    InstructureListComponent
+    InstructureListComponent,
+    ScheduleFormComponent,
+    ScheduleListComponent
   ]
 })
 export class MasterModule {}

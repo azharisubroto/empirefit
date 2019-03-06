@@ -9,6 +9,8 @@ import { PersonalTrainerListComponent } from "./personal-trainer/personal-traine
 import { PersonalTrainerFormComponent } from "./personal-trainer/personal-trainer-form/personal-trainer-form.component";
 import { InstructureListComponent } from "./instructure/instructure-list/instructure-list.component";
 import { InstructureFormComponent } from "./instructure/instructure-form/instructure-form.component";
+import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.component";
+import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.component";
 
 const routes: Routes = [
   {
@@ -46,6 +48,14 @@ const routes: Routes = [
   {
     path: "instructure/create",
     component: InstructureFormComponent
+  },
+  {
+    path: "schedule",
+    component: ScheduleListComponent
+  },
+  {
+    path: "schedule/create",
+    component: ScheduleFormComponent
   }
 ];
 
