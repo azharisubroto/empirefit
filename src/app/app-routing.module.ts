@@ -31,22 +31,6 @@ const adminRoutes: Routes = [
   {
     path: "master",
     loadChildren: "./views/master/master.module#MasterModule"
-  },
-  {
-    path: "chat",
-    loadChildren: "./views/chat/chat.module#ChatModule"
-  },
-  {
-    path: "tables",
-    loadChildren: "./views/data-tables/data-tables.module#DataTablesModule"
-  },
-  {
-    path: "pages",
-    loadChildren: "./views/pages/pages.module#PagesModule"
-  },
-  {
-    path: "icons",
-    loadChildren: "./views/icons/icons.module#IconsModule"
   }
 ];
 
