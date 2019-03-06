@@ -5,6 +5,10 @@ import { RoleListComponent } from "./role/role-list/role-list.component";
 import { RoleFormComponent } from "./role/role-form/role-form.component";
 import { PermissionListComponent } from "./permission/permission-list/permission-list.component";
 import { PermissionFormComponent } from "./permission/permission-form/permission-form.component";
+import { PersonalTrainerListComponent } from "./personal-trainer/personal-trainer-list/personal-trainer-list.component";
+import { PersonalTrainerFormComponent } from "./personal-trainer/personal-trainer-form/personal-trainer-form.component";
+import { InstructureListComponent } from "./instructure/instructure-list/instructure-list.component";
+import { InstructureFormComponent } from "./instructure/instructure-form/instructure-form.component";
 
 const routes: Routes = [
   {
@@ -21,11 +25,27 @@ const routes: Routes = [
   },
   {
     path: "permission",
-    component: RoleListComponent
+    component: PermissionListComponent
   },
   {
     path: "permission/create",
-    component: RoleFormComponent
+    component: PermissionFormComponent
+  },
+  {
+    path: "personal-trainer",
+    component: PersonalTrainerListComponent
+  },
+  {
+    path: "personal-trainer/create",
+    component: PersonalTrainerFormComponent
+  },
+  {
+    path: "instructure",
+    component: InstructureListComponent
+  },
+  {
+    path: "instructure/create",
+    component: InstructureFormComponent
   }
 ];
 
