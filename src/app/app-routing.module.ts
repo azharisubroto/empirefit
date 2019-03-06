@@ -29,8 +29,8 @@ const adminRoutes: Routes = [
     loadChildren: "./views/finance/finance.module#FinanceModule"
   },
   {
-    path: "calendar",
-    loadChildren: "./views/calendar/calendar.module#CalendarAppModule"
+    path: "master",
+    loadChildren: "./views/master/master.module#MasterModule"
   },
   {
     path: "chat",

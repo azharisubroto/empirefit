@@ -5,10 +5,10 @@ import { debounceTime } from "rxjs/operators";
 
 @Component({
   selector: "app-filter-table",
-  templateUrl: "./member-list.component.html",
-  styleUrls: ["./member-list.component.css"]
+  templateUrl: "./user-list.component.html",
+  styleUrls: ["./user-list.component.css"]
 })
-export class MemberComponent implements OnInit {
+export class UserListComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   products;
   filteredProducts;

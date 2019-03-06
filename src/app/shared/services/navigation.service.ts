@@ -128,7 +128,7 @@ export class NavigationService {
             {
               icon: "i-File-Horizontal-Text",
               name: "User List",
-              state: "/master/users",
+              state: "/master/user",
               type: "link"
             },
             {
