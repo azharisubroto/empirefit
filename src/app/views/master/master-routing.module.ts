@@ -15,6 +15,8 @@ import { PaymentTypeListComponent } from "./payment-type/payment-type-list/payme
 import { PaymentTypeFormComponent } from "./payment-type/payment-type-form/payment-type-form.component";
 import { PackageListComponent } from "./package/package-list/package-list.component";
 import { PackageFormComponent } from "./package/package-form/package-form.component";
+import { MemberTypeListComponent } from "./member-type/member-type-list/member-type-list.component";
+import { MemberTypeFormComponent } from "./member-type/member-type-form/member-type-form.component";
 
 const routes: Routes = [
   {
@@ -76,6 +78,14 @@ const routes: Routes = [
   {
     path: "package/create",
     component: PackageFormComponent
+  },
+  {
+    path: "member-type",
+    component: MemberTypeListComponent
+  },
+  {
+    path: "member-type/create",
+    component: MemberTypeFormComponent
   }
 ];
 

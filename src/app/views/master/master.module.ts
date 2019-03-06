@@ -23,6 +23,8 @@ import { PaymentTypeFormComponent } from "./payment-type/payment-type-form/payme
 import { PaymentTypeListComponent } from "./payment-type/payment-type-list/payment-type-list.component";
 import { PackageFormComponent } from "./package/package-form/package-form.component";
 import { PackageListComponent } from "./package/package-list/package-list.component";
+import { MemberTypeListComponent } from "./member-type/member-type-list/member-type-list.component";
+import { MemberTypeFormComponent } from "./member-type/member-type-form/member-type-form.component";
 
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -55,7 +57,9 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     PaymentTypeFormComponent,
     PaymentTypeListComponent,
     PackageFormComponent,
-    PackageListComponent
+    PackageListComponent,
+    MemberTypeFormComponent,
+    MemberTypeListComponent
   ]
 })
 export class MasterModule {}
