@@ -19,6 +19,11 @@ import { InstructureFormComponent } from "./instructure/instructure-form/instruc
 import { InstructureListComponent } from "./instructure/instructure-list/instructure-list.component";
 import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.component";
 import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.component";
+import { PaymentTypeFormComponent } from "./payment-type/payment-type-form/payment-type-form.component";
+import { PaymentTypeListComponent } from "./payment-type/payment-type-list/payment-type-list.component";
+import { PackageFormComponent } from "./package/package-form/package-form.component";
+import { PackageListComponent } from "./package/package-list/package-list.component";
+
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -46,7 +51,11 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     InstructureFormComponent,
     InstructureListComponent,
     ScheduleFormComponent,
-    ScheduleListComponent
+    ScheduleListComponent,
+    PaymentTypeFormComponent,
+    PaymentTypeListComponent,
+    PackageFormComponent,
+    PackageListComponent
   ]
 })
 export class MasterModule {}
