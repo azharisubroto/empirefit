@@ -33,6 +33,8 @@ import { ClubBenefitListComponent } from "./club-benefit/club-benefit-list/club-
 import { ClubBenefitFormComponent } from "./club-benefit/club-benefit-form/club-benefit-form.component";
 import { DropinTypeListComponent } from "./dropin-type/dropin-type-list/dropin-type-list.component";
 import { DropinTypeFormComponent } from "./dropin-type/dropin-type-form/dropin-type-form.component";
+import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list/dropin-company-list.component";
+import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
 
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -75,7 +77,9 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     ClubBenefitFormComponent,
     ClubBenefitListComponent,
     DropinTypeFormComponent,
-    DropinTypeListComponent
+    DropinTypeListComponent,
+    DropinCompanyFormComponent,
+    DropinCompanyListComponent
   ]
 })
 export class MasterModule {}

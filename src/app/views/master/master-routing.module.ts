@@ -25,6 +25,8 @@ import { ClubBenefitListComponent } from "./club-benefit/club-benefit-list/club-
 import { ClubBenefitFormComponent } from "./club-benefit/club-benefit-form/club-benefit-form.component";
 import { DropinTypeListComponent } from "./dropin-type/dropin-type-list/dropin-type-list.component";
 import { DropinTypeFormComponent } from "./dropin-type/dropin-type-form/dropin-type-form.component";
+import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list/dropin-company-list.component";
+import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
 
 const routes: Routes = [
   {
@@ -126,6 +128,14 @@ const routes: Routes = [
   {
     path: "dropin-type/create",
     component: DropinTypeFormComponent
+  },
+  {
+    path: "dropin-company",
+    component: DropinCompanyListComponent
+  },
+  {
+    path: "dropin-company/create",
+    component: DropinCompanyFormComponent
   }
 ];
 
