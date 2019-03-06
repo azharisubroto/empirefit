@@ -27,6 +27,10 @@ import { MemberTypeListComponent } from "./member-type/member-type-list/member-t
 import { MemberTypeFormComponent } from "./member-type/member-type-form/member-type-form.component";
 import { PriceListComponent } from "./price/price-list/price-list.component";
 import { PriceFormComponent } from "./price/price-form/price-form.component";
+import { BenefitListComponent } from "./benefit/benefit-list/benefit-list.component";
+import { BenefitFormComponent } from "./benefit/benefit-form/benefit-form.component";
+import { ClubBenefitListComponent } from "./club-benefit/club-benefit-list/club-benefit-list.component";
+import { ClubBenefitFormComponent } from "./club-benefit/club-benefit-form/club-benefit-form.component";
 
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -63,7 +67,11 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     MemberTypeFormComponent,
     MemberTypeListComponent,
     PriceFormComponent,
-    PriceListComponent
+    PriceListComponent,
+    BenefitFormComponent,
+    BenefitListComponent,
+    ClubBenefitFormComponent,
+    ClubBenefitListComponent
   ]
 })
 export class MasterModule {}
