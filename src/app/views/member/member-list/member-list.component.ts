@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductService } from "src/app/shared/services/product.service";
+import { MemberService } from "src/app/shared/services/member.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
 
@@ -10,15 +11,15 @@ import { debounceTime } from "rxjs/operators";
 })
 export class MemberComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  products;
-  filteredProducts;
+  members: any = [];
+  filteredMembers;
 
-  constructor(private productService: ProductService) {}
+  constructor(private memberService: MemberService) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((res: any[]) => {
-      this.products = [...res];
-      this.filteredProducts = res;
+    this.memberService.getMember().subscribe((data: any[]) => {
+      this.members = data["data"];
+      this.filteredMembers = data["data"];
     });
 
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
@@ -30,15 +31,15 @@ export class MemberComponent implements OnInit {
     if (val) {
       val = val.toLowerCase();
     } else {
-      return (this.filteredProducts = [...this.products]);
+      return (this.filteredMembers = this.members);
     }
 
-    const columns = Object.keys(this.products[0]);
+    const columns = Object.keys(this.members[0]);
     if (!columns.length) {
       return;
     }
 
-    const rows = this.products.filter(function(d) {
+    const rows = this.members.filter(function(d) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
         // console.log(d[column]);
@@ -53,6 +54,6 @@ export class MemberComponent implements OnInit {
         }
       }
     });
-    this.filteredProducts = rows;
+    this.filteredMembers = rows;
   }
 }
