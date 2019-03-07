@@ -1,0 +1,84 @@
+<div class="breadcrumb">
+  <h1>Member</h1>
+  <ul>
+    <li>Attendance</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Input Attendance</div>
+        <form [formGroup]="formBasic" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="start-date">Start date</label>
+              <div class="input-group">
+                <input
+                  id="start-date"
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="start-date"
+                  ngbDatepicker
+                  #start="ngbDatepicker"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary"
+                    (click)="start.toggle()"
+                    type="button"
+                  >
+                    <i class="icon-regular i-Calendar-4"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="end-date">End date</label>
+              <div class="input-group">
+                <input
+                  id="end-date"
+                  class="form-control"
+                  placeholder="yyyy-mm-dd"
+                  name="end-date"
+                  ngbDatepicker
+                  #end="ngbDatepicker"
+                />
+                <div class="input-group-append">
+                  <button
+                    class="btn btn-secondary"
+                    (click)="end.toggle()"
+                    type="button"
+                  >
+                    <i class="icon-regular i-Calendar-4"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="coach">Coach</label>
+              <select id="coach" name="coach" class="form-control">
+                <option>Option 1</option>
+                <option>Option 1</option>
+                <option>Option 1</option>
+              </select>
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Submit</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
