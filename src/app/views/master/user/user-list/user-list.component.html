@@ -30,57 +30,60 @@
           [footerHeight]="50"
           [rowHeight]="60"
           [scrollbarV]="true"
-          [rows]="filteredProducts"
+          [rows]="filteredUsers"
         >
-          <ngx-datatable-column name="name" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              ID
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="category" [width]="50">
+          <ngx-datatable-column prop="name" [width]="80">
             <ng-template ngx-datatable-header-template>
               Name
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="subtitle" [width]="50">
+          <ngx-datatable-column prop="email">
             <ng-template ngx-datatable-header-template>
-              Phone
+              Email
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="20">
+          <ngx-datatable-column prop="branch">
             <ng-template ngx-datatable-header-template>
-              State
+              Branch
             </ng-template>
           </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="80">
+          <ngx-datatable-column prop="role">
+            <ng-template ngx-datatable-header-template>
+              Role
+            </ng-template>
+          </ngx-datatable-column>
+          <ngx-datatable-column>
             <ng-template ngx-datatable-header-template>
               Action
             </ng-template>
             <ng-template ngx-datatable-cell-template>
-              <div ngbDropdown>
-                <button
-                  class="btn btn-outline-primary"
-                  id="dropdownBasic1"
-                  ngbDropdownToggle
-                >
-                  Toggle dropdown
-                </button>
-                <div
-                  ngbDropdownMenu
-                  class="dropdown-menu"
-                  aria-labelledby="dropdownBasic1"
-                >
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Action - 1
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Another Action
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Something else is here
-                  </button>
-                </div>
-              </div>
+              <a
+                href="#"
+                routerLink="user/edit"
+                class="btn btn-sm btn-warning mr-2"
+                title="Edit"
+                triggers="mouseenter:mouseleave"
+              >
+                <i class="i-Pen-5"></i>
+              </a>
+              <a
+                href="#"
+                routerLink="user/show"
+                class="btn btn-sm btn-success mr-2"
+                title="show"
+                triggers="mouseenter:mouseleave"
+              >
+                <i class="i-Clock"></i>
+              </a>
+              <a
+                href="#"
+                routerLink="user/delete"
+                class="btn btn-sm btn-danger mr-2"
+                title="Delete"
+                triggers="mouseenter:mouseleave"
+              >
+                <i class="i-Close-Window"></i>
+              </a>
             </ng-template>
           </ngx-datatable-column>
         </ngx-datatable>

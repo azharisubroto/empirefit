@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductService } from "src/app/shared/services/product.service";
+import { UserService } from "src/app/shared/services/user.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
 
@@ -10,15 +11,16 @@ import { debounceTime } from "rxjs/operators";
 })
 export class UserListComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  products;
-  filteredProducts;
+  users;
+  filteredUsers;
 
-  constructor(private productService: ProductService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((res: any[]) => {
-      this.products = [...res];
-      this.filteredProducts = res;
+    this.userService.getUsers().subscribe((data: any) => {
+      console.log(data["data"]);
+      this.users = data["data"];
+      this.filteredUsers = data["data"];
     });
 
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
@@ -30,15 +32,15 @@ export class UserListComponent implements OnInit {
     if (val) {
       val = val.toLowerCase();
     } else {
-      return (this.filteredProducts = [...this.products]);
+      return (this.filteredUsers = this.users);
     }
 
-    const columns = Object.keys(this.products[0]);
+    const columns = Object.keys(this.users[0]);
     if (!columns.length) {
       return;
     }
 
-    const rows = this.products.filter(function(d) {
+    const rows = this.users.filter(function(d) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
         // console.log(d[column]);
@@ -53,6 +55,6 @@ export class UserListComponent implements OnInit {
         }
       }
     });
-    this.filteredProducts = rows;
+    this.filteredUsers = rows;
   }
 }
