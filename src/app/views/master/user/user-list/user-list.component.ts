@@ -18,7 +18,6 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUsers().subscribe((data: any) => {
-      console.log(data["data"]);
       this.users = data["data"];
       this.filteredUsers = data["data"];
     });
@@ -43,7 +42,6 @@ export class UserListComponent implements OnInit {
     const rows = this.users.filter(function(d) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
-        // console.log(d[column]);
         if (
           d[column] &&
           d[column]
