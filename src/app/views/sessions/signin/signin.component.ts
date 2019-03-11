@@ -9,6 +9,7 @@ import {
   RouteConfigLoadEnd,
   ResolveEnd
 } from "@angular/router";
+import { LocalStoreService } from "src/app/shared/services/local-store.service";
 
 @Component({
   selector: "app-signin",
@@ -21,6 +22,7 @@ export class SigninComponent implements OnInit {
   loadingText: string;
   signinForm: FormGroup;
   constructor(
+    private store: LocalStoreService,
     private fb: FormBuilder,
     private auth: AuthService,
     private router: Router
@@ -50,12 +52,20 @@ export class SigninComponent implements OnInit {
   signin() {
     if (this.signinForm.invalid) {
       this.loading = false;
+      console.log("false");
       return;
     } else {
       this.loading = true;
       this.loadingText = "Signing in...";
-      this.auth.signin(this.signinForm.value);
-      this.loading = false;
+      this.auth.signin(this.signinForm.value).subscribe((data: any) => {
+        if (data.status == "200") {
+          this.store.setItem("access_token", data.access_token);
+          return this.router.navigateByUrl("dashboard");
+        } else {
+          this.store.clear();
+          this.loading = false;
+        }
+      });
     }
   }
 }

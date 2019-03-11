@@ -11,7 +11,7 @@ import { HttpClient } from "@angular/common/http";
 export class AuthService {
   //Only for demo purpose
   authenticated;
-  readonly apiURL = "http://localhost/efc/api";
+  readonly apiURL = "http://45.118.132.77/api";
 
   constructor(
     private store: LocalStoreService,
@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   checkAuth() {
-    this.authenticated = this.store.getItem("access_token");
+    return (this.authenticated = this.store.getItem("access_token"));
   }
 
   getuser() {
@@ -30,18 +30,9 @@ export class AuthService {
   }
 
   signin(credentials) {
-    this.http
+    return this.http
       .post(this.apiURL + "/login", credentials)
-      .subscribe((data: any) => {
-        if (data.status === "200") {
-          this.store.setItem("access_token", data.access_token);
-          this.router.navigateByUrl("/dashboard");
-          return of({}).pipe(delay(1500));
-        } else {
-          this.router.navigateByUrl("/sessions/signin");
-          return of({}).pipe(delay(1500));
-        }
-      });
+      .pipe(delay(1500));
   }
 
   signout() {
