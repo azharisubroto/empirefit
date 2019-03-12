@@ -1,20 +1,190 @@
-<div class="container">
-  <h1>Clients list</h1>
+<div class="">
+  <div class="breadcrumb">
+    <h1>Dashboard</h1>
+    <ul>
+      <li>Member</li>
+    </ul>
+  </div>
 
-  <table id="mytable" class="table table-hover" cellspacing="0">
-    <thead>
-      <tr>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th>Company</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let client of clients">
-        <td>{{ client.id }}</td>
-        <td>{{ client.name }}</td>
-        <td>{{ client.branch_name }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="separator-breadcrumb border-top"></div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <a
+          href="#"
+          [routerLink]="['user-create']"
+          class="btn btn-primary btn-rounded"
+        >
+          Create
+        </a>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card o-hidden">
+        <div class="table table-responsive mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Branch</th>
+                      <th>Role</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr *ngFor="let user of users">
+                      <td>{{ user.name }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>{{ user.branch_name }}</td>
+                      <td>{{ user.role }}</td>
+                      <td>
+                        <a
+                          href="#"
+                          [routerLink]="['user-edit/', user.id]"
+                          class="btn btn-sm btn-warning mr-2"
+                          title="Edit"
+                          triggers="mouseenter:mouseleave"
+                        >
+                          <i class="i-Pen-5"></i>
+                        </a>
+                        <button
+                          triggers="mouseenter:mouseleave"
+                          title="Show"
+                          class="btn btn-success btn-sm mr-2"
+                          (click)="showUser(modalLong, user.id)"
+                        >
+                          <i class="i-Information"></i>
+                        </button>
+                        <button
+                          class="btn btn-sm btn-danger"
+                          (click)="confirm(modalConfirm, user.id)"
+                        >
+                          <i class="i-Close-Window"></i>
+                        </button>
+
+                        <!-- Delete Modal -->
+                        <ng-template #modalConfirm let-modal>
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="modal-title">
+                              Profile deletion
+                            </h4>
+                            <button
+                              type="button"
+                              triggers="mouseenter:mouseleave"
+                              title="Show"
+                              class="close"
+                              aria-label="Close button"
+                              aria-describedby="modal-title"
+                              (click)="modal.dismiss('Cross click')"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              <strong
+                                >Are you sure you want to delete
+                                <span class="text-primary"
+                                  >"{{ user.name }}"</span
+                                >
+                                profile?</strong
+                              >
+                            </p>
+                            <p>
+                              All information associated to this user profile
+                              will be permanently deleted.
+                              <span class="text-danger"
+                                >This operation can not be undone.</span
+                              >
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-rounded"
+                              (click)="modal.dismiss('cancel')"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              ngbAutofocus
+                              class="btn btn-danger btn-rounded"
+                              (click)="modal.close('Ok')"
+                            >
+                              Ok
+                            </button>
+                          </div>
+                        </ng-template>
+
+                        <!-- Show Modal -->
+                        <ng-template #modalLong let-modal>
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="modal-basic-title">
+                              Detail :
+                            </h4>
+                            <button
+                              type="button"
+                              class="close"
+                              aria-label="Close"
+                              (click)="modal.dismiss('Cross click')"
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <table class="table table-responsive">
+                              <tr>
+                                <td>Name</td>
+                                <td>:</td>
+                                <td>{{ detail.name }}</td>
+                              </tr>
+                              <tr>
+                                <td>Email</td>
+                                <td>:</td>
+                                <td>{{ detail.email }}</td>
+                              </tr>
+                              <tr>
+                                <td>Branch</td>
+                                <td>:</td>
+                                <td>{{ detail.branch_name }}</td>
+                              </tr>
+                              <tr>
+                                <td>Role</td>
+                                <td>:</td>
+                                <td>{{ detail.role }}</td>
+                              </tr>
+                              <tr>
+                                <td>Created At</td>
+                                <td>:</td>
+                                <td>{{ detail.created }}</td>
+                              </tr>
+                            </table>
+                          </div>
+                          <div class="modal-footer">
+                            <button
+                              type="button"
+                              class="btn btn-outline-dark btn-rounded"
+                              (click)="modal.close('ok')"
+                            >
+                              Ok
+                            </button>
+                          </div>
+                        </ng-template>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

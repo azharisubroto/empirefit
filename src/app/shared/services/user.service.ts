@@ -7,6 +7,7 @@ import { LocalStoreService } from "./local-store.service";
 })
 export class UserService {
   readonly apiURL = "http://45.118.132.77/api";
+  // readonly apiURL = "http://localhost/efc/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) {}
 
@@ -30,5 +31,9 @@ export class UserService {
 
   createUser(data) {
     return this.http.post(this.apiURL + "/users", data, this.httpOptions);
+  }
+
+  deleteUser(id) {
+    return this.http.delete(this.apiURL + "/users/" + id, this.httpOptions);
   }
 }

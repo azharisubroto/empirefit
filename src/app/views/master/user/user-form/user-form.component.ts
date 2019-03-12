@@ -47,8 +47,8 @@ export class UserFormComponent implements OnInit {
       id: [""],
       name: ["", Validators.required],
       email: ["", Validators.required],
-      password: ["", Validators.required],
-      password_confirmation: ["", Validators.required],
+      password: [""],
+      password_confirmation: [""],
       branch_id: ["", Validators.required],
       role: ["", Validators.required]
     });
