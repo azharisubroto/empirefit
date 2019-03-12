@@ -27,11 +27,20 @@ import { DropinTypeListComponent } from "./dropin-type/dropin-type-list/dropin-t
 import { DropinTypeFormComponent } from "./dropin-type/dropin-type-form/dropin-type-form.component";
 import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list/dropin-company-list.component";
 import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
+import { UserFormComponent } from "./user/user-form/user-form.component";
 
 const routes: Routes = [
   {
     path: "user",
     component: UserListComponent
+  },
+  {
+    path: "user/user-edit/:id",
+    component: UserFormComponent
+  },
+  {
+    path: "user/user-create",
+    component: UserFormComponent
   },
   {
     path: "role",

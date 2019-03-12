@@ -30,9 +30,7 @@ export class AuthService {
   }
 
   signin(credentials) {
-    return this.http
-      .post(this.apiURL + "/login", credentials)
-      .pipe(delay(1500));
+    return this.http.post(this.apiURL + "/login", credentials).pipe(delay(300));
   }
 
   signout() {
