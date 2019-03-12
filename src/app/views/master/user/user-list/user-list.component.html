@@ -1,103 +1,20 @@
-<div class="">
-  <div class="breadcrumb">
-    <h1>Dashboard</h1>
-    <ul>
-      <li>Member</li>
-    </ul>
-  </div>
+<div class="container">
+  <h1>Clients list</h1>
 
-  <div class="separator-breadcrumb border-top"></div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <input
-          id="email"
-          placeholder="Search By ID, Name or Phone"
-          [formControl]="searchControl"
-          class="form-control form-control-rounded"
-          type="email"
-        />
-      </div>
-    </div>
-    <div class="col-md-12">
-      <div class="card  o-hidden">
-        <ngx-datatable
-          style="height: 500px; box-shadow: none"
-          class="material fullscreen"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [rowHeight]="60"
-          [scrollbarV]="true"
-          [rows]="filteredUsers"
-        >
-          <ngx-datatable-column prop="name" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              Name
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column prop="email">
-            <ng-template ngx-datatable-header-template>
-              Email
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column prop="branch_name">
-            <ng-template ngx-datatable-header-template>
-              Branch
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="role">
-            <ng-template ngx-datatable-header-template>
-              Role
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column>
-            <ng-template ngx-datatable-header-template>
-              <a
-                href="#"
-                routerLink="user-create"
-                class="btn btn-sm btn-primary mr-2"
-                title="show"
-                triggers="mouseenter:mouseleave"
-              >
-                Create
-              </a>
-            </ng-template>
-            <ng-template ngx-datatable-cell-template>
-              <a
-                href="#"
-                *ngFor="let item of filteredUsers; let i = index"
-                [routerLink]="['user-edit/', filteredUsers[i]['id']]"
-                class="btn btn-sm btn-warning mr-2"
-                title="Edit"
-                prop="id"
-                triggers="mouseenter:mouseleave"
-              >
-                <i class="i-Pen-5"></i>
-              </a>
-              <a
-                href="#"
-                routerLink="user/show"
-                class="btn btn-sm btn-success mr-2"
-                title="show"
-                triggers="mouseenter:mouseleave"
-              >
-                <i class="i-Clock"></i>
-              </a>
-              <a
-                href="#"
-                routerLink="user/delete"
-                class="btn btn-sm btn-danger mr-2"
-                title="Delete"
-                triggers="mouseenter:mouseleave"
-              >
-                <i class="i-Close-Window"></i>
-              </a>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
-      </div>
-    </div>
-  </div>
+  <table id="mytable" class="table table-hover" cellspacing="0">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Company</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clients">
+        <td>{{ client.id }}</td>
+        <td>{{ client.name }}</td>
+        <td>{{ client.branch_name }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
