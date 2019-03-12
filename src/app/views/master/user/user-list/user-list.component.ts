@@ -4,9 +4,13 @@ import { UserService } from "src/app/shared/services/user.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'
+import * as $ from 'jquery';
+import 'datatables.net';
 
 @Component({
-  selector: "app-filter-table",
+  selector: "user-list",
   templateUrl: "./user-list.component.html",
   styleUrls: ["./user-list.component.css"]
 })
@@ -15,7 +19,7 @@ export class UserListComponent implements OnInit {
   users;
   filteredUsers;
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router, private http: HttpClient) {}
 
   ngOnInit() {
     this.userService.getUsers().subscribe((data: any) => {
@@ -26,6 +30,9 @@ export class UserListComponent implements OnInit {
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
       this.filerData(value);
     });
+
+    //DUMMY
+    $('#datatablecoy').DataTable();
   }
 
   filerData(val) {

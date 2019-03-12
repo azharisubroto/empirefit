@@ -22,81 +22,77 @@
     </div>
     <div class="col-md-12">
       <div class="card  o-hidden">
-        <ngx-datatable
-          style="height: 500px; box-shadow: none"
-          class="material fullscreen"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [rowHeight]="60"
-          [scrollbarV]="true"
-          [rows]="filteredUsers"
-        >
-          <ngx-datatable-column prop="name" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              Name
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column prop="email">
-            <ng-template ngx-datatable-header-template>
-              Email
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column prop="branch_name">
-            <ng-template ngx-datatable-header-template>
-              Branch
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="role">
-            <ng-template ngx-datatable-header-template>
-              Role
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column>
-            <ng-template ngx-datatable-header-template>
-              <a
-                href="#"
-                routerLink="user-create"
-                class="btn btn-sm btn-primary mr-2"
-                title="show"
-                triggers="mouseenter:mouseleave"
-              >
-                Create
-              </a>
-            </ng-template>
-            <ng-template ngx-datatable-cell-template>
-              <a
-                href="#"
-                *ngFor="let item of filteredUsers; let i = index"
-                [routerLink]="['user-edit/', filteredUsers[i]['id']]"
-                class="btn btn-sm btn-warning mr-2"
-                title="Edit"
-                prop="id"
-                triggers="mouseenter:mouseleave"
-              >
-                <i class="i-Pen-5"></i>
-              </a>
-              <a
-                href="#"
-                routerLink="user/show"
-                class="btn btn-sm btn-success mr-2"
-                title="show"
-                triggers="mouseenter:mouseleave"
-              >
-                <i class="i-Clock"></i>
-              </a>
-              <a
-                href="#"
-                routerLink="user/delete"
-                class="btn btn-sm btn-danger mr-2"
-                title="Delete"
-                triggers="mouseenter:mouseleave"
-              >
-                <i class="i-Close-Window"></i>
-              </a>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
+          <table datatable class="row-border hover" id="datatablecoy">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First name</th>
+                  <th>Last name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Foo</td>
+                  <td>Bar</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Someone</td>
+                  <td>Youknow</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Iamout</td>
+                  <td>Ofinspiration</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Yoda</td>
+                  <td>Skywalker</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Patrick</td>
+                  <td>Dupont</td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>Barack</td>
+                  <td>Obama</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>François</td>
+                  <td>Holland</td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Michel</td>
+                  <td>Popo</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Chuck</td>
+                  <td>Norris</td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>Simon</td>
+                  <td>Robin</td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>Louis</td>
+                  <td>Lin</td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>Zelda</td>
+                  <td>Link</td>
+                </tr>
+              </tbody>
+          </table>
       </div>
     </div>
   </div>
