@@ -31,6 +31,7 @@
           [rowHeight]="60"
           [scrollbarV]="true"
           [rows]="filteredUsers"
+          *ngFor="let item of filteredUsers; let i = index"
         >
           <ngx-datatable-column prop="name" [width]="80">
             <ng-template ngx-datatable-header-template>
@@ -56,12 +57,13 @@
             <ng-template ngx-datatable-header-template>
               Action
             </ng-template>
-            <ng-template ngx-datatable-cell-template>
+            <ng-template ngx-datatable-cell-template let-value="value">
               <a
                 href="#"
-                routerLink="user/edit"
+                [routerLink]="['user-edit/', filteredUsers[i]['id']]"
                 class="btn btn-sm btn-warning mr-2"
                 title="Edit"
+                prop="id"
                 triggers="mouseenter:mouseleave"
               >
                 <i class="i-Pen-5"></i>

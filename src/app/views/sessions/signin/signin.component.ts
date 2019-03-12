@@ -60,7 +60,7 @@ export class SigninComponent implements OnInit {
       this.auth.signin(this.signinForm.value).subscribe((data: any) => {
         if (data.status == "200") {
           this.store.setItem("access_token", data.access_token);
-          return this.router.navigateByUrl("dashboard");
+          this.router.navigateByUrl("dashboard");
         } else {
           this.store.clear();
           this.loading = false;

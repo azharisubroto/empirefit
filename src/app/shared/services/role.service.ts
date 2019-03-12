@@ -5,7 +5,7 @@ import { LocalStoreService } from "./local-store.service";
 @Injectable({
   providedIn: "root"
 })
-export class UserService {
+export class RoleService {
   readonly apiURL = "http://45.118.132.77/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) {}
@@ -16,15 +16,7 @@ export class UserService {
     })
   };
 
-  showUser(id) {
-    return this.http.get(this.apiURL + "/users/" + id, this.httpOptions);
-  }
-
-  getUsers() {
-    return this.http.get(this.apiURL + "/users", this.httpOptions);
-  }
-
-  updateUser(id, data) {
-    return this.http.put(this.apiURL + "/users/" + id, data, this.httpOptions);
+  getRoles() {
+    return this.http.get(this.apiURL + "/roles/", this.httpOptions);
   }
 }

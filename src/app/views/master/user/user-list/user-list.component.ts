@@ -3,6 +3,7 @@ import { ProductService } from "src/app/shared/services/product.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-filter-table",
@@ -14,7 +15,7 @@ export class UserListComponent implements OnInit {
   users;
   filteredUsers;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     this.userService.getUsers().subscribe((data: any) => {
