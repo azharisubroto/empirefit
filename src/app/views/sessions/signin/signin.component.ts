@@ -52,7 +52,6 @@ export class SigninComponent implements OnInit {
   signin() {
     if (this.signinForm.invalid) {
       this.loading = false;
-      console.log("false");
       return;
     } else {
       this.loading = true;

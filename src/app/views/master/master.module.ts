@@ -39,6 +39,7 @@ import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UserFormComponent } from "./user/user-form/user-form.component";
+import { UserCreateComponent } from "./user/user-create/user-create.component";
 
 @NgModule({
   imports: [
@@ -81,7 +82,8 @@ import { UserFormComponent } from "./user/user-form/user-form.component";
     DropinTypeListComponent,
     DropinCompanyFormComponent,
     DropinCompanyListComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserCreateComponent
   ]
 })
 export class MasterModule {}

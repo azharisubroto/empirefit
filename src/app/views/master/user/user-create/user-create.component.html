@@ -17,6 +17,7 @@
             <div class="col-md-6 form-group mb-3">
               <label for="name">Name</label>
               <input
+                autofocus
                 type="text"
                 class="form-control form-control-rounded"
                 id="name"
@@ -43,6 +44,14 @@
                 placeholder="Enter email"
                 formControlName="email"
               />
+              <i
+                *ngIf="
+                  !userForm.get('email').valid && userForm.get('email').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter valid email</i
+              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
@@ -55,6 +64,15 @@
                 placeholder="Confirm Password"
                 formControlName="password"
               />
+              <i
+                *ngIf="
+                  !userForm.get('password').valid &&
+                  userForm.get('password').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter password</i
+              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
@@ -67,6 +85,15 @@
                 placeholder="Confirm Password"
                 formControlName="password_confirmation"
               />
+              <i
+                *ngIf="
+                  !userForm.get('password_confirmation').valid &&
+                  userForm.get('password_confirmation').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter same password</i
+              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
