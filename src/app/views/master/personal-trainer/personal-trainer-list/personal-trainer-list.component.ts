@@ -50,8 +50,8 @@ export class PersonalTrainerListComponent implements OnInit {
                 this.toastr.success(data["message"], "Success!", {
                   progressBar: true
                 });
-                location.reload();
                 this.confirmResut = `Closed with: ${result}`;
+                location.reload();
               }
             });
         },

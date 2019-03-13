@@ -13,7 +13,7 @@
       <div class="form-group">
         <a
           href="#"
-          [routerLink]="['permission-create']"
+          [routerLink]="['personal-trainer-create']"
           class="btn btn-primary btn-rounded"
         >
           Create
@@ -33,6 +33,7 @@
                       <th>Quota</th>
                       <th>Remains</th>
                       <th>Status</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
@@ -45,7 +46,7 @@
                         <a
                           href="#"
                           [routerLink]="[
-                            'personaltrainer-edit/',
+                            'personal-trainer-edit/',
                             personaltrainer.id
                           ]"
                           class="btn btn-sm btn-warning mr-2"

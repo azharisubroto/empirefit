@@ -40,9 +40,10 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { UserFormComponent } from "./user/user-form/user-form.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
-import { RoleCreateComponent } from './role/role-create/role-create.component';
-import { RolePermissionComponent } from './role/role-permission/role-permission.component';
-import { PermissionCreateComponent } from './permission/permission-create/permission-create.component';
+import { RoleCreateComponent } from "./role/role-create/role-create.component";
+import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
+import { PermissionCreateComponent } from "./permission/permission-create/permission-create.component";
+import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
 
 @NgModule({
   imports: [
@@ -89,7 +90,8 @@ import { PermissionCreateComponent } from './permission/permission-create/permis
     UserCreateComponent,
     RoleCreateComponent,
     RolePermissionComponent,
-    PermissionCreateComponent
+    PermissionCreateComponent,
+    PersonalTrainerCreateComponent
   ]
 })
 export class MasterModule {}

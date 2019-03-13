@@ -31,6 +31,7 @@ import { UserFormComponent } from "./user/user-form/user-form.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
 import { RoleCreateComponent } from "./role/role-create/role-create.component";
 import { PermissionCreateComponent } from "./permission/permission-create/permission-create.component";
+import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 
 const routes: Routes = [
@@ -79,7 +80,11 @@ const routes: Routes = [
     component: PersonalTrainerListComponent
   },
   {
-    path: "personal-trainer/create",
+    path: "personal-trainer/personal-trainer-create",
+    component: PersonalTrainerCreateComponent
+  },
+  {
+    path: "personal-trainer/personal-trainer-edit/:id",
     component: PersonalTrainerFormComponent
   },
   {

@@ -7,18 +7,18 @@ import {
   Validators
 } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./personal-trainer-form.component.html",
-  styleUrls: ["./personal-trainer-form.component.scss"]
+  templateUrl: "./personal-trainer-create.component.html",
+  styleUrls: ["./personal-trainer-create.component.scss"]
 })
-export class PersonalTrainerFormComponent implements OnInit {
-  formBasic: FormGroup;
+export class PersonalTrainerCreateComponent implements OnInit {
   loading: boolean;
+  personaltrainers;
   data;
   id;
   name;
@@ -32,7 +32,6 @@ export class PersonalTrainerFormComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private personalTrainerService: PersonaltrainerService,
     private userService: UserService
   ) {}
@@ -48,17 +47,6 @@ export class PersonalTrainerFormComponent implements OnInit {
     this.userService.getUsers().subscribe((data: any) => {
       this.users = data["data"];
     });
-
-    this.personalTrainerService
-      .showPersonalTrainer(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.ptForm.setValue({
-          id: data["data"].id,
-          user_id: data["data"].user_id,
-          quota: data["data"].quota,
-          remains: data["data"].remains
-        });
-      });
   }
 
   submit() {
@@ -68,10 +56,7 @@ export class PersonalTrainerFormComponent implements OnInit {
     } else {
       this.loading = true;
       this.personalTrainerService
-        .updatePersonalTrainer(
-          this.activatedRoute.snapshot.params["id"],
-          this.ptForm.value
-        )
+        .createPersonalTrainer(this.ptForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;
