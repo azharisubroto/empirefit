@@ -20,4 +20,24 @@ export class RoleService {
   getRoles() {
     return this.http.get(this.apiURL + "/roles/", this.httpOptions);
   }
+
+  createRole(data) {
+    return this.http.post(this.apiURL + "/roles", data, this.httpOptions);
+  }
+
+  deleteRole(id) {
+    return this.http.delete(this.apiURL + "/roles/" + id, this.httpOptions);
+  }
+
+  showRole(id) {
+    return this.http.get(this.apiURL + "/roles/" + id, this.httpOptions);
+  }
+
+  updateRole(id, data) {
+    return this.http.put(this.apiURL + "/roles/" + id, data, this.httpOptions);
+  }
+
+  getPermissions(id) {
+    return this.http.get(this.apiURL + "/permission_role/" + id, this.httpOptions);
+  }
 }

@@ -1,7 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { ProductService } from "src/app/shared/services/product.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
+import * as $ from "jquery";
+import "datatables.net";
+import "datatables.net-bs4";
+import { RoleService } from "src/app/shared/services/role.service";
 
 @Component({
   selector: "app-filter-table",
@@ -10,49 +18,52 @@ import { debounceTime } from "rxjs/operators";
 })
 export class RoleListComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  products;
-  filteredProducts;
+  roles: any[];
+  confirmResut;
+  detail;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private roleService: RoleService,
+    private router: Router,
+    private chRef: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((res: any[]) => {
-      this.products = [...res];
-      this.filteredProducts = res;
-    });
-
-    this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
-      this.filerData(value);
+    this.roleService.getRoles().subscribe((data: any) => {
+      this.roles = data["data"];
+      this.chRef.detectChanges();
+      $("#mytable").DataTable();
     });
   }
 
-  filerData(val) {
-    if (val) {
-      val = val.toLowerCase();
-    } else {
-      return (this.filteredProducts = [...this.products]);
-    }
+  // showPermission(id) {
+  //   this.permissionService.showPermissionRole(id).subscribe((data: any) => {
+  //     if (data["status"] == "200") {
+  //       this.detail = data["data"];
+  //     }
+  //   });
+  // }
 
-    const columns = Object.keys(this.products[0]);
-    if (!columns.length) {
-      return;
-    }
-
-    const rows = this.products.filter(function(d) {
-      for (let i = 0; i <= columns.length; i++) {
-        const column = columns[i];
-        // console.log(d[column]);
-        if (
-          d[column] &&
-          d[column]
-            .toString()
-            .toLowerCase()
-            .indexOf(val) > -1
-        ) {
-          return true;
+  confirm(content, id) {
+    this.modalService
+      .open(content, { ariaLabelledBy: "modal-basic-title", centered: true })
+      .result.then(
+        result => {
+          this.roleService.deleteRole(id).subscribe((data: any) => {
+            if (data["status"] == "200") {
+              this.toastr.success(data["message"], "Success!", {
+                progressBar: true
+              });
+              this.confirmResut = `Closed with: ${result}`;
+              location.reload();
+            }
+          });
+        },
+        reason => {
+          this.confirmResut = `Dismissed with: ${reason}`;
         }
-      }
-    });
-    this.filteredProducts = rows;
+      );
   }
 }

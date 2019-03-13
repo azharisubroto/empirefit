@@ -1,7 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { Router, ActivatedRoute } from "@angular/router";
+import { RoleService } from "src/app/shared/services/role.service";
 
 @Component({
   selector: "app-basic-form",
@@ -11,30 +18,67 @@ import { ToastrService } from "ngx-toastr";
 export class RoleFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  radioGroup: FormGroup;
+  data;
+  id;
+  name;
+  display_name;
+  description;
+  roleForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private roleService: RoleService
+  ) {}
 
   ngOnInit() {
-    this.buildFormBasic();
-    this.radioGroup = this.fb.group({
-      radio: []
+    this.roleForm = this.fb.group({
+      id: [""],
+      name: ["", Validators.required],
+      display_name: ["", Validators.required],
+      description: []
     });
-  }
 
-  buildFormBasic() {
-    this.formBasic = this.fb.group({
-      experience: []
-    });
+    this.roleService
+      .showRole(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.roleForm.setValue({
+          id: data["data"].id,
+          name: data["data"].name,
+          display_name: data["data"].display_name,
+          description: data["data"].description
+        });
+      });
   }
 
   submit() {
-    this.loading = true;
-    setTimeout(() => {
+    if (this.roleForm.invalid) {
       this.loading = false;
-      this.toastr.success("Profile updated.", "Success!", {
-        progressBar: true
-      });
-    }, 3000);
+      return;
+    } else {
+      this.loading = true;
+      this.roleService
+        .updateRole(
+          this.activatedRoute.snapshot.params["id"],
+          this.roleForm.value
+        )
+        .subscribe((res: any) => {
+          setTimeout(() => {
+            this.loading = false;
+            if (res["status"] === "200") {
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+              this.router.navigateByUrl("master/role");
+            } else {
+              this.toastr.error(res["message"], "Error!", {
+                progressBar: true
+              });
+            }
+          }, 3000);
+        });
+    }
   }
 }

@@ -1,7 +1,7 @@
 <div class="breadcrumb">
   <h1>Role</h1>
   <ul>
-    <li>Update</li>
+    <li>Create</li>
   </ul>
 </div>
 
@@ -11,7 +11,7 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Update Role</div>
+        <div class="card-title mb-3">Form Create Role</div>
         <form [formGroup]="roleForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
@@ -57,13 +57,13 @@
             <div class="col-md-12 form-group mb-3">
               <label for="description">Description</label>
               <textarea
-                formControlName="description"
                 class="form-control form-control-rounded"
                 placeholder="Optional"
                 name="description"
                 id="description"
                 cols="30"
                 rows="5"
+                formControlName="description"
               >
               </textarea>
             </div>
