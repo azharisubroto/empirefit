@@ -2,7 +2,7 @@
   <div class="breadcrumb">
     <h1>Permission</h1>
     <ul>
-      <li>{{role}}</li>
+      <li>{{ role }}</li>
     </ul>
   </div>
 
@@ -21,8 +21,10 @@
                       <th>Permission Name</th>
                       <th>Display Name</th>
                       <th>Description</th>
-                      <th><input type="checkbox" checked>
-                      <span class="checkmark"></span></th>
+                      <th>
+                        <input type="checkbox" checked />
+                        <span class="checkmark"></span>
+                      </th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
@@ -31,8 +33,7 @@
                       <td>{{ list.display_name }}</td>
                       <td>{{ list.description }}</td>
                       <td>
-                        <input type="checkbox" checked>
-                        <span>Primary</span>
+                        <input type="checkbox" checked />
                         <span class="checkmark"></span>
                       </td>
                     </tr>
