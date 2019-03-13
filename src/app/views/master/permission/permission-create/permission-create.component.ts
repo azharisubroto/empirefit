@@ -7,17 +7,18 @@ import {
   Validators
 } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { PermissionService } from "src/app/shared/services/permission.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./permission-form.component.html",
-  styleUrls: ["./permission-form.component.scss"]
+  templateUrl: "./permission-create.component.html",
+  styleUrls: ["./permission-create.component.scss"]
 })
-export class PermissionFormComponent implements OnInit {
+export class PermissionCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
+  roles;
   name;
   display_name;
   description;
@@ -27,28 +28,15 @@ export class PermissionFormComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private permissionService: PermissionService,
-    private activatedRoute: ActivatedRoute
+    private permissionService: PermissionService
   ) {}
 
   ngOnInit() {
     this.permissionForm = this.fb.group({
-      id: [""],
       name: ["", Validators.required],
       display_name: ["", Validators.required],
       description: []
     });
-
-    this.permissionService
-      .showPermission(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.permissionForm.setValue({
-          id: data["data"].id,
-          name: data["data"].name,
-          display_name: data["data"].display_name,
-          description: data["data"].description
-        });
-      });
   }
 
   submit() {
@@ -58,10 +46,7 @@ export class PermissionFormComponent implements OnInit {
     } else {
       this.loading = true;
       this.permissionService
-        .updatePermission(
-          this.activatedRoute.snapshot.params["id"],
-          this.permissionForm.value
-        )
+        .createPermission(this.permissionForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;

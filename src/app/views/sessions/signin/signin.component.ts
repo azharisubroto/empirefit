@@ -20,6 +20,7 @@ import { LocalStoreService } from "src/app/shared/services/local-store.service";
 export class SigninComponent implements OnInit {
   loading: boolean;
   loadingText: string;
+  redirect;
   signinForm: FormGroup;
   constructor(
     private store: LocalStoreService,
@@ -59,7 +60,8 @@ export class SigninComponent implements OnInit {
       this.auth.signin(this.signinForm.value).subscribe((data: any) => {
         if (data.status == "200") {
           this.store.setItem("access_token", data.access_token);
-          this.router.navigateByUrl("dashboard");
+          this.redirect = "dashboard";
+          window.location = this.redirect;
         } else {
           this.store.clear();
           this.loading = false;

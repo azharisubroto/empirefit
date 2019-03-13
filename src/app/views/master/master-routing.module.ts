@@ -30,6 +30,7 @@ import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form
 import { UserFormComponent } from "./user/user-form/user-form.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
 import { RoleCreateComponent } from "./role/role-create/role-create.component";
+import { PermissionCreateComponent } from "./permission/permission-create/permission-create.component";
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 
 const routes: Routes = [
@@ -66,8 +67,12 @@ const routes: Routes = [
     component: PermissionListComponent
   },
   {
-    path: "permission/create",
+    path: "permission/permission-edit/:id",
     component: PermissionFormComponent
+  },
+  {
+    path: "permission/permission-create",
+    component: PermissionCreateComponent
   },
   {
     path: "personal-trainer",

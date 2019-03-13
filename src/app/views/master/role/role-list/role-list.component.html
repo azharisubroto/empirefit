@@ -11,7 +11,11 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <a href="#" [routerLink]="['role-create']" class="btn btn-primary btn-rounded">
+        <a
+          href="#"
+          [routerLink]="['role-create']"
+          class="btn btn-primary btn-rounded"
+        >
           Create
         </a>
       </div>
@@ -37,14 +41,28 @@
                       <td>{{ role.display_name }}</td>
                       <td>{{ role.description }}</td>
                       <td>
-                        <a href="#" [routerLink]="['role-edit/', role.id]" class="btn btn-sm btn-warning mr-2" title="Edit"
-                          triggers="mouseenter:mouseleave">
+                        <a
+                          href="#"
+                          [routerLink]="['role-edit/', role.id]"
+                          class="btn btn-sm btn-warning mr-2"
+                          title="Edit"
+                          triggers="mouseenter:mouseleave"
+                        >
                           <i class="i-Pen-5"></i>
                         </a>
-                        <a href="#" [routerLink]="['role-permission/', role.id]" class="btn btn-sm btn-success mr-2" title="Set Permission" triggers="mouseenter:mouseleave">
+                        <a
+                          href="#"
+                          [routerLink]="['role-permission/', role.id]"
+                          class="btn btn-sm btn-success mr-2"
+                          title="Set Permission"
+                          triggers="mouseenter:mouseleave"
+                        >
                           <i class="i-Information"></i>
                         </a>
-                        <button class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, role.id)">
+                        <button
+                          class="btn btn-sm btn-danger"
+                          (click)="confirm(modalConfirm, role.id)"
+                        >
                           <i class="i-Close-Window"></i>
                         </button>
 
@@ -52,30 +70,51 @@
                         <ng-template #modalConfirm let-modal>
                           <div class="modal-header">
                             <h4 class="modal-title" id="modal-title">
-                              Profile deletion
+                              Role deletion
                             </h4>
-                            <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
-                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                            <button
+                              type="button"
+                              triggers="mouseenter:mouseleave"
+                              title="Show"
+                              class="close"
+                              aria-label="Close button"
+                              aria-describedby="modal-title"
+                              (click)="modal.dismiss('Cross click')"
+                            >
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
                             <p>
-                              <strong>Are you sure you want to delete
-                                <span class="text-primary">"{{ role.name }}"</span>
+                              <strong
+                                >Are you sure you want to delete
+                                <span class="text-primary"
+                                  >"{{ role.name }}"</span
+                                >
                               </strong>
                             </p>
                             <p>
-                              All information associated to this role
-                              will be permanently deleted.
-                              <span class="text-danger">This operation can not be undone.</span>
+                              All information associated to this role will be
+                              permanently deleted.
+                              <span class="text-danger"
+                                >This operation can not be undone.</span
+                              >
                             </p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
+                            <button
+                              type="button"
+                              class="btn btn-outline-secondary btn-rounded"
+                              (click)="modal.dismiss('cancel')"
+                            >
                               Cancel
                             </button>
-                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
+                            <button
+                              type="button"
+                              ngbAutofocus
+                              class="btn btn-danger btn-rounded"
+                              (click)="modal.close('Ok')"
+                            >
                               Ok
                             </button>
                           </div>

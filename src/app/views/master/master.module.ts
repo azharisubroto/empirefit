@@ -42,6 +42,7 @@ import { UserFormComponent } from "./user/user-form/user-form.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
 import { RoleCreateComponent } from './role/role-create/role-create.component';
 import { RolePermissionComponent } from './role/role-permission/role-permission.component';
+import { PermissionCreateComponent } from './permission/permission-create/permission-create.component';
 
 @NgModule({
   imports: [
@@ -87,7 +88,8 @@ import { RolePermissionComponent } from './role/role-permission/role-permission.
     UserFormComponent,
     UserCreateComponent,
     RoleCreateComponent,
-    RolePermissionComponent
+    RolePermissionComponent,
+    PermissionCreateComponent
   ]
 })
 export class MasterModule {}
