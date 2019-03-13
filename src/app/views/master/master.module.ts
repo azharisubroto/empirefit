@@ -44,6 +44,7 @@ import { RoleCreateComponent } from "./role/role-create/role-create.component";
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 import { PermissionCreateComponent } from "./permission/permission-create/permission-create.component";
 import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
+import { InstructureCreateComponent } from './instructure/instructure-create/instructure-create.component';
 
 @NgModule({
   imports: [
@@ -91,7 +92,8 @@ import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trai
     RoleCreateComponent,
     RolePermissionComponent,
     PermissionCreateComponent,
-    PersonalTrainerCreateComponent
+    PersonalTrainerCreateComponent,
+    InstructureCreateComponent
   ]
 })
 export class MasterModule {}
