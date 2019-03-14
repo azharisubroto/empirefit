@@ -30,6 +30,7 @@
                   <thead class="text-center">
                     <tr>
                       <th>Name</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
@@ -39,8 +40,8 @@
                         <a
                           href="#"
                           [routerLink]="[
-                            'personal-trainer-edit/',
-                            instructure.id
+                            '/master/user/user-edit',
+                            instructure.user_id
                           ]"
                           class="btn btn-sm btn-warning mr-2"
                           title="Edit"

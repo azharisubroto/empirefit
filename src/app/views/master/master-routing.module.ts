@@ -8,7 +8,6 @@ import { PermissionFormComponent } from "./permission/permission-form/permission
 import { PersonalTrainerListComponent } from "./personal-trainer/personal-trainer-list/personal-trainer-list.component";
 import { PersonalTrainerFormComponent } from "./personal-trainer/personal-trainer-form/personal-trainer-form.component";
 import { InstructureListComponent } from "./instructure/instructure-list/instructure-list.component";
-import { InstructureFormComponent } from "./instructure/instructure-form/instructure-form.component";
 import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.component";
 import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.component";
 import { PaymentTypeListComponent } from "./payment-type/payment-type-list/payment-type-list.component";
@@ -31,6 +30,7 @@ import { UserFormComponent } from "./user/user-form/user-form.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
 import { RoleCreateComponent } from "./role/role-create/role-create.component";
 import { PermissionCreateComponent } from "./permission/permission-create/permission-create.component";
+import { InstructureCreateComponent } from "./instructure/instructure-create/instructure-create.component";
 import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 
@@ -92,8 +92,8 @@ const routes: Routes = [
     component: InstructureListComponent
   },
   {
-    path: "instructure/create",
-    component: InstructureFormComponent
+    path: "instructure/instructure-create",
+    component: InstructureCreateComponent
   },
   {
     path: "schedule",

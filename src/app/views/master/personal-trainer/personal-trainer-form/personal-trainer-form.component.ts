@@ -26,7 +26,6 @@ export class PersonalTrainerFormComponent implements OnInit {
   quota;
   remains;
   ptForm: FormGroup;
-  users;
 
   constructor(
     private fb: FormBuilder,
@@ -40,13 +39,9 @@ export class PersonalTrainerFormComponent implements OnInit {
   ngOnInit() {
     this.ptForm = this.fb.group({
       id: [""],
-      user_id: [Validators.required],
+      name: [],
       quota: ["", Validators.required],
       remains: [0, Validators.required]
-    });
-
-    this.userService.getUsers().subscribe((data: any) => {
-      this.users = data["data"];
     });
 
     this.personalTrainerService
@@ -54,7 +49,7 @@ export class PersonalTrainerFormComponent implements OnInit {
       .subscribe((data: any) => {
         this.ptForm.setValue({
           id: data["data"].id,
-          user_id: data["data"].user_id,
+          name: data["data"].name,
           quota: data["data"].quota,
           remains: data["data"].remains
         });

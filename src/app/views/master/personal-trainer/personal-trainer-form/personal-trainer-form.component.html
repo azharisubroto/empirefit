@@ -15,17 +15,14 @@
         <form [formGroup]="ptForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-12 form-group mb-3">
-              <label for="user_id">Name</label>
-              <select
-                name="user_id"
-                id="user_id"
+              <label for="name">Name</label>
+              <input
+                readonly
+                name="name"
+                id="name"
                 class="form-control form-control-rounded"
-                formControlName="user_id"
-              >
-                <option [ngValue]="user.id" *ngFor="let user of users">{{
-                  user.name
-                }}</option>
-              </select>
+                formControlName="name"
+              />
             </div>
 
             <div class="col-md-6 form-group mb-3">
