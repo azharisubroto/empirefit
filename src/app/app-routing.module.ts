@@ -6,32 +6,30 @@ import { BlankLayoutComponent } from "./shared/components/layouts/blank-layout/b
 import { AdminLayoutSidebarCompactComponent } from "./shared/components/layouts/admin-layout-sidebar-compact/admin-layout-sidebar-compact.component";
 import { AdminLayoutSidebarLargeComponent } from "./shared/components/layouts/admin-layout-sidebar-large/admin-layout-sidebar-large.component";
 
-let domainName = "";
-if (location.hostname !== "localhost") domainName = "empirefit.club/";
 const adminRoutes: Routes = [
   {
-    path: domainName + "dashboard",
+    path: "dashboard",
     loadChildren: "./views/member/member.module#MemberModule"
   },
   {
-    path: domainName + "member-partner",
+    path: "member-partner",
     loadChildren:
       "./views/member-partner/member-partner.module#MemberPartnerModule"
   },
   {
-    path: domainName + "staff",
+    path: "staff",
     loadChildren: "./views/staff/staff.module#StaffModule"
   },
   {
-    path: domainName + "schedule",
+    path: "schedule",
     loadChildren: "./views/schedule/schedule.module#ScheduleModule"
   },
   {
-    path: domainName + "finance",
+    path: "finance",
     loadChildren: "./views/finance/finance.module#FinanceModule"
   },
   {
-    path: domainName + "master",
+    path: "master",
     loadChildren: "./views/master/master.module#MasterModule"
   }
 ];
@@ -39,7 +37,7 @@ const adminRoutes: Routes = [
 const routes: Routes = [
   {
     path: "",
-    redirectTo: domainName + "dashboard",
+    redirectTo: "dashboard",
     pathMatch: "full"
   },
   {
@@ -47,7 +45,7 @@ const routes: Routes = [
     component: AuthLayoutComponent,
     children: [
       {
-        path: domainName + "sessions",
+        path: "sessions",
         loadChildren: "./views/sessions/sessions.module#SessionsModule"
       }
     ]
@@ -57,7 +55,7 @@ const routes: Routes = [
     component: BlankLayoutComponent,
     children: [
       {
-        path: domainName + "others",
+        path: "others",
         loadChildren: "./views/others/others.module#OthersModule"
       }
     ]
