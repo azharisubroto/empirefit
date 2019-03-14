@@ -66,6 +66,7 @@ export class SigninComponent implements OnInit {
           this.store.clear();
           this.loading = false;
         }
+        this.loading = false;
       });
     }
   }

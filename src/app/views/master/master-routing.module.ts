@@ -33,6 +33,7 @@ import { PermissionCreateComponent } from "./permission/permission-create/permis
 import { InstructureCreateComponent } from "./instructure/instructure-create/instructure-create.component";
 import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
+import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
 
 const routes: Routes = [
   {
@@ -100,7 +101,11 @@ const routes: Routes = [
     component: ScheduleListComponent
   },
   {
-    path: "schedule/create",
+    path: "schedule/schedule-create",
+    component: ScheduleCreateComponent
+  },
+  {
+    path: "schedule/schedule-edit/:id",
     component: ScheduleFormComponent
   },
   {

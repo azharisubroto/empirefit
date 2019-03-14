@@ -15,7 +15,6 @@ import { PermissionFormComponent } from "./permission/permission-form/permission
 import { PermissionListComponent } from "./permission/permission-list/permission-list.component";
 import { PersonalTrainerFormComponent } from "./personal-trainer/personal-trainer-form/personal-trainer-form.component";
 import { PersonalTrainerListComponent } from "./personal-trainer/personal-trainer-list/personal-trainer-list.component";
-import { InstructureFormComponent } from "./instructure/instructure-form/instructure-form.component";
 import { InstructureListComponent } from "./instructure/instructure-list/instructure-list.component";
 import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.component";
 import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.component";
@@ -44,7 +43,8 @@ import { RoleCreateComponent } from "./role/role-create/role-create.component";
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 import { PermissionCreateComponent } from "./permission/permission-create/permission-create.component";
 import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
-import { InstructureCreateComponent } from './instructure/instructure-create/instructure-create.component';
+import { InstructureCreateComponent } from "./instructure/instructure-create/instructure-create.component";
+import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
 
 @NgModule({
   imports: [
@@ -67,7 +67,6 @@ import { InstructureCreateComponent } from './instructure/instructure-create/ins
     PermissionListComponent,
     PersonalTrainerFormComponent,
     PersonalTrainerListComponent,
-    InstructureFormComponent,
     InstructureListComponent,
     ScheduleFormComponent,
     ScheduleListComponent,
@@ -93,7 +92,8 @@ import { InstructureCreateComponent } from './instructure/instructure-create/ins
     RolePermissionComponent,
     PermissionCreateComponent,
     PersonalTrainerCreateComponent,
-    InstructureCreateComponent
+    InstructureCreateComponent,
+    ScheduleCreateComponent
   ]
 })
 export class MasterModule {}
