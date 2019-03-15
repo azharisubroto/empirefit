@@ -31,7 +31,6 @@ export class PaymentTypeFormComponent implements OnInit {
 
   ngOnInit() {
     this.paymentTypeForm = this.fb.group({
-      id: [""],
       payment_type_name: ["", Validators.required]
     });
 
@@ -39,7 +38,6 @@ export class PaymentTypeFormComponent implements OnInit {
       .showPaymentType(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.paymentTypeForm.setValue({
-          id: data["data"].id,
           payment_type_name: data["data"].payment_type_name
         });
       });

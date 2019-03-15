@@ -12,10 +12,10 @@ import { MemberTypeService } from "src/app/shared/services/member-type.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./member-type-form.component.html",
-  styleUrls: ["./member-type-form.component.scss"]
+  templateUrl: "./member-type-create.component.html",
+  styleUrls: ["./member-type-create.component.scss"]
 })
-export class MemberTypeFormComponent implements OnInit {
+export class MemberTypeCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   member_type_name;
@@ -33,14 +33,6 @@ export class MemberTypeFormComponent implements OnInit {
     this.memberTypeForm = this.fb.group({
       member_type_name: ["", Validators.required]
     });
-
-    this.memberTypeService
-      .showMemberType(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.memberTypeForm.setValue({
-          member_type_name: data["data"].member_type_name
-        });
-      });
   }
 
   submit() {
@@ -50,10 +42,7 @@ export class MemberTypeFormComponent implements OnInit {
     } else {
       this.loading = true;
       this.memberTypeService
-        .updateMemberType(
-          this.activatedRoute.snapshot.params["id"],
-          this.memberTypeForm.value
-        )
+        .createMemberType(this.memberTypeForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;
