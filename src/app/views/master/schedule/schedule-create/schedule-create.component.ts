@@ -30,6 +30,7 @@ export class ScheduleCreateComponent implements OnInit {
   start_date;
   end_date;
   instructures;
+  days;
   scheduleForm: FormGroup;
 
   constructor(
@@ -49,6 +50,16 @@ export class ScheduleCreateComponent implements OnInit {
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
     });
+
+    this.days = [
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu",
+      "Minggu"
+    ];
 
     this.instructureService.getInstructures().subscribe((data: any) => {
       this.instructures = data["data"];

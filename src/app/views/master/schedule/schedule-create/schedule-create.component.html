@@ -38,13 +38,9 @@
                 class="form-control form-control-rounded"
                 formControlName="day"
               >
-                <option value="Senin" [ngValue]="Senin">Senin</option>
-                <option value="Selasa" [ngValue]="Selasa">Selasa</option>
-                <option value="Rabu" [ngValue]="Rabu">Rabu</option>
-                <option value="Kamis" [ngValue]="Kamis">Kamis</option>
-                <option value="Jumat" [ngValue]="Jumat">Jumat</option>
-                <option value="Sabtu" [ngValue]="Sabtu">Sabtu</option>
-                <option value="Minggu" [ngValue]="Minggu">Minggu</option>
+                <option *ngFor="let item of days" [ngValue]="item">{{
+                  item
+                }}</option>
               </select>
             </div>
 
