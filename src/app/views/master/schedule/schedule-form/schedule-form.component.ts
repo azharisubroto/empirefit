@@ -28,6 +28,7 @@ export class ScheduleFormComponent implements OnInit {
   user_id;
   start_date;
   end_date;
+  days;
   instructures;
   scheduleForm: FormGroup;
 
@@ -52,6 +53,16 @@ export class ScheduleFormComponent implements OnInit {
     this.instructureService.getInstructures().subscribe((data: any) => {
       this.instructures = data["data"];
     });
+
+    this.days = [
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu",
+      "Minggu"
+    ];
 
     this.scheduleService
       .showSchedule(this.activatedRoute.snapshot.params["id"])
