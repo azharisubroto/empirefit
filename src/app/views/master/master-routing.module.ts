@@ -37,6 +37,8 @@ import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-cre
 import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/payment-type-create.component";
 import { PackageCreateComponent } from "./package/package-create/package-create.component";
 import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
+import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
+import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
 
 const routes: Routes = [
   {
@@ -176,7 +178,11 @@ const routes: Routes = [
     component: DropinTypeListComponent
   },
   {
-    path: "dropin-type/create",
+    path: "dropin-type/dropin-type-create",
+    component: DropinTypeCreateComponent
+  },
+  {
+    path: "dropin-type/dropin-type-edit/:id",
     component: DropinTypeFormComponent
   },
   {
@@ -184,8 +190,12 @@ const routes: Routes = [
     component: DropinCompanyListComponent
   },
   {
-    path: "dropin-company/create",
+    path: "dropin-company/dropin-company-edit/:id",
     component: DropinCompanyFormComponent
+  },
+  {
+    path: "dropin-company/dropin-company-create",
+    component: DropinCompanyCreateComponent
   }
 ];
 

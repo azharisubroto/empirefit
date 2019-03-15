@@ -1,7 +1,7 @@
 <div class="breadcrumb">
-  <h1>Dropin Company</h1>
+  <h1>Dropin Type</h1>
   <ul>
-    <li>Update</li>
+    <li>Create</li>
   </ul>
 </div>
 
@@ -11,27 +11,27 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Update Dropin Company</div>
-        <form [formGroup]="dropinCompanyForm" (ngSubmit)="submit()">
+        <div class="card-title mb-3">Form Create Dropin Type</div>
+        <form [formGroup]="dropinTypeForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
-              <label for="partner_name">Dropin Company</label>
+              <label for="dropin_name">Dropin Type</label>
               <input
                 autofocus
                 type="text"
                 class="form-control form-control-rounded"
-                id="partner_name"
-                placeholder="Enter dropin company "
-                formControlName="partner_name"
+                id="dropin_name"
+                placeholder="Enter dropin type "
+                formControlName="dropin_name"
               />
               <i
                 *ngIf="
-                  !dropinCompanyForm.get('partner_name').valid &&
-                  dropinCompanyForm.get('partner_name').touched
+                  !dropinTypeForm.get('dropin_name').valid &&
+                  dropinTypeForm.get('dropin_name').touched
                 "
                 class="i-Information text-danger"
               >
-                Please enter dropin company name</i
+                Please enter dropin type name</i
               >
             </div>
 
