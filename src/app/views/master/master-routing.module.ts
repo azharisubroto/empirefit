@@ -35,6 +35,7 @@ import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trai
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
 import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/payment-type-create.component";
+import { PackageCreateComponent } from "./package/package-create/package-create.component";
 
 const routes: Routes = [
   {
@@ -126,7 +127,11 @@ const routes: Routes = [
     component: PackageListComponent
   },
   {
-    path: "package/create",
+    path: "package/package-create",
+    component: PackageCreateComponent
+  },
+  {
+    path: "package/package-edit/:id",
     component: PackageFormComponent
   },
   {

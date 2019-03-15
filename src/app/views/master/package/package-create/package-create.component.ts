@@ -12,10 +12,10 @@ import { PackageService } from "src/app/shared/services/package.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./package-form.component.html",
-  styleUrls: ["./package-form.component.scss"]
+  templateUrl: "./package-create.component.html",
+  styleUrls: ["./package-create.component.scss"]
 })
-export class PackageFormComponent implements OnInit {
+export class PackageCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   data;
@@ -38,16 +38,6 @@ export class PackageFormComponent implements OnInit {
       day: ["", Validators.required],
       session: ["", Validators.required]
     });
-
-    this.packageService
-      .showPackage(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.packageForm.setValue({
-          package_name: data["data"].package_name,
-          day: data["data"].day,
-          session: data["data"].session
-        });
-      });
   }
 
   submit() {
@@ -57,10 +47,7 @@ export class PackageFormComponent implements OnInit {
     } else {
       this.loading = true;
       this.packageService
-        .updatePackage(
-          this.activatedRoute.snapshot.params["id"],
-          this.packageForm.value
-        )
+        .createPackage(this.packageForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;
