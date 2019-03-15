@@ -113,7 +113,7 @@ const routes: Routes = [
     component: PaymentTypeListComponent
   },
   {
-    path: "payment-type/create",
+    path: "payment-type/payment-type-edit/:id",
     component: PaymentTypeFormComponent
   },
   {
