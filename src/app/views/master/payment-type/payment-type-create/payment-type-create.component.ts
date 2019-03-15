@@ -31,7 +31,6 @@ export class PaymentTypeCreateComponent implements OnInit {
 
   ngOnInit() {
     this.paymentTypeForm = this.fb.group({
-      id: [""],
       payment_type_name: ["", Validators.required]
     });
   }

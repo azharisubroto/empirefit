@@ -36,6 +36,7 @@ import { RolePermissionComponent } from "./role/role-permission/role-permission.
 import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
 import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/payment-type-create.component";
 import { PackageCreateComponent } from "./package/package-create/package-create.component";
+import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
 
 const routes: Routes = [
   {
@@ -139,7 +140,11 @@ const routes: Routes = [
     component: MemberTypeListComponent
   },
   {
-    path: "member-type/create",
+    path: "member-type/member-type-create",
+    component: MemberTypeCreateComponent
+  },
+  {
+    path: "member-type/member-type-edit/:id",
     component: MemberTypeFormComponent
   },
   {
