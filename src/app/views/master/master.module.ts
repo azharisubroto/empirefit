@@ -45,10 +45,12 @@ import { PermissionCreateComponent } from "./permission/permission-create/permis
 import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
 import { InstructureCreateComponent } from "./instructure/instructure-create/instructure-create.component";
 import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
-import { PaymentTypeCreateComponent } from './payment-type/payment-type-create/payment-type-create.component';
-import { PackageCreateComponent } from './package/package-create/package-create.component';
-import { MemberTypeCreateComponent } from './member-type/member-type-create/member-type-create.component';
-import { BenefitCreateComponent } from './benefit/benefit-create/benefit-create.component';
+import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/payment-type-create.component";
+import { PackageCreateComponent } from "./package/package-create/package-create.component";
+import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
+import { BenefitCreateComponent } from "./benefit/benefit-create/benefit-create.component";
+import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
+import { DropinCompanyCreateComponent } from './dropin-company/dropin-company-create/dropin-company-create.component';
 
 @NgModule({
   imports: [
@@ -101,7 +103,9 @@ import { BenefitCreateComponent } from './benefit/benefit-create/benefit-create.
     PaymentTypeCreateComponent,
     PackageCreateComponent,
     MemberTypeCreateComponent,
-    BenefitCreateComponent
+    BenefitCreateComponent,
+    DropinTypeCreateComponent,
+    DropinCompanyCreateComponent
   ]
 })
 export class MasterModule {}

@@ -12,10 +12,10 @@ import { DropinTypeService } from "src/app/shared/services/dropin-type.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./dropin-type-form.component.html",
-  styleUrls: ["./dropin-type-form.component.scss"]
+  templateUrl: "./dropin-type-create.component.html",
+  styleUrls: ["./dropin-type-create.component.scss"]
 })
-export class DropinTypeFormComponent implements OnInit {
+export class DropinTypeCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   dropin_name;
@@ -27,20 +27,12 @@ export class DropinTypeFormComponent implements OnInit {
     private router: Router,
     private dropinTypeService: DropinTypeService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.dropinTypeForm = this.fb.group({
       dropin_name: ["", Validators.required]
     });
-
-    this.dropinTypeService
-      .showDropinType(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.dropinTypeForm.setValue({
-          dropin_name: data["data"].dropin_name
-        });
-      });
   }
 
   submit() {
@@ -50,10 +42,7 @@ export class DropinTypeFormComponent implements OnInit {
     } else {
       this.loading = true;
       this.dropinTypeService
-        .updateDropinType(
-          this.activatedRoute.snapshot.params["id"],
-          this.dropinTypeForm.value
-        )
+        .createDropinType(this.dropinTypeForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;

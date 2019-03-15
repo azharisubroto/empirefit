@@ -8,52 +8,41 @@ import {
 } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
-import { DropinTypeService } from "src/app/shared/services/dropin-type.service";
+import { DropinCompanyService } from "src/app/shared/services/dropin-company.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./dropin-type-form.component.html",
-  styleUrls: ["./dropin-type-form.component.scss"]
+  templateUrl: "./dropin-company-create.component.html",
+  styleUrls: ["./dropin-company-create.component.scss"]
 })
-export class DropinTypeFormComponent implements OnInit {
+export class DropinCompanyCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  dropin_name;
-  dropinTypeForm: FormGroup;
+  partner_name;
+  dropinCompanyForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
-    private dropinTypeService: DropinTypeService,
+    private dropinCompanyService: DropinCompanyService,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.dropinTypeForm = this.fb.group({
-      dropin_name: ["", Validators.required]
+    this.dropinCompanyForm = this.fb.group({
+      partner_name: ["", Validators.required]
     });
-
-    this.dropinTypeService
-      .showDropinType(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.dropinTypeForm.setValue({
-          dropin_name: data["data"].dropin_name
-        });
-      });
   }
 
   submit() {
-    if (this.dropinTypeForm.invalid) {
+    if (this.dropinCompanyForm.invalid) {
       this.loading = false;
       return;
     } else {
       this.loading = true;
-      this.dropinTypeService
-        .updateDropinType(
-          this.activatedRoute.snapshot.params["id"],
-          this.dropinTypeForm.value
-        )
+      this.dropinCompanyService
+        .createDropinCompany(this.dropinCompanyForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;
@@ -61,7 +50,7 @@ export class DropinTypeFormComponent implements OnInit {
               this.toastr.success(res["message"], "Success!", {
                 progressBar: true
               });
-              this.router.navigateByUrl("master/dropin-type");
+              this.router.navigateByUrl("master/dropin-company");
             } else {
               this.toastr.error(res["message"], "Error!", {
                 progressBar: true
