@@ -48,6 +48,7 @@ import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-cre
 import { PaymentTypeCreateComponent } from './payment-type/payment-type-create/payment-type-create.component';
 import { PackageCreateComponent } from './package/package-create/package-create.component';
 import { MemberTypeCreateComponent } from './member-type/member-type-create/member-type-create.component';
+import { BenefitCreateComponent } from './benefit/benefit-create/benefit-create.component';
 
 @NgModule({
   imports: [
@@ -99,7 +100,8 @@ import { MemberTypeCreateComponent } from './member-type/member-type-create/memb
     ScheduleCreateComponent,
     PaymentTypeCreateComponent,
     PackageCreateComponent,
-    MemberTypeCreateComponent
+    MemberTypeCreateComponent,
+    BenefitCreateComponent
   ]
 })
 export class MasterModule {}

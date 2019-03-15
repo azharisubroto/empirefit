@@ -12,10 +12,10 @@ import { BenefitService } from "src/app/shared/services/benefit.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./benefit-form.component.html",
-  styleUrls: ["./benefit-form.component.scss"]
+  templateUrl: "./benefit-create.component.html",
+  styleUrls: ["./benefit-create.component.scss"]
 })
-export class BenefitFormComponent implements OnInit {
+export class BenefitCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   benefit_name;
@@ -33,14 +33,6 @@ export class BenefitFormComponent implements OnInit {
     this.benefitForm = this.fb.group({
       benefit_name: ["", Validators.required]
     });
-
-    this.benefitService
-      .showBenefit(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.benefitForm.setValue({
-          benefit_name: data["data"].benefit_name
-        });
-      });
   }
 
   submit() {
@@ -50,10 +42,7 @@ export class BenefitFormComponent implements OnInit {
     } else {
       this.loading = true;
       this.benefitService
-        .updateBenefit(
-          this.activatedRoute.snapshot.params["id"],
-          this.benefitForm.value
-        )
+        .createBenefit(this.benefitForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;
