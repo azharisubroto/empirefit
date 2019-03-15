@@ -34,6 +34,7 @@ import { InstructureCreateComponent } from "./instructure/instructure-create/ins
 import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
+import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/payment-type-create.component";
 
 const routes: Routes = [
   {
@@ -111,6 +112,10 @@ const routes: Routes = [
   {
     path: "payment-type",
     component: PaymentTypeListComponent
+  },
+  {
+    path: "payment-type/payment-type-create",
+    component: PaymentTypeCreateComponent
   },
   {
     path: "payment-type/payment-type-edit/:id",

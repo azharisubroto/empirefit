@@ -45,6 +45,7 @@ import { PermissionCreateComponent } from "./permission/permission-create/permis
 import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
 import { InstructureCreateComponent } from "./instructure/instructure-create/instructure-create.component";
 import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
+import { PaymentTypeCreateComponent } from './payment-type/payment-type-create/payment-type-create.component';
 
 @NgModule({
   imports: [
@@ -93,7 +94,8 @@ import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-cre
     PermissionCreateComponent,
     PersonalTrainerCreateComponent,
     InstructureCreateComponent,
-    ScheduleCreateComponent
+    ScheduleCreateComponent,
+    PaymentTypeCreateComponent
   ]
 })
 export class MasterModule {}
