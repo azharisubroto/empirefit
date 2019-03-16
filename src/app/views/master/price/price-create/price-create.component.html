@@ -1,7 +1,7 @@
 <div class="breadcrumb">
   <h1>Price</h1>
   <ul>
-    <li>Update</li>
+    <li>Create</li>
   </ul>
 </div>
 
@@ -11,7 +11,7 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Update Price</div>
+        <div class="card-title mb-3">Form Create Price</div>
         <form [formGroup]="priceForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
@@ -65,8 +65,8 @@
             <div class="col-md-6 form-group mb-3">
               <label for="package_id">Package Type</label>
               <select
-                name="package_id"
-                id="package_id"
+                name="package_name"
+                id="package_name"
                 class="form-control form-control-rounded"
                 formControlName="package_id"
               >
@@ -103,14 +103,15 @@
               <div class="row">
                 <div class="col-md-5">
                   <input
-                    type="text"
                     id="start_date"
                     class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="start_date"
+                    ngbDatepicker
+                    #start_date="ngbDatepicker"
                     formControlName="start_date"
                   />
-                  <!-- <div class="input-group-append">
+                  <div class="input-group-append">
                     <button
                       class="btn btn-secondary"
                       (click)="start_date.toggle()"
@@ -118,21 +119,22 @@
                     >
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
-                  </div> -->
+                  </div>
                 </div>
                 <div class="col-md-1">
                   -
                 </div>
                 <div class="col-md-5">
                   <input
-                    type="text"
                     id="end_date"
                     class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="end_date"
+                    ngbDatepicker
+                    #end_date="ngbDatepicker"
                     formControlName="end_date"
                   />
-                  <!-- <div class="input-group-append">
+                  <div class="input-group-append">
                     <button
                       class="btn btn-secondary"
                       (click)="end_date.toggle()"
@@ -140,7 +142,7 @@
                     >
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
-                  </div> -->
+                  </div>
                 </div>
               </div>
             </div>

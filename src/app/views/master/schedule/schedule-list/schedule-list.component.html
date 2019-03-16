@@ -32,7 +32,7 @@
                       <th>Instructure</th>
                       <th>Day</th>
                       <th>Time</th>
-                      <th>Periode</th>
+                      <th>Period</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
@@ -49,10 +49,7 @@
                       <td>
                         <a
                           href="#"
-                          [routerLink]="[
-                            'schedule-edit/',
-                            schedule.id_schedule
-                          ]"
+                          [routerLink]="['schedule-edit/', schedule.id]"
                           class="btn btn-sm btn-warning mr-2"
                           title="Edit"
                           triggers="mouseenter:mouseleave"
@@ -61,7 +58,7 @@
                         </a>
                         <button
                           class="btn btn-sm btn-danger"
-                          (click)="confirm(modalConfirm, schedule.id_schedule)"
+                          (click)="confirm(modalConfirm, schedule.id)"
                         >
                           <i class="i-Close-Window"></i>
                         </button>
