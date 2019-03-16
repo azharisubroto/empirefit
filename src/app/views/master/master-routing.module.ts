@@ -40,6 +40,7 @@ import { MemberTypeCreateComponent } from "./member-type/member-type-create/memb
 import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
 import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
 import { PriceCreateComponent } from "./price/price-create/price-create.component";
+import { ClubBenefitCreateComponent } from "./club-benefit/club-benefit-create/club-benefit-create.component";
 
 const routes: Routes = [
   {
@@ -175,8 +176,12 @@ const routes: Routes = [
     component: ClubBenefitListComponent
   },
   {
-    path: "club-benefit/create",
+    path: "club-benefit/club-benefit-edit/:id",
     component: ClubBenefitFormComponent
+  },
+  {
+    path: "club-benefit/club-benefit-create",
+    component: ClubBenefitCreateComponent
   },
   {
     path: "dropin-type",
