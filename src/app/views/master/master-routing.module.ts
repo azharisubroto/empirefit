@@ -39,6 +39,7 @@ import { PackageCreateComponent } from "./package/package-create/package-create.
 import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
 import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
 import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
+import { PriceCreateComponent } from "./price/price-create/price-create.component";
 
 const routes: Routes = [
   {
@@ -154,7 +155,11 @@ const routes: Routes = [
     component: PriceListComponent
   },
   {
-    path: "price/create",
+    path: "price/price-create",
+    component: PriceCreateComponent
+  },
+  {
+    path: "price/price-edit/:id",
     component: PriceFormComponent
   },
   {

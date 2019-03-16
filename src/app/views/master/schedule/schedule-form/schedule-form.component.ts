@@ -67,13 +67,12 @@ export class ScheduleFormComponent implements OnInit {
     this.scheduleService
       .showSchedule(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
-        console.log(data["data"][0]);
         this.scheduleForm.setValue({
-          day: data["data"][0].day,
-          time: data["data"][0].time,
-          instructure_id: data["data"][0].instructure_id,
-          start_date: data["data"][0].start_date,
-          end_date: data["data"][0].end_date
+          day: data["data"].day,
+          time: data["data"].time,
+          instructure_id: data["data"].instructure_id,
+          start_date: data["data"].start_date,
+          end_date: data["data"].end_date
         });
       });
   }
