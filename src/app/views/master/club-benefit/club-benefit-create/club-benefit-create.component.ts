@@ -14,10 +14,10 @@ import { BenefitService } from "src/app/shared/services/benefit.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./club-benefit-form.component.html",
-  styleUrls: ["./club-benefit-form.component.scss"]
+  templateUrl: "./club-benefit-create.component.html",
+  styleUrls: ["./club-benefit-create.component.scss"]
 })
-export class ClubBenefitFormComponent implements OnInit {
+export class ClubBenefitCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   data;
@@ -38,8 +38,8 @@ export class ClubBenefitFormComponent implements OnInit {
 
   ngOnInit() {
     this.clubBenefitForm = this.fb.group({
-      member_type_id: [""],
-      benefit_id: ["", Validators.required]
+      member_type_id: [1],
+      benefit_id: [1, Validators.required]
     });
 
     this.benefitService.getBenefits().subscribe((data: any) => {
@@ -49,15 +49,6 @@ export class ClubBenefitFormComponent implements OnInit {
     this.memberTypeService.getMemberTypes().subscribe((data: any) => {
       this.membertypes = data["data"];
     });
-
-    this.clubBenefitService
-      .showClubBenefit(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.clubBenefitForm.setValue({
-          member_type_id: data["data"].member_type_id,
-          benefit_id: data["data"].benefit_id
-        });
-      });
   }
 
   submit() {
@@ -67,10 +58,7 @@ export class ClubBenefitFormComponent implements OnInit {
     } else {
       this.loading = true;
       this.clubBenefitService
-        .updateClubBenefit(
-          this.activatedRoute.snapshot.params["id"],
-          this.clubBenefitForm.value
-        )
+        .createClubBenefit(this.clubBenefitForm.value)
         .subscribe((res: any) => {
           setTimeout(() => {
             this.loading = false;

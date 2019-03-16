@@ -52,6 +52,7 @@ import { BenefitCreateComponent } from "./benefit/benefit-create/benefit-create.
 import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
 import { DropinCompanyCreateComponent } from './dropin-company/dropin-company-create/dropin-company-create.component';
 import { PriceCreateComponent } from './price/price-create/price-create.component';
+import { ClubBenefitCreateComponent } from './club-benefit/club-benefit-create/club-benefit-create.component';
 
 @NgModule({
   imports: [
@@ -107,7 +108,8 @@ import { PriceCreateComponent } from './price/price-create/price-create.componen
     BenefitCreateComponent,
     DropinTypeCreateComponent,
     DropinCompanyCreateComponent,
-    PriceCreateComponent
+    PriceCreateComponent,
+    ClubBenefitCreateComponent
   ]
 })
 export class MasterModule {}
