@@ -1,0 +1,70 @@
+<div class="breadcrumb">
+  <h1>Bank</h1>
+  <ul>
+    <li>Create</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Create Bank</div>
+        <form [formGroup]="bankForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="code">Bank Name</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control form-control-rounded"
+                id="code"
+                placeholder="Enter bank name "
+                formControlName="bank_name"
+              />
+              <i
+                *ngIf="
+                  !bankForm.get('bank_name').valid &&
+                  bankForm.get('bank_name').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter bank name</i
+              >
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="code">Code</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control form-control-rounded"
+                id="code"
+                placeholder="Enter code bank "
+                formControlName="code"
+              />
+              <i
+                *ngIf="
+                  !bankForm.get('code').valid && bankForm.get('code').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter code bank</i
+              >
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

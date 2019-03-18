@@ -9,19 +9,21 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PriceService } from "src/app/shared/services/price.service";
+import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { PaymentTypeService } from "src/app/shared/services/payment-type.service";
 import { PackageService } from "src/app/shared/services/package.service";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./price-form.component.html",
-  styleUrls: ["./price-form.component.scss"]
+  templateUrl: "./price-pt-form.component.html",
+  styleUrls: ["./price-pt-form.component.scss"]
 })
-export class PriceFormComponent implements OnInit {
+export class PricePtFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   data;
+  personaltrainers;
   membertypes;
   packages;
   paymenttypes;
@@ -35,17 +37,23 @@ export class PriceFormComponent implements OnInit {
     private paymentTypeService: PaymentTypeService,
     private priceService: PriceService,
     private packageService: PackageService,
-    private memberTypeService: MemberTypeService
+    private memberTypeService: MemberTypeService,
+    private personalTrainerService: PersonaltrainerService
   ) {}
 
   ngOnInit() {
     this.priceForm = this.fb.group({
+      personal_trainer_id: ["", Validators.required],
       payment_type_id: ["", Validators.required],
       member_type_id: ["", Validators.required],
       package_id: ["", Validators.required],
       price: ["", Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
+    });
+
+    this.personalTrainerService.getPersonalTrainers().subscribe((data: any) => {
+      this.personaltrainers = data["data"];
     });
 
     this.packageService.getPackages().subscribe((data: any) => {
@@ -64,6 +72,7 @@ export class PriceFormComponent implements OnInit {
       .showPrice(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.priceForm.setValue({
+          personal_trainer_id: data["data"].personal_trainer_id,
           payment_type_id: data["data"].payment_type_id,
           member_type_id: data["data"].member_type_id,
           package_id: data["data"].package_id,

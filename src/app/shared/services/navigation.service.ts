@@ -170,6 +170,12 @@ export class NavigationService {
           type: "link"
         },
         {
+          icon: "i-Visa",
+          name: "Bank",
+          state: "/master/bank",
+          type: "link"
+        },
+        {
           icon: "i-Wallet",
           name: "Package",
           state: "/master/package",
@@ -185,6 +191,12 @@ export class NavigationService {
           icon: "i-Money-2",
           name: "Price",
           state: "/master/price",
+          type: "link"
+        },
+        {
+          icon: "i-Money-2",
+          name: "Price Personal Trainer",
+          state: "/master/price-pt",
           type: "link"
         },
         {
@@ -209,6 +221,12 @@ export class NavigationService {
           icon: "i-Library",
           name: "Dropin Company",
           state: "/master/dropin-company",
+          type: "link"
+        },
+        {
+          icon: "i-Library",
+          name: "Health Questions",
+          state: "/master/health-questions",
           type: "link"
         }
       ]

@@ -10,6 +10,7 @@ import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { InstructureService } from "src/app/shared/services/instructure.service";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: "app-basic-form",
@@ -30,6 +31,7 @@ export class ScheduleFormComponent implements OnInit {
   end_date;
   days;
   instructures;
+  branches;
   scheduleForm: FormGroup;
 
   constructor(
@@ -38,7 +40,8 @@ export class ScheduleFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private scheduleService: ScheduleService,
-    private instructureService: InstructureService
+    private instructureService: InstructureService,
+    private branchService: BranchService
   ) {}
 
   ngOnInit() {
@@ -46,12 +49,18 @@ export class ScheduleFormComponent implements OnInit {
       day: ["", Validators.required],
       time: ["", Validators.required],
       instructure_id: ["", Validators.required],
+      exercise: ["", Validators.required],
       start_date: ["", Validators.required],
-      end_date: ["", Validators.required]
+      end_date: ["", Validators.required],
+      branch_id: [1, Validators.required]
     });
 
     this.instructureService.getInstructures().subscribe((data: any) => {
       this.instructures = data["data"];
+    });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branches = data["data"];
     });
 
     this.days = [
@@ -71,8 +80,10 @@ export class ScheduleFormComponent implements OnInit {
           day: data["data"].day,
           time: data["data"].time,
           instructure_id: data["data"].instructure_id,
+          exercise: data["data"].exercise,
           start_date: data["data"].start_date,
-          end_date: data["data"].end_date
+          end_date: data["data"].end_date,
+          branch_id: data["data"].branch_id
         });
       });
   }

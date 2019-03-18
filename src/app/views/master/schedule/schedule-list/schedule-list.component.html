@@ -30,22 +30,26 @@
                   <thead class="text-center">
                     <tr>
                       <th>Instructure</th>
+                      <th>Exercise</th>
                       <th>Day</th>
                       <th>Time</th>
                       <th>Period</th>
                       <th>Status</th>
+                      <th>Branch</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let schedule of schedules">
                       <td>{{ schedule.name }}</td>
+                      <td>{{ schedule.exercise }}</td>
                       <td>{{ schedule.day }}</td>
                       <td>{{ schedule.time }}</td>
                       <td>
                         {{ schedule.start_date }} - {{ schedule.end_date }}
                       </td>
                       <td>{{ schedule.state }}</td>
+                      <td>{{ schedule.branch_name }}</td>
                       <td>
                         <a
                           href="#"
