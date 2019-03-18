@@ -33,13 +33,19 @@
                       <td>{{ list.display_name }}</td>
                       <td>{{ list.description }}</td>
                       <td>
-                        <input type="checkbox" />
+                        <input type="checkbox" name="permission" value="{{ list.id }}"/>
                         <span class="checkmark"></span>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
+            </div>
+          </div>
+          <div class="row pr-4">
+            <div class="col-12 text-right">
+              <input type="hidden" class="permission-final" value="">
+              <button class="btn btn-lg btn-success m-1 submit">Save</button>
             </div>
           </div>
         </div>
