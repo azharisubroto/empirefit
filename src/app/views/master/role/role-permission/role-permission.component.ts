@@ -23,6 +23,7 @@ export class RolePermissionComponent implements OnInit {
   permissions: any[];
   role;
   detail;
+  loading: boolean;
 
   constructor(
     private roleService: RoleService,
@@ -53,22 +54,59 @@ export class RolePermissionComponent implements OnInit {
       });
 
     //Checbox
-    var permission = [];
-    $('.selectall').click(function() {
-      if ($(this).is(':checked')) {
-        $('input[name="permission"]').prop('checked', true);
+    var dataPermission = [];
+    var permission;
+    $(".selectall").click(function() {
+      if ($(this).is(":checked")) {
+        $('input[name="permission"]').prop("checked", true);
       } else {
-        $('input[name="permission"]').prop('checked', false);
+        $('input[name="permission"]').prop("checked", false);
       }
     });
 
-    $('.submit').on('click', function(e){
-      e.preventDefault();
-      $('.permission-final').val('');
-      $.each($("input[name='permission']:checked"), function(){            
-        permission.push($(this).val());
-      });
-      $('.permission-final').val(permission.join(","));
+    // $(".submit").on("click", function(e) {
+    //   e.preventDefault();
+    //   $(".permission-final").val("");
+    //   $.each($("input[name='permission']:checked"), function() {
+    //     dataPermission.push($(this).val());
+    //   });
+    //   $(".permission-final").val(dataPermission.join(","));
+
+    //   permission = "[" + dataPermission.join(",") + "]";
+    // });
+  }
+
+  submit() {
+    let dataPermission = [];
+    let permission;
+    $(".permission-final").val("");
+    $.each($("input[name='permission']:checked"), function() {
+      dataPermission.push($(this).val());
     });
+    $(".permission-final").val(dataPermission.join(","));
+
+    permission = "[" + dataPermission.join(",") + "]";
+
+    this.loading = true;
+    this.permissionService
+      .createPermissionRole(
+        this.activatedRoute.snapshot.params["id"],
+        permission
+      )
+      .subscribe((res: any) => {
+        setTimeout(() => {
+          this.loading = false;
+          if (res["status"] === "200") {
+            this.toastr.success(res["message"], "Success!", {
+              progressBar: true
+            });
+            this.router.navigateByUrl("master/role");
+          } else {
+            this.toastr.error(res["message"], "Error!", {
+              progressBar: true
+            });
+          }
+        }, 3000);
+      });
   }
 }
