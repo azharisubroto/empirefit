@@ -51,5 +51,14 @@ export class RolePermissionComponent implements OnInit {
       .subscribe((data: any) => {
         this.role = data["data"].name;
       });
+
+    //Checbox
+    $('.selectall').click(function() {
+      if ($(this).is(':checked')) {
+        $('div input').prop('checked', true);
+      } else {
+        $('div input').prop('checked', false);
+      }
+    });
   }
 }
