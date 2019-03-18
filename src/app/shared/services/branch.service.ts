@@ -7,6 +7,7 @@ import { LocalStoreService } from "./local-store.service";
 })
 export class BranchService {
   readonly apiURL = "http://45.118.132.77/api";
+  // readonly apiURL = "http://localhost/efc/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) {}
 

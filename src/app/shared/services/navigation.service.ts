@@ -133,7 +133,7 @@ export class NavigationService {
             },
             {
               icon: "i-Checked-User",
-              name: "Role",
+              name: "Role & Permission",
               state: "/master/role",
               type: "link"
             },

@@ -1,0 +1,80 @@
+<div class="breadcrumb">
+  <h1>Personal Trainer</h1>
+  <ul>
+    <li>Create</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Create Personal Trainer</div>
+        <form [formGroup]="ptForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-12 form-group mb-3">
+              <label for="user_id">Name</label>
+              <select
+                name="user_id"
+                id="user_id"
+                class="form-control form-control-rounded"
+                formControlName="user_id"
+              >
+                <option [ngValue]="user.id" *ngFor="let user of users">{{
+                  user.name
+                }}</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="quota">Quota</label>
+              <input
+                type="text"
+                class="form-control form-control-rounded"
+                id="quota"
+                placeholder="Enter quota min 1"
+                formControlName="quota"
+              />
+              <i
+                *ngIf="
+                  !ptForm.get('quota').valid && ptForm.get('quota').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter total quota</i
+              >
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="remains">Remains</label>
+              <input
+                type="text"
+                class="form-control form-control-rounded"
+                id="remains"
+                placeholder="Enter remains min 0"
+                formControlName="remains"
+              />
+              <i
+                *ngIf="
+                  !ptForm.get('remains').valid && ptForm.get('remains').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter total remains min 0</i
+              >
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

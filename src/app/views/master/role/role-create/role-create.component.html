@@ -1,0 +1,83 @@
+<div class="breadcrumb">
+  <h1>Role</h1>
+  <ul>
+    <li>Create</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Create Role</div>
+        <form [formGroup]="roleForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="name">Name</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control form-control-rounded"
+                id="name"
+                placeholder="Enter role name"
+                formControlName="name"
+              />
+              <i
+                *ngIf="
+                  !roleForm.get('name').valid && roleForm.get('name').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter role name</i
+              >
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="display_name">Display Name</label>
+              <input
+                type="text"
+                class="form-control form-control-rounded"
+                id="display_name"
+                placeholder="Enter display name"
+                formControlName="display_name"
+              />
+              <i
+                *ngIf="
+                  !roleForm.get('display_name').valid &&
+                  roleForm.get('display_name').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter display name</i
+              >
+            </div>
+
+            <div class="col-md-12 form-group mb-3">
+              <label for="description">Description</label>
+              <textarea
+                class="form-control form-control-rounded"
+                placeholder="Optional"
+                name="description"
+                id="description"
+                cols="30"
+                rows="5"
+                formControlName="description"
+              >
+              </textarea>
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,8 +1,7 @@
 <div class="breadcrumb">
-  <h1>Basic</h1>
+  <h1>Schedule</h1>
   <ul>
-    <li><a href="">Form</a></li>
-    <li>Basic</li>
+    <li>Update</li>
   </ul>
 </div>
 
@@ -12,104 +11,117 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Inputs Rounded</div>
-        <form [formGroup]="formBasic" (ngSubmit)="submit()">
+        <div class="card-title mb-3">Form Update Schedule</div>
+        <form [formGroup]="scheduleForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
-              <label for="firstName">First name</label>
+              <label for="instructure_id">Instructure</label>
+              <select
+                name="instructure_id"
+                id="instructure_id"
+                class="form-control form-control-rounded"
+                formControlName="instructure_id"
+              >
+                <option
+                  [ngValue]="instructure.id"
+                  *ngFor="let instructure of instructures"
+                  >{{ instructure.name }}</option
+                >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="day">Day</label>
+              <select
+                name="day"
+                id="day"
+                class="form-control form-control-rounded"
+                formControlName="day"
+              >
+                <option value="Senin" [ngValue]="Senin">Senin</option>
+                <option value="Selasa" [ngValue]="Selasa">Selasa</option>
+                <option value="Rabu" [ngValue]="Rabu">Rabu</option>
+                <option value="Kamis" [ngValue]="Kamis">Kamis</option>
+                <option value="Jumat" [ngValue]="Jumat">Jumat</option>
+                <option value="Sabtu" [ngValue]="Sabtu">Sabtu</option>
+                <option value="Minggu" [ngValue]="Minggu">Minggu</option>
+              </select>
+            </div>
+
+            <div class="col-md-12 form-group mb-3">
+              <label for="time">Time</label>
               <input
                 type="text"
                 class="form-control form-control-rounded"
-                id="firstName"
-                placeholder="Enter your first name"
+                id="time"
+                placeholder="Enter time : 00:00"
+                formControlName="time"
               />
+              <i
+                *ngIf="
+                  !scheduleForm.get('time').valid &&
+                  scheduleForm.get('time').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter time : 00:00</i
+              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
-              <label for="lastName">Last name</label>
-              <input
-                type="text"
-                class="form-control form-control-rounded"
-                id="lastName"
-                placeholder="Enter your last name"
-              />
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="exampleInputEmail1">Email address</label>
-              <input
-                type="email"
-                class="form-control form-control-rounded"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-              />
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="phone">Phone</label>
-              <input
-                class="form-control form-control-rounded"
-                id="phone"
-                placeholder="Enter phone"
-              />
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="credit">Cradit card number</label>
-              <input
-                class="form-control form-control-rounded"
-                id="credit"
-                placeholder="Card"
-              />
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="credit">Website</label>
-              <input
-                class="form-control form-control-rounded"
-                id="credit"
-                placeholder="Web address"
-              />
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="picker1">Birth date</label>
-              <div class="input-group">
-                <input
-                  id="picker1"
-                  class="form-control form-control-rounded"
-                  placeholder="yyyy-mm-dd"
-                  name="dp"
-                  ngbDatepicker
-                  #dp="ngbDatepicker"
-                />
-                <div class="input-group-append">
-                  <button
-                    class="btn btn-secondary btn-rounded"
-                    (click)="dp.toggle()"
-                    type="button"
-                  >
-                    <i class="icon-regular i-Calendar-4"></i>
-                  </button>
+              <label for="periode">Periode</label>
+              <div class="row">
+                <div class="col-md-5">
+                  <input
+                    id="start_date"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    ngbDatepicker
+                    #dp="ngbDatepicker"
+                    formControlName="start_date"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-secondary"
+                      (click)="dp.toggle()"
+                      type="button"
+                    >
+                      <i class="icon-regular i-Calendar-4"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-1">
+                  -
+                </div>
+                <div class="col-md-5">
+                  <input
+                    id="end_date"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="dp"
+                    ngbDatepicker
+                    #dp="ngbDatepicker"
+                    formControlName="end_date"
+                  />
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-secondary"
+                      (click)="dp.toggle()"
+                      type="button"
+                    >
+                      <i class="icon-regular i-Calendar-4"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="picker1">Select</label>
-              <select class="form-control form-control-rounded">
-                <option>Option 1</option>
-                <option>Option 1</option>
-                <option>Option 1</option>
-              </select>
             </div>
 
             <div class="col-md-12">
               <btn-loading
                 btnClass="btn-primary btn-rounded"
                 [loading]="loading"
-                >Submit</btn-loading
+                >Save</btn-loading
               >
             </div>
           </div>

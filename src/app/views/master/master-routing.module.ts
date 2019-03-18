@@ -8,7 +8,6 @@ import { PermissionFormComponent } from "./permission/permission-form/permission
 import { PersonalTrainerListComponent } from "./personal-trainer/personal-trainer-list/personal-trainer-list.component";
 import { PersonalTrainerFormComponent } from "./personal-trainer/personal-trainer-form/personal-trainer-form.component";
 import { InstructureListComponent } from "./instructure/instructure-list/instructure-list.component";
-import { InstructureFormComponent } from "./instructure/instructure-form/instructure-form.component";
 import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.component";
 import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.component";
 import { PaymentTypeListComponent } from "./payment-type/payment-type-list/payment-type-list.component";
@@ -29,6 +28,12 @@ import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list
 import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
 import { UserFormComponent } from "./user/user-form/user-form.component";
 import { UserCreateComponent } from "./user/user-create/user-create.component";
+import { RoleCreateComponent } from "./role/role-create/role-create.component";
+import { PermissionCreateComponent } from "./permission/permission-create/permission-create.component";
+import { InstructureCreateComponent } from "./instructure/instructure-create/instructure-create.component";
+import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trainer-create/personal-trainer-create.component";
+import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
+import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
 
 const routes: Routes = [
   {
@@ -48,23 +53,39 @@ const routes: Routes = [
     component: RoleListComponent
   },
   {
-    path: "role/create",
+    path: "role/role-create",
+    component: RoleCreateComponent
+  },
+  {
+    path: "role/role-edit/:id",
     component: RoleFormComponent
+  },
+  {
+    path: "role/role-permission/:id",
+    component: RolePermissionComponent
   },
   {
     path: "permission",
     component: PermissionListComponent
   },
   {
-    path: "permission/create",
+    path: "permission/permission-edit/:id",
     component: PermissionFormComponent
+  },
+  {
+    path: "permission/permission-create",
+    component: PermissionCreateComponent
   },
   {
     path: "personal-trainer",
     component: PersonalTrainerListComponent
   },
   {
-    path: "personal-trainer/create",
+    path: "personal-trainer/personal-trainer-create",
+    component: PersonalTrainerCreateComponent
+  },
+  {
+    path: "personal-trainer/personal-trainer-edit/:id",
     component: PersonalTrainerFormComponent
   },
   {
@@ -72,15 +93,19 @@ const routes: Routes = [
     component: InstructureListComponent
   },
   {
-    path: "instructure/create",
-    component: InstructureFormComponent
+    path: "instructure/instructure-create",
+    component: InstructureCreateComponent
   },
   {
     path: "schedule",
     component: ScheduleListComponent
   },
   {
-    path: "schedule/create",
+    path: "schedule/schedule-create",
+    component: ScheduleCreateComponent
+  },
+  {
+    path: "schedule/schedule-edit/:id",
     component: ScheduleFormComponent
   },
   {

@@ -1,7 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ScheduleService } from "src/app/shared/services/schedule.service";
+import { InstructureService } from "src/app/shared/services/instructure.service";
 
 @Component({
   selector: "app-basic-form",
@@ -11,30 +19,80 @@ import { ToastrService } from "ngx-toastr";
 export class ScheduleFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  radioGroup: FormGroup;
+  data;
+  id;
+  name;
+  instructure_id;
+  day;
+  time;
+  user_id;
+  start_date;
+  end_date;
+  instructures;
+  scheduleForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private scheduleService: ScheduleService,
+    private instructureService: InstructureService
+  ) {}
 
   ngOnInit() {
-    this.buildFormBasic();
-    this.radioGroup = this.fb.group({
-      radio: []
+    this.scheduleForm = this.fb.group({
+      day: ["", Validators.required],
+      time: ["", Validators.required],
+      instructure_id: ["", Validators.required],
+      start_date: ["", Validators.required],
+      end_date: ["", Validators.required]
     });
-  }
 
-  buildFormBasic() {
-    this.formBasic = this.fb.group({
-      experience: []
+    this.instructureService.getInstructures().subscribe((data: any) => {
+      this.instructures = data["data"];
     });
+
+    this.scheduleService
+      .showSchedule(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        console.log(data["data"][0]);
+        this.scheduleForm.setValue({
+          day: data["data"][0].day,
+          time: data["data"][0].time,
+          instructure_id: data["data"][0].instructure_id,
+          start_date: data["data"][0].start_date,
+          end_date: data["data"][0].end_date
+        });
+      });
   }
 
   submit() {
-    this.loading = true;
-    setTimeout(() => {
+    if (this.scheduleForm.invalid) {
       this.loading = false;
-      this.toastr.success("Profile updated.", "Success!", {
-        progressBar: true
-      });
-    }, 3000);
+      return;
+    } else {
+      this.loading = true;
+      this.scheduleService
+        .updateSchedule(
+          this.activatedRoute.snapshot.params["id"],
+          this.scheduleForm.value
+        )
+        .subscribe((res: any) => {
+          setTimeout(() => {
+            this.loading = false;
+            if (res["status"] === "200") {
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+              this.router.navigateByUrl("master/schedule");
+            } else {
+              this.toastr.error(res["message"], "Error!", {
+                progressBar: true
+              });
+            }
+          }, 3000);
+        });
+    }
   }
 }

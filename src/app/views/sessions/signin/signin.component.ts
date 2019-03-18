@@ -20,6 +20,7 @@ import { LocalStoreService } from "src/app/shared/services/local-store.service";
 export class SigninComponent implements OnInit {
   loading: boolean;
   loadingText: string;
+  redirect;
   signinForm: FormGroup;
   constructor(
     private store: LocalStoreService,
@@ -44,8 +45,8 @@ export class SigninComponent implements OnInit {
     });
 
     this.signinForm = this.fb.group({
-      email: ["test@example.com", Validators.required],
-      password: ["1234", Validators.required]
+      email: ["", Validators.required],
+      password: ["", Validators.required]
     });
   }
 
@@ -59,11 +60,13 @@ export class SigninComponent implements OnInit {
       this.auth.signin(this.signinForm.value).subscribe((data: any) => {
         if (data.status == "200") {
           this.store.setItem("access_token", data.access_token);
-          this.router.navigateByUrl("dashboard");
+          this.redirect = "";
+          window.location = this.redirect;
         } else {
           this.store.clear();
           this.loading = false;
         }
+        this.loading = false;
       });
     }
   }

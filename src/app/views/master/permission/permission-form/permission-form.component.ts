@@ -1,7 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { Router, ActivatedRoute } from "@angular/router";
+import { PermissionService } from "src/app/shared/services/permission.service";
 
 @Component({
   selector: "app-basic-form",
@@ -11,30 +18,65 @@ import { ToastrService } from "ngx-toastr";
 export class PermissionFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  radioGroup: FormGroup;
+  name;
+  display_name;
+  description;
+  permissionForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private permissionService: PermissionService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.buildFormBasic();
-    this.radioGroup = this.fb.group({
-      radio: []
+    this.permissionForm = this.fb.group({
+      id: [""],
+      name: ["", Validators.required],
+      display_name: ["", Validators.required],
+      description: []
     });
-  }
 
-  buildFormBasic() {
-    this.formBasic = this.fb.group({
-      experience: []
-    });
+    this.permissionService
+      .showPermission(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.permissionForm.setValue({
+          id: data["data"].id,
+          name: data["data"].name,
+          display_name: data["data"].display_name,
+          description: data["data"].description
+        });
+      });
   }
 
   submit() {
-    this.loading = true;
-    setTimeout(() => {
+    if (this.permissionForm.invalid) {
       this.loading = false;
-      this.toastr.success("Profile updated.", "Success!", {
-        progressBar: true
-      });
-    }, 3000);
+      return;
+    } else {
+      this.loading = true;
+      this.permissionService
+        .updatePermission(
+          this.activatedRoute.snapshot.params["id"],
+          this.permissionForm.value
+        )
+        .subscribe((res: any) => {
+          setTimeout(() => {
+            this.loading = false;
+            if (res["status"] === "200") {
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+              this.router.navigateByUrl("master/permission");
+            } else {
+              this.toastr.error(res["message"], "Error!", {
+                progressBar: true
+              });
+            }
+          }, 3000);
+        });
+    }
   }
 }

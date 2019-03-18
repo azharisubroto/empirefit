@@ -1,7 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { Router, ActivatedRoute } from "@angular/router";
+import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
+import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
   selector: "app-basic-form",
@@ -11,30 +19,69 @@ import { ToastrService } from "ngx-toastr";
 export class PersonalTrainerFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  radioGroup: FormGroup;
+  data;
+  id;
+  name;
+  user_id;
+  quota;
+  remains;
+  ptForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private personalTrainerService: PersonaltrainerService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
-    this.buildFormBasic();
-    this.radioGroup = this.fb.group({
-      radio: []
+    this.ptForm = this.fb.group({
+      id: [""],
+      name: [],
+      quota: ["", Validators.required],
+      remains: [0, Validators.required]
     });
-  }
 
-  buildFormBasic() {
-    this.formBasic = this.fb.group({
-      experience: []
-    });
+    this.personalTrainerService
+      .showPersonalTrainer(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.ptForm.setValue({
+          id: data["data"].id,
+          name: data["data"].name,
+          quota: data["data"].quota,
+          remains: data["data"].remains
+        });
+      });
   }
 
   submit() {
-    this.loading = true;
-    setTimeout(() => {
+    if (this.ptForm.invalid) {
       this.loading = false;
-      this.toastr.success("Profile updated.", "Success!", {
-        progressBar: true
-      });
-    }, 3000);
+      return;
+    } else {
+      this.loading = true;
+      this.personalTrainerService
+        .updatePersonalTrainer(
+          this.activatedRoute.snapshot.params["id"],
+          this.ptForm.value
+        )
+        .subscribe((res: any) => {
+          setTimeout(() => {
+            this.loading = false;
+            if (res["status"] === "200") {
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+              this.router.navigateByUrl("master/personal-trainer");
+            } else {
+              this.toastr.error(res["message"], "Error!", {
+                progressBar: true
+              });
+            }
+          }, 3000);
+        });
+    }
   }
 }

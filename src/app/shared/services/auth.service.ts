@@ -12,6 +12,7 @@ export class AuthService {
   //Only for demo purpose
   authenticated;
   readonly apiURL = "http://45.118.132.77/api";
+  // readonly apiURL = "http://localhost/efc/api";
 
   constructor(
     private store: LocalStoreService,
