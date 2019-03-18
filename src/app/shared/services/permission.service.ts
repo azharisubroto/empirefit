@@ -51,4 +51,11 @@ export class PermissionService {
       this.httpOptions
     );
   }
+
+  permission_role(id) {
+    return this.http.get(
+      this.apiURL + "/permission_role/" + id,
+      this.httpOptions
+    );
+  }
 }

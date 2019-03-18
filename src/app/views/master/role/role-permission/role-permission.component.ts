@@ -21,6 +21,7 @@ export class RolePermissionComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   permissionsRole: any[];
   permissions: any[];
+  getpermissions: any[];
   role;
   detail;
   loading: boolean;
@@ -54,8 +55,6 @@ export class RolePermissionComponent implements OnInit {
       });
 
     //Checbox
-    var dataPermission = [];
-    var permission;
     $(".selectall").click(function() {
       if ($(this).is(":checked")) {
         $('input[name="permission"]').prop("checked", true);
@@ -64,22 +63,24 @@ export class RolePermissionComponent implements OnInit {
       }
     });
 
-    // $(".submit").on("click", function(e) {
-    //   e.preventDefault();
-    //   $(".permission-final").val("");
-    //   $.each($("input[name='permission']:checked"), function() {
-    //     dataPermission.push($(this).val());
-    //   });
-    //   $(".permission-final").val(dataPermission.join(","));
-
-    //   permission = "[" + dataPermission.join(",") + "]";
-    // });
+    this.permissionService
+      .permission_role(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.getpermissions = data["data"];
+        //console.log(this.getpermissions);
+        var perms = JSON.parse(JSON.stringify(this.getpermissions));
+        $.each(perms, function(i, item) {
+          $("input[name='permission'][value=" + item.permission_id + "]").prop(
+            "checked",
+            true
+          );
+        });
+      });
   }
 
   submit() {
     let dataPermission = [];
     let permission;
-    $(".permission-final").val("");
     $.each($("input[name='permission']:checked"), function() {
       dataPermission.push($(this).val());
     });
