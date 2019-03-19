@@ -260,11 +260,11 @@ const routes: Routes = [
     component: BranchListComponent
   },
   {
-    path: "branches/branches-create",
+    path: "branch/branch-create",
     component: BranchCreateComponent
   },
   {
-    path: "branches/branches-edit/:id",
+    path: "branch/branch-edit/:id",
     component: BranchFormComponent
   }
 ];
