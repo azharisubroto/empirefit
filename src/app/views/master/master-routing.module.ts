@@ -50,6 +50,9 @@ import { PricePtListComponent } from "./price-personal-trainer/price-pt-list/pri
 import { BankListComponent } from "./bank/bank-list/bank-list.component";
 import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
 import { BankFormComponent } from "./bank/bank-form/bank-form.component";
+import { BranchListComponent } from "./branch/branch-list/branch-list.component";
+import { BranchCreateComponent } from "./branch/branch-create/branch-create.component";
+import { BranchFormComponent } from "./branch/branch-form/branch-form.component";
 
 const routes: Routes = [
   {
@@ -251,6 +254,18 @@ const routes: Routes = [
   {
     path: "health-questions/health-questions-edit/:id",
     component: HealthQuestionsFormComponent
+  },
+  {
+    path: "branches",
+    component: BranchListComponent
+  },
+  {
+    path: "branches/branches-create",
+    component: BranchCreateComponent
+  },
+  {
+    path: "branches/branches-edit/:id",
+    component: BranchFormComponent
   }
 ];
 

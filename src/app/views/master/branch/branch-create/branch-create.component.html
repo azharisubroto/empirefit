@@ -1,0 +1,50 @@
+<div class="breadcrumb">
+  <h1>Branch</h1>
+  <ul>
+    <li>Create</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Create Branch</div>
+        <form [formGroup]="branchForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="branch_name">Branch Name</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control form-control-rounded"
+                id="branch_name"
+                placeholder="Enter branch name "
+                formControlName="branch_name"
+              />
+              <i
+                *ngIf="
+                  !branchForm.get('branch_name').valid &&
+                  branchForm.get('branch_name').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter branch name</i
+              >
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

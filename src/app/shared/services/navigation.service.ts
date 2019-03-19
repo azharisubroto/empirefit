@@ -146,6 +146,12 @@ export class NavigationService {
           ]
         },
         {
+          icon: "i-Library",
+          name: "Branch",
+          state: "/master/branches",
+          type: "link"
+        },
+        {
           icon: "i-Male-21",
           name: "Personal Trainer",
           state: "/master/personal-trainer",

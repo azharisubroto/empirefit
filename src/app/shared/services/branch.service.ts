@@ -20,4 +20,24 @@ export class BranchService {
   getBranches() {
     return this.http.get(this.apiURL + "/branches/", this.httpOptions);
   }
+
+  createBranch(data) {
+    return this.http.post(this.apiURL + "/branches", data, this.httpOptions);
+  }
+
+  deleteBranch(id) {
+    return this.http.delete(this.apiURL + "/branches/" + id, this.httpOptions);
+  }
+
+  showBranch(id) {
+    return this.http.get(this.apiURL + "/branches/" + id, this.httpOptions);
+  }
+
+  updateBranch(id, data) {
+    return this.http.put(
+      this.apiURL + "/branches/" + id,
+      data,
+      this.httpOptions
+    );
+  }
 }

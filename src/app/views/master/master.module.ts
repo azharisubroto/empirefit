@@ -62,6 +62,9 @@ import { PricePtListComponent } from "./price-personal-trainer/price-pt-list/pri
 import { BankListComponent } from "./bank/bank-list/bank-list.component";
 import { BankFormComponent } from "./bank/bank-form/bank-form.component";
 import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
+import { BranchListComponent } from './branch/branch-list/branch-list.component';
+import { BranchFormComponent } from './branch/branch-form/branch-form.component';
+import { BranchCreateComponent } from './branch/branch-create/branch-create.component';
 
 @NgModule({
   imports: [
@@ -127,7 +130,10 @@ import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
     PricePtCreateComponent,
     BankListComponent,
     BankFormComponent,
-    BankCreateComponent
+    BankCreateComponent,
+    BranchListComponent,
+    BranchFormComponent,
+    BranchCreateComponent
   ]
 })
 export class MasterModule {}
