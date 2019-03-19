@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   checkAuth() {
-    return (this.authenticated = this.store.getItem("access_token"));
+    this.authenticated = this.store.getItem("access_token");
   }
 
   getuser() {

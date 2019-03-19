@@ -32,10 +32,22 @@
 
             <div class="col-md-12 form-group mb-3">
               <label for="exercise">Exercise</label>
-              <input type="text" class="form-control form-control-rounded" id="exercise" placeholder="Enter exercise"
-                formControlName="exercise" />
-              <i *ngIf="!scheduleForm.get('exercise').valid && scheduleForm.get('exercise').touched" class="i-Information text-danger">
-                Please enter exercise</i>
+              <input
+                type="text"
+                class="form-control form-control-rounded"
+                id="exercise"
+                placeholder="Enter exercise"
+                formControlName="exercise"
+              />
+              <i
+                *ngIf="
+                  !scheduleForm.get('exercise').valid &&
+                  scheduleForm.get('exercise').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter exercise</i
+              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
@@ -123,10 +135,17 @@
 
             <div class="col-md-12 form-group mb-3">
               <label for="branch_id">Branch</label>
-              <select name="branch_id" id="branch_id" class="form-control form-control-rounded" formControlName="branch_id">
-                <option *ngFor="let item of branches" [ngValue]="item">{{
-                  item.branch_name
-                  }}</option>
+              <select
+                name="branch_id"
+                id="branch_id"
+                class="form-control form-control-rounded"
+                formControlName="branch_id"
+              >
+                <option
+                  *ngFor="let item of branches"
+                  [ngValue]="item.branch_id"
+                  >{{ item.branch_name }}</option
+                >
               </select>
             </div>
 
