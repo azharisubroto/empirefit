@@ -50,7 +50,7 @@ export class ScheduleCreateComponent implements OnInit {
       day: ["", Validators.required],
       time: ["", Validators.required],
       exercise: ["", Validators.required],
-      instructure_id: ["", Validators.required],
+      instructure_id: [1, Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required],
       branch_id: [1, Validators.required]

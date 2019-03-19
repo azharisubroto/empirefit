@@ -141,11 +141,9 @@
                 class="form-control form-control-rounded"
                 formControlName="branch_id"
               >
-                <option
-                  *ngFor="let item of branches"
-                  [ngValue]="item.branch_id"
-                  >{{ item.branch_name }}</option
-                >
+                <option *ngFor="let item of branches" [ngValue]="item.id">{{
+                  item.branch_name
+                }}</option>
               </select>
             </div>
 
