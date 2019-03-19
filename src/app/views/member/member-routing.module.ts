@@ -15,7 +15,7 @@ const routes: Routes = [
     component: MemberEditComponent
   },
   {
-    path: "member/attendance",
+    path: "member/attendance/:id",
     component: MemberAttendanceComponent
   },
   {

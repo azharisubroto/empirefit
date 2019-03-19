@@ -56,7 +56,7 @@
             <ng-template ngx-datatable-header-template>
               Action
             </ng-template>
-            <ng-template ngx-datatable-cell-template>
+            <ng-template ngx-datatable-cell-template let-value="value" let-row="row" let-rowIndex="rowIndex">
               <a
                 href="#"
                 routerLink="member/edit"
@@ -68,7 +68,7 @@
               </a>
               <a
                 href="#"
-                routerLink="member/attendance"
+                routerLink="member/attendance/{{row.id}}"
                 class="btn btn-sm btn-success mr-2"
                 title="Attendance"
                 triggers="mouseenter:mouseleave"

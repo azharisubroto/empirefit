@@ -21,4 +21,8 @@ export class MemberService {
   getMember() {
     return this.http.get(this.apiURL + "/members", this.httpOptions);
   }
+
+  getSingleMember( $id ) {
+    return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
+  }
 }
