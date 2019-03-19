@@ -9,6 +9,7 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PriceService } from "src/app/shared/services/price.service";
+import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { PaymentTypeService } from "src/app/shared/services/payment-type.service";
 import { PackageService } from "src/app/shared/services/package.service";
@@ -16,10 +17,10 @@ import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-basic-form",
-  templateUrl: "./price-create.component.html",
-  styleUrls: ["./price-create.component.scss"]
+  templateUrl: "./price-pt-create.component.html",
+  styleUrls: ["./price-pt-create.component.scss"]
 })
-export class PriceCreateComponent implements OnInit {
+export class PricePtCreateComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   data;
@@ -38,17 +39,23 @@ export class PriceCreateComponent implements OnInit {
     private priceService: PriceService,
     private packageService: PackageService,
     private memberTypeService: MemberTypeService,
+    private personalTrainerService: PersonaltrainerService,
     private parserFormatter: NgbDateParserFormatter
   ) {}
 
   ngOnInit() {
     this.priceForm = this.fb.group({
+      personal_trainer_id: ["", Validators.required],
       payment_type_id: [1, Validators.required],
       member_type_id: [1, Validators.required],
       package_id: [1, Validators.required],
       price: ["", Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
+    });
+
+    this.personalTrainerService.getPersonalTrainers().subscribe((data: any) => {
+      this.personaltrainers = data["data"];
     });
 
     this.packageService.getPackages().subscribe((data: any) => {
@@ -76,6 +83,7 @@ export class PriceCreateComponent implements OnInit {
     let formValues = this.priceForm.value;
     formValues["start_date"] = this.parserFormatter.format(start_date);
     formValues["end_date"] = this.parserFormatter.format(end_date);
+    formValues["personal_trainer_id"] = personal_trainer_id;
     formValues["member_type_id"] = member_type_id;
     formValues["payment_type_id"] = payment_type_id;
     formValues["package_id"] = package_id;

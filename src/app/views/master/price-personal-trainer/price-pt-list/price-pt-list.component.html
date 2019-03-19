@@ -1,6 +1,6 @@
 <div class="">
   <div class="breadcrumb">
-    <h1>Price</h1>
+    <h1>Price Personal Trainer</h1>
     <ul>
       <li>List</li>
     </ul>
@@ -13,7 +13,7 @@
       <div class="form-group">
         <a
           href="#"
-          [routerLink]="['price-create']"
+          [routerLink]="['price-pt-create']"
           class="btn btn-primary btn-rounded"
         >
           Create
@@ -29,6 +29,7 @@
                 <table id="mytable" class="table table-hover" cellspacing="0">
                   <thead class="text-center">
                     <tr>
+                      <th>Personal Trainer</th>
                       <th>Payment Type</th>
                       <th>Member Type</th>
                       <th>Package Type</th>
@@ -39,6 +40,7 @@
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let price of prices">
+                      <td>{{ price.name }}</td>
                       <td>{{ price.payment_type_name }}</td>
                       <td>{{ price.member_type_name }}</td>
                       <td>{{ price.package_name }}</td>
@@ -47,7 +49,7 @@
                       <td>
                         <a
                           href="#"
-                          [routerLink]="['price-edit/', price.id]"
+                          [routerLink]="['price-pt-edit/', price.id]"
                           class="btn btn-sm btn-warning mr-2"
                           title="Edit"
                           triggers="mouseenter:mouseleave"

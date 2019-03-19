@@ -5,7 +5,7 @@ import { LocalStoreService } from "./local-store.service";
 @Injectable({
   providedIn: "root"
 })
-export class BranchService {
+export class HealthQuestionsService {
   readonly apiURL = "http://45.118.132.77/api";
   // readonly apiURL = "http://localhost/efc/api";
 
@@ -17,25 +17,35 @@ export class BranchService {
     })
   };
 
-  getBranches() {
-    return this.http.get(this.apiURL + "/branches/", this.httpOptions);
+  getQuestions() {
+    return this.http.get(this.apiURL + "/health_questions", this.httpOptions);
   }
 
-  createBranch(data) {
-    return this.http.post(this.apiURL + "/branches", data, this.httpOptions);
+  createQuestion(data) {
+    return this.http.post(
+      this.apiURL + "/health_questions",
+      data,
+      this.httpOptions
+    );
   }
 
-  deleteBranch(id) {
-    return this.http.delete(this.apiURL + "/branches/" + id, this.httpOptions);
+  deleteQuestion(id) {
+    return this.http.delete(
+      this.apiURL + "/health_questions/" + id,
+      this.httpOptions
+    );
   }
 
-  showBranch(id) {
-    return this.http.get(this.apiURL + "/branches/" + id, this.httpOptions);
+  showQuestion(id) {
+    return this.http.get(
+      this.apiURL + "/health_questions/" + id,
+      this.httpOptions
+    );
   }
 
-  updateBranch(id, data) {
+  updateQuestion(id, data) {
     return this.http.put(
-      this.apiURL + "/branches/" + id,
+      this.apiURL + "/health_questions/" + id,
       data,
       this.httpOptions
     );

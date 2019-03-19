@@ -1,0 +1,63 @@
+<div class="breadcrumb">
+  <h1>Health Questions</h1>
+  <ul>
+    <li>Update</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Update Health Questions</div>
+        <form [formGroup]="healthQuestionForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="question">Question</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control form-control-rounded"
+                id="question"
+                placeholder="Enter question"
+                formControlName="question"
+              />
+              <i
+                *ngIf="
+                  !healthQuestionForm.get('question').valid &&
+                  healthQuestionForm.get('question').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter question</i
+              >
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="published">Published</label>
+              <select
+                name="published"
+                id="published"
+                class="form-control form-control-rounded"
+                formControlName="published"
+              >
+                <option value="1">True</option>
+                <option value="2">False</option>
+              </select>
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

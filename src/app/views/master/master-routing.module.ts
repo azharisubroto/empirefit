@@ -41,6 +41,18 @@ import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/drop
 import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
 import { PriceCreateComponent } from "./price/price-create/price-create.component";
 import { ClubBenefitCreateComponent } from "./club-benefit/club-benefit-create/club-benefit-create.component";
+import { HealthQuestionsListComponent } from "./health-questions/health-questions-list/health-questions-list.component";
+import { HealthQuestionsCreateComponent } from "./health-questions/health-questions-create/health-questions-create.component";
+import { HealthQuestionsFormComponent } from "./health-questions/health-questions-form/health-questions-form.component";
+import { PricePtCreateComponent } from "./price-personal-trainer/price-pt-create/price-pt-create.component";
+import { PricePtFormComponent } from "./price-personal-trainer/price-pt-form/price-pt-form.component";
+import { PricePtListComponent } from "./price-personal-trainer/price-pt-list/price-pt-list.component";
+import { BankListComponent } from "./bank/bank-list/bank-list.component";
+import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
+import { BankFormComponent } from "./bank/bank-form/bank-form.component";
+import { BranchListComponent } from "./branch/branch-list/branch-list.component";
+import { BranchCreateComponent } from "./branch/branch-create/branch-create.component";
+import { BranchFormComponent } from "./branch/branch-form/branch-form.component";
 
 const routes: Routes = [
   {
@@ -128,6 +140,18 @@ const routes: Routes = [
     component: PaymentTypeFormComponent
   },
   {
+    path: "bank",
+    component: BankListComponent
+  },
+  {
+    path: "bank/bank-create",
+    component: BankCreateComponent
+  },
+  {
+    path: "bank/bank-edit/:id",
+    component: BankFormComponent
+  },
+  {
     path: "package",
     component: PackageListComponent
   },
@@ -162,6 +186,18 @@ const routes: Routes = [
   {
     path: "price/price-edit/:id",
     component: PriceFormComponent
+  },
+  {
+    path: "price-pt",
+    component: PricePtListComponent
+  },
+  {
+    path: "price-pt/price-pt-create",
+    component: PricePtCreateComponent
+  },
+  {
+    path: "price-pt/price-pt-create/:id",
+    component: PricePtFormComponent
   },
   {
     path: "benefit",
@@ -206,6 +242,30 @@ const routes: Routes = [
   {
     path: "dropin-company/dropin-company-create",
     component: DropinCompanyCreateComponent
+  },
+  {
+    path: "health-questions",
+    component: HealthQuestionsListComponent
+  },
+  {
+    path: "health-questions/health-questions-create",
+    component: HealthQuestionsCreateComponent
+  },
+  {
+    path: "health-questions/health-questions-edit/:id",
+    component: HealthQuestionsFormComponent
+  },
+  {
+    path: "branch",
+    component: BranchListComponent
+  },
+  {
+    path: "branch/branch-create",
+    component: BranchCreateComponent
+  },
+  {
+    path: "branch/branch-edit/:id",
+    component: BranchFormComponent
   }
 ];
 

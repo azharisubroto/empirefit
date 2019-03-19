@@ -50,9 +50,21 @@ import { PackageCreateComponent } from "./package/package-create/package-create.
 import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
 import { BenefitCreateComponent } from "./benefit/benefit-create/benefit-create.component";
 import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
-import { DropinCompanyCreateComponent } from './dropin-company/dropin-company-create/dropin-company-create.component';
-import { PriceCreateComponent } from './price/price-create/price-create.component';
-import { ClubBenefitCreateComponent } from './club-benefit/club-benefit-create/club-benefit-create.component';
+import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
+import { PriceCreateComponent } from "./price/price-create/price-create.component";
+import { ClubBenefitCreateComponent } from "./club-benefit/club-benefit-create/club-benefit-create.component";
+import { HealthQuestionsListComponent } from "./health-questions/health-questions-list/health-questions-list.component";
+import { HealthQuestionsFormComponent } from "./health-questions/health-questions-form/health-questions-form.component";
+import { HealthQuestionsCreateComponent } from "./health-questions/health-questions-create/health-questions-create.component";
+import { PricePtCreateComponent } from "./price-personal-trainer/price-pt-create/price-pt-create.component";
+import { PricePtFormComponent } from "./price-personal-trainer/price-pt-form/price-pt-form.component";
+import { PricePtListComponent } from "./price-personal-trainer/price-pt-list/price-pt-list.component";
+import { BankListComponent } from "./bank/bank-list/bank-list.component";
+import { BankFormComponent } from "./bank/bank-form/bank-form.component";
+import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
+import { BranchListComponent } from './branch/branch-list/branch-list.component';
+import { BranchFormComponent } from './branch/branch-form/branch-form.component';
+import { BranchCreateComponent } from './branch/branch-create/branch-create.component';
 
 @NgModule({
   imports: [
@@ -109,7 +121,19 @@ import { ClubBenefitCreateComponent } from './club-benefit/club-benefit-create/c
     DropinTypeCreateComponent,
     DropinCompanyCreateComponent,
     PriceCreateComponent,
-    ClubBenefitCreateComponent
+    ClubBenefitCreateComponent,
+    HealthQuestionsListComponent,
+    HealthQuestionsFormComponent,
+    HealthQuestionsCreateComponent,
+    PricePtListComponent,
+    PricePtFormComponent,
+    PricePtCreateComponent,
+    BankListComponent,
+    BankFormComponent,
+    BankCreateComponent,
+    BranchListComponent,
+    BranchFormComponent,
+    BranchCreateComponent
   ]
 })
 export class MasterModule {}

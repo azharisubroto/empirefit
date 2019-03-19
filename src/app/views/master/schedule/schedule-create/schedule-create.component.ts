@@ -10,6 +10,7 @@ import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { InstructureService } from "src/app/shared/services/instructure.service";
+import { BranchService } from "src/app/shared/services/branch.service";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -31,6 +32,7 @@ export class ScheduleCreateComponent implements OnInit {
   end_date;
   instructures;
   days;
+  branches;
   scheduleForm: FormGroup;
 
   constructor(
@@ -39,16 +41,19 @@ export class ScheduleCreateComponent implements OnInit {
     private router: Router,
     private scheduleService: ScheduleService,
     private instructureService: InstructureService,
-    private parserFormatter: NgbDateParserFormatter
+    private parserFormatter: NgbDateParserFormatter,
+    private branchService: BranchService
   ) {}
 
   ngOnInit() {
     this.scheduleForm = this.fb.group({
       day: ["", Validators.required],
       time: ["", Validators.required],
+      exercise: ["", Validators.required],
       instructure_id: ["", Validators.required],
       start_date: ["", Validators.required],
-      end_date: ["", Validators.required]
+      end_date: ["", Validators.required],
+      branch_id: [1, Validators.required]
     });
 
     this.days = [
@@ -64,6 +69,10 @@ export class ScheduleCreateComponent implements OnInit {
     this.instructureService.getInstructures().subscribe((data: any) => {
       this.instructures = data["data"];
     });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branches = data["data"];
+    });
   }
 
   submit() {
@@ -71,12 +80,16 @@ export class ScheduleCreateComponent implements OnInit {
     let end_date = this.scheduleForm.controls["end_date"].value;
     let day = this.scheduleForm.controls["day"].value;
     let time = this.scheduleForm.controls["time"].value;
+    let exercise = this.scheduleForm.controls["exercise"].value;
     let instructure_id = this.scheduleForm.controls["instructure_id"].value;
+    let branch_id = this.scheduleForm.controls["branch_id"].value;
     let formValues = this.scheduleForm.value;
     formValues["start_date"] = this.parserFormatter.format(start_date);
     formValues["end_date"] = this.parserFormatter.format(end_date);
     formValues["day"] = day;
     formValues["time"] = time;
+    formValues["exercise"] = exercise;
+    formValues["branch_id"] = branch_id;
     formValues["instructure_id"] = instructure_id;
     if (this.scheduleForm.invalid) {
       this.loading = false;
