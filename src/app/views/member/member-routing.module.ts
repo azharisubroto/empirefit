@@ -11,15 +11,15 @@ const routes: Routes = [
     component: MemberComponent
   },
   {
-    path: "member/edit",
+    path: "member/edit/:id",
     component: MemberEditComponent
   },
   {
-    path: "member/attendance/:id",
+    path: "member/detail/:id",
     component: MemberAttendanceComponent
   },
   {
-    path: "member/leave",
+    path: "member/leave/:id",
     component: MemberLeaveComponent
   }
 ];
