@@ -148,7 +148,7 @@ export class NavigationService {
         {
           icon: "i-Library",
           name: "Branch",
-          state: "/master/branches",
+          state: "/master/branch",
           type: "link"
         },
         {
