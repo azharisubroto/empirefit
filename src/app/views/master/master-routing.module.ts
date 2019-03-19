@@ -256,7 +256,7 @@ const routes: Routes = [
     component: HealthQuestionsFormComponent
   },
   {
-    path: "branches",
+    path: "branch",
     component: BranchListComponent
   },
   {
