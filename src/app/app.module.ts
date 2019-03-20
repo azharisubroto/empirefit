@@ -9,10 +9,9 @@ import { InMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./shared/inmemory-db/inmemory-db.service";
 import { HttpClientModule } from "@angular/common/http";
 import { DataTablesModule } from "angular-datatables";
-import { MemberActivationSuccessComponent } from './member/member-activation-success/member-activation-success.component';
 
 @NgModule({
-  declarations: [AppComponent, MemberActivationSuccessComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     SharedModule,
