@@ -8,6 +8,7 @@ import { MemberComponent } from "./member-list/member-list.component";
 import { MemberEditComponent } from "./member-edit/member-edit.component";
 import { MemberAttendanceComponent } from "./member-attendance/member-attendance.component";
 import { MemberLeaveComponent } from "./member-leave/member-leave.component";
+import { MemberActivationComponent } from './member-activation/member-activation.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { SharedComponentsModule } from "src/app/shared/components/shared-components.module";
@@ -32,7 +33,8 @@ import { TextMaskModule } from "angular2-text-mask";
     MemberComponent,
     MemberEditComponent,
     MemberAttendanceComponent,
-    MemberLeaveComponent
+    MemberLeaveComponent,
+    MemberActivationComponent
   ]
 })
 export class MemberModule {}
