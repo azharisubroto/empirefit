@@ -5,6 +5,7 @@ import { MemberEditComponent } from "./member-edit/member-edit.component";
 import { MemberAttendanceComponent } from "./member-attendance/member-attendance.component";
 import { MemberLeaveComponent } from "./member-leave/member-leave.component";
 import { MemberActivationComponent } from "./member-activation/member-activation.component";
+import { MemberActivationSuccessComponent } from "./member-activation-success/member-activation-success.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
   {
     path: "member/activation/:id",
     component: MemberActivationComponent
+  },
+  {
+    path: "member/activate/success",
+    component: MemberActivationSuccessComponent
   }
 ];
 
