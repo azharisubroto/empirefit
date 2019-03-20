@@ -4,6 +4,7 @@ import { MemberComponent } from "./member-list/member-list.component";
 import { MemberEditComponent } from "./member-edit/member-edit.component";
 import { MemberAttendanceComponent } from "./member-attendance/member-attendance.component";
 import { MemberLeaveComponent } from "./member-leave/member-leave.component";
+import { MemberActivationComponent } from "./member-activation/member-activation.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: "member/leave/:id",
     component: MemberLeaveComponent
+  },
+  {
+    path: "member/activation/:id",
+    component: MemberActivationComponent
   }
 ];
 
