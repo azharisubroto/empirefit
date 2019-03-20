@@ -15,6 +15,7 @@ import { SharedComponentsModule } from "src/app/shared/components/shared-compone
 
 import { FormWizardModule } from "src/app/shared/components/form-wizard/form-wizard.module";
 import { TextMaskModule } from "angular2-text-mask";
+import { MemberActivationSuccessComponent } from './member-activation-success/member-activation-success.component';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { TextMaskModule } from "angular2-text-mask";
     MemberEditComponent,
     MemberAttendanceComponent,
     MemberLeaveComponent,
-    MemberActivationComponent
+    MemberActivationComponent,
+    MemberActivationSuccessComponent
   ]
 })
 export class MemberModule {}
