@@ -15,22 +15,6 @@
         <form [formGroup]="priceForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
-              <label for="personal_trainer_id">Personal Trainer</label>
-              <select
-                name="personal_trainer_id"
-                id="personal_trainer_id"
-                class="form-control form-control-rounded"
-                formControlName="personal_trainer_id"
-              >
-                <option
-                  [ngValue]="personaltrainer.id"
-                  *ngFor="let personaltrainer of personaltrainers"
-                  >{{ personaltrainer.name }}</option
-                >
-              </select>
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
               <label for="payment_type_id">Payment Type</label>
               <select
                 name="payment_type_id"
@@ -43,6 +27,19 @@
                   *ngFor="let paymenttype of paymenttypes"
                   >{{ paymenttype.payment_type_name }}</option
                 >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="recuring">Recuring</label>
+              <select
+                name="recuring"
+                id="recuring"
+                class="form-control form-control-rounded"
+                formControlName="recuring"
+              >
+                <option value="1">YES</option>
+                <option value="0">NO</option>
               </select>
             </div>
 

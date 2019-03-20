@@ -47,6 +47,7 @@ export class PriceCreateComponent implements OnInit {
       member_type_id: [1, Validators.required],
       package_id: [1, Validators.required],
       price: ["", Validators.required],
+      recuring: [0, Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
     });
@@ -67,12 +68,11 @@ export class PriceCreateComponent implements OnInit {
   submit() {
     let start_date = this.priceForm.controls["start_date"].value;
     let end_date = this.priceForm.controls["end_date"].value;
-    let personal_trainer_id = this.priceForm.controls["personal_trainer_id"]
-      .value;
     let payment_type_id = this.priceForm.controls["payment_type_id"].value;
     let member_type_id = this.priceForm.controls["member_type_id"].value;
     let package_id = this.priceForm.controls["package_id"].value;
     let price = this.priceForm.controls["price"].value;
+    let recuring = this.priceForm.controls["recuring"].value;
     let formValues = this.priceForm.value;
     formValues["start_date"] = this.parserFormatter.format(start_date);
     formValues["end_date"] = this.parserFormatter.format(end_date);
@@ -80,6 +80,7 @@ export class PriceCreateComponent implements OnInit {
     formValues["payment_type_id"] = payment_type_id;
     formValues["package_id"] = package_id;
     formValues["price"] = price;
+    formValues["recuring"] = recuring;
     if (this.priceForm.invalid) {
       this.loading = false;
       return;

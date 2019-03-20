@@ -62,6 +62,25 @@
               >
             </div>
 
+            <div class="col-md-6 form-group mb-3">
+              <label for="price">Price</label>
+              <input
+                type="text"
+                class="form-control form-control-rounded"
+                id="price"
+                placeholder="Enter price min 0"
+                formControlName="price"
+              />
+              <i
+                *ngIf="
+                  !ptForm.get('price').valid && ptForm.get('price').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter total price min 0</i
+              >
+            </div>
+
             <div class="col-md-12">
               <btn-loading
                 btnClass="btn-primary btn-rounded"

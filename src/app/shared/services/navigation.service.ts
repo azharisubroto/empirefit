@@ -199,12 +199,12 @@ export class NavigationService {
           state: "/master/price",
           type: "link"
         },
-        {
-          icon: "i-Money-2",
-          name: "Price Personal Trainer",
-          state: "/master/price-pt",
-          type: "link"
-        },
+        // {
+        //   icon: "i-Money-2",
+        //   name: "Price Personal Trainer",
+        //   state: "/master/price-pt",
+        //   type: "link"
+        // },
         {
           icon: "i-Wallet",
           name: "Benefit",
