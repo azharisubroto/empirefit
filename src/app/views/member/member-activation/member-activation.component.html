@@ -337,7 +337,7 @@
 					</form>
 				</wizard-step>
 	
-				<wizard-step [title]="'Autodebet'" (onComplete)="onComplete($event)">
+				<wizard-step [title]="'Autodebet'" (onNext)="onStep4Next($event)">
 					<div class="mt-4 mb-4">
 						<p>have agreed to allow Empire Fit Club to deduct IDR                          from my credit card in order to pay the monthly subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount of money will be automatically deducted unless I instructed them other wise.</p>
 						<p>Terms &amp; Condition.</p>
@@ -410,6 +410,24 @@
 						</div>
 					</div>
 				</wizard-step>
+
+				<wizard-step [title]="'Final'" (onComplete)="onComplete($event)">
+					<div class="p5 text-center mt-5">
+						<img src="assets/images/success.png" alt="" width="100">
+					
+						<h2 class="mt-5">REGISTRATION PROCESS IS SUCCESSFULL</h2>
+					
+						<div class="row mt-5 justify-content-center">
+							<div class="col-md-4">
+								<a href="#" class="btn btn-primary btn-block py-3">ATTENDANCE</a>
+							</div>
+							<div class="col-md-4">
+								<a href="#" class="btn btn-primary btn-block py-3">SELECT CLASS</a>
+							</div>
+						</div>
+					</div>
+				</wizard-step>
+				
 			</form-wizard>
 	
 		</div>
