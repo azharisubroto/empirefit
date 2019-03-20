@@ -41,7 +41,8 @@ export class PersonalTrainerFormComponent implements OnInit {
       id: [""],
       name: [],
       quota: ["", Validators.required],
-      remains: [0, Validators.required]
+      remains: [0, Validators.required],
+      price: [0, Validators.required]
     });
 
     this.personalTrainerService
@@ -51,7 +52,8 @@ export class PersonalTrainerFormComponent implements OnInit {
           id: data["data"].id,
           name: data["data"].name,
           quota: data["data"].quota,
-          remains: data["data"].remains
+          remains: data["data"].remains,
+          price: data["data"].price
         });
       });
   }

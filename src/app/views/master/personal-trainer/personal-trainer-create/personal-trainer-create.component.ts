@@ -41,7 +41,8 @@ export class PersonalTrainerCreateComponent implements OnInit {
       id: [""],
       user_id: [Validators.required],
       quota: ["", Validators.required],
-      remains: [0, Validators.required]
+      remains: [0, Validators.required],
+      price: [0, Validators.required]
     });
 
     this.userService.getUsers().subscribe((data: any) => {

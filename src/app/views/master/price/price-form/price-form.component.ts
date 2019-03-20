@@ -44,6 +44,7 @@ export class PriceFormComponent implements OnInit {
       member_type_id: ["", Validators.required],
       package_id: ["", Validators.required],
       price: ["", Validators.required],
+      recuring: [1, Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
     });
@@ -68,6 +69,7 @@ export class PriceFormComponent implements OnInit {
           member_type_id: data["data"].member_type_id,
           package_id: data["data"].package_id,
           price: data["data"].price,
+          recuring: data["data"].recuring,
           start_date: data["data"].start_date,
           end_date: data["data"].end_date
         });
