@@ -1,5 +1,5 @@
 <div class="breadcrumb">
-  <h1>Benefit</h1>
+  <h1>Dropin Type</h1>
   <ul>
     <li>Create</li>
   </ul>
@@ -11,27 +11,27 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Create Benefit</div>
-        <form [formGroup]="benefitForm" (ngSubmit)="submit()">
+        <div class="card-title mb-3">Form Create Dropin Type</div>
+        <form [formGroup]="dropinTypeForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
-              <label for="benefit_name">Benefit Name</label>
+              <label for="dropin_name">Dropin Type</label>
               <input
                 autofocus
                 type="text"
                 class="form-control "
-                id="benefit_name"
-                placeholder="Enter member type "
-                formControlName="benefit_name"
+                id="dropin_name"
+                placeholder="Enter dropin type "
+                formControlName="dropin_name"
               />
               <i
                 *ngIf="
-                  !benefitForm.get('benefit_name').valid &&
-                  benefitForm.get('benefit_name').touched
+                  !dropinTypeForm.get('dropin_name').valid &&
+                  dropinTypeForm.get('dropin_name').touched
                 "
                 class="i-Information text-danger"
               >
-                Please enter benefit name</i
+                Please enter dropin type name</i
               >
             </div>
 

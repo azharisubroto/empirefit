@@ -1,7 +1,7 @@
 <div class="breadcrumb">
-  <h1>Schedule</h1>
+  <h1>Price</h1>
   <ul>
-    <li>Update</li>
+    <li>Create</li>
   </ul>
 </div>
 
@@ -11,76 +11,90 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Update Schedule</div>
-        <form [formGroup]="scheduleForm" (ngSubmit)="submit()">
+        <div class="card-title mb-3">Form Create Price</div>
+        <form [formGroup]="priceForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
-              <label for="instructure_id">Instructure</label>
+              <label for="personal_trainer_id">Personal Trainer</label>
               <select
-                name="instructure_id"
-                id="instructure_id"
+                name="personal_trainer_id"
+                id="personal_trainer_id"
                 class="form-control "
-                formControlName="instructure_id"
+                formControlName="personal_trainer_id"
               >
                 <option
-                  [ngValue]="instructure.id"
-                  *ngFor="let instructure of instructures"
-                  >{{ instructure.name }}</option
+                  [ngValue]="personaltrainer.id"
+                  *ngFor="let personaltrainer of personaltrainers"
+                  >{{ personaltrainer.name }}</option
                 >
               </select>
             </div>
 
-            <div class="col-md-12 form-group mb-3">
-              <label for="exercise">Exercise</label>
-              <input
-                type="text"
-                class="form-control "
-                id="exercise"
-                placeholder="Enter exercise"
-                formControlName="exercise"
-              />
-              <i
-                *ngIf="
-                  !scheduleForm.get('exercise').valid &&
-                  scheduleForm.get('exercise').touched
-                "
-                class="i-Information text-danger"
-              >
-                Please enter exercise</i
-              >
-            </div>
-
             <div class="col-md-6 form-group mb-3">
-              <label for="day">Day</label>
+              <label for="payment_type_id">Payment Type</label>
               <select
-                name="day"
-                id="day"
+                name="payment_type_id"
+                id="payment_type_id"
                 class="form-control "
-                formControlName="day"
+                formControlName="payment_type_id"
               >
-                <option *ngFor="let item of days" [ngValue]="item">{{
-                  item
-                }}</option>
+                <option
+                  [ngValue]="paymenttype.id"
+                  *ngFor="let paymenttype of paymenttypes"
+                  >{{ paymenttype.payment_type_name }}</option
+                >
               </select>
             </div>
 
-            <div class="col-md-12 form-group mb-3">
-              <label for="time">Time</label>
+            <div class="col-md-6 form-group mb-3">
+              <label for="member_type_id">Member Type</label>
+              <select
+                name="member_type_id"
+                id="member_type_id"
+                class="form-control "
+                formControlName="member_type_id"
+              >
+                <option
+                  [ngValue]="membertype.id"
+                  *ngFor="let membertype of membertypes"
+                  >{{ membertype.member_type_name }}</option
+                >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="package_id">Package Type</label>
+              <select
+                name="package_name"
+                id="package_name"
+                class="form-control "
+                formControlName="package_id"
+              >
+                <option
+                  [ngValue]="package.id"
+                  *ngFor="let package of packages"
+                  >{{ package.package_name }}</option
+                >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="price">Price</label>
               <input
                 type="text"
                 class="form-control "
-                id="time"
-                placeholder="Enter time : 00:00"
-                formControlName="time"
+                id="price"
+                placeholder="Enter price"
+                formControlName="price"
               />
               <i
                 *ngIf="
-                  !scheduleForm.get('time').valid &&
-                  scheduleForm.get('time').touched
+                  !priceForm.get('price').valid &&
+                  priceForm.get('price').touched
                 "
                 class="i-Information text-danger"
               >
-                Please enter time : 00:00</i
+                Please enter price</i
               >
             </div>
 
@@ -89,14 +103,15 @@
               <div class="row">
                 <div class="col-md-5">
                   <input
-                    type="text"
                     id="start_date"
                     class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="start_date"
+                    ngbDatepicker
+                    #start_date="ngbDatepicker"
                     formControlName="start_date"
                   />
-                  <!-- <div class="input-group-append">
+                  <div class="input-group-append">
                     <button
                       class="btn btn-secondary"
                       (click)="start_date.toggle()"
@@ -104,21 +119,22 @@
                     >
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
-                  </div> -->
+                  </div>
                 </div>
                 <div class="col-md-1">
                   -
                 </div>
                 <div class="col-md-5">
                   <input
-                    type="text"
                     id="end_date"
                     class="form-control"
                     placeholder="yyyy-mm-dd"
                     name="end_date"
+                    ngbDatepicker
+                    #end_date="ngbDatepicker"
                     formControlName="end_date"
                   />
-                  <!-- <div class="input-group-append">
+                  <div class="input-group-append">
                     <button
                       class="btn btn-secondary"
                       (click)="end_date.toggle()"
@@ -126,23 +142,9 @@
                     >
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
-                  </div> -->
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="col-md-12 form-group mb-3">
-              <label for="branch_id">Branch</label>
-              <select
-                name="branch_id"
-                id="branch_id"
-                class="form-control "
-                formControlName="branch_id"
-              >
-                <option *ngFor="let item of branches" [ngValue]="item.id">{{
-                  item.branch_name
-                }}</option>
-              </select>
             </div>
 
             <div class="col-md-12">

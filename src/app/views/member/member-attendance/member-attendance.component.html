@@ -1,5 +1,5 @@
 <div class="breadcrumb">
-	<h1>Member</h1>
+	<h1>Customer Search</h1>
 	<ul>
 		<li>Attendance</li>
 	</ul>
@@ -11,7 +11,7 @@
 	<div class="col-md-6 mb-4 mb-md-0">
 		<div class="card mb-4">
 			<div class="card-body">
-				<div class="card-title mb-3">Input Attendance</div>
+				<div class="card-title mb-3">Biodata</div>
 				<div class="row">
 					<div class="col-md-3">
 						<img src="{{!! member.photo ? member.photo : 'https://randomuser.me/api/portraits/women/65.jpg' }}" class="img-fluid rounded-circle" alt="">
@@ -57,6 +57,9 @@
 				</div>
 
 				<div class="row">
+					<div class="col-12 mb-3">
+						<div class="text-medium">Membership</div>
+					</div>
 					<div class="col-md-6 mb-3">
 						<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
 							<span class="text-muted mb-0">Type</span>
@@ -81,7 +84,7 @@
 					</div>
 				</div>
 
-				<div class="row mt-4">
+				<div class="row mt-2">
 					<div class="col-12">
 						<a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership Update</a> 
 					</div>

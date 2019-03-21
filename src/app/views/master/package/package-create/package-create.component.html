@@ -1,7 +1,7 @@
 <div class="breadcrumb">
-  <h1>Personal Trainer</h1>
+  <h1>Package</h1>
   <ul>
-    <li>Update</li>
+    <li>Create</li>
   </ul>
 </div>
 
@@ -11,73 +11,64 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Update Personal Trainer</div>
-        <form [formGroup]="ptForm" (ngSubmit)="submit()">
+        <div class="card-title mb-3">Form Create Package</div>
+        <form [formGroup]="packageForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-12 form-group mb-3">
-              <label for="name">Name</label>
+              <label for="package_name">Name</label>
               <input
-                readonly
-                name="name"
-                id="name"
+                name="package_name"
+                id="package_name"
                 class="form-control "
-                formControlName="name"
-              />
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="quota">Quota</label>
-              <input
-                type="text"
-                class="form-control "
-                id="quota"
-                placeholder="Enter quota min 1"
-                formControlName="quota"
+                formControlName="package_name"
               />
               <i
                 *ngIf="
-                  !ptForm.get('quota').valid && ptForm.get('quota').touched
+                  !packageForm.get('package_name').valid &&
+                  packageForm.get('package_name').touched
                 "
                 class="i-Information text-danger"
               >
-                Please enter total quota</i
-              >
-            </div>
-            <div class="col-md-6 form-group mb-3">
-              <label for="remains">Remains</label>
-              <input
-                type="text"
-                class="form-control "
-                id="remains"
-                placeholder="Enter remains min 0"
-                formControlName="remains"
-              />
-              <i
-                *ngIf="
-                  !ptForm.get('remains').valid && ptForm.get('remains').touched
-                "
-                class="i-Information text-danger"
-              >
-                Please enter total remains min 0</i
+                Please enter package name</i
               >
             </div>
 
             <div class="col-md-6 form-group mb-3">
-              <label for="price">Price</label>
+              <label for="day">Day</label>
               <input
                 type="text"
                 class="form-control "
-                id="price"
-                placeholder="Enter price min 0"
-                formControlName="price"
+                id="day"
+                placeholder="Enter Day"
+                formControlName="day"
               />
               <i
                 *ngIf="
-                  !ptForm.get('price').valid && ptForm.get('price').touched
+                  !packageForm.get('day').valid &&
+                  packageForm.get('day').touched
                 "
                 class="i-Information text-danger"
               >
-                Please enter total price min 0</i
+                Please enter total day</i
+              >
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="session">Session</label>
+              <input
+                type="text"
+                class="form-control "
+                id="session"
+                placeholder="Enter Session"
+                formControlName="session"
+              />
+              <i
+                *ngIf="
+                  !packageForm.get('session').valid &&
+                  packageForm.get('session').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter total session</i
               >
             </div>
 

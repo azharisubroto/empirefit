@@ -13,7 +13,7 @@
 	
 			<form-wizard>
 				<wizard-step [title]="'Agreement'" [isValid]="basicForm.form.valid" (onNext)="onStep1Next($event)">
-					<h4>ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
+					<h4 class="text-plain">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
 
 					<p>THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT, YOU ARE WAIVING CERTAIN LEGAL RIGHTS AND ARE COMPLETELY RELEASING POTENTIAL CLAIMS. PLEASE READ IT CAREFULLY.</p>
 
@@ -21,18 +21,18 @@
 						<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
 							<ngb-panel title="I. Personal Data of the Participant">
 								<ng-template ngbPanelContent>
-									<ul>
-										<li>Name: {{member.name}} <br></li>
+									<ul class="list no-list-style">
+										<li><strong>Name:</strong> {{member.name}} <br></li>
 			
-										<li>Address: {{member.address}}<br></li>
+										<li><strong>Address:</strong> {{member.address}}<br></li>
 					
-										<li>Date of Birth: {{member.date_of_birth}}<br></li>
+										<li><strong>Date of Birth:</strong> {{member.date_of_birth}}<br></li>
 					
-										<li>Contact Number: {{member.phone}}<br></li>
+										<li><strong>Contact Number:</strong> {{member.phone}}<br></li>
 					
-										<li>In an emergency, I would like EMPIRE FIT CLUB to Call:<br></li>
+										<li><strong>In an emergency, I would like EMPIRE FIT CLUB to Call:</strong> {{ member.phone }}</li>
 					
-										<li>Email: {{member.email}}</li>
+										<li><strong>Email:</strong> {{member.email}}</li>
 									</ul>
 								</ng-template>
 							</ngb-panel>
@@ -40,76 +40,51 @@
 								<ng-template ngbPanelContent>
 									<ul class="list" style="list-style:none;">
 										<li>
-											<label class="switch switch-primary mr-3">
-												<span>Do you: Smoke?</span>
-												<input type="checkbox" >
-												<span class="slider"></span>
-											</label>
+											Do you: Smoke?
+											<div class="text-medium">Yes</div>
 										</li>
 										<li>
-											<label class="switch switch-primary mr-3">
-												<span>Drink Drink alcohol?</span>
-												<input type="checkbox" >
-												<span class="slider"></span>
-											</label>
+											Drink Drink alcohol?
+											<div class="text-medium">Yes</div>
 										</li>
 										<li>
-											<label class="switch switch-primary mr-3">
-												<span>Take prescription meds?</span>
-												<input type="checkbox" >
-												<span class="slider"></span>
-											</label>
+											Take prescription meds?
+											<div class="text-medium">Yes</div>
 										</li>
 										<li>
 											<div class="row align-items-center">
-												<div class="col-md-4">
-													<label class="switch switch-primary mr-3">
-														<span>Are you exercising now?</span>
-														<input type="checkbox" >
-														<span class="slider"></span>
-													</label>
+												<div class="col-md-12 mb-3">
+													Are you exercising now?
+													<div class="text-medium">Yes</div>
 												</div>
-												<div class="col-md-8">
+												<div class="col-md-12">
 													How many times  per week?
-													<input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+													<div class="text-medium">5 Times</div>
 												</div>
 											</div>										
 										</li>
 										<li>
-											<label class="switch switch-primary mr-3">
-												<span>Do you have: Back pain, Knee pain or Shoulder pain?</span>
-												<input type="checkbox" >
-												<span class="slider"></span>
-											</label>
+											Do you have: Back pain, Knee pain or Shoulder pain?
 										</li>
 										<li>
 											<div class="row align-items-center">
-												<div class="col-md-4">
-													<label class="switch switch-primary mr-3">
-														<span>Previous Injuries or Surgeries?</span>
-														<input type="checkbox" >
-														<span class="slider"></span>
-													</label>
+												<div class="col-md-12 mb-3">
+													Previous Injuries or Surgeries?
+													<div class="text-medium">Yes</div>
 												</div>
-												<div class="col-md-8">
+												<div class="col-md-12">
 													If  Yes what injuries or surgeries 
-													<input type="text" class="form-control" id="firstName" placeholder="Enter your first name">
+													<div class="text-medium">Ketimpa dumble</div>
 												</div>
 											</div>
 										</li>
 										<li>
-											<label class="switch switch-primary mr-3">
-												<span>High blood pressure, Asthma, Diabetes, or a Heart condition?</span>
-												<input type="checkbox" >
-												<span class="slider"></span>
-											</label>
+											High blood pressure, Asthma, Diabetes, or a Heart condition?
+											<div class="text-medium">Yes</div>
 										</li>
 										<li>
-											<label class="switch switch-primary mr-3">
-												<span>Any other health conditions or pre-existing conditions not listed?</span>
-												<input type="checkbox" >
-												<span class="slider"></span>
-											</label>
+											Any other health conditions or pre-existing conditions not listed?
+											<div class="text-medium">Yes</div>
 										</li>
 									</ul>
 								</ng-template>
@@ -147,12 +122,12 @@
 					
 						<div class="row mt-5">
 							<div class="form-group col-md-6 mb-3">
-								<label for="firstName">Signature 1</label>
-								<input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" [(ngModel)]="data.firstName">
+								<label for="firstName" class="d-block mb-2">Signature 1</label>
+								<img src="https://via.placeholder.com/250x150" alt="">
 							</div>
 							<div class="form-group col-md-6 mb-3">
-								<label for="lastName">Signature 2</label>
-								<input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last name" [(ngModel)]="data.lastName">
+								<label for="lastName" class="d-block mb-2">Signature 2</label>
+								<img src="https://via.placeholder.com/250x150" alt="">
 							</div>
 						</div>
 					</form>
@@ -160,7 +135,7 @@
 	
 				<wizard-step [title]="'Identification'" [isValid]="step2Form.valid" (onNext)="onStep2Next($event)">
 					<form [formGroup]="step2Form">
-						<div class="row justify-content-center">
+						<div class="row">
 							<div class="col-md-6">
 								<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
 									<div class="text-muted mb-0">
@@ -173,15 +148,15 @@
 							</div>
 						</div>
 
-						<div class="row justify-content-center mb-3">
-							<div class="col-md-12 text-center">
+						<div class="row mb-3">
+							<div class="col-md-12">
 								<h4>Photo</h4>
 							</div>
 						</div>
 
-						<hr>
+						<hr class="mt-0">
 
-						<div class="row justify-content-center">
+						<div class="row">
 							<div class="col-md-2">
 								<img src="{{member.photo}}" alt="">
 							</div>
@@ -193,8 +168,8 @@
 
 						<div class="row">
 							<div class="col-md-12">
-								<div class="row justify-content-center">
-									<div class="col-12 text-center mt-4">
+								<div class="row">
+									<div class="col-12 mt-4">
 										<h4>Fingerprint</h4>
 									</div>
 									<div class="col-12 mb-4">
@@ -210,7 +185,7 @@
 										<img src="https://via.placeholder.com/150" alt="">
 									</div>
 								</div>
-								<div class="row justify-content-center mt-4">
+								<div class="row mt-4">
 									<div class="col-md-4">
 										<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
 											<div class="text-muted mb-0">
@@ -222,7 +197,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row justify-content-center mt-2">
+								<div class="row mt-2 mb-5">
 									<div class="col-md-4">
 										<a href="#" class="btn btn-block py-3 btn-success btn-lg">Retry</a>
 									</div>
@@ -349,34 +324,34 @@
 							<li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
 						</ul>
 
-						<div class="row justify-content-center">
+						<div class="row">
 							<div class="col-md-7">
 								<div class="px-4 py-3 border border-light rounded align-items-center">
 									<div class="row mb-3">
-										<div class="col-6">
+										<div class="col-3">
 											Name on Card
 										</div>
-										<div class="col-6">
+										<div class="col-9">
 											<div class="boxvalue">
 												{{member.name}}
 											</div>
 										</div>
 									</div>
 									<div class="row mb-3">
-										<div class="col-6">
+										<div class="col-3">
 											Card Number
 										</div>
-										<div class="col-6">
+										<div class="col-9">
 											<div class="boxvalue">
 												2342-2342-2342-6567
 											</div>
 										</div>
 									</div>
 									<div class="row mb-3">
-										<div class="col-6">
+										<div class="col-3">
 											EXP Date
 										</div>
-										<div class="col-6">
+										<div class="col-9">
 											<div class="boxvalue d-inline-block">
 												01
 											</div>/
@@ -386,20 +361,20 @@
 										</div>
 									</div>
 									<div class="row mb-3">
-										<div class="col-6">
+										<div class="col-3">
 											Signature
 										</div>
-										<div class="col-6">
+										<div class="col-9">
 											<div class="boxvalue">
 												<img src="https://via.placeholder.com/350x150" alt="">
 											</div>
 										</div>
 									</div>
 									<div class="row mb-3">
-										<div class="col-6">
+										<div class="col-3">
 											Date
 										</div>
-										<div class="col-6">
+										<div class="col-9">
 											<div class="boxvalue">
 												12 Agustus 2019
 											</div>
