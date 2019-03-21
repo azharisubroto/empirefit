@@ -62,8 +62,8 @@
                 class="form-control form-control-rounded"
                 formControlName="period"
               >
-                <option value="month">Month</option>
-                <option value="day">Day</option>
+                <option value="Month">Month</option>
+                <option value="Day">Day</option>
               </select>
             </div>
             <div class="col-md-6 form-group mb-3">
@@ -86,7 +86,28 @@
               >
             </div>
 
+            <div class="col-md-12 mb-3">
+              <hr />
+              <h3 class="mb-4">Benefit :</h3>
+              <div class="col-md-12 mb-1">
+                <input type="checkbox" checked class="selectall" />
+                <span class="checkmark"></span>
+              </div>
+              <div class="col-md-4" *ngFor="let benefit of benefits">
+                <input
+                  type="checkbox"
+                  class="mr-2"
+                  name="benefit"
+                  checked
+                  value="{{ benefit.id }}"
+                />
+                <span class="checkmark"></span>
+                <label for="">{{ benefit.benefit_name }}</label>
+              </div>
+            </div>
+
             <div class="col-md-12">
+              <input type="hidden" class="benefit-final" value="" />
               <btn-loading
                 btnClass="btn-primary btn-rounded"
                 [loading]="loading"

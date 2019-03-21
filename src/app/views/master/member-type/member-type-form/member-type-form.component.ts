@@ -23,6 +23,7 @@ export class MemberTypeFormComponent implements OnInit {
   member_type_name;
   benefits;
   memberTypeForm: FormGroup;
+  getbenefits;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +38,7 @@ export class MemberTypeFormComponent implements OnInit {
     this.memberTypeForm = this.fb.group({
       member_type_name: ["", Validators.required],
       duration: ["", Validators.required],
-      period: ["month", Validators.required],
+      period: ["Month", Validators.required],
       session: ["", Validators.required]
     });
 
@@ -63,6 +64,15 @@ export class MemberTypeFormComponent implements OnInit {
           period: data["data"].period,
           session: data["data"].session
         });
+
+        this.getbenefits = data["data"].club_benefits;
+
+        $.each(this.getbenefits, function(i, item) {
+          $("input[name='benefit'][value=" + item.benefit_id + "]").prop(
+            "checked",
+            true
+          );
+        });
       });
   }
 
@@ -72,36 +82,40 @@ export class MemberTypeFormComponent implements OnInit {
     $.each($("input[name='benefit']:checked"), function() {
       dataBenefits.push($(this).val());
     });
-    $(".benefit-final").val(dataBenefits.join(","));
+    $(".benefit-final").val(dataBenefits);
 
     benefit = dataBenefits;
-
-    console.log(benefit);
-    this.benefitService.updateBenefitMember(
-      this.activatedRoute.snapshot.params["id"],
-      benefit
-    );
-
-    this.loading = true;
-    this.memberTypeService
-      .updateMemberType(
-        this.activatedRoute.snapshot.params["id"],
-        this.memberTypeForm.value
-      )
-      .subscribe((res: any) => {
-        setTimeout(() => {
+    this.benefitService
+      .updateBenefitMember(this.activatedRoute.snapshot.params["id"], benefit)
+      .subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.loading = true;
+          this.memberTypeService
+            .updateMemberType(
+              this.activatedRoute.snapshot.params["id"],
+              this.memberTypeForm.value
+            )
+            .subscribe((res: any) => {
+              setTimeout(() => {
+                this.loading = false;
+                if (res["status"] === "200") {
+                  this.toastr.success(res["message"], "Success!", {
+                    progressBar: true
+                  });
+                  this.router.navigateByUrl("master/member-type");
+                } else {
+                  this.toastr.error(res["message"], "Error!", {
+                    progressBar: true
+                  });
+                }
+              }, 3000);
+            });
+        } else {
           this.loading = false;
-          if (res["status"] === "200") {
-            this.toastr.success(res["message"], "Success!", {
-              progressBar: true
-            });
-            this.router.navigateByUrl("master/member-type");
-          } else {
-            this.toastr.error(res["message"], "Error!", {
-              progressBar: true
-            });
-          }
-        }, 3000);
+          this.toastr.success(data["message"], "Error!", {
+            progressBar: true
+          });
+        }
       });
   }
 }

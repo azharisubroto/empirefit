@@ -48,4 +48,12 @@ export class BenefitService {
       this.httpOptions
     );
   }
+
+  createBenefitMember(data) {
+    return this.http.post(
+      this.apiURL + "/benefits_member/",
+      data,
+      this.httpOptions
+    );
+  }
 }
