@@ -18,7 +18,7 @@
               <label for="name">Name</label>
               <input
                 type="text"
-                class="form-control form-control-rounded"
+                class="form-control "
                 id="name"
                 placeholder="Enter your name"
                 formControlName="name"
@@ -37,7 +37,7 @@
               <label for="email">Email address</label>
               <input
                 type="email"
-                class="form-control form-control-rounded"
+                class="form-control "
                 id="email"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
@@ -49,7 +49,7 @@
               <label for="password">Password</label>
               <input
                 type="password"
-                class="form-control form-control-rounded"
+                class="form-control "
                 name="password"
                 id="password"
                 placeholder="Confirm Password"
@@ -61,7 +61,7 @@
               <label for="password_confirmation">Password Confirmation</label>
               <input
                 type="password"
-                class="form-control form-control-rounded"
+                class="form-control "
                 name="password_confirmation"
                 id="password_confirmation"
                 placeholder="Confirm Password"
@@ -74,7 +74,7 @@
               <select
                 name="branch_id"
                 id="branch"
-                class="form-control form-control-rounded"
+                class="form-control "
                 formControlName="branch_id"
               >
                 <option [ngValue]="branch.id" *ngFor="let branch of branches">{{
@@ -88,7 +88,7 @@
               <select
                 name="role"
                 id="role"
-                class="form-control form-control-rounded"
+                class="form-control "
                 formControlName="role"
               >
                 <option [ngValue]="role.name" *ngFor="let role of roles">{{

@@ -48,9 +48,9 @@ export class NavigationService {
 
   defaultMenu: IMenuItem[] = [
     {
-      name: "Member",
+      name: "Customer Search",
       type: "link",
-      tooltip: "Member",
+      tooltip: "Customer Search",
       icon: "i-Gey",
       state: "/"
     },
