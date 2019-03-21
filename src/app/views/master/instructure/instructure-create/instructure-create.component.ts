@@ -60,7 +60,7 @@ export class InstructureCreateComponent implements OnInit {
               this.toastr.success(res["message"], "Success!", {
                 progressBar: true
               });
-              this.router.navigateByUrl("master/instructure");
+              this.router.navigateByUrl("master/coach");
             } else {
               this.toastr.error(res["message"], "Error!", {
                 progressBar: true

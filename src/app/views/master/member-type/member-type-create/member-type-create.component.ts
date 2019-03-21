@@ -31,7 +31,10 @@ export class MemberTypeCreateComponent implements OnInit {
 
   ngOnInit() {
     this.memberTypeForm = this.fb.group({
-      member_type_name: ["", Validators.required]
+      member_type_name: ["", Validators.required],
+      duration: ["", Validators.required],
+      period: ["", Validators.required],
+      session: ["", Validators.required]
     });
   }
 

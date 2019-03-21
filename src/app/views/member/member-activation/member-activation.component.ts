@@ -5,7 +5,6 @@ import { ToastrService } from "ngx-toastr";
 import { MemberService } from "src/app/shared/services/member.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { PackageService } from "src/app/shared/services/package.service";
 import { BankService } from "src/app/shared/services/bank.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 
@@ -34,7 +33,6 @@ export class MemberActivationComponent implements OnInit {
     private toastr: ToastrService,
     private memberService: MemberService,
     private MemberTypeService: MemberTypeService,
-    private PackageService: PackageService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private bank: BankService,
@@ -67,11 +65,6 @@ export class MemberActivationComponent implements OnInit {
     this.MemberTypeService.getMemberTypes().subscribe((data: any) => {
       this.type = data["data"];
       console.log(this.type);
-    });
-
-    this.PackageService.getPackages().subscribe((data: any) => {
-      this.package = data["data"];
-      console.log(this.package);
     });
 
     this.bank.getBanks().subscribe((data: any) => {

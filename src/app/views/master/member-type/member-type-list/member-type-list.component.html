@@ -30,12 +30,16 @@
                   <thead class="text-center">
                     <tr>
                       <th>Member Type</th>
+                      <th>Duration</th>
+                      <th>Session</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let membertype of membertypes">
                       <td>{{ membertype.member_type_name }}</td>
+                      <td>{{ membertype.duration }} {{ membertype.period }}</td>
+                      <td>{{ membertype.session }}</td>
                       <td>
                         <a
                           href="#"

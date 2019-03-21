@@ -11,7 +11,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { PriceService } from "src/app/shared/services/price.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { PaymentTypeService } from "src/app/shared/services/payment-type.service";
-import { PackageService } from "src/app/shared/services/package.service";
 
 @Component({
   selector: "app-basic-form",
@@ -34,7 +33,6 @@ export class PriceFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private paymentTypeService: PaymentTypeService,
     private priceService: PriceService,
-    private packageService: PackageService,
     private memberTypeService: MemberTypeService
   ) {}
 
@@ -42,15 +40,10 @@ export class PriceFormComponent implements OnInit {
     this.priceForm = this.fb.group({
       payment_type_id: ["", Validators.required],
       member_type_id: ["", Validators.required],
-      package_id: ["", Validators.required],
       price: ["", Validators.required],
       recuring: [1, Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
-    });
-
-    this.packageService.getPackages().subscribe((data: any) => {
-      this.packages = data["data"];
     });
 
     this.memberTypeService.getMemberTypes().subscribe((data: any) => {
@@ -67,7 +60,6 @@ export class PriceFormComponent implements OnInit {
         this.priceForm.setValue({
           payment_type_id: data["data"].payment_type_id,
           member_type_id: data["data"].member_type_id,
-          package_id: data["data"].package_id,
           price: data["data"].price,
           recuring: data["data"].recuring,
           start_date: data["data"].start_date,

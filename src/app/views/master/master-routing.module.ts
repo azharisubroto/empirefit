@@ -12,8 +12,6 @@ import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.co
 import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.component";
 import { PaymentTypeListComponent } from "./payment-type/payment-type-list/payment-type-list.component";
 import { PaymentTypeFormComponent } from "./payment-type/payment-type-form/payment-type-form.component";
-import { PackageListComponent } from "./package/package-list/package-list.component";
-import { PackageFormComponent } from "./package/package-form/package-form.component";
 import { MemberTypeListComponent } from "./member-type/member-type-list/member-type-list.component";
 import { MemberTypeFormComponent } from "./member-type/member-type-form/member-type-form.component";
 import { PriceListComponent } from "./price/price-list/price-list.component";
@@ -22,8 +20,6 @@ import { BenefitListComponent } from "./benefit/benefit-list/benefit-list.compon
 import { BenefitFormComponent } from "./benefit/benefit-form/benefit-form.component";
 import { ClubBenefitListComponent } from "./club-benefit/club-benefit-list/club-benefit-list.component";
 import { ClubBenefitFormComponent } from "./club-benefit/club-benefit-form/club-benefit-form.component";
-import { DropinTypeListComponent } from "./dropin-type/dropin-type-list/dropin-type-list.component";
-import { DropinTypeFormComponent } from "./dropin-type/dropin-type-form/dropin-type-form.component";
 import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list/dropin-company-list.component";
 import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
 import { UserFormComponent } from "./user/user-form/user-form.component";
@@ -35,18 +31,13 @@ import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trai
 import { RolePermissionComponent } from "./role/role-permission/role-permission.component";
 import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
 import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/payment-type-create.component";
-import { PackageCreateComponent } from "./package/package-create/package-create.component";
 import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
-import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
 import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
 import { PriceCreateComponent } from "./price/price-create/price-create.component";
 import { ClubBenefitCreateComponent } from "./club-benefit/club-benefit-create/club-benefit-create.component";
 import { HealthQuestionsListComponent } from "./health-questions/health-questions-list/health-questions-list.component";
 import { HealthQuestionsCreateComponent } from "./health-questions/health-questions-create/health-questions-create.component";
 import { HealthQuestionsFormComponent } from "./health-questions/health-questions-form/health-questions-form.component";
-// import { PricePtCreateComponent } from "./price-personal-trainer/price-pt-create/price-pt-create.component";
-// import { PricePtFormComponent } from "./price-personal-trainer/price-pt-form/price-pt-form.component";
-// import { PricePtListComponent } from "./price-personal-trainer/price-pt-list/price-pt-list.component";
 import { BankListComponent } from "./bank/bank-list/bank-list.component";
 import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
 import { BankFormComponent } from "./bank/bank-form/bank-form.component";
@@ -109,11 +100,11 @@ const routes: Routes = [
     component: PersonalTrainerFormComponent
   },
   {
-    path: "instructure",
+    path: "coach",
     component: InstructureListComponent
   },
   {
-    path: "instructure/instructure-create",
+    path: "coach/coach-create",
     component: InstructureCreateComponent
   },
   {
@@ -153,18 +144,6 @@ const routes: Routes = [
     component: BankFormComponent
   },
   {
-    path: "package",
-    component: PackageListComponent
-  },
-  {
-    path: "package/package-create",
-    component: PackageCreateComponent
-  },
-  {
-    path: "package/package-edit/:id",
-    component: PackageFormComponent
-  },
-  {
     path: "member-type",
     component: MemberTypeListComponent
   },
@@ -188,18 +167,6 @@ const routes: Routes = [
     path: "price/price-edit/:id",
     component: PriceFormComponent
   },
-  // {
-  //   path: "price-pt",
-  //   component: PricePtListComponent
-  // },
-  // {
-  //   path: "price-pt/price-pt-create",
-  //   component: PricePtCreateComponent
-  // },
-  // {
-  //   path: "price-pt/price-pt-create/:id",
-  //   component: PricePtFormComponent
-  // },
   {
     path: "benefit",
     component: BenefitListComponent
@@ -213,28 +180,16 @@ const routes: Routes = [
     component: BenefitFormComponent
   },
   {
-    path: "club-benefit",
+    path: "benefit-detail",
     component: ClubBenefitListComponent
   },
   {
-    path: "club-benefit/club-benefit-edit/:id",
+    path: "benefit-detail/benefit-detail-edit/:id",
     component: ClubBenefitFormComponent
   },
   {
-    path: "club-benefit/club-benefit-create",
+    path: "benefit-detail/benefit-detail-create",
     component: ClubBenefitCreateComponent
-  },
-  {
-    path: "dropin-type",
-    component: DropinTypeListComponent
-  },
-  {
-    path: "dropin-type/dropin-type-create",
-    component: DropinTypeCreateComponent
-  },
-  {
-    path: "dropin-type/dropin-type-edit/:id",
-    component: DropinTypeFormComponent
   },
   {
     path: "dropin-company",

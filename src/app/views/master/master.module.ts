@@ -20,8 +20,6 @@ import { ScheduleFormComponent } from "./schedule/schedule-form/schedule-form.co
 import { ScheduleListComponent } from "./schedule/schedule-list/schedule-list.component";
 import { PaymentTypeFormComponent } from "./payment-type/payment-type-form/payment-type-form.component";
 import { PaymentTypeListComponent } from "./payment-type/payment-type-list/payment-type-list.component";
-import { PackageFormComponent } from "./package/package-form/package-form.component";
-import { PackageListComponent } from "./package/package-list/package-list.component";
 import { MemberTypeListComponent } from "./member-type/member-type-list/member-type-list.component";
 import { MemberTypeFormComponent } from "./member-type/member-type-form/member-type-form.component";
 import { PriceListComponent } from "./price/price-list/price-list.component";
@@ -30,8 +28,6 @@ import { BenefitListComponent } from "./benefit/benefit-list/benefit-list.compon
 import { BenefitFormComponent } from "./benefit/benefit-form/benefit-form.component";
 import { ClubBenefitListComponent } from "./club-benefit/club-benefit-list/club-benefit-list.component";
 import { ClubBenefitFormComponent } from "./club-benefit/club-benefit-form/club-benefit-form.component";
-import { DropinTypeListComponent } from "./dropin-type/dropin-type-list/dropin-type-list.component";
-import { DropinTypeFormComponent } from "./dropin-type/dropin-type-form/dropin-type-form.component";
 import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list/dropin-company-list.component";
 import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
 
@@ -46,25 +42,20 @@ import { PersonalTrainerCreateComponent } from "./personal-trainer/personal-trai
 import { InstructureCreateComponent } from "./instructure/instructure-create/instructure-create.component";
 import { ScheduleCreateComponent } from "./schedule/schedule-create/schedule-create.component";
 import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/payment-type-create.component";
-import { PackageCreateComponent } from "./package/package-create/package-create.component";
 import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
 import { BenefitCreateComponent } from "./benefit/benefit-create/benefit-create.component";
-import { DropinTypeCreateComponent } from "./dropin-type/dropin-type-create/dropin-type-create.component";
 import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
 import { PriceCreateComponent } from "./price/price-create/price-create.component";
 import { ClubBenefitCreateComponent } from "./club-benefit/club-benefit-create/club-benefit-create.component";
 import { HealthQuestionsListComponent } from "./health-questions/health-questions-list/health-questions-list.component";
 import { HealthQuestionsFormComponent } from "./health-questions/health-questions-form/health-questions-form.component";
 import { HealthQuestionsCreateComponent } from "./health-questions/health-questions-create/health-questions-create.component";
-import { PricePtCreateComponent } from "./price-personal-trainer/price-pt-create/price-pt-create.component";
-import { PricePtFormComponent } from "./price-personal-trainer/price-pt-form/price-pt-form.component";
-import { PricePtListComponent } from "./price-personal-trainer/price-pt-list/price-pt-list.component";
 import { BankListComponent } from "./bank/bank-list/bank-list.component";
 import { BankFormComponent } from "./bank/bank-form/bank-form.component";
 import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
-import { BranchListComponent } from './branch/branch-list/branch-list.component';
-import { BranchFormComponent } from './branch/branch-form/branch-form.component';
-import { BranchCreateComponent } from './branch/branch-create/branch-create.component';
+import { BranchListComponent } from "./branch/branch-list/branch-list.component";
+import { BranchFormComponent } from "./branch/branch-form/branch-form.component";
+import { BranchCreateComponent } from "./branch/branch-create/branch-create.component";
 
 @NgModule({
   imports: [
@@ -92,8 +83,6 @@ import { BranchCreateComponent } from './branch/branch-create/branch-create.comp
     ScheduleListComponent,
     PaymentTypeFormComponent,
     PaymentTypeListComponent,
-    PackageFormComponent,
-    PackageListComponent,
     MemberTypeFormComponent,
     MemberTypeListComponent,
     PriceFormComponent,
@@ -102,8 +91,6 @@ import { BranchCreateComponent } from './branch/branch-create/branch-create.comp
     BenefitListComponent,
     ClubBenefitFormComponent,
     ClubBenefitListComponent,
-    DropinTypeFormComponent,
-    DropinTypeListComponent,
     DropinCompanyFormComponent,
     DropinCompanyListComponent,
     UserFormComponent,
@@ -115,19 +102,14 @@ import { BranchCreateComponent } from './branch/branch-create/branch-create.comp
     InstructureCreateComponent,
     ScheduleCreateComponent,
     PaymentTypeCreateComponent,
-    PackageCreateComponent,
     MemberTypeCreateComponent,
     BenefitCreateComponent,
-    DropinTypeCreateComponent,
     DropinCompanyCreateComponent,
     PriceCreateComponent,
     ClubBenefitCreateComponent,
     HealthQuestionsListComponent,
     HealthQuestionsFormComponent,
     HealthQuestionsCreateComponent,
-    PricePtListComponent,
-    PricePtFormComponent,
-    PricePtCreateComponent,
     BankListComponent,
     BankFormComponent,
     BankCreateComponent,

@@ -15,6 +15,7 @@ import { ImageCropperModule } from "ngx-img-cropper";
 import { SharedComponentsModule } from "src/app/shared/components/shared-components.module";
 import { FormWizardModule } from "src/app/shared/components/form-wizard/form-wizard.module";
 import { TextMaskModule } from "angular2-text-mask";
+import { StaffFormComponent } from './staff-form/staff-form.component';
 
 @NgModule({
   imports: [
@@ -32,6 +33,6 @@ import { TextMaskModule } from "angular2-text-mask";
     CustomFormsModule,
     SharedComponentsModule
   ],
-  declarations: [StaffListComponent, StaffRegistrationComponent]
+  declarations: [StaffListComponent, StaffRegistrationComponent, StaffFormComponent]
 })
 export class StaffModule {}

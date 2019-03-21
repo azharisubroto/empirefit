@@ -1,6 +1,6 @@
 <div class="">
   <div class="breadcrumb">
-    <h1>Club Benefit</h1>
+    <h1>Benefit Detail</h1>
     <ul>
       <li>List</li>
     </ul>
@@ -13,7 +13,7 @@
       <div class="form-group">
         <a
           href="#"
-          [routerLink]="['club-benefit-create']"
+          [routerLink]="['benefit-detail-create']"
           class="btn btn-primary btn-rounded"
         >
           Create
@@ -41,7 +41,10 @@
                       <td>
                         <a
                           href="#"
-                          [routerLink]="['club-benefit-edit/', clubbenefit.id]"
+                          [routerLink]="[
+                            'benefit-detail-edit/',
+                            clubbenefit.id
+                          ]"
                           class="btn btn-sm btn-warning mr-2"
                           title="Edit"
                           triggers="mouseenter:mouseleave"

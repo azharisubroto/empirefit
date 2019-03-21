@@ -14,14 +14,12 @@
         <div class="card-title mb-3">Form Create Member Type</div>
         <form [formGroup]="memberTypeForm" (ngSubmit)="submit()">
           <div class="row">
-            <div class="col-md-6 form-group mb-3">
-              <label for="member_type_name">Member Type</label>
+            <div class="col-md-12 form-group mb-3">
+              <label for="member_type_name">Name</label>
               <input
-                autofocus
-                type="text"
-                class="form-control form-control-rounded"
+                name="member_type_name"
                 id="member_type_name"
-                placeholder="Enter member type "
+                class="form-control form-control-rounded"
                 formControlName="member_type_name"
               />
               <i
@@ -32,6 +30,57 @@
                 class="i-Information text-danger"
               >
                 Please enter member type name</i
+              >
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="duration">Duration</label>
+              <input
+                type="text"
+                class="form-control form-control-rounded"
+                id="duration"
+                placeholder="Enter duration"
+                formControlName="duration"
+              />
+              <i
+                *ngIf="
+                  !memberTypeForm.get('duration').valid &&
+                  memberTypeForm.get('duration').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter total duration</i
+              >
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="period">Period</label>
+              <select
+                name="period"
+                id="period"
+                class="form-control form-control-rounded"
+                formControlName="period"
+              >
+                <option value="month">Month</option>
+                <option value="day">Day</option>
+              </select>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="session">Session</label>
+              <input
+                type="text"
+                class="form-control form-control-rounded"
+                id="session"
+                placeholder="Enter Session"
+                formControlName="session"
+              />
+              <i
+                *ngIf="
+                  !memberTypeForm.get('session').valid &&
+                  memberTypeForm.get('session').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter total session</i
               >
             </div>
 

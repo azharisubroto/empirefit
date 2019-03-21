@@ -60,22 +60,6 @@
             </div>
 
             <div class="col-md-6 form-group mb-3">
-              <label for="package_id">Package Type</label>
-              <select
-                name="package_name"
-                id="package_name"
-                class="form-control form-control-rounded"
-                formControlName="package_id"
-              >
-                <option
-                  [ngValue]="package.id"
-                  *ngFor="let package of packages"
-                  >{{ package.package_name }}</option
-                >
-              </select>
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
               <label for="price">Price</label>
               <input
                 type="text"

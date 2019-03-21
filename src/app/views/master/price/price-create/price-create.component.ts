@@ -11,7 +11,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { PriceService } from "src/app/shared/services/price.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { PaymentTypeService } from "src/app/shared/services/payment-type.service";
-import { PackageService } from "src/app/shared/services/package.service";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -36,7 +35,6 @@ export class PriceCreateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private paymentTypeService: PaymentTypeService,
     private priceService: PriceService,
-    private packageService: PackageService,
     private memberTypeService: MemberTypeService,
     private parserFormatter: NgbDateParserFormatter
   ) {}
@@ -45,15 +43,10 @@ export class PriceCreateComponent implements OnInit {
     this.priceForm = this.fb.group({
       payment_type_id: [1, Validators.required],
       member_type_id: [1, Validators.required],
-      package_id: [1, Validators.required],
       price: ["", Validators.required],
       recuring: [0, Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
-    });
-
-    this.packageService.getPackages().subscribe((data: any) => {
-      this.packages = data["data"];
     });
 
     this.memberTypeService.getMemberTypes().subscribe((data: any) => {
@@ -70,7 +63,6 @@ export class PriceCreateComponent implements OnInit {
     let end_date = this.priceForm.controls["end_date"].value;
     let payment_type_id = this.priceForm.controls["payment_type_id"].value;
     let member_type_id = this.priceForm.controls["member_type_id"].value;
-    let package_id = this.priceForm.controls["package_id"].value;
     let price = this.priceForm.controls["price"].value;
     let recuring = this.priceForm.controls["recuring"].value;
     let formValues = this.priceForm.value;
@@ -78,7 +70,6 @@ export class PriceCreateComponent implements OnInit {
     formValues["end_date"] = this.parserFormatter.format(end_date);
     formValues["member_type_id"] = member_type_id;
     formValues["payment_type_id"] = payment_type_id;
-    formValues["package_id"] = package_id;
     formValues["price"] = price;
     formValues["recuring"] = recuring;
     if (this.priceForm.invalid) {

@@ -63,23 +63,10 @@ export class NavigationService {
     },
     {
       name: "Staff",
-      description: "This is staff menu.",
-      type: "dropDown",
+      type: "link",
+      tooltip: "Staff",
       icon: "i-Conference",
-      sub: [
-        {
-          icon: "i-Find-User",
-          name: "List",
-          state: "/staff/list",
-          type: "link"
-        },
-        {
-          icon: "i-Add-User",
-          name: "Registration",
-          state: "/staff/registration",
-          type: "link"
-        }
-      ]
+      state: "/staff"
     },
     {
       name: "Schedules",
@@ -159,8 +146,8 @@ export class NavigationService {
         },
         {
           icon: "i-Male",
-          name: "Instructure",
-          state: "/master/instructure",
+          name: "Coach",
+          state: "/master/coach",
           type: "link"
         },
         {
@@ -182,12 +169,6 @@ export class NavigationService {
           type: "link"
         },
         {
-          icon: "i-Wallet",
-          name: "Package",
-          state: "/master/package",
-          type: "link"
-        },
-        {
           icon: "i-Geek",
           name: "Member Type",
           state: "/master/member-type",
@@ -199,12 +180,6 @@ export class NavigationService {
           state: "/master/price",
           type: "link"
         },
-        // {
-        //   icon: "i-Money-2",
-        //   name: "Price Personal Trainer",
-        //   state: "/master/price-pt",
-        //   type: "link"
-        // },
         {
           icon: "i-Wallet",
           name: "Benefit",
@@ -213,14 +188,8 @@ export class NavigationService {
         },
         {
           icon: "i-Wallet",
-          name: "Club Benefit",
-          state: "/master/club-benefit",
-          type: "link"
-        },
-        {
-          icon: "i-Double-Tap",
-          name: "Dropin Type",
-          state: "/master/dropin-type",
+          name: "Benefit Detail",
+          state: "/master/benefit-detail",
           type: "link"
         },
         {

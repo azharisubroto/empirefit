@@ -47,8 +47,8 @@ export class UserFormComponent implements OnInit {
       id: [""],
       name: ["", Validators.required],
       email: ["", Validators.required],
-      password: [""],
-      password_confirmation: [""],
+      password: ["kosong"],
+      password_confirmation: ["kosong"],
       branch_id: ["", Validators.required],
       role: ["", Validators.required]
     });
@@ -60,8 +60,8 @@ export class UserFormComponent implements OnInit {
           id: data["data"].id,
           name: data["data"].name,
           email: data["data"].email,
-          password: "",
-          password_confirmation: "",
+          password: "kosong",
+          password_confirmation: "kosong",
           branch_id: data["data"].branch_id,
           role: data["data"].role
         });

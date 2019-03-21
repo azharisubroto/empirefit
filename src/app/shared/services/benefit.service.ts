@@ -40,4 +40,12 @@ export class BenefitService {
       this.httpOptions
     );
   }
+
+  updateBenefitMember(id, data) {
+    return this.http.put(
+      this.apiURL + "/benefits_member/" + id,
+      data,
+      this.httpOptions
+    );
+  }
 }

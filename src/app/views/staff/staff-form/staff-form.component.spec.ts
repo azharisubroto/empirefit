@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DropinTypeCreateComponent } from './dropin-type-create.component';
+import { StaffFormComponent } from './staff-form.component';
 
-describe('DropinTypeCreateComponent', () => {
-  let component: DropinTypeCreateComponent;
-  let fixture: ComponentFixture<DropinTypeCreateComponent>;
+describe('StaffFormComponent', () => {
+  let component: StaffFormComponent;
+  let fixture: ComponentFixture<StaffFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DropinTypeCreateComponent ]
+      declarations: [ StaffFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DropinTypeCreateComponent);
+    fixture = TestBed.createComponent(StaffFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
