@@ -19,7 +19,7 @@
               <select
                 name="instructure_id"
                 id="instructure_id"
-                class="form-control form-control-rounded"
+                class="form-control "
                 formControlName="instructure_id"
               >
                 <option
@@ -34,7 +34,7 @@
               <label for="exercise">Exercise</label>
               <input
                 type="text"
-                class="form-control form-control-rounded"
+                class="form-control "
                 id="exercise"
                 placeholder="Enter exercise"
                 formControlName="exercise"
@@ -55,7 +55,7 @@
               <select
                 name="day"
                 id="day"
-                class="form-control form-control-rounded"
+                class="form-control "
                 formControlName="day"
               >
                 <option *ngFor="let item of days" [ngValue]="item">{{
@@ -68,7 +68,7 @@
               <label for="time">Time</label>
               <input
                 type="text"
-                class="form-control form-control-rounded"
+                class="form-control "
                 id="time"
                 placeholder="Enter time : 00:00"
                 formControlName="time"
@@ -136,7 +136,7 @@
               <select
                 name="branch_id"
                 id="branch_id"
-                class="form-control form-control-rounded"
+                class="form-control "
                 formControlName="branch_id"
               >
                 <option *ngFor="let item of branches" [ngValue]="item.id">{{

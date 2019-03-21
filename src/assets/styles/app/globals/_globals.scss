@@ -159,3 +159,31 @@ blockquote {
 .btn-primary {
   color: $yellow!important;
 }
+
+.text-big {
+  font-size: 22px;
+}
+
+.text-medium {
+  font-size: 18px;
+}
+
+.text-plain {
+  font-size: 16px;
+}
+
+.no-list-style {
+  list-style: none!important;
+}
+
+.form-control {
+  border-radius: 5px;
+  padding: 10px;
+  height: auto!important;
+}
+
+select.form-control {
+  position: relative;
+  background: url('../../images/down-arrow.png') no-repeat right 10px center;
+  background-size: 12px;
+}
