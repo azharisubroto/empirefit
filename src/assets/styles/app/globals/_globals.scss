@@ -235,3 +235,8 @@ select.form-control {
     background: #fff;
   }
 }
+
+.layout-sidebar-large .main-header .logo img,
+.auth-logo img {
+  width: auto!important;
+}
