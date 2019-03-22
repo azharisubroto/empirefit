@@ -203,6 +203,12 @@ export class NavigationService {
           name: "Health Questions",
           state: "/master/health-questions",
           type: "link"
+        },
+        {
+          icon: "i-Library",
+          name: "Positions",
+          state: "/master/position",
+          type: "link"
         }
       ]
     }

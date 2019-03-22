@@ -45,6 +45,9 @@ import { BranchListComponent } from "./branch/branch-list/branch-list.component"
 import { BranchCreateComponent } from "./branch/branch-create/branch-create.component";
 import { BranchFormComponent } from "./branch/branch-form/branch-form.component";
 import { BenefitCreateComponent } from "./benefit/benefit-create/benefit-create.component";
+import { PositionListComponent } from "./position/position-list/position-list.component";
+import { PositionCreateComponent } from "./position/position-create/position-create.component";
+import { PositionFormComponent } from "./position/position-form/position-form.component";
 
 const routes: Routes = [
   {
@@ -226,6 +229,18 @@ const routes: Routes = [
   {
     path: "branch/branch-edit/:id",
     component: BranchFormComponent
+  },
+  {
+    path: "position",
+    component: PositionListComponent
+  },
+  {
+    path: "position/position-edit/:id",
+    component: PositionFormComponent
+  },
+  {
+    path: "position/position-create",
+    component: PositionCreateComponent
   }
 ];
 

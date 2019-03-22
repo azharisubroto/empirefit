@@ -56,6 +56,9 @@ import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
 import { BranchListComponent } from "./branch/branch-list/branch-list.component";
 import { BranchFormComponent } from "./branch/branch-form/branch-form.component";
 import { BranchCreateComponent } from "./branch/branch-create/branch-create.component";
+import { PositionListComponent } from './position/position-list/position-list.component';
+import { PositionFormComponent } from './position/position-form/position-form.component';
+import { PositionCreateComponent } from './position/position-create/position-create.component';
 
 @NgModule({
   imports: [
@@ -115,7 +118,10 @@ import { BranchCreateComponent } from "./branch/branch-create/branch-create.comp
     BankCreateComponent,
     BranchListComponent,
     BranchFormComponent,
-    BranchCreateComponent
+    BranchCreateComponent,
+    PositionListComponent,
+    PositionFormComponent,
+    PositionCreateComponent
   ]
 })
 export class MasterModule {}

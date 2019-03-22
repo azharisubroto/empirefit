@@ -1,0 +1,50 @@
+<div class="breadcrumb">
+  <h1>Position</h1>
+  <ul>
+    <li>Update</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Update Position</div>
+        <form [formGroup]="positionForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="position_name">Position</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control "
+                id="position_name"
+                placeholder="Enter Position "
+                formControlName="position_name"
+              />
+              <i
+                *ngIf="
+                  !positionForm.get('position_name').valid &&
+                  positionForm.get('position_name').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter Position name</i
+              >
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
