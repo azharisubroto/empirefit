@@ -1,6 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStoreService } from "./local-store.service";
+import { Response } from "@angular/http";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root"
@@ -8,8 +10,13 @@ import { LocalStoreService } from "./local-store.service";
 export class BankService {
   readonly apiURL = "http://45.118.132.77/api";
   // readonly apiURL = "http://localhost/efc/api";
+  error;
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(
+    private http: HttpClient,
+    private store: LocalStoreService,
+    private router: Router
+  ) {}
 
   httpOptions = {
     headers: new HttpHeaders({

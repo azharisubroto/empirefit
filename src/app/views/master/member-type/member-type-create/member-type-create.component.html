@@ -21,7 +21,7 @@
                 type="text"
                 class="form-control "
                 id="member_type_name"
-                class="form-control form-control-rounded"
+                class="form-control"
                 formControlName="member_type_name"
               />
               <i
@@ -39,7 +39,7 @@
               <label for="duration">Duration</label>
               <input
                 type="text"
-                class="form-control form-control-rounded"
+                class="form-control"
                 id="duration"
                 placeholder="Enter duration"
                 formControlName="duration"
@@ -59,7 +59,7 @@
               <select
                 name="period"
                 id="period"
-                class="form-control form-control-rounded"
+                class="form-control"
                 formControlName="period"
               >
                 <option value="Month">Month</option>
@@ -70,20 +70,11 @@
               <label for="session">Session</label>
               <input
                 type="text"
-                class="form-control form-control-rounded"
+                class="form-control"
                 id="session"
                 placeholder="Enter Session"
                 formControlName="session"
               />
-              <i
-                *ngIf="
-                  !memberTypeForm.get('session').valid &&
-                  memberTypeForm.get('session').touched
-                "
-                class="i-Information text-danger"
-              >
-                Please enter total session</i
-              >
             </div>
 
             <div class="col-md-12 mb-3">

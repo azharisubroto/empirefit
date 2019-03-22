@@ -9,6 +9,7 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { BankService } from "src/app/shared/services/bank.service";
+import { LocalStoreService } from "src/app/shared/services/local-store.service";
 
 @Component({
   selector: "app-basic-form",
@@ -19,12 +20,14 @@ export class BankFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   banks;
+  redirect;
   bankForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
+    private store: LocalStoreService,
     private bankService: BankService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -43,6 +46,17 @@ export class BankFormComponent implements OnInit {
           code: data["data"].code
         });
       });
+    // this.bankService
+    //   .showBank(this.activatedRoute.snapshot.params["id"])
+    //   .toPromise()
+    //   .then(res => res)
+    //   .catch(err => {
+    //     if (err.status === 401) {
+    //       this.store.clear();
+    //       this.redirect = "";
+    //       window.location = this.redirect;
+    //     }
+    //   });
   }
 
   submit() {

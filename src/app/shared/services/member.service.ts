@@ -22,7 +22,7 @@ export class MemberService {
     return this.http.get(this.apiURL + "/members", this.httpOptions);
   }
 
-  getSingleMember( $id ) {
+  getSingleMember($id) {
     return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
   }
 }
