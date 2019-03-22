@@ -19,6 +19,7 @@ body {
   background: $background;
   overflow-y: scroll;
   overflow-x: hidden;
+  font-size: 13px;
 }
 
 [tabindex='-1']:focus {
@@ -161,15 +162,15 @@ blockquote {
 }
 
 .text-big {
-  font-size: 22px;
+  font-size: 17px;
 }
 
 .text-medium {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .text-plain {
-  font-size: 16px;
+  font-size: 13px;
 }
 
 .no-list-style {
@@ -186,4 +187,51 @@ select.form-control {
   position: relative;
   background: url('../../images/down-arrow.png') no-repeat right 10px center;
   background-size: 12px;
+  padding-right: 30px;
+}
+
+#form-step {
+  .nav {
+    .nav-item {
+      @extend .text-big;
+    }
+  }
+  .accordion {
+    h5 button{
+      @extend .text-medium;
+    }
+  }
+}
+
+.fancy-head {
+  display: block;
+  background: #fff;
+  line-height: 1;
+  position:relative;
+  z-index: 0;
+  @extend .text-bold;
+  @extend .my-3;
+  @extend .text-medium;
+  
+  &:before {
+    content:"";
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    background: #d1d1d1;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    z-index: -1;
+  }
+
+  span {
+    display: inline-block;
+    padding-right:10px;
+    position: relative;
+    z-index: 0;
+    background: #fff;
+  }
 }

@@ -1,38 +1,37 @@
 <div class="breadcrumb">
 	<h1>{{member.name}}</h1>
 	<ul>
-		<li><a href="javascript:;">Member</a></li>
-		<li>Activation</li>
+		<li>Registration</li>
 	</ul>
 </div>
 
 <div class="separator-breadcrumb border-top"></div>
 	
-	<div class="row">
+	<div class="row" id="form-step">
 		<div class="col-md-12">
 	
 			<form-wizard>
 				<wizard-step [title]="'Agreement'" [isValid]="basicForm.form.valid" (onNext)="onStep1Next($event)">
-					<h4 class="text-plain">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
+					<h4 class="text-medium text-bold">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
 
-					<p>THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT, YOU ARE WAIVING CERTAIN LEGAL RIGHTS AND ARE COMPLETELY RELEASING POTENTIAL CLAIMS. PLEASE READ IT CAREFULLY.</p>
+					<p class="text-plain my-3">THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT, YOU ARE WAIVING CERTAIN LEGAL RIGHTS AND ARE COMPLETELY RELEASING POTENTIAL CLAIMS. PLEASE READ IT CAREFULLY.</p>
 
 					<form #basicForm="ngForm">
 						<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
 							<ngb-panel title="I. Personal Data of the Participant">
 								<ng-template ngbPanelContent>
 									<ul class="list no-list-style">
-										<li><strong>Name:</strong> {{member.name}} <br></li>
+										<li><strong>Name:</strong> <div class="text-medium">{{member.name}}</div></li>
 			
-										<li><strong>Address:</strong> {{member.address}}<br></li>
+										<li><strong>Address:</strong> <div class="text-medium">{{member.address}}</div></li>
 					
-										<li><strong>Date of Birth:</strong> {{member.date_of_birth}}<br></li>
+										<li><strong>Date of Birth:</strong> <div class="text-medium">{{member.date_of_birth}}</div></li>
 					
-										<li><strong>Contact Number:</strong> {{member.phone}}<br></li>
+										<li><strong>Contact Number:</strong> <div class="text-medium">{{member.phone}}</div></li>
 					
-										<li><strong>In an emergency, I would like EMPIRE FIT CLUB to Call:</strong> {{ member.phone }}</li>
+										<li><strong>In an emergency, I would like EMPIRE FIT CLUB to Call:</strong> <div class="text-medium">{{ member.phone }}</div></li>
 					
-										<li><strong>Email:</strong> {{member.email}}</li>
+										<li><strong>Email:</strong> <div class="text-medium">{{member.email}}</div></li>
 									</ul>
 								</ng-template>
 							</ngb-panel>
@@ -40,50 +39,51 @@
 								<ng-template ngbPanelContent>
 									<ul class="list" style="list-style:none;">
 										<li>
-											Do you: Smoke?
+											<strong>Do you: Smoke?</strong>
 											<div class="text-medium">Yes</div>
 										</li>
 										<li>
-											Drink Drink alcohol?
+											<strong>Drink Drink alcohol?</strong>
 											<div class="text-medium">Yes</div>
 										</li>
 										<li>
-											Take prescription meds?
+											<strong>Take prescription meds?</strong>
 											<div class="text-medium">Yes</div>
 										</li>
 										<li>
 											<div class="row align-items-center">
 												<div class="col-md-12 mb-3">
-													Are you exercising now?
+													<strong>Are you exercising now?</strong>
 													<div class="text-medium">Yes</div>
 												</div>
 												<div class="col-md-12">
-													How many times  per week?
+													<strong>How many times  per week?</strong>
 													<div class="text-medium">5 Times</div>
 												</div>
 											</div>										
 										</li>
 										<li>
-											Do you have: Back pain, Knee pain or Shoulder pain?
+											<strong>Do you have: Back pain, Knee pain or Shoulder pain?</strong>
+											<div class="text-medium">Yes</div>
 										</li>
 										<li>
 											<div class="row align-items-center">
 												<div class="col-md-12 mb-3">
-													Previous Injuries or Surgeries?
+													<strong>Previous Injuries or Surgeries?</strong>
 													<div class="text-medium">Yes</div>
 												</div>
 												<div class="col-md-12">
-													If  Yes what injuries or surgeries 
+													<strong>If  Yes what injuries or surgeries </strong>
 													<div class="text-medium">Ketimpa dumble</div>
 												</div>
 											</div>
 										</li>
 										<li>
-											High blood pressure, Asthma, Diabetes, or a Heart condition?
+											<strong>High blood pressure, Asthma, Diabetes, or a Heart condition?</strong>
 											<div class="text-medium">Yes</div>
 										</li>
 										<li>
-											Any other health conditions or pre-existing conditions not listed?
+											<strong>Any other health conditions or pre-existing conditions not listed?</strong>
 											<div class="text-medium">Yes</div>
 										</li>
 									</ul>
@@ -139,28 +139,26 @@
 							<div class="col-md-6">
 								<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
 									<div class="text-muted mb-0">
-										Name
+										<strong>Name</strong>
 									</div>
-									<div class="text-18 text-primary mt-1">
+									<div class="text-medium">
 										{{member.name}}
 									</div>
 								</div>
 							</div>
 						</div>
 
-						<div class="row mb-3">
+						<div class="row">
 							<div class="col-md-12">
-								<h4>Photo</h4>
+								<h4 class="fancy-head"><span>Photo</span></h4>
 							</div>
 						</div>
-
-						<hr class="mt-0">
 
 						<div class="row">
 							<div class="col-md-2">
 								<img src="{{member.photo}}" alt="">
 							</div>
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<a href="#" class="btn btn-success py-3 btn-block">Take a Picture</a>
 								<a href="#" class="btn btn-success py-3 btn-block">Retry</a>
 							</div>
@@ -170,10 +168,7 @@
 							<div class="col-md-12">
 								<div class="row">
 									<div class="col-12 mt-4">
-										<h4>Fingerprint</h4>
-									</div>
-									<div class="col-12 mb-4">
-										<hr class="m-0">
+										<h4 class="fancy-head"><span>Fingerprint</span></h4>
 									</div>
 									<div class="col-2">
 										<img src="https://via.placeholder.com/150" alt="">
@@ -186,19 +181,19 @@
 									</div>
 								</div>
 								<div class="row mt-4">
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
 											<div class="text-muted mb-0">
 												status
 											</div>
-											<div class="text-18 text-primary mt-1">
+											<div class="text-medium mt-1">
 												SUCCESS
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="row mt-2 mb-5">
-									<div class="col-md-4">
+									<div class="col-md-6">
 										<a href="#" class="btn btn-block py-3 btn-success btn-lg">Retry</a>
 									</div>
 								</div>
@@ -212,8 +207,7 @@
 
 						<div class="row">
 							<div class="col-12">
-								Membership
-								<hr class="mt-2 mb-1">
+								<h4 class="fancy-head"><span>Membership</span></h4>
 							</div>
 						</div>
 						
@@ -238,8 +232,7 @@
 
 						<div class="row">
 							<div class="col-12">
-								Payment
-								<hr class="mt-2 mb-1">
+								<h4 class="fancy-head"><span>Payment</span></h4>
 							</div>
 						</div>
 
@@ -288,7 +281,9 @@
 
 						<div class="row mb-3">
 							<div class="col-md-12">
-								<table id="mytable" class="table table-hover" cellspacing="0">
+								<h4 class="fancy-head"><span>Trainer</span></h4>
+								
+								<table id="mytable" class="table table-hover table-bordered" cellspacing="0">
 									<thead class="text-center">
 										<tr>
 											<th>#</th>
