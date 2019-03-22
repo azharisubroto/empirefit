@@ -3,7 +3,7 @@ import { LocalStoreService } from "./local-store.service";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { delay } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable({
   providedIn: "root"
@@ -20,14 +20,21 @@ export class AuthService {
     private http: HttpClient
   ) {
     this.checkAuth();
+    this.getuser();
   }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      Authorization: "Bearer " + this.store.getItem("access_token")
+    })
+  };
 
   checkAuth() {
     this.authenticated = this.store.getItem("access_token");
   }
 
   getuser() {
-    return of({});
+    return this.http.get(this.apiURL + "/get_user", this.httpOptions);
   }
 
   signin(credentials) {

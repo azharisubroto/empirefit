@@ -61,7 +61,7 @@ export class BenefitFormComponent implements OnInit {
               this.toastr.success(res["message"], "Success!", {
                 progressBar: true
               });
-              this.router.navigateByUrl("master/benefit-type");
+              this.router.navigateByUrl("master/benefit");
             } else {
               this.toastr.error(res["message"], "Error!", {
                 progressBar: true
