@@ -30,12 +30,18 @@
                   <thead class="text-center">
                     <tr>
                       <th>Staff Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Date Of Birth</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let staff of staffcomponents">
                       <td>{{ staff.name }}</td>
+                      <td>{{ staff.email }}</td>
+                      <td>{{ staff.phone }}</td>
+                      <td>{{ staff.date_of_birth }}</td>
                       <td>
                         <a
                           href="#"
