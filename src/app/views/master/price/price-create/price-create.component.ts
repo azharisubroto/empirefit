@@ -84,7 +84,7 @@ export class PriceCreateComponent implements OnInit {
             this.toastr.success(res["message"], "Success!", {
               progressBar: true
             });
-            this.router.navigateByUrl("master/price");
+            this.router.navigateByUrl("master/pricing-non-pt");
           } else {
             this.toastr.error(res["message"], "Error!", {
               progressBar: true

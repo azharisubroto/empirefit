@@ -18,8 +18,6 @@ import { PriceListComponent } from "./price/price-list/price-list.component";
 import { PriceFormComponent } from "./price/price-form/price-form.component";
 import { BenefitListComponent } from "./benefit/benefit-list/benefit-list.component";
 import { BenefitFormComponent } from "./benefit/benefit-form/benefit-form.component";
-import { ClubBenefitListComponent } from "./club-benefit/club-benefit-list/club-benefit-list.component";
-import { ClubBenefitFormComponent } from "./club-benefit/club-benefit-form/club-benefit-form.component";
 import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list/dropin-company-list.component";
 import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
 import { UserFormComponent } from "./user/user-form/user-form.component";
@@ -34,7 +32,6 @@ import { PaymentTypeCreateComponent } from "./payment-type/payment-type-create/p
 import { MemberTypeCreateComponent } from "./member-type/member-type-create/member-type-create.component";
 import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
 import { PriceCreateComponent } from "./price/price-create/price-create.component";
-import { ClubBenefitCreateComponent } from "./club-benefit/club-benefit-create/club-benefit-create.component";
 import { HealthQuestionsListComponent } from "./health-questions/health-questions-list/health-questions-list.component";
 import { HealthQuestionsCreateComponent } from "./health-questions/health-questions-create/health-questions-create.component";
 import { HealthQuestionsFormComponent } from "./health-questions/health-questions-form/health-questions-form.component";
@@ -91,15 +88,15 @@ const routes: Routes = [
     component: PermissionCreateComponent
   },
   {
-    path: "personal-trainer",
+    path: "pricing-pt",
     component: PersonalTrainerListComponent
   },
   {
-    path: "personal-trainer/personal-trainer-create",
+    path: "pricing-pt/pricing-pt-create",
     component: PersonalTrainerCreateComponent
   },
   {
-    path: "personal-trainer/personal-trainer-edit/:id",
+    path: "pricing-pt/pricing-pt-edit/:id",
     component: PersonalTrainerFormComponent
   },
   {
@@ -159,15 +156,15 @@ const routes: Routes = [
     component: MemberTypeFormComponent
   },
   {
-    path: "price",
+    path: "pricing-non-pt",
     component: PriceListComponent
   },
   {
-    path: "price/price-create",
+    path: "pricing-non-pt/price-create",
     component: PriceCreateComponent
   },
   {
-    path: "price/price-edit/:id",
+    path: "pricing-non-pt/price-edit/:id",
     component: PriceFormComponent
   },
   {
@@ -181,18 +178,6 @@ const routes: Routes = [
   {
     path: "benefit/benefit-edit/:id",
     component: BenefitFormComponent
-  },
-  {
-    path: "benefit-detail",
-    component: ClubBenefitListComponent
-  },
-  {
-    path: "benefit-detail/benefit-detail-edit/:id",
-    component: ClubBenefitFormComponent
-  },
-  {
-    path: "benefit-detail/benefit-detail-create",
-    component: ClubBenefitCreateComponent
   },
   {
     path: "dropin-company",

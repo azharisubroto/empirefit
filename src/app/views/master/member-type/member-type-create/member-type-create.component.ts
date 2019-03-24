@@ -39,7 +39,7 @@ export class MemberTypeCreateComponent implements OnInit {
       member_type_name: ["", Validators.required],
       duration: ["1", Validators.required],
       period: ["Month", Validators.required],
-      session: ["10", Validators.required]
+      session: [""]
     });
 
     this.benefitService.getBenefits().subscribe((data: any) => {

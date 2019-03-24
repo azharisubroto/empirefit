@@ -39,7 +39,10 @@
                       <td>
                         <a
                           href="#"
-                          [routerLink]="['/staff', instructure.user_id]"
+                          [routerLink]="[
+                            '/staff/staff-edit/',
+                            instructure.staff_id
+                          ]"
                           class="btn btn-sm btn-warning mr-2"
                           title="Edit"
                           triggers="mouseenter:mouseleave"

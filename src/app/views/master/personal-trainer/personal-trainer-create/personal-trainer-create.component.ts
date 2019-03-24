@@ -9,7 +9,8 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
-import { UserService } from "src/app/shared/services/user.service";
+import { StaffService } from "src/app/shared/services/staff.service";
+import { MemberTypeService } from "src/app/shared/services/member-type.service";
 
 @Component({
   selector: "app-basic-form",
@@ -22,31 +23,37 @@ export class PersonalTrainerCreateComponent implements OnInit {
   data;
   id;
   name;
-  user_id;
+  staff_id;
   quota;
   remains;
   ptForm: FormGroup;
-  users;
+  staffs;
+  member_types;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
     private personalTrainerService: PersonaltrainerService,
-    private userService: UserService
+    private staffService: StaffService,
+    private memberTypeService: MemberTypeService
   ) {}
 
   ngOnInit() {
     this.ptForm = this.fb.group({
       id: [""],
-      user_id: [Validators.required],
-      quota: ["", Validators.required],
-      remains: [0, Validators.required],
-      price: [0, Validators.required]
+      staff_id: [Validators.required],
+      quota: [1, Validators.required],
+      price: [0, Validators.required],
+      session: [10, Validators.required]
     });
 
-    this.userService.getUsers().subscribe((data: any) => {
-      this.users = data["data"];
+    this.memberTypeService.memberTypePt().subscribe((data: any) => {
+      this.member_types = data["data"];
+    });
+
+    this.staffService.getStaffs().subscribe((data: any) => {
+      this.staffs = data["data"];
     });
   }
 
@@ -65,7 +72,7 @@ export class PersonalTrainerCreateComponent implements OnInit {
               this.toastr.success(res["message"], "Success!", {
                 progressBar: true
               });
-              this.router.navigateByUrl("master/personal-trainer");
+              this.router.navigateByUrl("master/pricing-pt");
             } else {
               this.toastr.error(res["message"], "Error!", {
                 progressBar: true

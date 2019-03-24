@@ -79,19 +79,21 @@
 
             <div class="col-md-12 mb-3">
               <hr />
-              <h3 class="mb-4">Benefit :</h3>
-              <div class="col-md-4" *ngFor="let benefit of benefits">
+              <h4>Benefit :</h4>
+            </div>
+            <div class="col-md-12" *ngFor="let benefit of benefits">
+              <label class="checkbox checkbox-secondary">
                 <input
-                  type="checkbox"
-                  class="mr-2"
-                  name="benefit"
                   checked
+                  type="checkbox"
+                  name="benefit"
                   value="{{ benefit.id }}"
                 />
+                <span>{{ benefit.benefit_name }}</span>
                 <span class="checkmark"></span>
-                <label for="">{{ benefit.benefit_name }}</label>
-              </div>
+              </label>
             </div>
+            <hr />
 
             <div class="col-md-12">
               <input type="hidden" class="benefit-final" value="" />

@@ -1,5 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormBuilder } from "@angular/forms";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import { PositionService } from "src/app/shared/services/position.service";
+import { BranchService } from "src/app/shared/services/branch.service";
+import { StaffService } from "src/app/shared/services/staff.service";
+import { Router } from "@angular/router";
+import * as $ from "jquery";
+import { ToastrService } from "ngx-toastr";
+import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: "app-wizard",
@@ -8,21 +15,95 @@ import { FormGroup, FormBuilder } from "@angular/forms";
 })
 export class StaffRegistrationComponent implements OnInit {
   isCompleted: boolean;
-  data: any = {
-    email: ""
-  };
-  step2Form: FormGroup;
+  staffRegistrationForm: FormGroup;
+  positions;
+  staff;
+  id_staff;
+  branches;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private positionService: PositionService,
+    private router: Router,
+    private branchService: BranchService,
+    private staffService: StaffService,
+    private toastr: ToastrService,
+    private parserFormatter: NgbDateParserFormatter
+  ) {}
 
   ngOnInit() {
-    this.step2Form = this.fb.group({
-      experience: [2]
+    this.staffRegistrationForm = this.fb.group({
+      name: ["", Validators.required],
+      email: ["", Validators.required],
+      phone: ["", Validators.required],
+      id_card: ["", Validators.required],
+      date_of_birth: ["", Validators.required],
+      account_number: ["", Validators.required],
+      branch_id: ["1"],
+      address: ["", Validators.required]
+    });
+
+    this.positionService.getPositions().subscribe((data: any) => {
+      this.positions = data["data"];
+    });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branches = data["data"];
+    });
+
+    //Checbox
+    $(".selectall").click(function() {
+      if ($(this).is(":checked")) {
+        $('input[name="position"]').prop("checked", true);
+      } else {
+        $('input[name="position"]').prop("checked", false);
+      }
     });
   }
 
-  onStep1Next(e) {}
-  onStep2Next(e) {}
-  onStep3Next(e) {}
-  onComplete(e) {}
+  onStep1Next(e) {
+    if (this.staffRegistrationForm.invalid) {
+      return;
+    } else {
+      let dataPositions = [];
+
+      $.each($("input[name='position']:checked"), function() {
+        dataPositions.push($(this).val());
+      });
+      $(".position-final").val(dataPositions);
+
+      let name = this.staffRegistrationForm.controls["name"].value;
+      let email = this.staffRegistrationForm.controls["email"].value;
+      let phone = this.staffRegistrationForm.controls["phone"].value;
+      let id_card = this.staffRegistrationForm.controls["id_card"].value;
+      let date_of_birth = this.staffRegistrationForm.controls["date_of_birth"]
+        .value;
+      let account_number = this.staffRegistrationForm.controls["account_number"]
+        .value;
+      let branch_id = this.staffRegistrationForm.controls["branch_id"].value;
+      let address = this.staffRegistrationForm.controls["address"].value;
+      let formValues = this.staffRegistrationForm.value;
+
+      formValues["date_of_birth"] = this.parserFormatter.format(date_of_birth);
+      formValues["name"] = name;
+      formValues["email"] = email;
+      formValues["phone"] = phone;
+      formValues["id_card"] = id_card;
+      formValues["account_number"] = account_number;
+      formValues["branch_id"] = branch_id;
+      formValues["address"] = address;
+      formValues["positions"] = dataPositions;
+
+      this.staffService.createStaff(formValues).subscribe((data: any) => {
+        if (data["status"] === "200") {
+          this.toastr.success(data["message"], "Success!", {
+            progressBar: true
+          });
+        }
+      });
+    }
+  }
+  onComplete(e) {
+    this.router.navigateByUrl("staff");
+  }
 }

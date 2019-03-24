@@ -10,7 +10,8 @@ import { ToastrService } from "ngx-toastr";
 import { UserService } from "src/app/shared/services/user.service";
 import { Router } from "@angular/router";
 import { RoleService } from "src/app/shared/services/role.service";
-import { BranchService } from "src/app/shared/services/branch.service";
+import { StaffService } from "src/app/shared/services/staff.service";
+import * as $ from "jquery";
 
 @Component({
   selector: "app-basic-form",
@@ -30,6 +31,7 @@ export class UserCreateComponent implements OnInit {
   roles: any[];
   branches: any[];
   userForm: FormGroup;
+  staffs;
 
   constructor(
     private fb: FormBuilder,
@@ -37,16 +39,15 @@ export class UserCreateComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private roleService: RoleService,
-    private branchService: BranchService
+    private staffService: StaffService
   ) {}
 
   ngOnInit() {
     this.userForm = this.fb.group({
-      name: ["", Validators.required],
+      staff_id: ["", Validators.required],
       email: ["", Validators.required],
       password: ["", Validators.required],
       password_confirmation: ["", Validators.required],
-      branch_id: [1, Validators.required],
       role: ["cs", Validators.required]
     });
 
@@ -54,8 +55,17 @@ export class UserCreateComponent implements OnInit {
       this.roles = res["data"];
     });
 
-    this.branchService.getBranches().subscribe((res: any) => {
-      this.branches = res["data"];
+    this.staffService.getStaffs().subscribe((data: any) => {
+      this.staffs = data["data"];
+    });
+  }
+
+  select() {
+    let staff_id = $("#staff_id").val();
+
+    this.staffService.showStaff(staff_id).subscribe((data: any) => {
+      this.email = data["data"].email;
+      this.userForm.controls["email"].setValue(this.email);
     });
   }
 
