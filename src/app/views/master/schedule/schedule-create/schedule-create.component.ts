@@ -47,7 +47,7 @@ export class ScheduleCreateComponent implements OnInit {
 
   ngOnInit() {
     this.scheduleForm = this.fb.group({
-      day: ["", Validators.required],
+      day: ["Monday", Validators.required],
       time: ["", Validators.required],
       exercise: ["", Validators.required],
       instructure_id: [1, Validators.required],
@@ -57,13 +57,13 @@ export class ScheduleCreateComponent implements OnInit {
     });
 
     this.days = [
-      "Senin",
-      "Selasa",
-      "Rabu",
-      "Kamis",
-      "Jumat",
-      "Sabtu",
-      "Minggu"
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
     ];
 
     this.instructureService.getInstructures().subscribe((data: any) => {
