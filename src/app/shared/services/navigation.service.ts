@@ -50,7 +50,6 @@ export class NavigationService {
     {
       name: "Customer Search",
       type: "link",
-      tooltip: "Customer Search",
       icon: "i-Gey",
       state: "/"
     },
@@ -139,9 +138,15 @@ export class NavigationService {
           type: "link"
         },
         {
-          icon: "i-Male-21",
-          name: "Personal Trainer",
-          state: "/master/personal-trainer",
+          icon: "i-Money-2",
+          name: "Pricing PT",
+          state: "/master/pricing-pt",
+          type: "link"
+        },
+        {
+          icon: "i-Money-2",
+          name: "Pricing Non PT",
+          state: "/master/pricing-non-pt",
           type: "link"
         },
         {
@@ -175,21 +180,9 @@ export class NavigationService {
           type: "link"
         },
         {
-          icon: "i-Money-2",
-          name: "Price",
-          state: "/master/price",
-          type: "link"
-        },
-        {
           icon: "i-Wallet",
           name: "Benefit",
           state: "/master/benefit",
-          type: "link"
-        },
-        {
-          icon: "i-Wallet",
-          name: "Benefit Detail",
-          state: "/master/benefit-detail",
           type: "link"
         },
         {

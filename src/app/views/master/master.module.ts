@@ -26,8 +26,6 @@ import { PriceListComponent } from "./price/price-list/price-list.component";
 import { PriceFormComponent } from "./price/price-form/price-form.component";
 import { BenefitListComponent } from "./benefit/benefit-list/benefit-list.component";
 import { BenefitFormComponent } from "./benefit/benefit-form/benefit-form.component";
-import { ClubBenefitListComponent } from "./club-benefit/club-benefit-list/club-benefit-list.component";
-import { ClubBenefitFormComponent } from "./club-benefit/club-benefit-form/club-benefit-form.component";
 import { DropinCompanyListComponent } from "./dropin-company/dropin-company-list/dropin-company-list.component";
 import { DropinCompanyFormComponent } from "./dropin-company/dropin-company-form/dropin-company-form.component";
 
@@ -46,7 +44,6 @@ import { MemberTypeCreateComponent } from "./member-type/member-type-create/memb
 import { BenefitCreateComponent } from "./benefit/benefit-create/benefit-create.component";
 import { DropinCompanyCreateComponent } from "./dropin-company/dropin-company-create/dropin-company-create.component";
 import { PriceCreateComponent } from "./price/price-create/price-create.component";
-import { ClubBenefitCreateComponent } from "./club-benefit/club-benefit-create/club-benefit-create.component";
 import { HealthQuestionsListComponent } from "./health-questions/health-questions-list/health-questions-list.component";
 import { HealthQuestionsFormComponent } from "./health-questions/health-questions-form/health-questions-form.component";
 import { HealthQuestionsCreateComponent } from "./health-questions/health-questions-create/health-questions-create.component";
@@ -56,9 +53,9 @@ import { BankCreateComponent } from "./bank/bank-create/bank-create.component";
 import { BranchListComponent } from "./branch/branch-list/branch-list.component";
 import { BranchFormComponent } from "./branch/branch-form/branch-form.component";
 import { BranchCreateComponent } from "./branch/branch-create/branch-create.component";
-import { PositionListComponent } from './position/position-list/position-list.component';
-import { PositionFormComponent } from './position/position-form/position-form.component';
-import { PositionCreateComponent } from './position/position-create/position-create.component';
+import { PositionListComponent } from "./position/position-list/position-list.component";
+import { PositionFormComponent } from "./position/position-form/position-form.component";
+import { PositionCreateComponent } from "./position/position-create/position-create.component";
 
 @NgModule({
   imports: [
@@ -92,8 +89,6 @@ import { PositionCreateComponent } from './position/position-create/position-cre
     PriceListComponent,
     BenefitFormComponent,
     BenefitListComponent,
-    ClubBenefitFormComponent,
-    ClubBenefitListComponent,
     DropinCompanyFormComponent,
     DropinCompanyListComponent,
     UserFormComponent,
@@ -109,7 +104,6 @@ import { PositionCreateComponent } from './position/position-create/position-cre
     BenefitCreateComponent,
     DropinCompanyCreateComponent,
     PriceCreateComponent,
-    ClubBenefitCreateComponent,
     HealthQuestionsListComponent,
     HealthQuestionsFormComponent,
     HealthQuestionsCreateComponent,

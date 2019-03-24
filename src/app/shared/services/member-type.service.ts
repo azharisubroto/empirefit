@@ -47,4 +47,8 @@ export class MemberTypeService {
       this.httpOptions
     );
   }
+
+  memberTypePt() {
+    return this.http.get(this.apiURL + "/member_type_pt", this.httpOptions);
+  }
 }

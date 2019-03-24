@@ -14,7 +14,7 @@ const routes: Routes = [
     component: StaffRegistrationComponent
   },
   {
-    path: "staff-update/:id",
+    path: "staff-edit/:id",
     component: StaffFormComponent
   }
 ];

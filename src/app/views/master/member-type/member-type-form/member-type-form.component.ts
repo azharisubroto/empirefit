@@ -58,13 +58,6 @@ export class MemberTypeFormComponent implements OnInit {
     this.memberTypeService
       .showMemberType(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
-        this.memberTypeForm.setValue({
-          member_type_name: data["data"].member_type_name,
-          duration: data["data"].duration,
-          period: data["data"].period,
-          session: data["data"].session
-        });
-
         this.getbenefits = data["data"].club_benefits;
 
         $.each(this.getbenefits, function(i, item) {
@@ -72,6 +65,17 @@ export class MemberTypeFormComponent implements OnInit {
             "checked",
             true
           );
+        });
+      });
+
+    this.memberTypeService
+      .showMemberType(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.memberTypeForm.setValue({
+          member_type_name: data["data"].member_type_name,
+          duration: data["data"].duration,
+          period: data["data"].period,
+          session: data["data"].session
         });
       });
   }

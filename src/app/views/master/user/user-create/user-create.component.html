@@ -15,43 +15,43 @@
         <form [formGroup]="userForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
-              <label for="name">Name</label>
-              <input
-                autofocus
-                type="text"
-                class="form-control "
-                id="name"
-                placeholder="Enter your name"
-                formControlName="name"
-              />
+              <label for="staff_id">Name</label>
+              <select
+                name="staff_id"
+                id="staff_id"
+                class="form-control"
+                formControlName="staff_id"
+                (change)="select()"
+              >
+                <option
+                  value="{{ staff.id }}"
+                  [ngValue]="staff.id"
+                  *ngFor="let staff of staffs"
+                  >{{ staff.name }}</option
+                >
+              </select>
               <i
                 *ngIf="
-                  !userForm.get('name').valid && userForm.get('name').touched
+                  !userForm.get('staff_id').valid &&
+                  userForm.get('staff_id').touched
                 "
                 class="i-Information text-danger"
               >
-                Please enter user name</i
+                Please choose user</i
               >
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="email">Email address</label>
               <input
+                readonly
                 type="email"
-                class="form-control "
+                class="form-control"
                 id="email"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
                 formControlName="email"
               />
-              <i
-                *ngIf="
-                  !userForm.get('email').valid && userForm.get('email').touched
-                "
-                class="i-Information text-danger"
-              >
-                Please enter valid email</i
-              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
@@ -94,20 +94,6 @@
               >
                 Please enter same password</i
               >
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="branch">Branch</label>
-              <select
-                name="branch_id"
-                id="branch"
-                class="form-control "
-                formControlName="branch_id"
-              >
-                <option [ngValue]="branch.id" *ngFor="let branch of branches">{{
-                  branch.branch_name
-                }}</option>
-              </select>
             </div>
 
             <div class="col-md-6 form-group mb-3">
