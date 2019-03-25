@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PositionService } from "src/app/shared/services/position.service";
 import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
+import { BankService } from "src/app/shared/services/bank.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
@@ -21,6 +22,7 @@ export class StaffFormComponent implements OnInit {
   id_staff;
   branches;
   getpositions;
+  banks;
 
   constructor(
     private fb: FormBuilder,
@@ -28,6 +30,7 @@ export class StaffFormComponent implements OnInit {
     private router: Router,
     private branchService: BranchService,
     private staffService: StaffService,
+    private bankService: BankService,
     private toastr: ToastrService,
     private parserFormatter: NgbDateParserFormatter,
     private activatedRoute: ActivatedRoute
@@ -42,11 +45,16 @@ export class StaffFormComponent implements OnInit {
       date_of_birth: ["", Validators.required],
       account_number: ["", Validators.required],
       branch_id: ["1"],
+      bank_id: [],
       address: ["", Validators.required]
     });
 
     this.positionService.getPositions().subscribe((data: any) => {
       this.positions = data["data"];
+    });
+
+    this.bankService.getBanks().subscribe((data: any) => {
+      this.banks = data["data"];
     });
 
     this.staffService
@@ -68,6 +76,7 @@ export class StaffFormComponent implements OnInit {
           date_of_birth: data["data"].date_of_birth,
           account_number: data["data"].account_number,
           branch_id: data["data"].branch_id,
+          bank_id: data["data"].bank_id,
           address: data["data"].address
         });
       });
@@ -79,7 +88,9 @@ export class StaffFormComponent implements OnInit {
 
   onStep1Next(e) {
     if (this.staffForm.invalid) {
-      return;
+      this.toastr.error("Please complete the data", "Not Saved!", {
+        progressBar: true
+      });
     } else {
       let dataPositions = [];
 
@@ -95,6 +106,7 @@ export class StaffFormComponent implements OnInit {
       let date_of_birth = this.staffForm.controls["date_of_birth"].value;
       let account_number = this.staffForm.controls["account_number"].value;
       let branch_id = this.staffForm.controls["branch_id"].value;
+      let bank_id = this.staffForm.controls["bank_id"].value;
       let address = this.staffForm.controls["address"].value;
       let formValues = this.staffForm.value;
 
@@ -105,6 +117,7 @@ export class StaffFormComponent implements OnInit {
       formValues["id_card"] = id_card;
       formValues["account_number"] = account_number;
       formValues["branch_id"] = branch_id;
+      formValues["bank_id"] = bank_id;
       formValues["address"] = address;
       formValues["positions"] = dataPositions;
 

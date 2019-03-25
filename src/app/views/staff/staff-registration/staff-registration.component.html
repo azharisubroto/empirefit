@@ -134,6 +134,23 @@
               </div>
             </div>
             <div class="form-group col-md-6">
+              <label for="bank_id">Account Bank</label>
+              <select
+                formControlName="bank_id"
+                name="bank_id"
+                id="bank_id"
+                class="form-control"
+              >
+                <option
+                  [value]="bank.id"
+                  *ngFor="let bank of banks"
+                  value="bank.id"
+                >
+                  {{ bank.bank_name }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-md-6">
               <label for="account_number">Account Number</label>
               <input
                 type="text"
@@ -193,11 +210,7 @@
         </form>
       </wizard-step>
 
-      <wizard-step
-        [title]="'Identification'"
-        [isValid]="staffRegistrationForm.valid"
-        (onComplete)="onComplete($event)"
-      >
+      <wizard-step [title]="'Identification'" (onComplete)="onComplete($event)">
         <form [formGroup]="staffRegistrationForm">
           <div class="row">
             <div class="col-md-6">

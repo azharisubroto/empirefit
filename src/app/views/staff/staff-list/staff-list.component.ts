@@ -21,6 +21,7 @@ export class StaffListComponent implements OnInit {
   staffcomponents: any[];
   confirmResut;
   detail;
+  redirect;
 
   constructor(
     private staffService: StaffService,
@@ -36,6 +37,11 @@ export class StaffListComponent implements OnInit {
       this.chRef.detectChanges();
       $("#mytable").DataTable();
     });
+  }
+
+  gotoEdit(id) {
+    this.redirect = "staff/staff-edit/" + id;
+    window.location = this.redirect;
   }
 
   confirm(content, id) {

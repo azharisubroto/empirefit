@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PositionService } from "src/app/shared/services/position.service";
 import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
+import { BankService } from "src/app/shared/services/bank.service";
 import { Router } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
@@ -20,6 +21,7 @@ export class StaffRegistrationComponent implements OnInit {
   staff;
   id_staff;
   branches;
+  banks;
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +29,7 @@ export class StaffRegistrationComponent implements OnInit {
     private router: Router,
     private branchService: BranchService,
     private staffService: StaffService,
+    private bankService: BankService,
     private toastr: ToastrService,
     private parserFormatter: NgbDateParserFormatter
   ) {}
@@ -40,6 +43,7 @@ export class StaffRegistrationComponent implements OnInit {
       date_of_birth: ["", Validators.required],
       account_number: ["", Validators.required],
       branch_id: ["1"],
+      bank_id: [],
       address: ["", Validators.required]
     });
 
@@ -49,6 +53,10 @@ export class StaffRegistrationComponent implements OnInit {
 
     this.branchService.getBranches().subscribe((data: any) => {
       this.branches = data["data"];
+    });
+
+    this.bankService.getBanks().subscribe((data: any) => {
+      this.banks = data["data"];
     });
 
     //Checbox
@@ -63,7 +71,9 @@ export class StaffRegistrationComponent implements OnInit {
 
   onStep1Next(e) {
     if (this.staffRegistrationForm.invalid) {
-      return;
+      this.toastr.error("Please complete the data", "Not Saved!", {
+        progressBar: true
+      });
     } else {
       let dataPositions = [];
 
@@ -81,6 +91,7 @@ export class StaffRegistrationComponent implements OnInit {
       let account_number = this.staffRegistrationForm.controls["account_number"]
         .value;
       let branch_id = this.staffRegistrationForm.controls["branch_id"].value;
+      let bank_id = this.staffRegistrationForm.controls["bank_id"].value;
       let address = this.staffRegistrationForm.controls["address"].value;
       let formValues = this.staffRegistrationForm.value;
 
@@ -91,6 +102,7 @@ export class StaffRegistrationComponent implements OnInit {
       formValues["id_card"] = id_card;
       formValues["account_number"] = account_number;
       formValues["branch_id"] = branch_id;
+      formValues["bank_id"] = bank_id;
       formValues["address"] = address;
       formValues["positions"] = dataPositions;
 
