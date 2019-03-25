@@ -43,7 +43,7 @@ export class StaffFormComponent implements OnInit {
       phone: ["", Validators.required],
       id_card: ["", Validators.required],
       date_of_birth: ["", Validators.required],
-      account_number: ["", Validators.required],
+      account_number: [""],
       branch_id: ["1"],
       bank_id: [],
       address: ["", Validators.required]
@@ -93,11 +93,20 @@ export class StaffFormComponent implements OnInit {
       });
     } else {
       let dataPositions = [];
+      let dataPositionName = [];
 
       $.each($("input[name='position']:checked"), function() {
         dataPositions.push($(this).val());
+        dataPositionName.push(
+          $(this)
+            .parent()
+            .find(".position_name")
+            .text()
+        );
       });
+
       $(".position-final").val(dataPositions);
+      $(".position-name-final").val(dataPositionName);
 
       let name = this.staffForm.controls["name"].value;
       let email = this.staffForm.controls["email"].value;
@@ -120,6 +129,7 @@ export class StaffFormComponent implements OnInit {
       formValues["bank_id"] = bank_id;
       formValues["address"] = address;
       formValues["positions"] = dataPositions;
+      formValues["position_name"] = dataPositionName;
 
       this.staffService
         .updateStaff(this.activatedRoute.snapshot.params["id"], formValues)

@@ -132,8 +132,17 @@
             </div>
             <div class="form-group col-md-6">
               <label for="bank_id">Account Bank</label>
-              <select formControlName="bank_id" name="bank_id" id="bank_id" class="form-control">
-                <option [value]="bank.id" *ngFor="let bank of banks" value="bank.id">
+              <select
+                formControlName="bank_id"
+                name="bank_id"
+                id="bank_id"
+                class="form-control"
+              >
+                <option
+                  [value]="bank.id"
+                  *ngFor="let bank of banks"
+                  value="bank.id"
+                >
                   {{ bank.bank_name }}
                 </option>
               </select>
@@ -188,11 +197,12 @@
                   name="position"
                   value="{{ position.id }}"
                 />
-                <span>{{ position.position_name }}</span>
+                <span class="position_name">{{ position.position_name }}</span>
                 <span class="checkmark"></span>
               </label>
             </div>
             <input type="hidden" class="position-final" value="" />
+            <input type="hidden" class="position-name-final" value="" />
           </div>
         </form>
       </wizard-step>

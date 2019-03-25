@@ -52,7 +52,7 @@ export class PersonalTrainerCreateComponent implements OnInit {
       this.member_types = data["data"];
     });
 
-    this.staffService.getStaffs().subscribe((data: any) => {
+    this.staffService.getStaffPt().subscribe((data: any) => {
       this.staffs = data["data"];
     });
   }

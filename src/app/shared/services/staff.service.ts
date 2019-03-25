@@ -36,4 +36,12 @@ export class StaffService {
   updateStaff(id, data) {
     return this.http.put(this.apiURL + "/staff/" + id, data, this.httpOptions);
   }
+
+  getStaffCoach() {
+    return this.http.get(this.apiURL + "/staff_coach/", this.httpOptions);
+  }
+
+  getStaffPt() {
+    return this.http.get(this.apiURL + "/staff_pt/", this.httpOptions);
+  }
 }

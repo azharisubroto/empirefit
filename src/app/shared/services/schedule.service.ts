@@ -40,4 +40,8 @@ export class ScheduleService {
       this.httpOptions
     );
   }
+
+  showCoach(id) {
+    return this.http.get(this.apiURL + "/show_coach/" + id, this.httpOptions);
+  }
 }
