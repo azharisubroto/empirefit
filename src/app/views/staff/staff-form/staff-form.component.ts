@@ -79,6 +79,9 @@ export class StaffFormComponent implements OnInit {
           bank_id: data["data"].bank_id,
           address: data["data"].address
         });
+
+        $("#staff-name").text(data["data"].name);
+        $("#staff-status").text(data["data"].status);
       });
 
     this.branchService.getBranches().subscribe((data: any) => {

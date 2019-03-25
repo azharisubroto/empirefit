@@ -21,6 +21,8 @@ export class StaffRegistrationComponent implements OnInit {
   staff;
   id_staff;
   branches;
+  staff_name;
+  staff_status;
   banks;
 
   constructor(
@@ -120,6 +122,9 @@ export class StaffRegistrationComponent implements OnInit {
           this.toastr.success(data["message"], "Success!", {
             progressBar: true
           });
+
+          $("#staff_name").text(data["data"].name);
+          $("#staff_status").text(data["data"].status);
         }
       });
     }
