@@ -53,7 +53,10 @@
                       <td>
                         <a
                           href="#"
-                          [routerLink]="['schedule-edit/', schedule.id]"
+                          [routerLink]="[
+                            'schedule-edit/',
+                            schedule.schedule_id
+                          ]"
                           class="btn btn-sm btn-warning mr-2"
                           title="Edit"
                           triggers="mouseenter:mouseleave"

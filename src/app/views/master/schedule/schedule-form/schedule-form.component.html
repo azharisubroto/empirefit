@@ -14,22 +14,6 @@
         <div class="card-title mb-3">Form Update Schedule</div>
         <form [formGroup]="scheduleForm" (ngSubmit)="submit()">
           <div class="row">
-            <div class="col-md-6 form-group mb-3">
-              <label for="instructure_id">Coach</label>
-              <select
-                name="instructure_id"
-                id="instructure_id"
-                class="form-control "
-                formControlName="instructure_id"
-              >
-                <option
-                  [ngValue]="instructure.id"
-                  *ngFor="let instructure of instructures"
-                  >{{ instructure.name }}</option
-                >
-              </select>
-            </div>
-
             <div class="col-md-12 form-group mb-3">
               <label for="exercise">Exercise</label>
               <input
@@ -144,6 +128,23 @@
                 }}</option>
               </select>
             </div>
+
+            <div class="col-md-12 mb-3">
+              <hr />
+              <h4>Coach :</h4>
+            </div>
+            <div class="col-md-12" *ngFor="let staff of staffs">
+              <label class="checkbox checkbox-secondary">
+                <input
+                  type="checkbox"
+                  name="staff"
+                  value="{{ staff.id }}"
+                />
+                <span>{{ staff.name }}</span>
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <input type="hidden" class="staff-final" value="" />
 
             <div class="col-md-12">
               <btn-loading
