@@ -244,3 +244,49 @@ select.form-control {
 .dataTables_wrapper .dataTables_paginate .paginate_button {
   padding: 5px!important;
 }
+
+ul.list {
+  margin: 0;
+  padding: 0;
+  li {
+      margin: 20px 0;
+      padding: 20px;
+      border: 1px solid #e5e5e5;
+
+      .switch {
+          margin-bottom: 0;
+      }
+  }
+}
+
+.boxvalue {
+  background: #f6f6f6;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+body#registration {
+  .layout-sidebar-large .sidebar-left,
+  .sidebar-left,
+  .header-part-right,
+  .app-footer {
+      display: none!important;
+  }
+  .main-content-wrap {
+    float: none;
+    margin: 0 auto;
+  }
+
+  .main-header {
+    &:before {
+      content:"Online Registration";
+      position: absolute;
+      right: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+}
