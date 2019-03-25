@@ -25,6 +25,10 @@ const adminRoutes: Routes = [
     loadChildren: "./views/schedule/schedule.module#ScheduleModule"
   },
   {
+    path: "registration",
+    loadChildren: "./views/registration/registration.module#RegistrationModule"
+  },
+  {
     path: "finance",
     loadChildren: "./views/finance/finance.module#FinanceModule"
   },

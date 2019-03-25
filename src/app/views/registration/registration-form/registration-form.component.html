@@ -1,0 +1,135 @@
+<div class="breadcrumb">
+    <h1>Online Registration</h1>
+    <ul>
+        <li><a href="">Form</a></li>
+    </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <form-wizard>
+            <wizard-step [title]="'Basic Info'" [isValid]="basicForm.form.valid" (onNext)="onStep1Next($event)">
+                <form #basicForm="ngForm">
+                    <div class="row">
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="firstName">Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" [(ngModel)]="data.firstName">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email Address" [(ngModel)]="data.email">
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="lastName">Mobile Phone Number</label>
+                            <input type="text" class="form-control" id="mobilephone" name="mobilephone" placeholder="Mobile Phone" [(ngModel)]="data.lastName">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="phone">ID Card (KTP/SIM/)</label>
+                            <input type="text" class="form-control" id="idcard" name="idcard" placeholder="ID Card" [(ngModel)]="data.phone">
+                        </div>
+                    </div>
+                </form>
+            </wizard-step>
+
+            <wizard-step [title]="'Agreement'" [isValid]="step2Form.valid" (onNext)="onStep2Next($event)">
+                <form [formGroup]="step2Form">
+                    <div class="row">
+                        <div class="col-12">
+                            <h6 class="mb-2 fancy-head"><span>Personal Data of Participants</span></h6>
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="firstName">Address</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" >
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="firstName">Date of Birth</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" >
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="firstName">Contact Number:</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" >
+                        </div>
+                        <div class="form-group col-md-6 mb-3">
+                            <label for="firstName">In an emergency, I would like EMPIRE FIT CLUB to Call:</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First name" >
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12 mb-3">
+                            <h6 class="mb-2 fancy-head"><span>Health Questions</span></h6>
+                        </div>
+                        <div class="col-12 mb-3" *ngFor="let item of questions">
+                            <label class="switch switch-primary mr-3">
+                                <span>{{ item.question }}</span>
+                                <input type="checkbox" name="{{ item.id }}">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12 mb-3">
+                            <h6 class="mb-2 fancy-head"><span>Reviewer Note</span></h6>
+                        </div>
+
+                        <div class="col-12">
+                            <textarea class="form-control" name="reviewer_note" rows="5"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12 mb-3">
+                            <h6 class="mb-2 fancy-head"><span>Photography and/or Video Release</span></h6>
+                        </div>
+
+                        <div class="col-12">
+                            <p>Photography and/or Video Release of Participant involved in any activities offered by EMPIRE FIT CLUB may be photographed or videotaped during training. The undersigned hereby consents to the use of these photographs and/or videos without compensation, on the EMPIRE FIT CLUB website or in any editorial, promotional or marketing material produced and/or published by EMPIRE FIT CLUB.</p>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-12 mb-3">
+                            <h6 class="mb-2 fancy-head"><span>Waiver and Release of Liability</span></h6>
+                        </div>
+
+                        <div class="col-12">
+                            <ul class="list" style="list-style:none">
+                                <li><strong>(i)</strong> Express Assumption of Risk: I, the undersigned, am aware that there are significant risks involved in all aspects of physical training. These risks include, but are not limited to: falls, muscle strains, muscle pulls,  muscle tears,  broken  bones,  shin  splints,  heat  prostration,  injuries  to  knees; , injuries to back, injuries to foot, heart attacks, or any other illness or soreness  that I may  incur  which  can  result  in serious injury or death; injury or death  due to negligence  on  the  part of myself,  my training  partner, or other people around me; injury or death due to improper use or failure of equipment; strains and sprains. I am aware that any of these above mentioned risks may result in serious injury or death to myself and or my partner(s). I willingly assume full responsibility for  the  risks that I am exposing myself to and accept full responsibility for  any injury or death that may result from participation  in any activity or class while at, or under direction of EMPIRE FIT CLUB. I acknowledge that I have no physical impairments, injuries , or illnesses that will endanger me or others.</li>
+
+                                <li><strong>(ii)</strong> Release: In consideration of the above  mentioned  risks  and  hazards  and  in  consideration  of  the  fact that I am willingly and voluntarily participating in the activities offered by EMPIRE FIT CLUB, I,  the undersigned hereby release EMPIRE FIT CLUB,  their  directors,  coaches,  officers,  employees,  agents, from any and all liability, claims, demands,  actions or  rights  of  action, which are related  to,  arise  out  of,  or are in any way connected  with  my participation in this activity,  including  those  allegedly  attributed  to the negligent acts or omissions of the  above mentioned  parties . This  agreement  shall be binding  upon me, my spouse, my children, my guardians, my successors, representatives, heirs, executors, assigns, or transferees (collectively, the "Releasors"). I accept full and  complete  responsibility  for  the  safety  of myself, any guests, observers or other individuals who I have  invited  to  the  venue of  EMPIRE  FIT CLUB, and property, and I assume the risk of  damage, theft, loss  or  injury caused  by others  to  me,  my guests and property <br><br>
+
+                                If any portion of this agreement is held invalid, I agree that  the  remainder  of  the  agreement  shall remain in full legal force and effect. If I am signing on behalf of a minor child, I also give full permission for any person connected with EMPIRE FIT CLUB to administer first aid deemed necessary, and in case of serious illness or injury, I give permission to call for medical and or surgical care for the child and to transport the child to a medical facility deemed necessary for the wellbeing of the child </li>
+
+                                <li><strong>(iii)</strong> Indemnification: On behalf of the Releasers, the Participant recognizes that there is risk involved in the types of activities offered by EMPIRE FIT CLUB. Therefore the Participant accepts financial responsibility for any injury that the Participant may cause either to him/herself or to any other participant due to his/her negligence. Should the above mentioned parties, or anyone acting on their behalf, be required to incur attorney's fees and costs to enforce this agreement, I agree to reimburse them for such fees and costs. I further agree to indemnify and hold harmless EMPIRE FIT CLUB, their directors, coaches, officers, employees, agents from liability for the injury or death of any person(s) and damage to property that may result from my negligent or intentional act or omission while participating in <br>
+                                _____ activities offered by EMPIRE FIT CLUB, at the main building or aboard. This includes but is not limited to parks, recreational areas, playgrounds, areas adjacent to main building, and/or any area selected for training by EMPIRE FIT CLUB. <br><br>
+
+                                I Have read and understood the foregoing assumption of risk, and release of liability and I understand that by signing it obligates me to indemnify the parties named for any liability for injury or death of any person and damage to property caused by my negligent or intentional act or omission. I understand that by signing this form I am waiving valuable legal rights.</li>
+
+                                <li><strong>(iv)</strong> Promise Not To Bring Suit: I hereby agree and covenant not to, and shall cause the Releasors not to, bring a claim against, sue, demand compensation from or attach the property or assets of EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents, for any loss or damage arising or resulting from my participation in EMPIRE FIT CLUB or my travel to or from or presence at the venue, 2nd forever release and discharge EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents them from liability under such claims.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </form>
+            </wizard-step>
+
+            <wizard-step [title]="'Thank You'" (onNext)="onStep3Next($event)">
+                
+                <div class="text-medium">
+                    WE HAVE RECEIVED YOUR DATA, PLEASE COME TO OUR  CLUB AND TELL YOUR NAME OR PHONE NUMBER TO OUR FRONT OFFICER TO CONTINUE WITH THE MEMBERSHIP PLAN
+                </div>
+
+                <div class="fancy-head"><span>Location</span></div>
+
+                <div class="mapouter"><div class="gmap_canvas"><iframe width="600" height="389" id="gmap_canvas" src="https://maps.google.com/maps?q=empire%20fit%20club%20jakarta&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>Werbung: <a href="https://www.jetzt-drucken-lassen.de">jetzt-drucken-lassen.de</a></div><style>.mapouter{position:relative;text-align:right;height:389px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:389px;width:600px;}</style></div>
+                
+            </wizard-step>
+        </form-wizard>
+
+    </div>
+</div>
