@@ -11,6 +11,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class AuthService {
   //Only for demo purpose
   authenticated;
+  redirect;
   readonly apiURL = "http://45.118.132.77/api";
   // readonly apiURL = "http://localhost/efc/api";
 
@@ -44,5 +45,18 @@ export class AuthService {
   signout() {
     this.store.clear();
     this.router.navigateByUrl("/sessions/signin");
+  }
+
+  checkAccess() {
+    this.http
+      .get(this.apiURL + "/check_access", this.httpOptions)
+      .toPromise()
+      .then(res => res)
+      .catch(err => {
+        if (err.status === 401) {
+          this.store.clear();
+          this.router.navigateByUrl("sessions/signin");
+        }
+      });
   }
 }

@@ -46,17 +46,6 @@ export class BankFormComponent implements OnInit {
           code: data["data"].code
         });
       });
-    // this.bankService
-    //   .showBank(this.activatedRoute.snapshot.params["id"])
-    //   .toPromise()
-    //   .then(res => res)
-    //   .catch(err => {
-    //     if (err.status === 401) {
-    //       this.store.clear();
-    //       this.redirect = "";
-    //       window.location = this.redirect;
-    //     }
-    //   });
   }
 
   submit() {

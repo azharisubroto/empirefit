@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ProductService } from "src/app/shared/services/product.service";
 import { MemberService } from "src/app/shared/services/member.service";
+import { AuthService } from "src/app/shared/services/auth.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
 
@@ -14,7 +15,10 @@ export class MemberComponent implements OnInit {
   members: any = [];
   filteredMembers;
 
-  constructor(private memberService: MemberService) {}
+  constructor(
+    private memberService: MemberService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.memberService.getMember().subscribe((data: any[]) => {
