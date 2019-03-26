@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
+import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -35,6 +36,7 @@ export class ScheduleCreateComponent implements OnInit {
   branches;
   scheduleForm: FormGroup;
   staffs;
+  member_types;
 
   constructor(
     private fb: FormBuilder,
@@ -43,6 +45,7 @@ export class ScheduleCreateComponent implements OnInit {
     private scheduleService: ScheduleService,
     private parserFormatter: NgbDateParserFormatter,
     private branchService: BranchService,
+    private memberTypeService: MemberTypeService,
     private staffService: StaffService
   ) {}
 
@@ -70,6 +73,10 @@ export class ScheduleCreateComponent implements OnInit {
       "Sunday"
     ];
 
+    this.memberTypeService.getMemberTypes().subscribe((data: any) => {
+      this.member_types = data["data"];
+    });
+
     this.branchService.getBranches().subscribe((data: any) => {
       this.branches = data["data"];
     });
@@ -77,11 +84,17 @@ export class ScheduleCreateComponent implements OnInit {
 
   submit() {
     let dataStaff = [];
+    let dataMt = [];
 
     $.each($("input[name='staff']:checked"), function() {
       dataStaff.push($(this).val());
     });
     $(".staff-final").val(dataStaff);
+
+    $.each($("input[name='member_type']:checked"), function() {
+      dataMt.push($(this).val());
+    });
+    $(".member_type-final").val(dataMt);
 
     let start_date = this.scheduleForm.controls["start_date"].value;
     let end_date = this.scheduleForm.controls["end_date"].value;
@@ -98,6 +111,7 @@ export class ScheduleCreateComponent implements OnInit {
     formValues["exercise"] = exercise;
     formValues["branch_id"] = branch_id;
     formValues["staff"] = dataStaff;
+    formValues["member_types"] = dataMt;
     if (this.scheduleForm.invalid) {
       this.loading = false;
       return;

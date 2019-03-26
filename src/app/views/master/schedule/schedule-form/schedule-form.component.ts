@@ -11,6 +11,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { StaffService } from "src/app/shared/services/staff.service";
 import { BranchService } from "src/app/shared/services/branch.service";
+import { MemberTypeService } from "src/app/shared/services/member-type.service";
 
 @Component({
   selector: "app-basic-form",
@@ -34,6 +35,8 @@ export class ScheduleFormComponent implements OnInit {
   branches;
   staffs;
   getCoaches;
+  getMt;
+  member_types;
   scheduleForm: FormGroup;
 
   constructor(
@@ -43,6 +46,7 @@ export class ScheduleFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private scheduleService: ScheduleService,
     private staffService: StaffService,
+    private memberTypeService: MemberTypeService,
     private branchService: BranchService
   ) {}
 
@@ -54,6 +58,10 @@ export class ScheduleFormComponent implements OnInit {
       start_date: ["", Validators.required],
       end_date: ["", Validators.required],
       branch_id: [1, Validators.required]
+    });
+
+    this.memberTypeService.getMemberTypes().subscribe((data: any) => {
+      this.member_types = data["data"];
     });
 
     this.branchService.getBranches().subscribe((data: any) => {
@@ -76,16 +84,7 @@ export class ScheduleFormComponent implements OnInit {
 
     this.scheduleService
       .showCoach(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.getCoaches = data["data"];
-        console.log(data["data"]);
-        $.each(this.getCoaches, function(i, item) {
-          $("input[name='staff'][value=" + item.staff_id + "]").prop(
-            "checked",
-            true
-          );
-        });
-      });
+      .subscribe((data: any) => {});
 
     this.scheduleService
       .showSchedule(this.activatedRoute.snapshot.params["id"])
@@ -98,16 +97,37 @@ export class ScheduleFormComponent implements OnInit {
           end_date: data["data"].end_date,
           branch_id: data["data"].branch_id
         });
+
+        this.getMt = data["data"].member_type_schedules;
+        $.each(this.getMt, function(i, item) {
+          $(
+            "input[name='member_type'][value=" + item.member_type_id + "]"
+          ).prop("checked", true);
+        });
+
+        this.getCoaches = data["data"].group_schedules;
+        $.each(this.getCoaches, function(i, item) {
+          $("input[name='staff'][value=" + item.staff_id + "]").prop(
+            "checked",
+            true
+          );
+        });
       });
   }
 
   submit() {
     let dataStaff = [];
+    let dataMt = [];
 
     $.each($("input[name='staff']:checked"), function() {
       dataStaff.push($(this).val());
     });
     $(".staff-final").val(dataStaff);
+
+    $.each($("input[name='member_type']:checked"), function() {
+      dataMt.push($(this).val());
+    });
+    $(".member_type-final").val(dataMt);
 
     let start_date = this.scheduleForm.controls["start_date"].value;
     let end_date = this.scheduleForm.controls["end_date"].value;
@@ -124,8 +144,7 @@ export class ScheduleFormComponent implements OnInit {
     formValues["exercise"] = exercise;
     formValues["branch_id"] = branch_id;
     formValues["staff"] = dataStaff;
-
-    console.log(dataStaff);
+    formValues["member_types"] = dataMt;
 
     if (this.scheduleForm.invalid) {
       this.loading = false;
