@@ -99,14 +99,14 @@ const routes: Routes = [
     path: "pricing-pt/pricing-pt-edit/:id",
     component: PersonalTrainerFormComponent
   },
-  {
-    path: "coach",
-    component: InstructureListComponent
-  },
-  {
-    path: "coach/coach-create",
-    component: InstructureCreateComponent
-  },
+  // {
+  //   path: "coach",
+  //   component: InstructureListComponent
+  // },
+  // {
+  //   path: "coach/coach-create",
+  //   component: InstructureCreateComponent
+  // },
   {
     path: "schedule",
     component: ScheduleListComponent

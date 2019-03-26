@@ -149,12 +149,12 @@ export class NavigationService {
           state: "/master/pricing-non-pt",
           type: "link"
         },
-        {
-          icon: "i-Male",
-          name: "Coach",
-          state: "/master/coach",
-          type: "link"
-        },
+        // {
+        //   icon: "i-Male",
+        //   name: "Coach",
+        //   state: "/master/coach",
+        //   type: "link"
+        // },
         {
           icon: "i-Calendar",
           name: "Schedule",
