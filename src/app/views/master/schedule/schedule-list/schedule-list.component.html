@@ -29,7 +29,6 @@
                 <table id="mytable" class="table table-hover" cellspacing="0">
                   <thead class="text-center">
                     <tr>
-                      <th>Coach</th>
                       <th>Exercise</th>
                       <th>Day</th>
                       <th>Time</th>
@@ -41,7 +40,6 @@
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let schedule of schedules">
-                      <td>{{ schedule.name }}</td>
                       <td>{{ schedule.exercise }}</td>
                       <td>{{ schedule.day }}</td>
                       <td>{{ schedule.time }}</td>
@@ -55,7 +53,7 @@
                           title="Edit"
                           triggers="mouseenter:mouseleave"
                           class="btn btn-sm btn-warning mr-2"
-                          (click)="gotoEdit(schedule.schedule_id)"
+                          (click)="gotoEdit(schedule.id)"
                         >
                           <i class="i-Pen-5"></i>
                         </button>
