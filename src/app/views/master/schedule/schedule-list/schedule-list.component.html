@@ -51,7 +51,15 @@
                       <td>{{ schedule.state }}</td>
                       <td>{{ schedule.branch_name }}</td>
                       <td>
-                        <a
+                        <button
+                          title="Edit"
+                          triggers="mouseenter:mouseleave"
+                          class="btn btn-sm btn-warning mr-2"
+                          (click)="gotoEdit(schedule.schedule_id)"
+                        >
+                          <i class="i-Pen-5"></i>
+                        </button>
+                        <!-- <a
                           href="#"
                           [routerLink]="[
                             'schedule-edit/',
@@ -62,7 +70,7 @@
                           triggers="mouseenter:mouseleave"
                         >
                           <i class="i-Pen-5"></i>
-                        </a>
+                        </a> -->
                         <button
                           class="btn btn-sm btn-danger"
                           (click)="confirm(modalConfirm, schedule.id)"
