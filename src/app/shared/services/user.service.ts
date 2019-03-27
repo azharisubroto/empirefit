@@ -25,6 +25,14 @@ export class UserService {
     return this.http.get(this.apiURL + "/users", this.httpOptions);
   }
 
+  getSingleUser() {
+    return this.http.get(this.apiURL + "/get_user", this.httpOptions);
+  }
+
+  userCheckPassword( id, data ) {
+    return this.http.post(this.apiURL + "/check_password/"+id, data, this.httpOptions);
+  }
+
   updateUser(id, data) {
     return this.http.put(this.apiURL + "/users/" + id, data, this.httpOptions);
   }
