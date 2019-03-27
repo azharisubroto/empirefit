@@ -25,6 +25,7 @@ export class StaffFormComponent implements OnInit {
   branches;
   getpositions;
   banks;
+  finger;
   
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -98,7 +99,7 @@ export class StaffFormComponent implements OnInit {
           bank_id: data["data"].bank_id,
           address: data["data"].address
         });
-
+        this.finger = data["url"];
         $("#staff-name").text(data["data"].name);
         $("#staff-status").text(data["data"].status);
       });
