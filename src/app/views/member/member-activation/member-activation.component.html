@@ -101,7 +101,7 @@
 							</ngb-panel>
 							<ngb-panel title="V. Waiver and Release of Liability">
 								<ng-template ngbPanelContent>
-									<ul class="list" style="list-style:none">
+									<ul style="list-style:none" class="p-0 m-0 p-list">
 										<li><strong>(i)</strong> Express Assumption of Risk: I, the undersigned, am aware that there are significant risks involved in all aspects of physical training. These risks include, but are not limited to: falls, muscle strains, muscle pulls,  muscle tears,  broken  bones,  shin  splints,  heat  prostration,  injuries  to  knees; , injuries to back, injuries to foot, heart attacks, or any other illness or soreness  that I may  incur  which  can  result  in serious injury or death; injury or death  due to negligence  on  the  part of myself,  my training  partner, or other people around me; injury or death due to improper use or failure of equipment; strains and sprains. I am aware that any of these above mentioned risks may result in serious injury or death to myself and or my partner(s). I willingly assume full responsibility for  the  risks that I am exposing myself to and accept full responsibility for  any injury or death that may result from participation  in any activity or class while at, or under direction of EMPIRE FIT CLUB. I acknowledge that I have no physical impairments, injuries , or illnesses that will endanger me or others.</li>
 
 										<li><strong>(ii)</strong> Release: In consideration of the above  mentioned  risks  and  hazards  and  in  consideration  of  the  fact that I am willingly and voluntarily participating in the activities offered by EMPIRE FIT CLUB, I,  the undersigned hereby release EMPIRE FIT CLUB,  their  directors,  coaches,  officers,  employees,  agents, from any and all liability, claims, demands,  actions or  rights  of  action, which are related  to,  arise  out  of,  or are in any way connected  with  my participation in this activity,  including  those  allegedly  attributed  to the negligent acts or omissions of the  above mentioned  parties . This  agreement  shall be binding  upon me, my spouse, my children, my guardians, my successors, representatives, heirs, executors, assigns, or transferees (collectively, the "Releasors"). I accept full and  complete  responsibility  for  the  safety  of myself, any guests, observers or other individuals who I have  invited  to  the  venue of  EMPIRE  FIT CLUB, and property, and I assume the risk of  damage, theft, loss  or  injury caused  by others  to  me,  my guests and property <br><br>
@@ -122,11 +122,11 @@
 					
 						<div class="row mt-5">
 							<div class="form-group col-md-6 mb-3">
-								<label for="firstName" class="d-block mb-2">Signature 1</label>
+								<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
 								<img src="https://via.placeholder.com/250x150" alt="">
 							</div>
 							<div class="form-group col-md-6 mb-3">
-								<label for="lastName" class="d-block mb-2">Signature 2</label>
+								<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
 								<img src="https://via.placeholder.com/250x150" alt="">
 							</div>
 						</div>
@@ -308,7 +308,7 @@
 				</wizard-step>
 	
 				<wizard-step [title]="'Autodebet'" (onNext)="onStep4Next($event)">
-					<div class="mt-4 mb-4">
+					<div class="mt-0 mb-4">
 						<p>have agreed to allow Empire Fit Club to deduct IDR                          from my credit card in order to pay the monthly subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount of money will be automatically deducted unless I instructed them other wise.</p>
 						<p>Terms &amp; Condition.</p>
 						<ul>
@@ -383,9 +383,9 @@
 
 				<wizard-step [title]="'Final'" (onComplete)="onComplete($event)">
 					<div class="p5 text-center mt-5">
-						<img src="assets/images/success.png" alt="" width="100">
+						<i class="text-50 i-Checked-User text-success"></i>
 					
-						<h2 class="mt-5">REGISTRATION PROCESS IS SUCCESSFULL</h2>
+						<h2 class="mt-5">Thank you! you have completed all the steps. &amp; Registration is successful</h2>
 					
 						<div class="row mt-5 justify-content-center">
 							<div class="col-md-4">
