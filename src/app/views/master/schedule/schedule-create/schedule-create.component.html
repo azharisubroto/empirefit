@@ -73,7 +73,7 @@
               <div class="row">
                 <div class="col-md-5">
                   <div class="row">
-                    <div class="col-10">
+                    <div class="col-9 col-md-10">
                       <input
                         id="start_date"
                         class="form-control"
@@ -84,7 +84,7 @@
                         #dp1="ngbDatepicker"
                       />
                     </div>
-                    <div class="col-2">
+                    <div class="col-3 col-md-2">
                       <button
                         class="btn btn-secondary"
                         (click)="dp1.toggle()"
@@ -100,7 +100,7 @@
                 </div>
                 <div class="col-md-5">
                   <div class="row">
-                    <div class="col-10">
+                    <div class="col-9 col-md-10">
                       <input
                         id="end_date"
                         class="form-control"
@@ -111,7 +111,7 @@
                         formControlName="end_date"
                       />
                     </div>
-                    <div class="col-2">
+                    <div class="col-3 col-md-2">
                       <button
                         class="btn btn-secondary"
                         (click)="dp.toggle()"
@@ -146,19 +146,18 @@
                   <h4>Coach :</h4>
                 </div>
                 <div class="col-md-6 mt-3" *ngFor="let staff of staffs">
-                  <label class="checkbox checkbox-secondary">
-                    <input
-                      checked
-                      type="checkbox"
-                      name="staff"
-                      value="{{ staff.id }}"
-                    />
-                    <span>{{ staff.name }}</span>
-                    <span class="checkmark"></span>
-                  </label>
+                  <input
+                    checked
+                    type="checkbox"
+                    name="staff"
+                    value="{{ staff.id }}"
+                  />
+                  <span class="ml-3">{{ staff.name }}</span>
+                  <span class="checkmark"></span>
                 </div>
                 <input type="hidden" class="staff-final" value="" />
               </div>
+              <hr />
               <div class="row">
                 <div class="col-md-12">
                   <h4>Member Type :</h4>
@@ -167,16 +166,14 @@
                   class="col-md-6 mt-3"
                   *ngFor="let member_type of member_types"
                 >
-                  <label class="checkbox checkbox-secondary">
-                    <input
-                      checked
-                      type="checkbox"
-                      name="member_type"
-                      value="{{ member_type.id }}"
-                    />
-                    <span>{{ member_type.member_type_name }}</span>
-                    <span class="checkmark"></span>
-                  </label>
+                  <input
+                    checked
+                    type="checkbox"
+                    name="member_type"
+                    value="{{ member_type.id }}"
+                  />
+                  <span class="ml-3">{{ member_type.member_type_name }}</span>
+                  <span class="checkmark"></span>
                 </div>
                 <input type="hidden" class="member_type-final" value="" />
               </div>

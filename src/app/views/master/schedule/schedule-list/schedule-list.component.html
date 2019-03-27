@@ -29,9 +29,9 @@
                 <table id="mytable" class="table table-hover" cellspacing="0">
                   <thead class="text-center">
                     <tr>
-                      <th>Exercise</th>
                       <th>Day</th>
                       <th>Time</th>
+                      <th>Exercise</th>
                       <th>Period</th>
                       <th>Status</th>
                       <th>Branch</th>
@@ -40,9 +40,9 @@
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let schedule of schedules">
-                      <td>{{ schedule.exercise }}</td>
                       <td>{{ schedule.day }}</td>
                       <td>{{ schedule.time }}</td>
+                      <td>{{ schedule.exercise }}</td>
                       <td>
                         {{ schedule.start_date }} - {{ schedule.end_date }}
                       </td>
