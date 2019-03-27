@@ -8,11 +8,13 @@ import { Router, ActivatedRoute } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
+import { Observable, Subject } from 'rxjs';
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 
 @Component({
   selector: "app-wizard",
   templateUrl: "./staff-form.component.html",
-  styleUrls: ["./staff-form.component.css"]
+  styleUrls: ["./staff-form.component.css"],
 })
 export class StaffFormComponent implements OnInit {
   isCompleted: boolean;
@@ -23,6 +25,24 @@ export class StaffFormComponent implements OnInit {
   branches;
   getpositions;
   banks;
+  finger;
+  
+  public showWebcam = true;
+  public allowCameraSwitch = true;
+  public multipleWebcamsAvailable = false;
+  public deviceId: string;
+  public videoOptions: MediaTrackConstraints = {
+    // width: {ideal: 1024},
+    // height: {ideal: 576}
+  };
+  public errors: WebcamInitError[] = [];
+
+  public webcamImage: WebcamImage = null;
+
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
 
   constructor(
     private fb: FormBuilder,
@@ -79,7 +99,7 @@ export class StaffFormComponent implements OnInit {
           bank_id: data["data"].bank_id,
           address: data["data"].address
         });
-
+        this.finger = data["url"];
         $("#staff-name").text(data["data"].name);
         $("#staff-status").text(data["data"].status);
       });
@@ -87,6 +107,32 @@ export class StaffFormComponent implements OnInit {
     this.branchService.getBranches().subscribe((data: any) => {
       this.branches = data["data"];
     });
+
+    WebcamUtil.getAvailableVideoInputs()
+      .then((mediaDevices: MediaDeviceInfo[]) => {
+        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+      });
+  }
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info('received webcam image', webcamImage);
+    this.webcamImage = webcamImage;
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean|string> {
+    return this.nextWebcam.asObservable();
   }
 
   onStep1Next(e) {

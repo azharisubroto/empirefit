@@ -9,6 +9,7 @@ import { InMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./shared/inmemory-db/inmemory-db.service";
 import { HttpClientModule } from "@angular/common/http";
 import { DataTablesModule } from "angular-datatables";
+import { WebcamModule } from 'ngx-webcam';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +22,8 @@ import { DataTablesModule } from "angular-datatables";
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true
     }),
-    AppRoutingModule
+    AppRoutingModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent]
