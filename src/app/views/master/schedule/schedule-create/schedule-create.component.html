@@ -146,19 +146,18 @@
                   <h4>Coach :</h4>
                 </div>
                 <div class="col-md-6 mt-3" *ngFor="let staff of staffs">
-                  <label class="checkbox checkbox-secondary">
-                    <input
-                      checked
-                      type="checkbox"
-                      name="staff"
-                      value="{{ staff.id }}"
-                    />
-                    <span>{{ staff.name }}</span>
-                    <span class="checkmark"></span>
-                  </label>
+                  <input
+                    checked
+                    type="checkbox"
+                    name="staff"
+                    value="{{ staff.id }}"
+                  />
+                  <span class="ml-3">{{ staff.name }}</span>
+                  <span class="checkmark"></span>
                 </div>
                 <input type="hidden" class="staff-final" value="" />
               </div>
+              <hr />
               <div class="row">
                 <div class="col-md-12">
                   <h4>Member Type :</h4>
@@ -167,16 +166,14 @@
                   class="col-md-6 mt-3"
                   *ngFor="let member_type of member_types"
                 >
-                  <label class="checkbox checkbox-secondary">
-                    <input
-                      checked
-                      type="checkbox"
-                      name="member_type"
-                      value="{{ member_type.id }}"
-                    />
-                    <span>{{ member_type.member_type_name }}</span>
-                    <span class="checkmark"></span>
-                  </label>
+                  <input
+                    checked
+                    type="checkbox"
+                    name="member_type"
+                    value="{{ member_type.id }}"
+                  />
+                  <span class="ml-3">{{ member_type.member_type_name }}</span>
+                  <span class="checkmark"></span>
                 </div>
                 <input type="hidden" class="member_type-final" value="" />
               </div>
