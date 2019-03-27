@@ -2,7 +2,7 @@ ul.list {
     margin: 0;
     padding: 0;
     li {
-        margin: 20px 0;
+        margin: 0 0 20px 0;
         padding: 20px;
         border: 1px solid #e5e5e5;
 
@@ -17,4 +17,15 @@ ul.list {
     border: 1px solid #e5e5e5;
     border-radius: 5px;
     padding: 10px;
+}
+
+.p-list {
+    margin: 0;
+    padding: 0;
+    li {
+        margin-bottom: 20px;
+        &:last-of-type {
+            margin: 0;
+        }
+    }
 }
