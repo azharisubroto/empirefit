@@ -8,13 +8,14 @@ import { Router, ActivatedRoute } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
-import { Observable, Subject } from 'rxjs';
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { Observable, Subject } from "rxjs";
+import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-wizard",
   templateUrl: "./staff-form.component.html",
-  styleUrls: ["./staff-form.component.css"],
+  styleUrls: ["./staff-form.component.css"]
 })
 export class StaffFormComponent implements OnInit {
   isCompleted: boolean;
@@ -26,7 +27,8 @@ export class StaffFormComponent implements OnInit {
   getpositions;
   banks;
   finger;
-  
+  finspot;
+
   public showWebcam = true;
   public allowCameraSwitch = true;
   public multipleWebcamsAvailable = false;
@@ -42,7 +44,9 @@ export class StaffFormComponent implements OnInit {
   // webcam snapshot trigger
   private trigger: Subject<void> = new Subject<void>();
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
-  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+  private nextWebcam: Subject<boolean | string> = new Subject<
+    boolean | string
+  >();
 
   constructor(
     private fb: FormBuilder,
@@ -53,7 +57,8 @@ export class StaffFormComponent implements OnInit {
     private bankService: BankService,
     private toastr: ToastrService,
     private parserFormatter: NgbDateParserFormatter,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -99,7 +104,9 @@ export class StaffFormComponent implements OnInit {
           bank_id: data["data"].bank_id,
           address: data["data"].address
         });
-        this.finger = data["url"];
+        this.finspot = data["url"];
+
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
         $("#staff-name").text(data["data"].name);
         $("#staff-status").text(data["data"].status);
       });
@@ -108,10 +115,11 @@ export class StaffFormComponent implements OnInit {
       this.branches = data["data"];
     });
 
-    WebcamUtil.getAvailableVideoInputs()
-      .then((mediaDevices: MediaDeviceInfo[]) => {
+    WebcamUtil.getAvailableVideoInputs().then(
+      (mediaDevices: MediaDeviceInfo[]) => {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
-      });
+      }
+    );
   }
 
   public triggerSnapshot(): void {
@@ -119,7 +127,7 @@ export class StaffFormComponent implements OnInit {
   }
 
   public handleImage(webcamImage: WebcamImage): void {
-    console.info('received webcam image', webcamImage);
+    console.info("received webcam image", webcamImage);
     this.webcamImage = webcamImage;
   }
 
@@ -131,7 +139,7 @@ export class StaffFormComponent implements OnInit {
     return this.trigger.asObservable();
   }
 
-  public get nextWebcamObservable(): Observable<boolean|string> {
+  public get nextWebcamObservable(): Observable<boolean | string> {
     return this.nextWebcam.asObservable();
   }
 
