@@ -111,14 +111,24 @@ export class MemberAttendanceComponent implements OnInit {
       var pass = data;
       this.loading = true;
       if( pass != null && pass['status'] == 200 ) {
+        $('.jadwal').find('.notyet:eq(0)').find('.checkmark').after('<button class="delete_class ml-3 btn btn-danger btn-sm" (click)="cancelClass()">Cancel</button>');
         $('.jadwal').find('.notyet:eq(0)').removeClass('notyet').find('input').prop('checked', true);
         this.loading = false;
+        this.cancelClass();
         
         $('.modal-header .close').trigger('click');
       } else {
         alert('Your password is incorrect');
         this.loading = false;
       }
+    });
+  }
+
+  cancelClass() {
+    $(".delete_class").on('click', function(e){
+      e.preventDefault();
+      $(this).parents('.checkbox').addClass('notyet').find('input').prop('checked', false);
+      $(this).delay(300).remove();
     });
   }
 
