@@ -8,7 +8,7 @@ import { Router } from "@angular/router";
   providedIn: "root"
 })
 export class BankService {
-  readonly apiURL = "http://45.118.132.77/api";
+  readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
   error;
 
