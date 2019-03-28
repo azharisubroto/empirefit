@@ -196,59 +196,59 @@ export class StaffFormComponent implements OnInit {
   //   })
   // }
 
-  staffCheck(id) {
-    let regCt = -1;
-    let regStats = 0;
-    regStats = 0;
-    try {
-      timeout = timer(0);
-    } catch (err) {
-      console.log("Registration timer has been init");
-    }
+  // staffCheck(id) {
+  //   let regCt = -1;
+  //   let regStats = 0;
+  //   regStats = 0;
+  //   try {
+  //     timeout = timer(0);
+  //   } catch (err) {
+  //     console.log("Registration timer has been init");
+  //   }
 
-    var limit = 4;
-    var ct = 1;
-    var timeout = timer(5000);
-    var time = 5000;
+  //   var limit = 4;
+  //   var ct = 1;
+  //   var timeout = timer(5000);
+  //   var time = 5000;
 
-    timeout.subscribe((data: any) => {
-      console.log("'" + id + "' registration checking...");
+  //   timeout.subscribe((data: any) => {
+  //     console.log("'" + id + "' registration checking...");
 
-      this.fingerService.checkStaffRegistration(id).subscribe((data: any) => {
-        try {
-          var res = data["data"];
-          // console.log(res);
-          if (res.result) {
-            regStats = 1;
-            $.each(res, function(key, value) {
-              console.log(key, value);
-              if (key == "current") {
-                regCt = data["data"].current;
-              }
-            });
-          } else {
-            console.log("gagal");
-          }
-        } catch (err) {
-          alert(err.message);
-        }
-      });
+  //     this.fingerService.checkStaffRegistration(id).subscribe((data: any) => {
+  //       try {
+  //         var res = data["data"];
+  //         // console.log(res);
+  //         if (res.result) {
+  //           regStats = 1;
+  //           $.each(res, function(key, value) {
+  //             console.log(key, value);
+  //             if (key == "current") {
+  //               regCt = data["data"].current;
+  //             }
+  //           });
+  //         } else {
+  //           console.log("gagal");
+  //         }
+  //       } catch (err) {
+  //         alert(err.message);
+  //       }
+  //     });
 
-      if (ct >= limit || regStats == 1) {
-        console.log("B");
-        console.log("'" + id + "' registration checking end");
-        if (ct >= limit && regStats == 0) {
-          alert("'" + id + "' registration fail!");
-          console.log("falsewew");
-        }
-        if (regStats == 1) {
-          console.log("AYE");
-          alert("'" + id + "' registration success!");
-          console.log("true");
-        }
-      }
-    });
-  }
+  //     if (ct >= limit || regStats == 1) {
+  //       console.log("B");
+  //       console.log("'" + id + "' registration checking end");
+  //       if (ct >= limit && regStats == 0) {
+  //         alert("'" + id + "' registration fail!");
+  //         console.log("falsewew");
+  //       }
+  //       if (regStats == 1) {
+  //         console.log("AYE");
+  //         alert("'" + id + "' registration success!");
+  //         console.log("true");
+  //       }
+  //     }
+  //   });
+  // }
 
   onStep1Next(e) {
     if (this.staffForm.invalid) {

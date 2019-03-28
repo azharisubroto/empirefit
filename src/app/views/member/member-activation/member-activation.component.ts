@@ -7,7 +7,7 @@ import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { BankService } from "src/app/shared/services/bank.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
-
+import { DomSanitizer } from "@angular/platform-browser";
 @Component({
   selector: "app-member-activation",
   templateUrl: "./member-activation.component.html",
@@ -27,6 +27,9 @@ export class MemberActivationComponent implements OnInit {
   package: any;
   banks: any;
   trainers: any;
+  finger;
+  finspot;
+  id_card_number;
 
   constructor(
     private fb: FormBuilder,
@@ -36,7 +39,8 @@ export class MemberActivationComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private bank: BankService,
-    private PersonalTrainer: PersonaltrainerService
+    private PersonalTrainer: PersonaltrainerService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -59,6 +63,14 @@ export class MemberActivationComponent implements OnInit {
         //results.push(list[1]+" "+list[2]);
         this.expirydate = list[1] + " " + list[2] + " " + list[3];
         console.log(this.member);
+
+        this.id_card_number = data["data"].id_card_number;
+
+        this.finspot = data["url"];
+
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(
+          this.finspot
+        );
       });
 
     // get member type
@@ -82,5 +94,9 @@ export class MemberActivationComponent implements OnInit {
   onStep2Next(e) {}
   onStep3Next(e) {}
   onStep4Next(e) {}
-  onComplete(e) {}
+  onComplete(e) {
+    this.router.navigateByUrl(
+      "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
+    );
+  }
 }
