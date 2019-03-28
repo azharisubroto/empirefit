@@ -45,6 +45,9 @@ import { BenefitCreateComponent } from "./benefit/benefit-create/benefit-create.
 import { PositionListComponent } from "./position/position-list/position-list.component";
 import { PositionCreateComponent } from "./position/position-create/position-create.component";
 import { PositionFormComponent } from "./position/position-form/position-form.component";
+import { DeviceFormComponent } from "./finger/device-form/device-form.component";
+import { DeviceCreateComponent } from "./finger/device-create/device-create.component";
+import { DeviceListComponent } from "./finger/device-list/device-list.component";
 
 const routes: Routes = [
   {
@@ -226,6 +229,18 @@ const routes: Routes = [
   {
     path: "position/position-create",
     component: PositionCreateComponent
+  },
+  {
+    path: "device",
+    component: DeviceListComponent
+  },
+  {
+    path: "device/device-edit/:id",
+    component: DeviceFormComponent
+  },
+  {
+    path: "device/device-create",
+    component: DeviceCreateComponent
   }
 ];
 

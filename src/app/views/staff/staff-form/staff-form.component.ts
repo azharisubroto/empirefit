@@ -4,10 +4,15 @@ import { PositionService } from "src/app/shared/services/position.service";
 import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
 import { BankService } from "src/app/shared/services/bank.service";
+import { FingerService } from "src/app/shared/services/finger.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
+import { Observable, Subject } from "rxjs";
+import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
+import { DomSanitizer } from "@angular/platform-browser";
+import { timer } from "rxjs/observable/timer";
 
 @Component({
   selector: "app-wizard",
@@ -23,6 +28,28 @@ export class StaffFormComponent implements OnInit {
   branches;
   getpositions;
   banks;
+  finger;
+  finspot;
+  id_card;
+
+  public showWebcam = true;
+  public allowCameraSwitch = true;
+  public multipleWebcamsAvailable = false;
+  public deviceId: string;
+  public videoOptions: MediaTrackConstraints = {
+    // width: {ideal: 1024},
+    // height: {ideal: 576}
+  };
+  public errors: WebcamInitError[] = [];
+
+  public webcamImage: WebcamImage = null;
+
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+  private nextWebcam: Subject<boolean | string> = new Subject<
+    boolean | string
+  >();
 
   constructor(
     private fb: FormBuilder,
@@ -31,9 +58,11 @@ export class StaffFormComponent implements OnInit {
     private branchService: BranchService,
     private staffService: StaffService,
     private bankService: BankService,
+    private fingerService: FingerService,
     private toastr: ToastrService,
     private parserFormatter: NgbDateParserFormatter,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -80,12 +109,144 @@ export class StaffFormComponent implements OnInit {
           address: data["data"].address
         });
 
+        this.id_card = data["data"].id_card;
+
+        this.finspot = data["url"];
+
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
         $("#staff-name").text(data["data"].name);
         $("#staff-status").text(data["data"].status);
       });
 
     this.branchService.getBranches().subscribe((data: any) => {
       this.branches = data["data"];
+    });
+
+    WebcamUtil.getAvailableVideoInputs().then(
+      (mediaDevices: MediaDeviceInfo[]) => {
+        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+      }
+    );
+  }
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info("received webcam image", webcamImage);
+    this.webcamImage = webcamImage;
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean | string> {
+    return this.nextWebcam.asObservable();
+  }
+
+  // staffCheck(id) {
+
+  //   var regStats = 0;
+  //   try {
+  //     timer_register.stop();
+  //   }
+  //   catch (err) {
+  //     console.log('Registration timer has been init');
+  //   }
+
+  //   var limit = 4;
+  //   var ct = 1;
+  //   var timeout = 5000;
+
+  //   var timer_register = $.timer(timeout, function () {
+  //     console.log("'" + this.staff_id + "' registration checking...");
+  //     this.staffCheckRegistration(this.staff_id, $("#user_finger_" + this.staff_id).html());
+  //     if (ct >= limit || regStats == 1) {
+  //       console.log("B");
+  //       timer_register.stop();
+  //       console.log("'" + this.staff_id + "' registration checking end");
+  //       if (ct >= limit && regStats == 0) {
+  //         alert("'" + this.staff_id + "' registration fail!");
+  //         console.log('falsewew');
+  //       }
+  //       if (regStats == 1) {
+  //         console.log('AYE');
+  //         $("#user_finger_" + this.staff_id).html(this.regCt);
+  //         alert("'" + this.staff_id + "' registration success!");
+  //         console.log('true');
+
+  //       }
+  //     }
+  //     console.log("A");
+  //     ct++;
+  //   });
+
+  //   this.fingerService.checkStaffRegistration(id).subscribe((data: any) => {
+  //     if (data["status"] === "200") {
+  //       this.toastr.success(data["message"], "Success!", {
+  //         progressBar: true
+  //       });
+  //     }
+  //   })
+  // }
+
+  staffCheck(id) {
+    let regCt = -1;
+    let regStats = 0;
+    regStats = 0;
+    try {
+      timeout = timer(0);
+    } catch (err) {
+      console.log("Registration timer has been init");
+    }
+
+    var limit = 4;
+    var ct = 1;
+    var timeout = timer(5000);
+    var time = 5000;
+
+    timeout.subscribe((data: any) => {
+      console.log("'" + id + "' registration checking...");
+
+      this.fingerService.checkStaffRegistration(id).subscribe((data: any) => {
+        try {
+          var res = data["data"];
+          // console.log(res);
+          if (res.result) {
+            regStats = 1;
+            $.each(res, function(key, value) {
+              console.log(key, value);
+              if (key == "current") {
+                regCt = data["data"].current;
+              }
+            });
+          } else {
+            console.log("gagal");
+          }
+        } catch (err) {
+          alert(err.message);
+        }
+      });
+
+      if (ct >= limit || regStats == 1) {
+        console.log("B");
+        console.log("'" + id + "' registration checking end");
+        if (ct >= limit && regStats == 0) {
+          alert("'" + id + "' registration fail!");
+          console.log("falsewew");
+        }
+        if (regStats == 1) {
+          console.log("AYE");
+          alert("'" + id + "' registration success!");
+          console.log("true");
+        }
+      }
     });
   }
 

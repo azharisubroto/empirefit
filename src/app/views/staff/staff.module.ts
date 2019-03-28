@@ -17,6 +17,8 @@ import { FormWizardModule } from "src/app/shared/components/form-wizard/form-wiz
 import { TextMaskModule } from "angular2-text-mask";
 import { StaffFormComponent } from './staff-form/staff-form.component';
 
+import { WebcamModule } from 'ngx-webcam';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { StaffFormComponent } from './staff-form/staff-form.component';
     FormWizardModule,
     TagInputModule,
     CustomFormsModule,
-    SharedComponentsModule
+    SharedComponentsModule,
+    WebcamModule
   ],
   declarations: [StaffListComponent, StaffRegistrationComponent, StaffFormComponent]
 })

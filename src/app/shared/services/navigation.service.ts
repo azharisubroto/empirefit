@@ -202,6 +202,12 @@ export class NavigationService {
           name: "Positions",
           state: "/master/position",
           type: "link"
+        },
+        {
+          icon: "i-Library",
+          name: "Devices",
+          state: "/master/device",
+          type: "link"
         }
       ]
     }

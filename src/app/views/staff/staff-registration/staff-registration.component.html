@@ -189,7 +189,7 @@
                 formControlName="address"
               ></textarea>
             </div>
-            <div class="col-md-12 mb-3">
+            <!-- <div class="col-md-12 mb-3">
               <hr />
               <h4>Position :</h4>
             </div>
@@ -204,8 +204,23 @@
                 <span>{{ position.position_name }}</span>
                 <span class="checkmark"></span>
               </label>
+            </div> -->
+            <div class="col-md-12">
+              <hr />
+              <h4>Position :</h4>
+            </div>
+            <div class="col-md-12" *ngFor="let position of positions">
+              <input
+                checked
+                type="checkbox"
+                name="position"
+                value="{{ position.id }}"
+              />
+              <span class="ml-3 position_name">{{ position.position_name }}</span>
+              <span class="checkmark"></span>
             </div>
             <input type="hidden" class="position-final" value="" />
+            <input type="hidden" class="position-name-final" value="" />
           </div>
         </form>
       </wizard-step>
@@ -220,9 +235,7 @@
                 <div class="text-muted mb-0">
                   <strong>Name</strong>
                 </div>
-                <div id="staff_name" class="text-medium">
-                  
-                </div>
+                <div id="staff_name" class="text-medium"></div>
               </div>
             </div>
           </div>

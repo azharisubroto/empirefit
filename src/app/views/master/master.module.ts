@@ -56,6 +56,9 @@ import { BranchCreateComponent } from "./branch/branch-create/branch-create.comp
 import { PositionListComponent } from "./position/position-list/position-list.component";
 import { PositionFormComponent } from "./position/position-form/position-form.component";
 import { PositionCreateComponent } from "./position/position-create/position-create.component";
+import { DeviceListComponent } from "./finger/device-list/device-list.component";
+import { DeviceFormComponent } from './finger/device-form/device-form.component';
+import { DeviceCreateComponent } from './finger/device-create/device-create.component';
 
 @NgModule({
   imports: [
@@ -115,7 +118,10 @@ import { PositionCreateComponent } from "./position/position-create/position-cre
     BranchCreateComponent,
     PositionListComponent,
     PositionFormComponent,
-    PositionCreateComponent
+    PositionCreateComponent,
+    DeviceListComponent,
+    DeviceFormComponent,
+    DeviceCreateComponent
   ]
 })
 export class MasterModule {}
