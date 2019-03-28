@@ -8,6 +8,9 @@ import { Router } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
+import { Observable, Subject } from "rxjs";
+import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: "app-wizard",
@@ -24,6 +27,27 @@ export class StaffRegistrationComponent implements OnInit {
   staff_name;
   staff_status;
   banks;
+  finger;
+  finspot;
+
+  public showWebcam = true;
+  public allowCameraSwitch = true;
+  public multipleWebcamsAvailable = false;
+  public deviceId: string;
+  public videoOptions: MediaTrackConstraints = {
+    // width: {ideal: 1024},
+    // height: {ideal: 576}
+  };
+  public errors: WebcamInitError[] = [];
+
+  public webcamImage: WebcamImage = null;
+
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
+  private nextWebcam: Subject<boolean | string> = new Subject<
+    boolean | string
+  >();
 
   constructor(
     private fb: FormBuilder,
@@ -61,6 +85,12 @@ export class StaffRegistrationComponent implements OnInit {
       this.banks = data["data"];
     });
 
+    WebcamUtil.getAvailableVideoInputs().then(
+      (mediaDevices: MediaDeviceInfo[]) => {
+        this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
+      }
+    );
+
     //Checbox
     $(".selectall").click(function() {
       if ($(this).is(":checked")) {
@@ -69,6 +99,27 @@ export class StaffRegistrationComponent implements OnInit {
         $('input[name="position"]').prop("checked", false);
       }
     });
+  }
+
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
+
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info("received webcam image", webcamImage);
+    this.webcamImage = webcamImage;
+  }
+
+  public handleInitError(error: WebcamInitError): void {
+    this.errors.push(error);
+  }
+
+  public get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  public get nextWebcamObservable(): Observable<boolean | string> {
+    return this.nextWebcam.asObservable();
   }
 
   onStep1Next(e) {

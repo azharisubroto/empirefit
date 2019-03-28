@@ -247,16 +247,37 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2">
-              <img src="https://via.placeholder.com/150" alt="" />
+            <!-- <div class="col-md-2 snapshot" *ngIf="webcamImage">
+              <img [src]="webcamImage.imageAsDataUrl"/>
+            </div> -->
+            <div class="col-md-3">
+              <webcam [height]="250" [width]="250" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                [videoOptions]="videoOptions"
+                [imageQuality]="1"
+                (initError)="handleInitError($event)">
+              </webcam>
             </div>
-            <div class="col-md-4">
-              <a href="#" class="btn btn-primary btn-lg btn-block py-3"
-                >Take a Picture</a
-              >
-              <a href="#" class="btn btn-primary btn-lg btn-block py-3"
+            <ng-container  *ngIf="webcamImage; then adaImage; else gaAda"></ng-container>
+            <ng-template #adaImage>
+              <div class="col-md-3 snapshot">
+                <img [src]="webcamImage.imageAsDataUrl" width="250" height="187"/>
+              </div>
+            </ng-template>
+            <ng-template #gaAda>
+              <div class="col-md-3 snapshot">
+                <img src="https://via.placeholder.com/150" alt="" width="250" height="187" />
+              </div>
+            </ng-template>
+          </div>
+          <div class="row">
+            <!-- <div class="col-md-2">
+              <img src="https://via.placeholder.com/150" alt="" />
+            </div> -->
+            <div class="col-md-6">
+                <a class="actionBtn btn btn-primary btn-lg btn-block py-3" (click)="triggerSnapshot();">Take a Picture</a>
+              <!-- <a href="#" class="btn btn-primary btn-lg btn-block py-3"
                 >Retry</a
-              >
+              > -->
             </div>
           </div>
 
@@ -290,8 +311,8 @@
               </div>
               <div class="row mt-2 mb-5">
                 <div class="col-md-6">
-                  <a href="#" class="btn btn-primary btn-lg btn-block py-3"
-                    >Retry</a
+                  <a [href]="finger" class="btn btn-primary btn-lg btn-block py-3"
+                    >Scan</a
                   >
                 </div>
               </div>
