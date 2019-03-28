@@ -266,9 +266,6 @@
                 >Take a Picture</a
               > -->
               <a class="actionBtn btn btn-primary btn-lg btn-block py-3" (click)="triggerSnapshot();">Take a Picture</a>
-              <a href="#" class="btn btn-primary btn-lg btn-block py-3"
-                >Register</a
-              >
             </div>
           </div>
 
@@ -302,8 +299,8 @@
               </div>
               <div class="row mt-2 mb-5">
                 <div class="col-md-6">
-                  <a [href]="finger" class="btn btn-primary btn-lg btn-block py-3"
-                    >Retry</a
+                  <a [href]="finger" (click)="staffCheck(id_card)" class="btn btn-primary btn-lg btn-block py-3"
+                    >Register</a
                   >
                 </div>
               </div>
