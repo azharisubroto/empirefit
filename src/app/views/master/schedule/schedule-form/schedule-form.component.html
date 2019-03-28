@@ -11,7 +11,7 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Update Schedule</div>
+        <div class="fancy-head"><span>Form Update Schedule</span></div>
         <form [formGroup]="scheduleForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-12 form-group mb-3">
@@ -133,7 +133,7 @@
               <hr />
               <div class="row mb-3">
                 <div class="col-md-12">
-                  <h4>Coach :</h4>
+                  <h4 class="fancy-head"><span>Coach :</span></h4>
                 </div>
                 <div class="col-md-6 mt-3" *ngFor="let staff of staffs">
                   <input type="checkbox" name="staff" value="{{ staff.id }}" />
@@ -145,7 +145,7 @@
               <hr>
               <div class="row">
                 <div class="col-md-12">
-                  <h4>Member Type :</h4>
+                  <h4 class="fancy-head"><span>Member Type :</span></h4>
                 </div>
                 <div
                   class="col-md-6 mt-3"

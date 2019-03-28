@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomValidators } from 'ng2-validation';
+import { Component, OnInit } from "@angular/core";
+import { CustomValidators } from "ng2-validation";
 import {
   FormGroup,
   FormBuilder,
   FormControl,
   Validators
 } from "@angular/forms";
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from "ngx-toastr";
 import { MemberService } from "src/app/shared/services/member.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { Router, ActivatedRoute } from "@angular/router";
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
@@ -143,16 +143,37 @@ export class MemberAttendanceComponent implements OnInit {
       if (pass != null && pass["status"] == 200) {
         $(".jadwal")
           .find(".notyet:eq(0)")
+          .find(".checkmark")
+          .after(
+            '<button class="delete_class ml-3 btn btn-danger btn-sm" (click)="cancelClass()">Cancel</button>'
+          );
+        $(".jadwal")
+          .find(".notyet:eq(0)")
           .removeClass("notyet")
           .find("input")
           .prop("checked", true);
         this.loading = false;
+        this.cancelClass();
 
         $(".modal-header .close").trigger("click");
       } else {
         alert("Your password is incorrect");
         this.loading = false;
       }
+    });
+  }
+
+  cancelClass() {
+    $(".delete_class").on("click", function(e) {
+      e.preventDefault();
+      $(this)
+        .parents(".checkbox")
+        .addClass("notyet")
+        .find("input")
+        .prop("checked", false);
+      $(this)
+        .delay(300)
+        .remove();
     });
   }
 
