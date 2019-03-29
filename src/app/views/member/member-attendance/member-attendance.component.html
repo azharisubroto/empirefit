@@ -58,7 +58,7 @@
 						<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
 							<span class="text-muted mb-0">Type</span>
 							<div class="text-medium text-primary mt-1">
-								{{member.member_type_name}}
+								{{!! member.member_type_name ? member.member_type_name : '-' }}
 							</div>
 						</div>
 						<div class="px-4 py-3 border border-light rounded align-items-center">
@@ -72,7 +72,7 @@
 						<div class="px-4 py-3 border border-light rounded align-items-center">
 							<span class="text-muted mb-0">Session Remains</span>
 							<div class="text-medium text-primary mt-1">
-								{{member.session_remains}}
+								{{!! member.session_remains ? member.session_remains : '-' }}
 							</div>
 						</div>
 					</div>
@@ -174,17 +174,6 @@
 					</div>
 					<div class="col-md-6 mb-4 mb-md-0">
 						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Last Time</span>
-							<div class="text-medium text-primary mt-1 last_time">
-								<code>n/a</code>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
 							<span class="text-muted mb-0">Finger Print Status</span>
 							<div class="text-medium text-primary mt-1">
 								{{member.state}}
@@ -216,26 +205,6 @@
 				</div>
 				<div class="mt-4 jadwal">
 					
-					<label class="checkbox checkbox-success">
-						<input checked type="checkbox" disabled>
-						<span>10:00 - STRENGTH &amp; CONDITIONING - SUSY</span><span class="checkmark"></span>
-					</label>
-					<label class="checkbox checkbox-success notyet">
-						<input type="checkbox" disabled>
-						<span>12:00 - Fit Express</span><span class="checkmark"></span>
-					</label>
-					<label class="checkbox checkbox-success notyet">
-						<input type="checkbox" disabled>
-						<span>12:00 - Goyang Zumba</span><span class="checkmark"></span>
-					</label>
-					
-					<div class="px-4 py-3 border border-light rounded align-items-center">
-						<span class="text-muted mb-0">Finger Print Status</span>
-						<div class="text-medium text-primary mt-1">
-							SUCCESS
-						</div>
-					</div>
-
 				</div>
 				<div class="row mt-4">
 					<div class="col-12">
