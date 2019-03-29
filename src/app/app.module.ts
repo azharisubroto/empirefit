@@ -10,6 +10,7 @@ import { InMemoryDataService } from "./shared/inmemory-db/inmemory-db.service";
 import { HttpClientModule } from "@angular/common/http";
 import { DataTablesModule } from "angular-datatables";
 import { WebcamModule } from 'ngx-webcam';
+import { SignaturePadModule } from "angular2-signaturepad";
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { WebcamModule } from 'ngx-webcam';
     BrowserModule,
     SharedModule,
     HttpClientModule,
+    SignaturePadModule,
     DataTablesModule,
     BrowserAnimationsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {

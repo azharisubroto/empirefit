@@ -44,4 +44,11 @@ export class ScheduleService {
   showCoach(id) {
     return this.http.get(this.apiURL + "/show_coach/" + id, this.httpOptions);
   }
+
+  showClassRegistration(id) {
+    return this.http.get(
+      this.apiURL + "/show_class_registration/" + id,
+      this.httpOptions
+    );
+  }
 }

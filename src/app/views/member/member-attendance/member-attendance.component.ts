@@ -9,6 +9,9 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { MemberService } from "src/app/shared/services/member.service";
 import { UserService } from "src/app/shared/services/user.service";
+import { AttendanceService } from "src/app/shared/services/attendance.service";
+import { ScheduleService } from "src/app/shared/services/schedule.service";
+import { ClassRegisterService } from "src/app/shared/services/classRegisterService.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -32,6 +35,7 @@ export class MemberAttendanceComponent implements OnInit {
   public todayDate: any;
   finger;
   finspot;
+  present;
   id_card_number;
 
   constructor(
@@ -42,6 +46,9 @@ export class MemberAttendanceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private UserService: UserService,
+    private attendanceService: AttendanceService,
+    private scheduleService: ScheduleService,
+    private classRegisterService: ClassRegisterService,
     private sanitizer: DomSanitizer
   ) {}
 
@@ -56,12 +63,26 @@ export class MemberAttendanceComponent implements OnInit {
     });
 
     this.userForm = this.fb.group({
-      password: ["", Validators.required]
+      password: ["", Validators.required],
+      schedule_id: ["", Validators.required]
     });
 
     this.memberService
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
+        if (data["data"].member_type_id == null) {
+          $("#btn-manualreg").attr("disabled", "disabled");
+          $("#btn-manualattendance").attr("disabled", "disabled");
+
+          $("#btn-attendance").addClass("disabled");
+
+          $("#btn-attendance").addClass("disabled");
+          $("#btn-history").addClass("disabled");
+          $("#btn-autoreg").addClass("disabled");
+
+          $("#btn-classhis").addClass("disabled");
+        }
+
         this.member = data["data"];
         var date = new Date(data["data"]["expairy_date"]);
         var list = date.toUTCString().split(" ");
@@ -82,6 +103,14 @@ export class MemberAttendanceComponent implements OnInit {
       this.user = data["data"];
       console.log(this.user);
     });
+
+    this.scheduleService
+      .showClassRegistration(this.member.member_type_id)
+      .subscribe((data: any) => {
+        this.present = data["data"].present;
+
+        console.log(data["data"]);
+      });
   }
 
   open(content) {
@@ -103,29 +132,26 @@ export class MemberAttendanceComponent implements OnInit {
       this.userForm.value
     ).subscribe((data: any) => {
       var pass = data;
+      let formValue = this.userForm.value;
+      formValue["user_id"] = this.user.user_id;
+      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
-        var today = new Date();
-        var date =
-          today.getFullYear() +
-          "-" +
-          (today.getMonth() + 1) +
-          "-" +
-          today.getDate();
-        var time =
-          today.getHours() +
-          ":" +
-          today.getMinutes() +
-          ":" +
-          today.getSeconds();
-        var dateTime = time;
-
-        this.firstTime = dateTime;
-
-        $(".first_time").text(dateTime);
-        this.loading = false;
-
-        $(".modal-header .close").trigger("click");
+        this.attendanceService
+          .createAttendance(formValue)
+          .subscribe((data: any) => {
+            if (data["status"] == "200") {
+              $(".first_time").text(
+                data["data"].date + " - " + data["data"].time
+              );
+              this.loading = false;
+              $(".modal-header .close").trigger("click");
+            } else {
+              this.loading = false;
+              $(".modal-header .close").trigger("click");
+              alert(data["message"]);
+            }
+          });
       } else {
         alert("Your password is incorrect");
         this.loading = false;
@@ -139,23 +165,33 @@ export class MemberAttendanceComponent implements OnInit {
       this.userForm.value
     ).subscribe((data: any) => {
       var pass = data;
+      let formValue = this.userForm.value;
+      formValue["schedule_id"] = this.userForm.controls["schedule_id"].value;
+      formValue["user_id"] = this.user.user_id;
+      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
-        $(".jadwal")
-          .find(".notyet:eq(0)")
-          .find(".checkmark")
-          .after(
-            '<button class="delete_class ml-3 btn btn-danger btn-sm" (click)="cancelClass()">Cancel</button>'
-          );
-        $(".jadwal")
-          .find(".notyet:eq(0)")
-          .removeClass("notyet")
-          .find("input")
-          .prop("checked", true);
-        this.loading = false;
-        this.cancelClass();
+        this.classRegisterService
+          .registerClass(formValue)
+          .subscribe((data: any) => {
+            if (data["status"] == "200") {
+              $(".jadwal")
+                .find(".notyet:eq(0)")
+                .find(".checkmark")
+                .after(
+                  '<button class="delete_class ml-3 btn btn-danger btn-sm" (click)="cancelClass()">Cancel</button>'
+                );
+              $(".jadwal")
+                .find(".notyet:eq(0)")
+                .removeClass("notyet")
+                .find("input")
+                .prop("checked", true);
+              this.loading = false;
+              this.cancelClass();
 
-        $(".modal-header .close").trigger("click");
+              $(".modal-header .close").trigger("click");
+            }
+          });
       } else {
         alert("Your password is incorrect");
         this.loading = false;

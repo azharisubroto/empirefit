@@ -1,13 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ViewChild, OnInit } from "@angular/core";
+import { SignaturePad } from "angular2-signaturepad/signature-pad";
 import { CustomValidators } from "ng2-validation";
 import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { MemberService } from "src/app/shared/services/member.service";
+import { HealthQuestionsService } from "src/app/shared/services/health-questions.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { BankService } from "src/app/shared/services/bank.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import * as $ from "jquery";
+
 @Component({
   selector: "app-member-activation",
   templateUrl: "./member-activation.component.html",
@@ -30,6 +34,10 @@ export class MemberActivationComponent implements OnInit {
   finger;
   finspot;
   id_card_number;
+  healthquestions;
+  liabilities;
+  notes;
+  signature;
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +48,7 @@ export class MemberActivationComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private bank: BankService,
     private PersonalTrainer: PersonaltrainerService,
+    private healthQuestionService: HealthQuestionsService,
     private sanitizer: DomSanitizer
   ) {}
 
@@ -68,9 +77,15 @@ export class MemberActivationComponent implements OnInit {
 
         this.finspot = data["url"];
 
-        this.finger = this.sanitizer.bypassSecurityTrustUrl(
-          this.finspot
-        );
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+      });
+
+    // health questions
+
+    this.healthQuestionService
+      .getByMember(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.healthquestions = data["data"];
       });
 
     // get member type

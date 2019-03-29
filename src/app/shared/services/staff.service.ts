@@ -6,7 +6,8 @@ import { LocalStoreService } from "./local-store.service";
   providedIn: "root"
 })
 export class StaffService {
-  readonly apiURL = "http://45.118.132.77/api";
+  // readonly apiURL = "http://45.118.132.77/api";
+  readonly apiURL = "http://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) {}

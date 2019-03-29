@@ -21,6 +21,13 @@ export class HealthQuestionsService {
     return this.http.get(this.apiURL + "/health_questions", this.httpOptions);
   }
 
+  getByMember(id) {
+    return this.http.get(
+      this.apiURL + "/liability/getByMember/" + id,
+      this.httpOptions
+    );
+  }
+
   createQuestion(data) {
     return this.http.post(
       this.apiURL + "/health_questions",
