@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
 import {
   FormGroup,
@@ -11,11 +11,15 @@ import { MemberService } from "src/app/shared/services/member.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { AttendanceService } from "src/app/shared/services/attendance.service";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
-import { ClassRegisterService } from "src/app/shared/services/classRegisterService.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ClassesService } from "src/app/shared/services/classes.service";
+import * as $ from "jquery";
+import "datatables.net";
+import "datatables.net-bs4";
+//import { setTimeout } from "timers";
+import { timeout } from "rxjs/operators";
 
 @Component({
   selector: "app-basic-form",
@@ -42,21 +46,21 @@ export class MemberAttendanceComponent implements OnInit {
   classes;
   todayName;
   history;
+  classhistory: any;
   memberid: any;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private memberService: MemberService,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private UserService: UserService,
     private attendanceService: AttendanceService,
     private scheduleService: ScheduleService,
     private ClassesService: ClassesService,
-    private classRegisterService: ClassRegisterService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private chRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -66,12 +70,13 @@ export class MemberAttendanceComponent implements OnInit {
     this.user = { make: "" };
     this.firstTime = { make: "" };
     this.classes = { make: "" };
+    this.classhistory = { make: "" };
     this.memberid = { make: "" };
     this.buildFormBasic();
     this.radioGroup = this.fb.group({
       radio: []
     });
-
+    
     // get today's day name
 
     this.userForm = this.fb.group({
@@ -180,8 +185,14 @@ export class MemberAttendanceComponent implements OnInit {
       .subscribe((data: any) => {
         this.present = data["data"].present;
 
-        console.log(data["data"]);
+        //console.log(data["data"]);
       });
+    
+    // Class History
+    this.ClassesService.classCheck( this.activatedRoute.snapshot.params["id"] ).subscribe((data:any) => {
+      this.classhistory = data['data'];
+      console.log( this.classhistory );
+    });
   }
 
   open(content) {
@@ -190,6 +201,14 @@ export class MemberAttendanceComponent implements OnInit {
       .result.then(result => {
         console.log(result);
       });
+  }
+
+  openLg(content) {
+    this.modalService.open(content, { windowClass: 'big-modal' });
+    setTimeout(() => {
+      this.chRef.detectChanges();
+      $("#mytable").DataTable();
+    }, 1000);
   }
 
   attendanceCheck() {

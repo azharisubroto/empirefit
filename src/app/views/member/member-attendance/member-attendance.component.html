@@ -246,7 +246,7 @@
 						<button class="btn btn-primary btn-lg btn-block py-3"  (click)="open(manualClass)">Manual Register</button>
 					</div>
 					<div class="col-md-6">
-						<a href="#" class="btn btn-primary btn-lg btn-block py-3">Class History</a>
+						<button class="btn btn-primary btn-lg btn-block py-3" (click)="openLg(classHistory)">Class History</button>
 					</div>
 				</div>
 			</div>
@@ -332,5 +332,49 @@
         </form>
       </div>
     </form>
+  </div>
+</ng-template>
+
+<ng-template #classHistory let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title"><strong><span class="text-capitalize">{{ member.name }}'s</span></strong> Class History</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="table-responsive-sm">
+      <table class="table table-striped" id="mytable">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Exercise Schedule</th>
+            <th scope="col">Exercise Name</th>
+            <th scope="col">Automatic</th>
+            <th scope="col">Authorized By</th>
+            <th scope="col">Canceled</th>
+            <th scope="col">Canceled By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of classhistory">
+            <td>{{ item.date }}</td>
+            <td>{{ item.checkin_time }}</td>
+            <td>{{ item.schedule_time }}</td>
+            <td>{{ item.exercise }}</td>
+            <td>{{ !! item.automatic === false ? 'No' : 'Yes' }}</td>
+            <td>{{ item.user_name }}</td>
+            <td>{{ !! item.canceled === false ? 'No' : 'Yes' }}</td>
+            <td>{{ item.canceled_by }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </ng-template>
