@@ -37,61 +37,17 @@
 							</ngb-panel>
 							<ngb-panel title="II. Health Questions">
 								<ng-template ngbPanelContent>
-									<ul class="list" style="list-style:none;">
+									<ul class="list" style="list-style:none;" *ngFor="let healthquestion of healthquestions">
 										<li>
-											<strong>Do you: Smoke?</strong>
-											<div class="text-medium">Yes</div>
-										</li>
-										<li>
-											<strong>Drink Drink alcohol?</strong>
-											<div class="text-medium">Yes</div>
-										</li>
-										<li>
-											<strong>Take prescription meds?</strong>
-											<div class="text-medium">Yes</div>
-										</li>
-										<li>
-											<div class="row align-items-center">
-												<div class="col-md-12 mb-3">
-													<strong>Are you exercising now?</strong>
-													<div class="text-medium">Yes</div>
-												</div>
-												<div class="col-md-12">
-													<strong>How many times  per week?</strong>
-													<div class="text-medium">5 Times</div>
-												</div>
-											</div>										
-										</li>
-										<li>
-											<strong>Do you have: Back pain, Knee pain or Shoulder pain?</strong>
-											<div class="text-medium">Yes</div>
-										</li>
-										<li>
-											<div class="row align-items-center">
-												<div class="col-md-12 mb-3">
-													<strong>Previous Injuries or Surgeries?</strong>
-													<div class="text-medium">Yes</div>
-												</div>
-												<div class="col-md-12">
-													<strong>If  Yes what injuries or surgeries </strong>
-													<div class="text-medium">Ketimpa dumble</div>
-												</div>
-											</div>
-										</li>
-										<li>
-											<strong>High blood pressure, Asthma, Diabetes, or a Heart condition?</strong>
-											<div class="text-medium">Yes</div>
-										</li>
-										<li>
-											<strong>Any other health conditions or pre-existing conditions not listed?</strong>
-											<div class="text-medium">Yes</div>
+											<strong>{{healthquestion.question}}</strong>
+											<div class="answer" id="{{healthquestion.id}}" data-id="healthquestion.id" class="text-medium">{{ !! healthquestion.answer === false ? "No" : "Yes" }}</div>
 										</li>
 									</ul>
 								</ng-template>
 							</ngb-panel>
 							<ngb-panel title="III. Reviewer Notes:">
 								<ng-template ngbPanelContent>
-									Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, impedit enim voluptatum beatae rerum illo pariatur nam praesentium vel consequuntur iusto, nihil magnam. Iure omnis dignissimos placeat eos commodi consequuntur!
+									{{member.notes}}
 								</ng-template>
 							</ngb-panel>
 							<ngb-panel title="IV. Photography and/or Video Release">
@@ -123,7 +79,7 @@
 						<div class="row mt-5">
 							<div class="form-group col-md-6 mb-3">
 								<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
-								<img src="https://via.placeholder.com/250x150" alt="">
+								<!-- <signature-pad></signature-pad> -->
 							</div>
 							<div class="form-group col-md-6 mb-3">
 								<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
@@ -352,7 +308,7 @@
 										</div>
 										<div class="col-9">
 											<div class="boxvalue">
-												<img src="https://via.placeholder.com/350x150" alt="">
+												Signature
 											</div>
 										</div>
 									</div>

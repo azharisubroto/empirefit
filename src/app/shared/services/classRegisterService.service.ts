@@ -5,7 +5,7 @@ import { LocalStoreService } from "./local-store.service";
 @Injectable({
   providedIn: "root"
 })
-export class ClassesService {
+export class ClassRegisterService {
   readonly apiURL = "http://45.118.132.77/api";
   // readonly apiURL = "http://localhost/efc/api";
 
@@ -17,25 +17,7 @@ export class ClassesService {
     })
   };
 
-  getClasses(member_type) {
-    return this.http.get(
-      this.apiURL + "/show_class_registration/" + member_type,
-      this.httpOptions
-    );
-  }
-
-  classCheck(memberID) {
-    return this.http.get(
-      this.apiURL + "/class_registrations/" + memberID,
-      this.httpOptions
-    );
-  }
-
-  classCheckIn(data) {
-    return this.http.post(
-      this.apiURL + "/class_registrations/",
-      data,
-      this.httpOptions
-    );
+  registerClass(data) {
+    return this.http.post(this.apiURL + "/class_registrations", data, this.httpOptions)
   }
 }

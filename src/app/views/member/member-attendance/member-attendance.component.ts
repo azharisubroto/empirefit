@@ -9,6 +9,9 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { MemberService } from "src/app/shared/services/member.service";
 import { UserService } from "src/app/shared/services/user.service";
+import { AttendanceService } from "src/app/shared/services/attendance.service";
+import { ScheduleService } from "src/app/shared/services/schedule.service";
+import { ClassRegisterService } from "src/app/shared/services/classRegisterService.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -34,6 +37,7 @@ export class MemberAttendanceComponent implements OnInit {
   public todayDate: any;
   finger;
   finspot;
+  present;
   id_card_number;
   classes;
   todayName;
@@ -48,8 +52,11 @@ export class MemberAttendanceComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal,
     private UserService: UserService,
-    private sanitizer: DomSanitizer,
-    private ClassesService: ClassesService
+    private attendanceService: AttendanceService,
+    private scheduleService: ScheduleService,
+    private ClassesService: ClassesService,
+    private classRegisterService: ClassRegisterService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -68,7 +75,7 @@ export class MemberAttendanceComponent implements OnInit {
     // get today's day name
 
     this.userForm = this.fb.group({
-      password: ["", Validators.required],
+      password: ["", Validators.required]
     });
 
     this.absen = this.fb.group({
@@ -77,13 +84,26 @@ export class MemberAttendanceComponent implements OnInit {
       schedule_id: ["", Validators.required],
       date: ["", Validators.required],
       time: ["", Validators.required],
-      automatic: ["", Validators.required],
+      automatic: ["", Validators.required]
     });
 
     //Get Member Detail
     this.memberService
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
+        if (data["data"].member_type_id == null) {
+          $("#btn-manualreg").attr("disabled", "disabled");
+          $("#btn-manualattendance").attr("disabled", "disabled");
+
+          $("#btn-attendance").addClass("disabled");
+
+          $("#btn-attendance").addClass("disabled");
+          $("#btn-history").addClass("disabled");
+          $("#btn-autoreg").addClass("disabled");
+
+          $("#btn-classhis").addClass("disabled");
+        }
+
         this.member = data["data"];
         var member = this.member;
         var date = new Date(data["data"]["expairy_date"]);
@@ -99,43 +119,69 @@ export class MemberAttendanceComponent implements OnInit {
         this.finspot = data["urlattendance"];
 
         this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-        
-        this.ClassesService
-          .getClasses( this.member.member_type_id )
-          .subscribe((data: any) => {
-            this.classes = data['data'];
+
+        this.ClassesService.getClasses(this.member.member_type_id).subscribe(
+          (data: any) => {
+            this.classes = data["data"];
             var obj = this.classes;
-            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var days = [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday"
+            ];
             var d = new Date();
             var n = d.getDay();
             var todayName = days[n];
-            $.each( obj, function( i, item ) {
-              if( item.day === todayName ) {
+            $.each(obj, function(i, item) {
+              if (item.day === todayName) {
                 // Print Jadwal
-                if( mod.hasmatch(item.log, 'member_id', member.id) ){
-                  var _class = 'notyet',
-                      _checked = 'checked';
+                if (mod.hasmatch(item.log, "member_id", member.id)) {
+                  var _class = "notyet",
+                    _checked = "checked";
                 } else {
-                  var _class = '',
-                      _checked = '';
+                  var _class = "",
+                    _checked = "";
                 }
-                var markup = '<label class="checkbox checkbox-success '+_class+'">'+
-                '<input type="checkbox" disabled '+_checked+' name='+item.schedule_id+'>'+
-                '<span>'+item.time+' - '+item.exercise+'</span><span class="checkmark"></span>'+
-                '</label>';
+                var markup =
+                  '<label class="checkbox checkbox-success ' +
+                  _class +
+                  '">' +
+                  '<input type="checkbox" disabled ' +
+                  _checked +
+                  " name=" +
+                  item.schedule_id +
+                  ">" +
+                  "<span>" +
+                  item.time +
+                  " - " +
+                  item.exercise +
+                  '</span><span class="checkmark"></span>' +
+                  "</label>";
                 // Apend
-                $('.jadwal').append(markup);
+                $(".jadwal").append(markup);
               }
             });
-            
-        });
-    });
+          }
+        );
+      });
 
     // Get single User
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
-     // console.log(this.user);
+      // console.log(this.user);
     });
+
+    this.scheduleService
+      .showClassRegistration(this.member.member_type_id)
+      .subscribe((data: any) => {
+        this.present = data["data"].present;
+
+        console.log(data["data"]);
+      });
   }
 
   open(content) {
@@ -152,16 +198,26 @@ export class MemberAttendanceComponent implements OnInit {
       this.userForm.value
     ).subscribe((data: any) => {
       var pass = data;
+      let formValue = this.userForm.value;
+      formValue["user_id"] = this.user.user_id;
+      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
-        
-
-        this.firstTime = this.getClock();
-
-        $(".first_time").text(this.firstTime);
-        this.loading = false;
-
-        $(".modal-header .close").trigger("click");
+        this.attendanceService
+          .createAttendance(formValue)
+          .subscribe((data: any) => {
+            if (data["status"] == "200") {
+              $(".first_time").text(
+                data["data"].date + " - " + data["data"].time
+              );
+              this.loading = false;
+              $(".modal-header .close").trigger("click");
+            } else {
+              this.loading = false;
+              $(".modal-header .close").trigger("click");
+              alert(data["message"]);
+            }
+          });
       } else {
         alert("Your password is incorrect");
         this.loading = false;
@@ -175,12 +231,18 @@ export class MemberAttendanceComponent implements OnInit {
       this.userForm.value
     ).subscribe((data: any) => {
       var pass = data;
+      let formValue = this.userForm.value;
+      formValue["schedule_id"] = this.userForm.controls["schedule_id"].value;
+      formValue["user_id"] = this.user.user_id;
+      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
-
-        var toCheckIn = $(".jadwal").find(".notyet:eq(0)").find('input').attr('name');
+        var toCheckIn = $(".jadwal")
+          .find(".notyet:eq(0)")
+          .find("input")
+          .attr("name");
         console.log(toCheckIn);
-        
+
         this.absen.setValue({
           member_id: this.member.id,
           user_id: this.user.id,
@@ -190,11 +252,13 @@ export class MemberAttendanceComponent implements OnInit {
           automatic: 0
         });
 
-        this.ClassesService.classCheckIn( this.absen.value ).subscribe((data: any)=>{
-          console.log(data['message']);
-          console.log(data['data']);
-        });
-        
+        this.ClassesService.classCheckIn(this.absen.value).subscribe(
+          (data: any) => {
+            console.log(data["message"]);
+            console.log(data["data"]);
+          }
+        );
+
         $(".jadwal")
           .find(".notyet:eq(0)")
           .find(".checkmark")
@@ -221,9 +285,9 @@ export class MemberAttendanceComponent implements OnInit {
     var matches = array.filter(function(element) {
       return element[key] === value;
     });
-  
-    return (matches.length > 0);
-  }  
+
+    return matches.length > 0;
+  }
 
   cancelClass() {
     $(".delete_class").on("click", function(e) {
@@ -248,11 +312,7 @@ export class MemberAttendanceComponent implements OnInit {
       "-" +
       today.getDate();
     var time =
-      today.getHours() +
-      ":" +
-      today.getMinutes() +
-      ":" +
-      today.getSeconds();
+      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = time;
     return dateTime;
   }

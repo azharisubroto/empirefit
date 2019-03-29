@@ -1,54 +1,60 @@
 <div class="breadcrumb">
-	<h1>Customer Search</h1>
-	<ul>
-		<li>Detail</li>
-	</ul>
+  <h1>Customer Search</h1>
+  <ul>
+    <li>Detail</li>
+  </ul>
 </div>
 
 <div class="separator-breadcrumb border-top"></div>
 
 <div class="row mb-4">
-	<div class="col-md-6 mb-4 mb-md-0">
-		<div class="card mb-4">
-			<div class="card-body">
-				<div class="fancy-head"><span>Biodata</span></div>
-				<div class="row">
-					<div class="col-md-3">
-						<img src="{{!! member.photo ? member.photo : '/assets/images/user.png' }}" class="img-fluid rounded-circle" alt="">
-					</div>
-					<div class="col-md-9">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="mb-4">
-									<span class="text-muted mb-0">Name</span>
-									<div class="text-medium text-primary mt-1">
-										{{member.name}}
-									</div>
-								</div>
-								<div>
-									<span class="text-muted mb-0">Phone</span>
-									<div class="text-medium text-primary mt-1">
-										{{member.phone}}
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="mb-4">
-									<span class="text-muted mb-0">Club</span>
-									<div class="text-medium text-primary mt-1">
-										{{member.branch_name}}
-									</div>
-								</div>
-								<div>
-									<span class="text-muted mb-0">ID Card Number</span>
-									<div class="text-medium text-primary mt-1">
-										{{member.id_card_number}}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+  <div class="col-md-6 mb-4 mb-md-0">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="fancy-head"><span>Biodata</span></div>
+        <div class="row">
+          <div class="col-md-3">
+            <img
+              src="{{
+                !!member.photo ? member.photo : '/assets/images/user.png'
+              }}"
+              class="img-fluid rounded-circle"
+              alt=""
+            />
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <span class="text-muted mb-0">Name</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.name }}
+                  </div>
+                </div>
+                <div>
+                  <span class="text-muted mb-0">Phone</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.phone }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <span class="text-muted mb-0">Club</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.branch_name }}
+                  </div>
+                </div>
+                <div>
+                  <span class="text-muted mb-0">ID Card Number</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.id_card_number }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 				<div class="row">
 					<div class="col-12 mb-3">
@@ -78,65 +84,79 @@
 					</div>
 				</div>
 
-				<div class="row mt-2">
-					<div class="col-12">
-						<a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership Update</a>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="row mt-2">
+          <div class="col-12">
+            <a
+              routerLink="/dashboard/member/activation/{{ member.id }}"
+              class="btn btn-primary btn-lg btn-block py-3"
+              >Membership Update</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<!-- PAYMENT -->
-		<div class="card mb-4">
-			<div class="card-body">
-				<div class="fancy-head mb-3">
-					<span>Payment</span>
-				</div>
-				<div class="row mb-4">
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Type</span>
-							<div class="text-medium text-primary mt-1">
-								{{member.payment_type_name}}
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Auto Debit</span>
-							<div class="text-medium text-primary mt-1">
-								{{!! member.auto_debet === false ?  "No" : "Yes" }}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Recurring Date</span>
-							<div class="text-medium text-primary mt-1">
-								{{ member.recuring_date }} Every Month
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Payment Unpaid</span>
-							<div class="text-medium text-primary mt-1">
-								Rp {{ member.payment_unpaid }}
-							</div>
-						</div>
-					</div>
-				</div>
+    <!-- PAYMENT -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="fancy-head mb-3">
+          <span>Payment</span>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Type</span>
+              <div class="text-medium text-primary mt-1">
+                {{ member.payment_type_name }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Auto Debit</span>
+              <div class="text-medium text-primary mt-1">
+                {{ !!member.auto_debet === false ? "No" : "Yes" }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Recurring Date</span>
+              <div class="text-medium text-primary mt-1">
+                {{ member.recuring_date }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Payment Unpaid</span>
+              <div class="text-medium text-primary mt-1">
+                Rp {{ member.payment_unpaid }}
+              </div>
+            </div>
+          </div>
+        </div>
 
-				<div class="row mt-4">
-					<div class="col-12">
-						<a href="#" class="btn btn-primary btn-lg btn-block py-3">Payment Update</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <a href="#" class="btn btn-primary btn-lg btn-block py-3"
+              >Payment Update</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 	<div class="col-md-6 mb-4 mb-md-0">
 		<!-- PAYMENT -->
@@ -182,21 +202,31 @@
 					</div>
 				</div>
 
-				<div class="row mt-4">
-					<div class="col-12">
-						<a [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Attendance</a>
-					</div>
-				</div>
-				<div class="row mt-4">
-					<div class="col-md-6 mb-3 mb-md-0">
-						<button class="btn btn-primary btn-lg btn-block py-3"  (click)="open(manualAttendance)">Manual Attendance</button>
-					</div>
-					<div class="col-md-6">
-						<a href="#" class="btn btn-primary btn-lg btn-block py-3">Attendance History</a>
-					</div>
-				</div>
-			</div>
-		</div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <a id="btn-attendance" [href]="finger" class="btn btn-primary btn-lg btn-block py-3"
+              >Attendance</a
+            >
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <button
+              class="btn btn-primary btn-lg btn-block py-3"
+			  (click)="open(manualAttendance)"
+			id="btn-manualattendance"
+            >
+              Manual Attendance
+            </button>
+          </div>
+          <div class="col-md-6">
+            <a id="btn-history" href="#" class="btn btn-primary btn-lg btn-block py-3"
+              >Attendance History</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
 
 		<div class="card">
 			<div class="card-body">
@@ -225,65 +255,82 @@
 </div>
 
 <ng-template #manualAttendance let-modal let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Manual Attendance</h4>
-        <button type="button" class="close" aria-label="Close" (click)="c('Close')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <div class="px-4 py-3 border border-light rounded align-items-center">
-					<span class="text-muted mb-0">Front Officer</span>
-					<div class="text-medium text-primary mt-1">
-						{{!! user.name ? user.name : user.role }} 
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<form [formGroup]="userForm" (ngSubmit)="attendanceCheck()">
-					<label class="text-muted mb-0">Your Password</label>
-					<input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3">
-					<btn-loading
-						btnClass="btn btn-outline-dark btn-rounded btn-block"
-						[loading]="loading"
-						>Proceed</btn-loading
-					>
-				</form>
-            </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Manual Attendance</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="px-4 py-3 border border-light rounded align-items-center">
+          <span class="text-muted mb-0">Front Officer</span>
+          <div class="text-medium text-primary mt-1">
+            {{ !!user.name ? user.name : user.role }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <form [formGroup]="userForm" (ngSubmit)="attendanceCheck()">
+          <label class="text-muted mb-0">Your Password</label>
+          <input
+            type="password"
+            name="password"
+            formControlName="password"
+            placeholder="..."
+            class="form-control mb-3"
+          />
+          <btn-loading
+            btnClass="btn btn-outline-dark btn-rounded btn-block"
+            [loading]="loading"
+            >Proceed</btn-loading
+          >
         </form>
-    </div>
+      </div>
+    </form>
+  </div>
 </ng-template>
 
 <ng-template #manualClass let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title2">Manual Register</h4>
-        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form>
-            <div class="form-group">
-                <div class="px-4 py-3 border border-light rounded align-items-center">
-					<span class="text-muted mb-0">Front Officer</span>
-					<div class="text-medium text-primary mt-1">
-						{{!! user.name ? user.name : user.role }} 
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<form [formGroup]="userForm" (ngSubmit)="classCheck()">
-					<label class="text-muted mb-0">Your Password</label>
-					<input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3">
-					<btn-loading
-						btnClass="btn btn-outline-dark btn-rounded btn-block"
-						[loading]="loading"
-						>Proceed</btn-loading
-					>
-				</form>
-            </div>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Manual Register</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="px-4 py-3 border border-light rounded align-items-center">
+          <span class="text-muted mb-0">Front Officer</span>
+          <div class="text-medium text-primary mt-1">
+            {{ !!user.name ? user.name : user.role }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <form [formGroup]="userForm" (ngSubmit)="classCheck()">
+          <label class="text-muted mb-0">Your Password</label>
+          <input
+            type="password"
+            name="password"
+            formControlName="password"
+            placeholder="..."
+            class="form-control mb-3"
+          />
+          <btn-loading
+            btnClass="btn btn-outline-dark btn-rounded btn-block"
+            [loading]="loading"
+            >Proceed</btn-loading
+          >
         </form>
-    </div>
+      </div>
+    </form>
+  </div>
 </ng-template>
