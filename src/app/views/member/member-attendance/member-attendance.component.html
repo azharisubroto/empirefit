@@ -307,6 +307,8 @@
             placeholder="..."
             class="form-control mb-3"
           />
+          <input type="hidden" name="schedule_id" formControlName="schedule_id" placeholder="..." class="form-control mb-3" />
+          <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
           <btn-loading
             btnClass="btn btn-outline-dark btn-rounded btn-block"
             [loading]="loading"
@@ -318,14 +320,14 @@
   </div>
 </ng-template>
 
-<ng-template #manualClass let-modal>
+<ng-template #manualClass let-modal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title2">Manual Register</h4>
     <button
       type="button"
       class="close"
       aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
+      (click)="c('Close')"
     >
       <span aria-hidden="true">&times;</span>
     </button>
@@ -361,14 +363,14 @@
   </div>
 </ng-template>
 
-<ng-template #classHistory let-modal>
+<ng-template #classHistory let-modal let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title"><strong><span class="text-capitalize">{{ member.name }}'s</span></strong> Class History</h4>
     <button
       type="button"
       class="close"
       aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
+      (click)="c('close')"
     >
       <span aria-hidden="true">&times;</span>
     </button>
