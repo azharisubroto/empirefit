@@ -56,33 +56,39 @@
           </div>
         </div>
 
-				<div class="row">
-					<div class="col-12 mb-3">
-						<div class="fancy-head"><span>Membership</span></div>
-					</div>
-					<div class="col-md-6 mb-3">
-						<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-							<span class="text-muted mb-0">Type</span>
-							<div class="text-medium text-primary mt-1">
-								{{!! member.member_type_name ? member.member_type_name : '-' }}
-							</div>
-						</div>
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Expiry Date</span>
-							<div class="text-medium text-primary mt-1">
-								{{expirydate}}
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 mb-3">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Session Remains</span>
-							<div class="text-medium text-primary mt-1">
-								{{!! member.session_remains ? member.session_remains : '-' }}
-							</div>
-						</div>
-					</div>
-				</div>
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="fancy-head"><span>Membership</span></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center mb-4"
+            >
+              <span class="text-muted mb-0">Type</span>
+              <div class="text-medium text-primary mt-1">
+                {{ !!member.member_type_name ? member.member_type_name : "-" }}
+              </div>
+            </div>
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Expiry Date</span>
+              <div class="text-medium text-primary mt-1">
+                {{ expirydate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Session Remains</span>
+              <div class="text-medium text-primary mt-1">
+                {{ !!member.session_remains ? member.session_remains : "-" }}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="row mt-2">
           <div class="col-12">
@@ -109,7 +115,9 @@
             >
               <span class="text-muted mb-0">Type</span>
               <div class="text-medium text-primary mt-1">
-                {{ member.payment_type_name }}
+                {{
+                  !!member.payment_type_name ? member.payment_type_name : "-"
+                }}
               </div>
             </div>
           </div>
@@ -131,7 +139,7 @@
             >
               <span class="text-muted mb-0">Recurring Date</span>
               <div class="text-medium text-primary mt-1">
-                {{ member.recuring_date }}
+                {{ !!member.recuring_date ? member.recuring_date : "-" }}
               </div>
             </div>
           </div>
@@ -158,53 +166,64 @@
     </div>
   </div>
 
-	<div class="col-md-6 mb-4 mb-md-0">
-		<!-- PAYMENT -->
-		<div class="card mb-4">
-			<div class="card-body">
-				<div class="fancy-head mb-3">
-					<span>Today's Attendance</span>
-				</div>
-				<div class="row mb-4">
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Date</span>
-							<div class="text-medium text-primary mt-1">
-								{{todayDate}}
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Branch</span>
-							<div class="text-medium text-primary mt-1">
-								{{member.branch_name}}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row mb-4">
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">First Time</span>
-							<div class="text-medium text-primary mt-1 first_time">
-								<code>n/a</code>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6 mb-4 mb-md-0">
-						<div class="px-4 py-3 border border-light rounded align-items-center">
-							<span class="text-muted mb-0">Finger Print Status</span>
-							<div class="text-medium text-primary mt-1">
-								{{member.state}}
-							</div>
-						</div>
-					</div>
-				</div>
+  <div class="col-md-6 mb-4 mb-md-0">
+    <!-- PAYMENT -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="fancy-head mb-3">
+          <span>Today's Attendance</span>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Date</span>
+              <div class="text-medium text-primary mt-1">
+                {{ todayDate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Branch</span>
+              <div class="text-medium text-primary mt-1">
+                {{ member.branch_name }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">First Time</span>
+              <div class="text-medium text-primary mt-1 first_time">
+                <code>n/a</code>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Finger Print Status</span>
+              <div class="text-medium text-primary mt-1">
+                {{ member.state }}
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div class="row mt-4">
           <div class="col-12">
-            <a id="btn-attendance" [href]="finger" class="btn btn-primary btn-lg btn-block py-3"
+            <a
+              id="btn-attendance"
+              [href]="finger"
+              class="btn btn-primary btn-lg btn-block py-3"
               >Attendance</a
             >
           </div>
@@ -213,14 +232,17 @@
           <div class="col-md-6 mb-3 mb-md-0">
             <button
               class="btn btn-primary btn-lg btn-block py-3"
-			  (click)="open(manualAttendance)"
-			id="btn-manualattendance"
+              (click)="open(manualAttendance)"
+              id="btn-manualattendance"
             >
               Manual Attendance
             </button>
           </div>
           <div class="col-md-6">
-            <a id="btn-history" href="#" class="btn btn-primary btn-lg btn-block py-3"
+            <a
+              id="btn-history"
+              href="#"
+              class="btn btn-primary btn-lg btn-block py-3"
               >Attendance History</a
             >
           </div>
@@ -228,30 +250,44 @@
       </div>
     </div>
 
-		<div class="card">
-			<div class="card-body">
-				<div class="fancy-head mb-3">
-					<span>Today's Class</span>
-				</div>
-				<div class="mt-4 jadwal">
-					
-				</div>
-				<div class="row mt-4">
-					<div class="col-12">
-						<a href="#" class="btn btn-primary btn-lg btn-block py-3">Auto Register</a>
-					</div>
-				</div>
-				<div class="row mt-4">
-					<div class="col-md-6 mb-3 mb-md-0">
-						<button class="btn btn-primary btn-lg btn-block py-3"  (click)="open(manualClass)">Manual Register</button>
-					</div>
-					<div class="col-md-6">
-						<a href="#" class="btn btn-primary btn-lg btn-block py-3">Class History</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="card">
+      <div class="card-body">
+        <div class="fancy-head mb-3">
+          <span>Today's Class</span>
+        </div>
+        <div class="mt-4 jadwal"></div>
+        <div class="row mt-4">
+          <div class="col-12">
+            <a
+              href="#"
+              id="btn-autoreg"
+              class="btn btn-primary btn-lg btn-block py-3"
+              >Auto Register</a
+            >
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-6 mb-3 mb-md-0">
+            <button
+              id="btn-manualreg"
+              class="btn btn-primary btn-lg btn-block py-3"
+              (click)="open(manualClass)"
+            >
+              Manual Register
+            </button>
+          </div>
+          <div class="col-md-6">
+            <a
+              id="btn-classhis"
+              href="#"
+              class="btn btn-primary btn-lg btn-block py-3"
+              >Class History</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <ng-template #manualAttendance let-modal let-c="close" let-d="dismiss">
