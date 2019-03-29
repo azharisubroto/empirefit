@@ -38,4 +38,12 @@ export class ClassesService {
       this.httpOptions
     );
   }
+
+  classCancel(id, userid) {
+    return this.http.put(
+      this.apiURL + "/cancel_class_registration/" + id,
+      userid,
+      this.httpOptions
+    );
+  }
 }

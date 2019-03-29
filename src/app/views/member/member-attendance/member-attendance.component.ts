@@ -76,11 +76,13 @@ export class MemberAttendanceComponent implements OnInit {
     this.radioGroup = this.fb.group({
       radio: []
     });
-    
+
     // get today's day name
 
     this.userForm = this.fb.group({
-      password: ["", Validators.required]
+      password: ["", Validators.required],
+      schedule_id: ["", Validators.required],
+      user_id: ["", Validators.required]
     });
 
     this.absen = this.fb.group({
@@ -145,12 +147,33 @@ export class MemberAttendanceComponent implements OnInit {
               if (item.day === todayName) {
                 // Print Jadwal
                 if (mod.hasmatch(item.log, "member_id", member.id)) {
-                  var _class = "notyet",
-                    _checked = "checked";
+                  var logarray = item.log;
+                  var _index = logarray.findIndex(
+                      x => x.member_id === member.id
+                    ),
+                    _iscanceled = item.log[_index].canceled,
+                    _logid = item.log[_index]["id"];
+
+                  if (_iscanceled == 1) {
+                    var _checked = "";
+                    var _cancelbtn = "";
+                    var _class = "notyet";
+                  } else {
+                    var _class = "";
+                    var _checked = "checked";
+                    var _cancelbtn =
+                      '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
+                      _logid +
+                      '">Cancel</button>';
+                  }
+                  console.log(_checked);
                 } else {
-                  var _class = "",
-                    _checked = "";
+                  var _class = "notyet",
+                    _checked = "",
+                    _cancelbtn = "",
+                    _logid = null;
                 }
+
                 var markup =
                   '<label class="checkbox checkbox-success ' +
                   _class +
@@ -165,11 +188,15 @@ export class MemberAttendanceComponent implements OnInit {
                   " - " +
                   item.exercise +
                   '</span><span class="checkmark"></span>' +
+                  _cancelbtn +
                   "</label>";
                 // Apend
                 $(".jadwal").append(markup);
               }
             });
+            setTimeout(() => {
+              mod.cancelClass();
+            }, 1000);
           }
         );
       });
@@ -187,11 +214,13 @@ export class MemberAttendanceComponent implements OnInit {
 
         //console.log(data["data"]);
       });
-    
+
     // Class History
-    this.ClassesService.classCheck( this.activatedRoute.snapshot.params["id"] ).subscribe((data:any) => {
-      this.classhistory = data['data'];
-      console.log( this.classhistory );
+    this.ClassesService.classCheck(
+      this.activatedRoute.snapshot.params["id"]
+    ).subscribe((data: any) => {
+      this.classhistory = data["data"];
+      console.log(this.classhistory);
     });
   }
 
@@ -204,7 +233,7 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   openLg(content) {
-    this.modalService.open(content, { windowClass: 'big-modal' });
+    this.modalService.open(content, { windowClass: "big-modal" });
     setTimeout(() => {
       this.chRef.detectChanges();
       $("#mytable").DataTable();
@@ -245,22 +274,19 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   classCheck() {
+    var mod = this;
     this.UserService.userCheckPassword(
       this.user.staff_id,
       this.userForm.value
     ).subscribe((data: any) => {
       var pass = data;
-      let formValue = this.userForm.value;
-      formValue["schedule_id"] = this.userForm.controls["schedule_id"].value;
-      formValue["user_id"] = this.user.user_id;
-      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
         var toCheckIn = $(".jadwal")
           .find(".notyet:eq(0)")
           .find("input")
           .attr("name");
-        console.log(toCheckIn);
+        //console.log(toCheckIn);
 
         this.absen.setValue({
           member_id: this.member.id,
@@ -273,24 +299,44 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.ClassesService.classCheckIn(this.absen.value).subscribe(
           (data: any) => {
+            var res = data["data"];
+            var member = mod.member;
             console.log(data["message"]);
             console.log(data["data"]);
+
+            if (mod.hasmatch(res, "member_id", member.id)) {
+              var logarray = res;
+              var _index = logarray.findIndex(x => x.member_id === member.id),
+                _iscanceled = res[_index].canceled,
+                _logid = res[_index]["id"];
+
+              if (_iscanceled == 1) {
+                var _checked = "";
+                var _class = "notyet";
+              } else {
+                var _class = "";
+                var _checked = "checked";
+              }
+              var _cancelbtn =
+                '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
+                _logid +
+                '">Cancel</button>';
+              $(".jadwal")
+                .find(".notyet:eq(0)")
+                .find(".checkmark")
+                .after(_cancelbtn);
+              $(".jadwal")
+                .find(".notyet:eq(0)")
+                .removeClass("notyet")
+                .find("input")
+                .prop("checked", true);
+              console.log(_checked);
+            }
+
+            this.loading = false;
+            this.cancelClass();
           }
         );
-
-        $(".jadwal")
-          .find(".notyet:eq(0)")
-          .find(".checkmark")
-          .after(
-            '<button class="delete_class ml-3 btn btn-danger btn-sm" (click)="cancelClass()">Cancel</button>'
-          );
-        $(".jadwal")
-          .find(".notyet:eq(0)")
-          .removeClass("notyet")
-          .find("input")
-          .prop("checked", true);
-        this.loading = false;
-        this.cancelClass();
 
         $(".modal-header .close").trigger("click");
       } else {
@@ -309,16 +355,31 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   cancelClass() {
+    //alert("clicked");
+    var mod = this;
+    let formValue = this.userForm.value;
+    formValue["user_id"] = mod.user.id;
+
+    console.log(formValue);
     $(".delete_class").on("click", function(e) {
       e.preventDefault();
-      $(this)
-        .parents(".checkbox")
-        .addClass("notyet")
-        .find("input")
-        .prop("checked", false);
-      $(this)
-        .delay(300)
-        .remove();
+      var btn = $(this);
+      var id = $(this).data("logid");
+      console.log(id);
+      mod.ClassesService.classCancel(id, formValue).subscribe((data: any) => {
+        if (data["status"] == 200) {
+          console.log("deleted");
+          $(btn)
+            .parents(".checkbox")
+            .addClass("notyet")
+            .find("input")
+            .prop("checked", false);
+          $(btn)
+            .delay(300)
+            .remove();
+        }
+      });
+      return false;
     });
   }
 
