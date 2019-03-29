@@ -216,7 +216,9 @@
                 name="position"
                 value="{{ position.id }}"
               />
-              <span class="ml-3 position_name">{{ position.position_name }}</span>
+              <span class="ml-3 position_name">{{
+                position.position_name
+              }}</span>
               <span class="checkmark"></span>
             </div>
             <input type="hidden" class="position-final" value="" />
@@ -251,21 +253,38 @@
               <img [src]="webcamImage.imageAsDataUrl"/>
             </div> -->
             <div class="col-md-3">
-              <webcam [height]="250" [width]="250" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+              <webcam
+                [height]="250"
+                [width]="250"
+                [trigger]="triggerObservable"
+                (imageCapture)="handleImage($event)"
+                *ngIf="showWebcam"
                 [videoOptions]="videoOptions"
                 [imageQuality]="1"
-                (initError)="handleInitError($event)">
+                (initError)="handleInitError($event)"
+              >
               </webcam>
             </div>
-            <ng-container  *ngIf="webcamImage; then adaImage; else gaAda"></ng-container>
+            <ng-container
+              *ngIf="webcamImage; then adaImage; else gaAda"
+            ></ng-container>
             <ng-template #adaImage>
               <div class="col-md-3 snapshot">
-                <img [src]="webcamImage.imageAsDataUrl" width="250" height="187"/>
+                <img
+                  [src]="webcamImage.imageAsDataUrl"
+                  width="250"
+                  height="187"
+                />
               </div>
             </ng-template>
             <ng-template #gaAda>
               <div class="col-md-3 snapshot">
-                <img src="https://via.placeholder.com/150" alt="" width="250" height="187" />
+                <img
+                  src="https://via.placeholder.com/150"
+                  alt=""
+                  width="250"
+                  height="187"
+                />
               </div>
             </ng-template>
           </div>
@@ -274,7 +293,11 @@
               <img src="https://via.placeholder.com/150" alt="" />
             </div> -->
             <div class="col-md-6">
-                <a class="actionBtn btn btn-primary btn-lg btn-block py-3" (click)="triggerSnapshot();">Take a Picture</a>
+              <a
+                class="actionBtn btn btn-primary btn-lg btn-block py-3"
+                (click)="triggerSnapshot()"
+                >Take a Picture</a
+              >
               <!-- <a href="#" class="btn btn-primary btn-lg btn-block py-3"
                 >Retry</a
               > -->
@@ -287,15 +310,6 @@
                 <div class="col-12 mt-4">
                   <h4 class="fancy-head"><span>Fingerprint</span></h4>
                 </div>
-                <div class="col-2">
-                  <img src="https://via.placeholder.com/150" alt="" />
-                </div>
-                <div class="col-2">
-                  <img src="https://via.placeholder.com/150" alt="" />
-                </div>
-                <div class="col-2">
-                  <img src="https://via.placeholder.com/150" alt="" />
-                </div>
               </div>
               <div class="row mt-4">
                 <div class="col-md-6">
@@ -303,7 +317,7 @@
                     class="px-4 py-3 border border-light rounded align-items-center mb-4"
                   >
                     <div class="text-muted mb-0">
-                      status
+                      Unverified
                     </div>
                     <div id="staff_status" class="text-medium mt-1"></div>
                   </div>
@@ -311,7 +325,9 @@
               </div>
               <div class="row mt-2 mb-5">
                 <div class="col-md-6">
-                  <a [href]="finger" class="btn btn-primary btn-lg btn-block py-3"
+                  <a
+                    [href]="finger"
+                    class="btn btn-primary btn-lg btn-block py-3"
                     >Scan</a
                   >
                 </div>
