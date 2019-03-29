@@ -300,3 +300,7 @@ body#registration {
 .checkbox input[disabled] ~ *, .radio input[disabled] ~ * {
   color: inherit!important;
 }
+
+.big-modal.modal.show .modal-dialog {
+  max-width: 1200px!important;
+}  
