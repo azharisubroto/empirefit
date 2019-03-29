@@ -290,3 +290,13 @@ body#registration {
     }
   }
 }
+
+.checkbox {
+  input[type="checkbox"][readonly] {
+      pointer-events: none !important;
+  }
+}
+
+.checkbox input[disabled] ~ *, .radio input[disabled] ~ * {
+  color: inherit!important;
+}
