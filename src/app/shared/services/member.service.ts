@@ -22,6 +22,30 @@ export class MemberService {
     return this.http.get(this.apiURL + "/members", this.httpOptions);
   }
 
+  updateMember(id, data) {
+    return this.http.put(
+      this.apiURL + "/members/" + id,
+      data,
+      this.httpOptions
+    );
+  }
+
+  updateLiability(id, data) {
+    return this.http.put(
+      this.apiURL + "/update_liability/" + id,
+      data,
+      this.httpOptions
+    );
+  }
+
+  createAutoDebet(credit_card_id, data) {
+    return this.http.put(
+      this.apiURL + "/auto_debet/" + credit_card_id,
+      data,
+      this.httpOptions
+    );
+  }
+
   getSingleMember($id) {
     return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
   }

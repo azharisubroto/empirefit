@@ -11,12 +11,12 @@
 		<div class="col-md-12">
 	
 			<form-wizard>
-				<wizard-step [title]="'Agreement'" [isValid]="basicForm.form.valid" (onNext)="onStep1Next($event)">
+				<wizard-step [title]="'Agreement'" (onNext)="onStep1Next($event)">
 					<h4 class="text-medium text-bold">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
 
 					<p class="text-plain my-3">THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT, YOU ARE WAIVING CERTAIN LEGAL RIGHTS AND ARE COMPLETELY RELEASING POTENTIAL CLAIMS. PLEASE READ IT CAREFULLY.</p>
 
-					<form #basicForm="ngForm">
+					<form #basicForm="ngForm" [formGroup]="liabilityForm">
 						<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
 							<ngb-panel title="I. Personal Data of the Participant">
 								<ng-template ngbPanelContent>
@@ -79,17 +79,19 @@
 						<div class="row mt-5">
 							<div class="form-group col-md-6 mb-3">
 								<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
-								<!-- <signature-pad></signature-pad> -->
+								<img src="https://via.placeholder.com/250x150" alt="">
+								<input name="signature" type="hidden" formConrolName="signature">
 							</div>
 							<div class="form-group col-md-6 mb-3">
 								<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
 								<img src="https://via.placeholder.com/250x150" alt="">
+								<input name="user_signature" type="hidden" formConrolName="user_signature">
 							</div>
 						</div>
 					</form>
 				</wizard-step>
 	
-				<wizard-step [title]="'Identification'" [isValid]="step2Form.valid" (onNext)="onStep2Next($event)">
+				<wizard-step [title]="'Identification'" (onNext)="onStep2Next($event)">
 					<form [formGroup]="step2Form">
 						<div class="row">
 							<div class="col-md-6">
@@ -109,14 +111,37 @@
 								<h4 class="fancy-head"><span>Photo</span></h4>
 							</div>
 						</div>
-
+						
 						<div class="row">
-							<div class="col-md-2">
-								<img src="{{member.photo}}" alt="">
+							<!-- <div class="col-md-2 snapshot" *ngIf="webcamImage">
+						              <img [src]="webcamImage.imageAsDataUrl"/>
+						            </div> -->
+							<div class="col-md-3">
+								<webcam [height]="250" [width]="250" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+								 [videoOptions]="videoOptions" [imageQuality]="1" (initError)="handleInitError($event)">
+								</webcam>
 							</div>
-							<div class="col-md-4">
-								<a href="#" class="btn btn-primary btn-lg btn-block py-3">Take a Picture</a>
-								<a href="#" class="btn btn-primary btn-lg btn-block py-3">Retry</a>
+							<ng-container *ngIf="webcamImage; then adaImage; else gaAda"></ng-container>
+							<ng-template #adaImage>
+								<div class="col-md-3 snapshot">
+									<img [src]="webcamImage.imageAsDataUrl" width="250" height="187" />
+								</div>
+							</ng-template>
+							<ng-template #gaAda>
+								<div class="col-md-3 snapshot">
+									<img src="https://via.placeholder.com/150" alt="" width="250" height="187" />
+								</div>
+							</ng-template>
+						</div>
+						<div class="row">
+							<!-- <div class="col-md-2">
+						              <img src="https://via.placeholder.com/150" alt="" />
+						            </div> -->
+							<div class="col-md-6">
+								<a class="actionBtn btn btn-primary btn-lg btn-block py-3" (click)="triggerSnapshot()">Take a Picture</a>
+								<!-- <a href="#" class="btn btn-primary btn-lg btn-block py-3"
+						                >Retry</a
+						              > -->
 							</div>
 						</div>
 
@@ -141,7 +166,7 @@
 								</div>
 								<div class="row mt-2 mb-5">
 									<div class="col-md-6">
-										<a href="#" class="btn btn-primary btn-lg btn-block py-3">Scan</a>
+										<a [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Scan</a>
 									</div>
 								</div>
 							</div>
@@ -150,7 +175,7 @@
 				</wizard-step>
 	
 				<wizard-step [title]="'Membership'" (onNext)="onStep3Next($event)">
-					<form #paymentForm="ngForm">
+					<form #paymentForm="ngForm" [formGroup]="membershipForm">
 
 						<div class="row">
 							<div class="col-12">
@@ -160,12 +185,15 @@
 						
 						<div class="row mb-4">
 							<div class="form-group col-md-6 mb-3">
-								<label for="card">Type</label>
-								<select name="type_membership" class="form-control">
-									<option *ngFor="let title of type" [value]="title.id">
+								<label for="member_type_id">Type</label>
+								<select required name="member_type_id" formControlName="member_type_id" class="form-control">
+									<option *ngFor="let title of type" value="title.id" [value]="title.id">
 										{{title.member_type_name}}
 									</option>
 								</select>
+								<input type="hidden" name="period" formControlName="period" value="title.period">
+								<input type="hidden" name="duration" formControlName="duration" value="title.duration">
+								<input type="hidden" name="session_remains" formControlName="session_remains" value="title.session_remains">
 							</div>
 							<!-- <div class="form-group col-md-6 mb-3">
 								<label for="card">Package</label>
@@ -186,17 +214,17 @@
 						<div class="row mb-3">
 							<div class="col-md-6 mb-3 form-group">
 								<label for="card">Type</label>
-								<select name="type_membership" class="form-control">
-									<option *ngFor="let title of type" [value]="title.id">
-										{{title.member_type_name}}
+								<select formControlName="payment_id" required name="payment_id" class="form-control">
+									<option *ngFor="let pa of paymenttype" [value]="pa.id">
+										{{pa.payment_type_name}}
 									</option>
 								</select>
 							</div>
 							<div class="col-md-6 mb-3 form-group">
 								<label for="card">Bank</label>
-								<select name="bank" class="form-control">
-									<option *ngFor="let title of banks" [value]="title.id">
-										{{title.bank_name}}
+								<select formControlName="bank_id" name="bank_id" class="form-control">
+									<option *ngFor="let bank of banks" [value]="bank.id">
+										{{bank.bank_name}}
 									</option>
 								</select>
 							</div>
@@ -204,24 +232,24 @@
 
 						<div class="row mb-3">
 							<div class="col-md-6 mb-3 form-group">
-								<label for="card">Card</label>
-								<input type="text" name="card_type" class="form-control">
+								<label for="card_number">Card</label>
+								<input formControlName="card_number" type="text" name="card_number" class="form-control">
 							</div>
 							<div class="col-md-6 mb-3 form-group">
-								<label for="card">Exp Date</label>
+								<label for="exp_date">Exp Date</label>
 								<div class="clearfix"></div>
-								<input type="text" name="mm" class="form-control d-inline-block" style="width:100px">
+								<input type="text" formControlName="exp_month" name="mm" class="form-control d-inline-block" style="width:100px">
 								/
-								<input type="text" name="yy" class="form-control d-inline-block" style="width:100px">
+								<input type="text" formControlName="exp_year" name="yy" class="form-control d-inline-block" style="width:100px">
 							</div>
 						</div>
 
 						<div class="row mb-3">
 							<div class="col-md-6 mb-3 form-group">
-								<label for="card">Auto Debit</label>
-								<select name="auto_debit" class="form-control">
-									<option value="Yes">Yes</option>
-									<option value="No">No</option>
+								<label for="auto_debit">Auto Debit</label>
+								<select formControlName="auto_debet" name="auto_debit" class="form-control">
+									<option value="1">Yes</option>
+									<option value="0">No</option>
 								</select>
 							</div>
 						</div>
@@ -244,7 +272,10 @@
 											<td>{{ i+1 }}</td>
 											<td>{{ trainer.name }}</td>
 											<td>{{ trainer.state }}</td>
-											<td><a href="#" class="btn btn-primary">Select</a></td>
+											<td>
+												<a name="personal_trainer" id="trainer.id" href="#" class="btn btn-primary">Select</a>
+												<input formControlName="personal_trainer_id" type="hidden" name="trainer.id" value="trainer.id">
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -254,7 +285,7 @@
 					</form>
 				</wizard-step>
 	
-				<wizard-step [title]="'Autodebet'" (onNext)="onStep4Next($event)">
+				<wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep4Next($event)">
 					<div class="mt-0 mb-4">
 						<p>Have agreed to allow Empire Fit Club to deduct IDR from my credit card in order to pay the monthly subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount of money will be automatically deducted unless I instructed them other wise.</p>
 						<p>Terms &amp; Condition.</p>
@@ -275,7 +306,7 @@
 										</div>
 										<div class="col-9">
 											<div class="boxvalue">
-												{{member.name}}
+												{{member.card_name}}
 											</div>
 										</div>
 									</div>
@@ -285,7 +316,7 @@
 										</div>
 										<div class="col-9">
 											<div class="boxvalue">
-												2342-2342-2342-6567
+												{{member.card_number}}
 											</div>
 										</div>
 									</div>
@@ -295,10 +326,7 @@
 										</div>
 										<div class="col-9">
 											<div class="boxvalue d-inline-block">
-												01
-											</div>/
-											<div class="boxvalue d-inline-block">
-												19
+												{{member.exp_date}}
 											</div>
 										</div>
 									</div>
@@ -308,7 +336,7 @@
 										</div>
 										<div class="col-9">
 											<div class="boxvalue">
-												Signature
+												{{!! member.signature === null ? "Verified" : "Unverified"}}
 											</div>
 										</div>
 									</div>
@@ -318,7 +346,7 @@
 										</div>
 										<div class="col-9">
 											<div class="boxvalue">
-												12 Agustus 2019
+												{{member.credit_card_date}}
 											</div>
 										</div>
 									</div>
