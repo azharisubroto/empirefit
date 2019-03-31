@@ -57,7 +57,8 @@ export class StaffRegistrationComponent implements OnInit {
     private staffService: StaffService,
     private bankService: BankService,
     private toastr: ToastrService,
-    private parserFormatter: NgbDateParserFormatter
+    private parserFormatter: NgbDateParserFormatter,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -173,6 +174,10 @@ export class StaffRegistrationComponent implements OnInit {
           this.toastr.success(data["message"], "Success!", {
             progressBar: true
           });
+
+          this.finspot = data["url"];
+
+          this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
 
           $("#staff_name").text(data["data"].name);
           $("#staff_status").text(data["data"].status);
