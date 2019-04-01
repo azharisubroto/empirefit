@@ -20,6 +20,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Observable, Subject } from "rxjs";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
+import { timeout } from "rxjs/operators";
 
 @Component({
   selector: "app-member-activation",
@@ -59,12 +60,9 @@ export class MemberActivationComponent implements OnInit {
     "minWidth" : 1,
     penColor : 'rgb(0,0,0)',
     backgroundColor: 'rgb(255,240,240)',
+    //onEnd: this.saveimg(),
     // canvasWeight: 250,
     // canvasHeight: 150
-  }
-
-  drawClearMember(){
-    this.signaturePad.clear();
   }
 
   public signaturePadStaff = {
@@ -73,10 +71,6 @@ export class MemberActivationComponent implements OnInit {
     backgroundColor: 'rgb(255,240,240)',
     // canvasWeight: 250,
     // canvasHeight: 150
-  }
-
-  drawClearStaff(){
-    this.signaturePad.clear();
   }
   
   public showWebcam = true;
@@ -125,8 +119,8 @@ export class MemberActivationComponent implements OnInit {
 
     // liabilityFormBuilder
     this.liabilityForm = this.fb.group({
-      signature: ["", Validators.required],
-      user_signature: ["", Validators.required]
+      member_sign: ["", Validators.required],
+      staff_sign: ["", Validators.required]
     });
 
     // membershipFormBuilder
@@ -221,6 +215,17 @@ export class MemberActivationComponent implements OnInit {
         });
       });
     }, 2000);
+  }
+
+  //save sign
+  saveimg(target, test) {
+    var image = test.toDataURL();
+    setTimeout(() => {
+      $('#'+target).val(image);
+      this.toastr.success("Sign of "+ target +" has been saved", "Saved", {
+        progressBar: false
+      });
+    }, 500);
   }
 
   // Check Reg
