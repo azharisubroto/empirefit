@@ -117,7 +117,6 @@ export class StaffFormComponent implements OnInit {
         this.finspot = data["url"];
 
         this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-        this.finger = decodeURIComponent(this.finger);
         $("#staff-name").text(data["data"].name);
         $("#staff-status").text(data["data"].status);
       });
