@@ -17,6 +17,7 @@ import { FormWizardModule } from "src/app/shared/components/form-wizard/form-wiz
 import { TextMaskModule } from "angular2-text-mask";
 import { MemberActivationSuccessComponent } from "./member-activation-success/member-activation-success.component";
 import { WebcamModule } from "ngx-webcam";
+import { SignaturePadModule } from "angular2-signaturepad";
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { WebcamModule } from "ngx-webcam";
     SharedComponentsModule,
     MemberRoutingModule,
     FormWizardModule,
-    TextMaskModule
+    TextMaskModule,
+    SignaturePadModule
   ],
   declarations: [
     MemberComponent,

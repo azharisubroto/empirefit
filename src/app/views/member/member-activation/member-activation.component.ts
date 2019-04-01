@@ -54,6 +54,31 @@ export class MemberActivationComponent implements OnInit {
   user_signature;
   personal_trainer_id;
 
+  @ViewChild(SignaturePad) signaturePad : SignaturePad;
+  public signaturePadMember = {
+    "minWidth" : 1,
+    penColor : 'rgb(0,0,0)',
+    backgroundColor: 'rgb(255,240,240)',
+    // canvasWeight: 250,
+    // canvasHeight: 150
+  }
+
+  drawClearMember(){
+    this.signaturePad.clear();
+  }
+
+  public signaturePadStaff = {
+    "minWidth" : 1,
+    penColor : 'rgb(0,0,0)',
+    backgroundColor: 'rgb(255,240,240)',
+    // canvasWeight: 250,
+    // canvasHeight: 150
+  }
+
+  drawClearStaff(){
+    this.signaturePad.clear();
+  }
+  
   public showWebcam = true;
   public allowCameraSwitch = true;
   public multipleWebcamsAvailable = false;

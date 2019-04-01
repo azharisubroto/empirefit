@@ -79,13 +79,21 @@
 						<div class="row mt-5">
 							<div class="form-group col-md-6 mb-3">
 								<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
-								<img src="https://via.placeholder.com/250x150" alt="">
-								<input name="signature" type="hidden" formConrolName="signature">
+								<signature-pad [options]="signaturePadMember"></signature-pad>
+								<div class="text-left">
+									<button class="btn btn-primary py-2 px-5" (click)="drawClearMember()">Clear</button>
+								</div>
+								<!-- <img src="https://via.placeholder.com/250x150" alt="">
+								<input name="signature" type="hidden" formConrolName="signature"> -->
 							</div>
 							<div class="form-group col-md-6 mb-3">
 								<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
-								<img src="https://via.placeholder.com/250x150" alt="">
-								<input name="user_signature" type="hidden" formConrolName="user_signature">
+								<signature-pad [options]="signaturePadStaff"></signature-pad>
+								<div class="text-left">
+									<button class="btn btn-primary py-2 px-5" (click)="drawClearStaff()">Clear</button>
+								</div>
+								<!-- <img src="https://via.placeholder.com/250x150" alt="">
+								<input name="user_signature" type="hidden" formConrolName="user_signature"> -->
 							</div>
 						</div>
 					</form>
