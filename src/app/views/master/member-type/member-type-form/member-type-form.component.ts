@@ -60,12 +60,14 @@ export class MemberTypeFormComponent implements OnInit {
       .subscribe((data: any) => {
         this.getbenefits = data["data"].club_benefits;
 
-        $.each(this.getbenefits, function(i, item) {
-          $("input[name='benefit'][value=" + item.benefit_id + "]").prop(
-            "checked",
-            true
-          );
-        });
+        setTimeout(() => {
+          $.each(this.getbenefits, function(i, item) {
+            $("input[name='benefit'][value=" + item.benefit_id + "]").prop(
+              "checked",
+              true
+            );
+          });
+        }, 1000);
       });
 
     this.memberTypeService

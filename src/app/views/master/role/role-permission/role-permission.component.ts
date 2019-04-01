@@ -68,13 +68,15 @@ export class RolePermissionComponent implements OnInit {
       .subscribe((data: any) => {
         this.getpermissions = data["data"];
         //console.log(this.getpermissions);
-        var perms = JSON.parse(JSON.stringify(this.getpermissions));
-        $.each(perms, function(i, item) {
-          $("input[name='permission'][value=" + item.permission_id + "]").prop(
-            "checked",
-            true
-          );
-        });
+
+        setTimeout(() => {
+          var perms = JSON.parse(JSON.stringify(this.getpermissions));
+          $.each(perms, function(i, item) {
+            $(
+              "input[name='permission'][value=" + item.permission_id + "]"
+            ).prop("checked", true);
+          });
+        }, 1000);
       });
   }
 
@@ -88,6 +90,7 @@ export class RolePermissionComponent implements OnInit {
 
     permission = "[" + dataPermission.join(",") + "]";
 
+    console.log(permission)
     this.loading = true;
     this.permissionService
       .createPermissionRole(

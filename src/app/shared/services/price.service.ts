@@ -36,4 +36,8 @@ export class PriceService {
   deletePrice(id) {
     return this.http.delete(this.apiURL + "/prices/" + id, this.httpOptions);
   }
+
+  getPriceNonPt(data) {
+    return this.http.post(this.apiURL + "/get_price", data, this.httpOptions);
+  }
 }
