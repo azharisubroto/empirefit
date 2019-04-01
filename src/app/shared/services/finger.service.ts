@@ -20,4 +20,8 @@ export class FingerService {
   checkStaffRegistration(id) {
     return this.http.get(this.apiURL + "/staff_registration/check/" + id);
   }
+
+  checkMemberRegistration(id) {
+    return this.http.get(this.apiURL + "/registration/check/" + id);
+  }
 }
