@@ -213,8 +213,6 @@ export class MemberAttendanceComponent implements OnInit {
       .showClassRegistration(this.member.member_type_id)
       .subscribe((data: any) => {
         this.present = data["data"].present;
-
-        //console.log(data["data"]);
       });
 
     // Class History
@@ -226,12 +224,12 @@ export class MemberAttendanceComponent implements OnInit {
     });
 
     // Attendance History
-    this.attendanceService.attendanceHistory(
-      this.activatedRoute.snapshot.params["id"]
-    ).subscribe((data: any) => {
-      this.gymhistory = JSON.parse( JSON.stringify( data["data"] ) );
-      //console.log( this.gymhistory );
-    });
+    this.attendanceService
+      .attendanceHistory(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
+        //console.log( this.gymhistory );
+      });
   }
 
   open(content) {

@@ -18,10 +18,16 @@ export class FingerService {
   };
 
   checkStaffRegistration(id) {
-    return this.http.get(this.apiURL + "/staff_registration/check/" + id);
+    return this.http.get(
+      this.apiURL + "/finger/staff_registration/check/" + id
+    );
   }
 
   checkMemberRegistration(id) {
     return this.http.get(this.apiURL + "/finger/registration/check/" + id);
+  }
+
+  classAttendance(id) {
+    return this.http.get(this.apiURL + "/finger/member_auto_attendance/" + id);
   }
 }
