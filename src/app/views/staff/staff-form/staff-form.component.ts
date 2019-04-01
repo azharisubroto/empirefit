@@ -10,6 +10,7 @@ import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subject } from "rxjs";
+import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import { DomSanitizer } from "@angular/platform-browser";
 import { timer } from "rxjs/observable/timer";
@@ -112,6 +113,16 @@ export class StaffFormComponent implements OnInit {
           address: data["data"].address
         });
 
+        setTimeout(() => {
+          if (data["data"].state == "Active") {
+            $("#finger-status").text("Success");
+            $("#btn-scan").addClass("disabled");
+          } else {
+            $("#finger-status").text("Unverified");
+            $("#btn-scan").removeClass("disabled");
+          }
+        }, 2000);
+
         this.id_card = data["data"].id_card;
 
         this.finspot = data["url"];
@@ -153,105 +164,25 @@ export class StaffFormComponent implements OnInit {
     return this.nextWebcam.asObservable();
   }
 
-  // staffCheck(id) {
-
-  //   var regStats = 0;
-  //   try {
-  //     timer_register.stop();
-  //   }
-  //   catch (err) {
-  //     console.log('Registration timer has been init');
-  //   }
-
-  //   var limit = 4;
-  //   var ct = 1;
-  //   var timeout = 5000;
-
-  //   var timer_register = $.timer(timeout, function () {
-  //     console.log("'" + this.staff_id + "' registration checking...");
-  //     this.staffCheckRegistration(this.staff_id, $("#user_finger_" + this.staff_id).html());
-  //     if (ct >= limit || regStats == 1) {
-  //       console.log("B");
-  //       timer_register.stop();
-  //       console.log("'" + this.staff_id + "' registration checking end");
-  //       if (ct >= limit && regStats == 0) {
-  //         alert("'" + this.staff_id + "' registration fail!");
-  //         console.log('falsewew');
-  //       }
-  //       if (regStats == 1) {
-  //         console.log('AYE');
-  //         $("#user_finger_" + this.staff_id).html(this.regCt);
-  //         alert("'" + this.staff_id + "' registration success!");
-  //         console.log('true');
-
-  //       }
-  //     }
-  //     console.log("A");
-  //     ct++;
-  //   });
-
-  //   this.fingerService.checkStaffRegistration(id).subscribe((data: any) => {
-  //     if (data["status"] === "200") {
-  //       this.toastr.success(data["message"], "Success!", {
-  //         progressBar: true
-  //       });
-  //     }
-  //   })
-  // }
-
-  // staffCheck(id) {
-  //   let regCt = -1;
-  //   let regStats = 0;
-  //   regStats = 0;
-  //   try {
-  //     timeout = timer(0);
-  //   } catch (err) {
-  //     console.log("Registration timer has been init");
-  //   }
-
-  //   var limit = 4;
-  //   var ct = 1;
-  //   var timeout = timer(5000);
-  //   var time = 5000;
-
-  //   timeout.subscribe((data: any) => {
-  //     console.log("'" + id + "' registration checking...");
-
-  //     this.fingerService.checkStaffRegistration(id).subscribe((data: any) => {
-  //       try {
-  //         var res = data["data"];
-  //         // console.log(res);
-  //         if (res.result) {
-  //           regStats = 1;
-  //           $.each(res, function(key, value) {
-  //             console.log(key, value);
-  //             if (key == "current") {
-  //               regCt = data["data"].current;
-  //             }
-  //           });
-  //         } else {
-  //           console.log("gagal");
-  //         }
-  //       } catch (err) {
-  //         alert(err.message);
-  //       }
-  //     });
-
-  //     if (ct >= limit || regStats == 1) {
-  //       console.log("B");
-  //       console.log("'" + id + "' registration checking end");
-  //       if (ct >= limit && regStats == 0) {
-  //         alert("'" + id + "' registration fail!");
-  //         console.log("falsewew");
-  //       }
-  //       if (regStats == 1) {
-  //         console.log("AYE");
-  //         alert("'" + id + "' registration success!");
-  //         console.log("true");
-  //       }
-  //     }
-  //   });
-  // }
+  // Check Reg
+  checkReg() {
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkStaffRegistration(this.staff.id_card)
+          .subscribe((data: any) => {
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              this.toastr.success(data["message"], "Saved", {
+                progressBar: true
+              });
+              $("#finger-status").text("Success");
+            } else {
+              console.log("Checking finger . . .");
+            }
+          });
+      });
+  }
 
   onStep1Next(e) {
     if (this.staffForm.invalid) {
