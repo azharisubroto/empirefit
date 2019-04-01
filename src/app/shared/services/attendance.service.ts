@@ -24,4 +24,11 @@ export class AttendanceService {
       this.httpOptions
     );
   }
+
+  attendanceHistory(member_id) {
+    return this.http.get(
+      this.apiURL + "/class_attendance/" + member_id,
+      this.httpOptions
+    );
+  }
 }

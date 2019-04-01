@@ -44,6 +44,7 @@ export class MemberAttendanceComponent implements OnInit {
   present;
   id_card_number;
   classes;
+  gymhistory;
   todayName;
   history;
   classhistory: any;
@@ -71,6 +72,7 @@ export class MemberAttendanceComponent implements OnInit {
     this.firstTime = { make: "" };
     this.classes = { make: "" };
     this.classhistory = { make: "" };
+    this.gymhistory = { make: "" };
     this.memberid = { make: "" };
     this.buildFormBasic();
     this.radioGroup = this.fb.group({
@@ -220,7 +222,15 @@ export class MemberAttendanceComponent implements OnInit {
       this.activatedRoute.snapshot.params["id"]
     ).subscribe((data: any) => {
       this.classhistory = data["data"];
-      console.log(this.classhistory);
+      //console.log(this.classhistory);
+    });
+
+    // Attendance History
+    this.attendanceService.attendanceHistory(
+      this.activatedRoute.snapshot.params["id"]
+    ).subscribe((data: any) => {
+      this.gymhistory = JSON.parse( JSON.stringify( data["data"] ) );
+      //console.log( this.gymhistory );
     });
   }
 
@@ -228,7 +238,7 @@ export class MemberAttendanceComponent implements OnInit {
     this.modalService
       .open(content, { ariaLabelledBy: "modal-basic-title" })
       .result.then(result => {
-        console.log(result);
+        //console.log(result);
       });
   }
 
@@ -360,7 +370,7 @@ export class MemberAttendanceComponent implements OnInit {
     let formValue = this.userForm.value;
     formValue["user_id"] = mod.user.id;
 
-    console.log(formValue);
+    //console.log(formValue);
     $(".delete_class").on("click", function(e) {
       e.preventDefault();
       var btn = $(this);
