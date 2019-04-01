@@ -186,7 +186,7 @@
 						<div class="row mb-4">
 							<div class="form-group col-md-6 mb-3">
 								<label for="member_type_id">Type</label>
-								<select required name="member_type_id" formControlName="member_type_id" class="form-control">
+								<select id="member_type" (change)="getPriceNonPt()" required name="member_type_id" formControlName="member_type_id" class="form-control">
 									<option *ngFor="let title of type" value="title.id" [value]="title.id">
 										{{title.member_type_name}}
 									</option>
@@ -214,7 +214,7 @@
 						<div class="row mb-3">
 							<div class="col-md-6 mb-3 form-group">
 								<label for="card">Type</label>
-								<select formControlName="payment_id" required name="payment_id" class="form-control">
+								<select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id" class="form-control">
 									<option *ngFor="let pa of paymenttype" [value]="pa.id">
 										{{pa.payment_type_name}}
 									</option>
@@ -252,6 +252,10 @@
 									<option value="0">No</option>
 								</select>
 							</div>
+							<div class="col-md-6 mb-3 form-group">
+								<label for="price">Price</label>
+								<input class="form-control" type="text" name="price" id="price">
+							</div>
 						</div>
 
 						<div class="row mb-3">
@@ -273,8 +277,7 @@
 											<td>{{ trainer.name }}</td>
 											<td>{{ trainer.state }}</td>
 											<td>
-												<a name="personal_trainer" id="trainer.id" href="#" class="btn btn-primary">Select</a>
-												<input formControlName="personal_trainer_id" type="hidden" name="trainer.id" value="trainer.id">
+												<button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)" class="btn btn-primary pesonal-trainer">Select</button>
 											</td>
 										</tr>
 									</tbody>

@@ -15,6 +15,7 @@ import { PaymentTypeService } from "src/app/shared/services/payment-type.service
 import { Router, ActivatedRoute } from "@angular/router";
 import { BankService } from "src/app/shared/services/bank.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
+import { PriceService } from "src/app/shared/services/price.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Observable, Subject } from "rxjs";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
@@ -49,7 +50,9 @@ export class MemberActivationComponent implements OnInit {
   paymenttype;
   notes;
   signature;
+  price;
   user_signature;
+  personal_trainer_id;
 
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -81,6 +84,7 @@ export class MemberActivationComponent implements OnInit {
     private bank: BankService,
     private PersonalTrainer: PersonaltrainerService,
     private healthQuestionService: HealthQuestionsService,
+    private priceService: PriceService,
     private sanitizer: DomSanitizer
   ) {}
 
@@ -109,11 +113,12 @@ export class MemberActivationComponent implements OnInit {
       exp_month: [null],
       exp_year: [null],
       auto_debet: ["1"],
-      personal_trainer_id: [null],
       duration: [],
       session_remains: [],
       period: []
     });
+
+    this.personal_trainer_id = null;
 
     // get user data
     this.memberService
@@ -134,7 +139,6 @@ export class MemberActivationComponent implements OnInit {
           auto_debet: data["data"].auto_debet,
           exp_month: null,
           exp_year: null,
-          personal_trainer_id: null,
           duration: data["data"].duration,
           session_remains: data["data"].session_remains,
           period: data["data"].period
@@ -179,6 +183,63 @@ export class MemberActivationComponent implements OnInit {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
       }
     );
+
+    setTimeout(() => {
+      let data = this.membershipForm.value;
+      data["member_type_id"] = this.membershipForm.controls[
+        "member_type_id"
+      ].value;
+      data["payment_id"] = this.membershipForm.controls["payment_id"].value;
+      this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+        $.each(data["data"], function(i, item) {
+          $("#price").val(item.price);
+        });
+      });
+    }, 2000);
+  }
+
+  // Price Non PT
+  getPriceNonPt() {
+    $("#price").val(0);
+    let data = this.membershipForm.value;
+    data["member_type_id"] = this.membershipForm.controls[
+      "member_type_id"
+    ].value;
+    data["payment_id"] = this.membershipForm.controls["payment_id"].value;
+
+    if (data["member_type_id"] === 3) {
+      $("#price").val(0);
+    } else {
+      this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+        $.each(data["data"], function(i, item) {
+          $("#price").val(item.price);
+        });
+      });
+    }
+  }
+
+  // price pt
+  getPricePt(price) {
+    let data = this.membershipForm.value;
+    data["member_type_id"] = this.membershipForm.controls[
+      "member_type_id"
+    ].value;
+    if (data["member_type_id"] === 3) {
+      $("#price").val(0);
+      $("#price").val(price);
+    }
+  }
+
+  getPtId(id) {
+    let data = this.membershipForm.value;
+    data["member_type_id"] = this.membershipForm.controls[
+      "member_type_id"
+    ].value;
+    if (data["member_type_id"] === 3) {
+      this.personal_trainer_id = id;
+    } else {
+      this.personal_trainer_id = null;
+    }
   }
 
   //  webcam
@@ -230,9 +291,7 @@ export class MemberActivationComponent implements OnInit {
     formValue["member_type_id"] = this.membershipForm.controls[
       "member_type_id"
     ].value;
-    formValue["personal_trainer_id"] = this.membershipForm.controls[
-      "personal_trainer_id"
-    ].value;
+    formValue["personal_trainer_id"] = this.personal_trainer_id;
     formValue["bank_id"] = this.membershipForm.controls["bank_id"].value;
     formValue["card_number"] = this.membershipForm.controls[
       "card_number"
@@ -243,6 +302,7 @@ export class MemberActivationComponent implements OnInit {
     formValue["session_remains"] = this.membershipForm.controls[
       "session_remains"
     ].value;
+    formValue["price"] = $("#price").val();
 
     if (this.membershipForm.controls["auto_debet"].value === "0") {
       formValue["auto_debet"] = false;

@@ -91,12 +91,15 @@ export class StaffFormComponent implements OnInit {
       .subscribe((data: any) => {
         this.getpositions = data["data"].positions;
 
-        $.each(this.getpositions, function(i, item) {
-          $("input[name='position'][value=" + item.position_id + "]").prop(
-            "checked",
-            true
-          );
+        setTimeout(() => {
+          $.each(this.getpositions, function(i, item) {
+            $("input[name='position'][value=" + item.position_id + "]").prop(
+              "checked",
+              true
+            );
+          });
         });
+
         this.staffForm.setValue({
           name: data["data"].name,
           email: data["data"].email,

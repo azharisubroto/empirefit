@@ -98,20 +98,24 @@ export class ScheduleFormComponent implements OnInit {
           branch_id: data["data"].branch_id
         });
 
-        this.getMt = data["data"].member_type_schedules;
-        $.each(this.getMt, function(i, item) {
-          $(
-            "input[name='member_type'][value=" + item.member_type_id + "]"
-          ).prop("checked", true);
-        });
+        setTimeout(() => {
+          this.getMt = data["data"].member_type_schedules;
+          $.each(this.getMt, function (i, item) {
+            $(
+              "input[name='member_type'][value=" + item.member_type_id + "]"
+            ).prop("checked", true);
+          });
+        }, 1000)
 
-        this.getCoaches = data["data"].group_schedules;
-        $.each(this.getCoaches, function(i, item) {
-          $("input[name='staff'][value=" + item.staff_id + "]").prop(
-            "checked",
-            true
-          );
-        });
+        setTimeout(() => {
+          this.getCoaches = data["data"].group_schedules;
+          $.each(this.getCoaches, function (i, item) {
+            $("input[name='staff'][value=" + item.staff_id + "]").prop(
+              "checked",
+              true
+            );
+          });
+        }, 1000)
       });
   }
 

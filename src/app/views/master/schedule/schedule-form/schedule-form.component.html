@@ -136,9 +136,11 @@
                   <h4 class="fancy-head"><span>Coach :</span></h4>
                 </div>
                 <div class="col-md-6 mt-3" *ngFor="let staff of staffs">
+                  <label class="checkbox checkbox-secondary">
                   <input type="checkbox" name="staff" value="{{ staff.id }}" />
                   <span class="ml-3">{{ staff.name }}</span>
                   <span class="checkmark"></span>
+                  </label>
                 </div>
                 <input type="hidden" class="staff-final" value="" />
               </div>
@@ -151,6 +153,7 @@
                   class="col-md-6 mt-3"
                   *ngFor="let member_type of member_types"
                 >
+                <label class="checkbox checkbox-secondary">
                   <input
                     type="checkbox"
                     name="member_type"
@@ -158,6 +161,7 @@
                   />
                   <span class="ml-3">{{ member_type.member_type_name }}</span>
                   <span class="checkmark"></span>
+                  </label>
                 </div>
                 <input type="hidden" class="member_type-final" value="" />
               </div>
