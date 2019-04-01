@@ -18,8 +18,7 @@ import { FingerService } from "src/app/shared/services/finger.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { PriceService } from "src/app/shared/services/price.service";
 import { DomSanitizer } from "@angular/platform-browser";
-import { Observable, Subject, timer } from "rxjs";
-import { take } from "rxjs/operators";
+import { Observable, Subject} from "rxjs";
 import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
@@ -149,6 +148,16 @@ export class MemberActivationComponent implements OnInit {
           period: data["data"].period
         });
 
+        setTimeout(() => {
+          if (data["data"].state == "Active") {
+            $("#finger-status").text("Success");
+            $("#btn-scan").addClass("disabled");
+          } else {
+            $("#finger-status").text("Unverified");
+            $("#btn-scan").removeClass("disabled");
+          }
+        }, 2000);
+
         this.id_card_number = data["data"].id_card_number;
 
         this.finspot = data["url"];
@@ -210,32 +219,18 @@ export class MemberActivationComponent implements OnInit {
         this.fingerService
           .checkMemberRegistration(this.member.id_card_number)
           .subscribe((data: any) => {
-            console.log(data);
+            console.log(this.id_card_number);
             if (data["status"] === "200") {
               subscribe.unsubscribe();
               this.toastr.success(data["message"], "Saved", {
                 progressBar: true
               });
-              $("#finger-status").text(data["member_status"]);
+              $("#finger-status").text("Success");
             } else {
               console.log("Checking finger . . .");
             }
           });
       });
-  }
-
-  // Check Member Registration
-  checkMemberReg() {
-    // if (this.val )
-    // this.fingerService
-    //   .checkMemberRegistration(this.activatedRoute.snapshot.params["id"])
-    //   .subscribe((data: any) => {
-    //     if (data["status"] === "200") {
-    //       console.log("OK");
-    //     } else {
-    //       console.log("Something wrong");
-    //     }
-    //   });
   }
 
   // Price Non PT

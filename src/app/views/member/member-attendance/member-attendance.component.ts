@@ -247,7 +247,8 @@ export class MemberAttendanceComponent implements OnInit {
     ).subscribe((data: any) => {
       var pass = data;
       let formValue = this.userForm.value;
-      formValue["user_id"] = this.user.user_id;
+      formValue["user_id"] = this.user.id;
+      console.log(this.user.id);
       formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
