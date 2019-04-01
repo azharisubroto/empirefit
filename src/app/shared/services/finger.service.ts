@@ -22,6 +22,6 @@ export class FingerService {
   }
 
   checkMemberRegistration(id) {
-    return this.http.get(this.apiURL + "/registration/check/" + id);
+    return this.http.get(this.apiURL + "/finger/registration/check/" + id);
   }
 }
