@@ -20,6 +20,7 @@ import { PriceService } from "src/app/shared/services/price.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Observable, Subject, timer } from "rxjs";
 import { take } from "rxjs/operators";
+import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
 
@@ -204,27 +205,36 @@ export class MemberActivationComponent implements OnInit {
 
   // Check Reg
   checkReg() {
-    let delay = 5000,
-      count = 4;
-
-    timer(delay)
-      .pipe(take(count))
-      .subscribe(x => {
-        this.checkMemberReg();
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkMemberRegistration(this.activatedRoute.snapshot.params["id"])
+          .subscribe((data: any) => {
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              this.toastr.success(data["message"], "Saved", {
+                progressBar: true
+              });
+              $("#finger-status").text(data["member_status"]);
+            } else {
+              console.log("Checking finger . . .");
+            }
+          });
       });
   }
 
   // Check Member Registration
   checkMemberReg() {
-    this.fingerService
-      .checkMemberRegistration(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        if (data["status"] === "200") {
-          console.log("OK");
-        } else {
-          console.log("Something wrong");
-        }
-      });
+    // if (this.val )
+    // this.fingerService
+    //   .checkMemberRegistration(this.activatedRoute.snapshot.params["id"])
+    //   .subscribe((data: any) => {
+    //     if (data["status"] === "200") {
+    //       console.log("OK");
+    //     } else {
+    //       console.log("Something wrong");
+    //     }
+    //   });
   }
 
   // Price Non PT
