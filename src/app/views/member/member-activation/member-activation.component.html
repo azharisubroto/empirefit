@@ -79,13 +79,25 @@
 						<div class="row mt-5">
 							<div class="form-group col-md-6 mb-3">
 								<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
-								<img src="https://via.placeholder.com/250x150" alt="">
-								<input name="signature" type="hidden" formConrolName="signature">
+								<signature-pad [options]="signaturePadMember" id="member" #member></signature-pad>
+								<input type="hidden" formControlName="member_sign" id="member-sign" value="">
+								<div class="text-left">
+									<button class="btn btn-primary py-2 px-5 mr-3" (click)="member.clear()">Clear</button>
+									<button class="btn btn-primary py-2 px-5" (click)="saveimg('member-sign',member)">Save</button>
+								</div>
+								<!-- <img src="https://via.placeholder.com/250x150" alt="">
+								<input name="signature" type="hidden" formConrolName="signature"> -->
 							</div>
 							<div class="form-group col-md-6 mb-3">
 								<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
-								<img src="https://via.placeholder.com/250x150" alt="">
-								<input name="user_signature" type="hidden" formConrolName="user_signature">
+								<signature-pad [options]="signaturePadStaff" id="staff" #staff></signature-pad>
+								<input type="hidden" formControlName="staff_sign" id="staff-sign" value="">
+								<div class="text-left">
+									<button class="btn btn-primary py-2 px-5 mr-3" (click)="staff.clear()">Clear</button>
+									<button class="btn btn-primary py-2 px-5" (click)="saveimg('staff-sign',staff)">Save</button>
+								</div>
+								<!-- <img src="https://via.placeholder.com/250x150" alt="">
+								<input name="user_signature" type="hidden" formConrolName="user_signature"> -->
 							</div>
 						</div>
 					</form>
