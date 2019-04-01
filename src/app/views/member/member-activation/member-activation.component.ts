@@ -198,6 +198,9 @@ export class MemberActivationComponent implements OnInit {
     }, 2000);
   }
 
+  // Check Reg
+  checkReg() {}
+
   // Price Non PT
   getPriceNonPt() {
     $("#price").val(0);
@@ -220,26 +223,13 @@ export class MemberActivationComponent implements OnInit {
 
   // price pt
   getPricePt(price) {
-    let data = this.membershipForm.value;
-    data["member_type_id"] = this.membershipForm.controls[
-      "member_type_id"
-    ].value;
-    if (data["member_type_id"] === 3) {
-      $("#price").val(0);
-      $("#price").val(price);
-    }
+    $("#price").val(0);
+    $("#price").val(price);
   }
 
   getPtId(id) {
-    let data = this.membershipForm.value;
-    data["member_type_id"] = this.membershipForm.controls[
-      "member_type_id"
-    ].value;
-    if (data["member_type_id"] === 3) {
-      this.personal_trainer_id = id;
-    } else {
-      this.personal_trainer_id = null;
-    }
+    this.personal_trainer_id = null;
+    this.personal_trainer_id = id;
   }
 
   //  webcam

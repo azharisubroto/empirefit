@@ -166,7 +166,7 @@
 								</div>
 								<div class="row mt-2 mb-5">
 									<div class="col-md-6">
-										<a [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Scan</a>
+										<a [href]="finger" (click)="checkReg()" class="btn btn-primary btn-lg btn-block py-3">Scan</a>
 									</div>
 								</div>
 							</div>
@@ -254,7 +254,7 @@
 							</div>
 							<div class="col-md-6 mb-3 form-group">
 								<label for="price">Price</label>
-								<input class="form-control" type="text" name="price" id="price">
+								<input readonly class="form-control" type="text" name="price" id="price">
 							</div>
 						</div>
 
