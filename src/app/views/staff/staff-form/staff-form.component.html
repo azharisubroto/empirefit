@@ -15,109 +15,58 @@
           <div class="row">
             <div class="form-group col-md-6 mb-3">
               <label for="name">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                placeholder="Enter name"
-                formControlName="name"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control" id="name" name="name" placeholder="Enter name" formControlName="name" />
+              <i *ngIf="
                   !staffForm.get('name').valid && staffForm.get('name').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter this field</i
-              >
+                class="i-Information text-danger">
+                Please enter this field</i>
             </div>
             <div class="form-group col-md-6 mb-3">
               <label for="email">Email address</label>
-              <input
-                required
-                type="email"
-                class="form-control"
-                id="email"
-                name="email"
-                aria-describedby="emailHelp"
-                placeholder="Enter email"
-                formControlName="email"
-              />
-              <i
-                *ngIf="
+              <input required type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp"
+                placeholder="Enter email" formControlName="email" />
+              <i *ngIf="
                   !staffForm.get('email').valid &&
                   staffForm.get('email').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter this field</i
-              >
+                class="i-Information text-danger">
+                Please enter this field</i>
             </div>
             <div class="form-group col-md-6">
               <label for="phone">Phone number</label>
-              <input
-                required
-                type="text"
-                class="form-control"
-                id="phone"
-                name="phone"
-                placeholder="Enter Phone"
-                formControlName="phone"
-              />
-              <i
-                *ngIf="
+              <input required type="text" class="form-control" id="phone" name="phone" placeholder="Enter Phone"
+                formControlName="phone" />
+              <i *ngIf="
                   !staffForm.get('phone').valid &&
                   staffForm.get('phone').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter this field</i
-              >
+                class="i-Information text-danger">
+                Please enter this field</i>
             </div>
             <div class="form-group col-md-6">
               <label for="id_card">ID Card</label>
-              <input
-                required
-                type="text"
-                class="form-control"
-                id="id_card"
-                name="id_card"
-                placeholder="ID Card Number"
-                formControlName="id_card"
-              />
-              <i
-                *ngIf="
+              <input required type="text" class="form-control" id="id_card" name="id_card" placeholder="ID Card Number"
+                formControlName="id_card" />
+              <i *ngIf="
                   !staffForm.get('id_card').valid &&
                   staffForm.get('id_card').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter this field</i
-              >
+                class="i-Information text-danger">
+                Please enter this field</i>
             </div>
             <div class="form-group col-md-6">
               <label for="date_of_birth">Date Of Birth</label>
               <div class="row">
                 <div class="col-12">
-                  <input
-                    required
-                    type="text"
-                    class="form-control"
-                    id="date_of_birth"
-                    name="date_of_birth"
-                    placeholder="YYYY-MM-DD"
-                    formControlName="date_of_birth"
-                  />
-                  <i
-                    *ngIf="
+                  <input required type="text" class="form-control" id="date_of_birth" name="date_of_birth" placeholder="YYYY-MM-DD"
+                    formControlName="date_of_birth" />
+                  <i *ngIf="
                       !staffForm.get('date_of_birth').valid &&
                       staffForm.get('date_of_birth').touched
                     "
-                    class="i-Information text-danger"
-                  >
-                    Please enter this field</i
-                  >
+                    class="i-Information text-danger">
+                    Please enter this field</i>
                 </div>
                 <!-- <div class="col-2">
                   <button
@@ -132,59 +81,28 @@
             </div>
             <div class="form-group col-md-6">
               <label for="bank_id">Account Bank</label>
-              <select
-                formControlName="bank_id"
-                name="bank_id"
-                id="bank_id"
-                class="form-control"
-              >
-                <option
-                  [value]="bank.id"
-                  *ngFor="let bank of banks"
-                  value="bank.id"
-                >
+              <select formControlName="bank_id" name="bank_id" id="bank_id" class="form-control">
+                <option [value]="bank.id" *ngFor="let bank of banks" value="bank.id">
                   {{ bank.bank_name }}
                 </option>
               </select>
             </div>
             <div class="form-group col-md-6">
               <label for="account_number">Account Number</label>
-              <input
-                type="text"
-                class="form-control"
-                id="account_number"
-                name="account_number"
-                placeholder="Enter Account Number"
-                formControlName="account_number"
-              />
+              <input type="text" class="form-control" id="account_number" name="account_number" placeholder="Enter Account Number"
+                formControlName="account_number" />
             </div>
             <div class="form-group col-md-6">
               <label for="branch_id">Branch</label>
-              <select
-                formControlName="branch_id"
-                name="branch_id"
-                id="branch_id"
-                class="form-control"
-              >
-                <option
-                  [value]="branch.id"
-                  *ngFor="let branch of branches"
-                  value="branch.id"
-                >
+              <select formControlName="branch_id" name="branch_id" id="branch_id" class="form-control">
+                <option [value]="branch.id" *ngFor="let branch of branches" value="branch.id">
                   {{ branch.branch_name }}
                 </option>
               </select>
             </div>
             <div class="form-group col-md-12">
               <label for="address">Address</label>
-              <textarea
-                class="form-control"
-                name="address"
-                id="address"
-                cols="30"
-                rows="5"
-                formControlName="address"
-              ></textarea>
+              <textarea class="form-control" name="address" id="address" cols="30" rows="5" formControlName="address"></textarea>
             </div>
             <!-- <div class="col-md-12 mb-3">
               <hr />
@@ -207,15 +125,11 @@
             </div>
             <div class="col-md-12" *ngFor="let position of positions">
               <label class="checkbox checkbox-secondary">
-              <input
-                type="checkbox"
-                name="position"
-                value="{{ position.id }}"
-              />
-              <span class="ml-3 position_name">{{
-                position.position_name
-              }}</span>
-              <span class="checkmark"></span>
+                <input type="checkbox" name="position" value="{{ position.id }}" />
+                <span class="ml-3 position_name">{{
+                  position.position_name
+                  }}</span>
+                <span class="checkmark"></span>
               </label>
             </div>
             <input type="hidden" class="position-final" value="" />
@@ -228,9 +142,7 @@
         <form [formGroup]="staffForm">
           <div class="row">
             <div class="col-md-6">
-              <div
-                class="px-4 py-3 border border-light rounded align-items-center mb-4"
-              >
+              <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
                 <div class="text-muted mb-0">
                   <strong id="staff-name"></strong>
                 </div>
@@ -250,16 +162,14 @@
               <img [src]="webcamImage.imageAsDataUrl"/>
             </div> -->
             <div class="col-md-3">
-              <webcam [height]="250" [width]="250" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
-                [videoOptions]="videoOptions"
-                [imageQuality]="1"
-                (initError)="handleInitError($event)">
+              <webcam [height]="250" [width]="250" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+                *ngIf="showWebcam" [videoOptions]="videoOptions" [imageQuality]="1" (initError)="handleInitError($event)">
               </webcam>
             </div>
-            <ng-container  *ngIf="webcamImage; then adaImage; else gaAda"></ng-container>
+            <ng-container *ngIf="webcamImage; then adaImage; else gaAda"></ng-container>
             <ng-template #adaImage>
               <div class="col-md-3 snapshot">
-                <img [src]="webcamImage.imageAsDataUrl" width="250" height="187"/>
+                <img [src]="webcamImage.imageAsDataUrl" width="250" height="187" />
               </div>
             </ng-template>
             <ng-template #gaAda>
@@ -286,9 +196,7 @@
               </div>
               <div class="row mt-4">
                 <div class="col-md-6">
-                  <div
-                    class="px-4 py-3 border border-light rounded align-items-center mb-4"
-                  >
+                  <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
                     <div class="text-muted mb-0">
                       status
                     </div>
@@ -298,9 +206,7 @@
               </div>
               <div class="row mt-2 mb-5">
                 <div class="col-md-6">
-                  <a id="btn-scan" [href]="finger" class="btn btn-primary btn-lg btn-block py-3"
-                    >Scan</a
-                  >
+                  <a id="btn-scan" [href]="finger" (click)="checkReg()" class="btn btn-primary btn-lg btn-block py-3">Scan</a>
                 </div>
               </div>
             </div>
