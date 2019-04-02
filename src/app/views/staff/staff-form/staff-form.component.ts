@@ -177,6 +177,7 @@ export class StaffFormComponent implements OnInit {
                 progressBar: true
               });
               $("#finger-status").text("Success");
+              $("#btn-scan").addClass("disabled");
             } else {
               console.log("Checking finger . . .");
             }

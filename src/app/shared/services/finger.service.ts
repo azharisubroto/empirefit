@@ -9,7 +9,7 @@ export class FingerService {
   readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(private http: HttpClient, private store: LocalStoreService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -29,5 +29,9 @@ export class FingerService {
 
   classAttendance(id) {
     return this.http.get(this.apiURL + "/finger/member_auto_attendance/" + id);
+  }
+
+  checkAttendance(member_id) {
+    return this.http.get(this.apiURL + "/finger/member_attendance/check/" + member_id, this.httpOptions);
   }
 }
