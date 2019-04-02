@@ -11,10 +11,12 @@ import { MemberService } from "src/app/shared/services/member.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { AttendanceService } from "src/app/shared/services/attendance.service";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
+import { FingerService } from "src/app/shared/services/finger.service";
 import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ClassesService } from "src/app/shared/services/classes.service";
+import { interval } from "rxjs/observable/interval";
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
@@ -59,10 +61,11 @@ export class MemberAttendanceComponent implements OnInit {
     private UserService: UserService,
     private attendanceService: AttendanceService,
     private scheduleService: ScheduleService,
+    private fingerService: FingerService,
     private ClassesService: ClassesService,
     private sanitizer: DomSanitizer,
     private chRef: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit() {
     var mod = this;
@@ -145,14 +148,14 @@ export class MemberAttendanceComponent implements OnInit {
             var d = new Date();
             var n = d.getDay();
             var todayName = days[n];
-            $.each(obj, function(i, item) {
+            $.each(obj, function (i, item) {
               if (item.day === todayName) {
                 // Print Jadwal
                 if (mod.hasmatch(item.log, "member_id", member.id)) {
                   var logarray = item.log;
                   var _index = logarray.findIndex(
-                      x => x.member_id === member.id
-                    ),
+                    x => x.member_id === member.id
+                  ),
                     _iscanceled = item.log[_index].canceled,
                     _logid = item.log[_index]["id"];
 
@@ -356,7 +359,7 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   hasmatch(array, key, value) {
-    var matches = array.filter(function(element) {
+    var matches = array.filter(function (element) {
       return element[key] === value;
     });
 
@@ -370,7 +373,7 @@ export class MemberAttendanceComponent implements OnInit {
     formValue["user_id"] = mod.user.id;
 
     //console.log(formValue);
-    $(".delete_class").on("click", function(e) {
+    $(".delete_class").on("click", function (e) {
       e.preventDefault();
       var btn = $(this);
       var id = $(this).data("logid");
@@ -390,6 +393,34 @@ export class MemberAttendanceComponent implements OnInit {
       });
       return false;
     });
+  }
+
+  checkAttendance() {
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkAttendance(this.activatedRoute.snapshot.params["id"])
+          .subscribe((data: any) => {
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              setTimeout(() => {
+                $("#code-first_time").text(data["date"]);
+              });
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
+              $("#finger-status").text("Success");
+            } else {
+              subscribe.unsubscribe();
+              setTimeout(() => {
+                $("#code-first_time").text("n/a");
+              });
+              this.toastr.error(data["message"], "Error", {
+                progressBar: true
+              });
+            }
+          });
+      });
   }
 
   getClock() {
