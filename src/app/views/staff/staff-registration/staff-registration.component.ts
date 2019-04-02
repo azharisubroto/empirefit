@@ -4,11 +4,13 @@ import { PositionService } from "src/app/shared/services/position.service";
 import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
 import { BankService } from "src/app/shared/services/bank.service";
+import { FingerService } from "src/app/shared/services/finger.service";
 import { Router } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subject } from "rxjs";
+import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import { DomSanitizer } from "@angular/platform-browser";
 
@@ -47,7 +49,7 @@ export class StaffRegistrationComponent implements OnInit {
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean | string> = new Subject<
     boolean | string
-  >();
+    >();
 
   constructor(
     private fb: FormBuilder,
@@ -56,10 +58,11 @@ export class StaffRegistrationComponent implements OnInit {
     private branchService: BranchService,
     private staffService: StaffService,
     private bankService: BankService,
+    private fingerService: FingerService,
     private toastr: ToastrService,
     private parserFormatter: NgbDateParserFormatter,
     private sanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.staffRegistrationForm = this.fb.group({
@@ -93,13 +96,15 @@ export class StaffRegistrationComponent implements OnInit {
     );
 
     //Checbox
-    $(".selectall").click(function() {
+    $(".selectall").click(function () {
       if ($(this).is(":checked")) {
         $('input[name="position"]').prop("checked", true);
       } else {
         $('input[name="position"]').prop("checked", false);
       }
     });
+
+
   }
 
   public triggerSnapshot(): void {
@@ -123,6 +128,28 @@ export class StaffRegistrationComponent implements OnInit {
     return this.nextWebcam.asObservable();
   }
 
+  // Check Reg
+  checkReg() {
+    let staff = $("#finger_code").val();
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkStaffRegistration(staff)
+          .subscribe((data: any) => {
+            console.log(data);
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              this.toastr.success(data["message"], "Saved", {
+                progressBar: true
+              });
+              $("#finger-status").text("Success");
+            } else {
+              console.log("Checking finger . . .");
+            }
+          });
+      });
+  }
+
   onStep1Next(e) {
     if (this.staffRegistrationForm.invalid) {
       this.toastr.error("Please complete the data", "Not Saved!", {
@@ -132,7 +159,7 @@ export class StaffRegistrationComponent implements OnInit {
       let dataPositions = [];
       let dataPositionName = [];
 
-      $.each($("input[name='position']:checked"), function() {
+      $.each($("input[name='position']:checked"), function () {
         dataPositions.push($(this).val());
         dataPositionName.push(
           $(this)
@@ -176,11 +203,12 @@ export class StaffRegistrationComponent implements OnInit {
           });
 
           this.finspot = data["url"];
-
           this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
 
-          $("#staff_name").text(data["data"].name);
-          $("#staff_status").text(data["data"].status);
+          setTimeout(() => {
+            $("#staff_name").text(data["data"].name);
+            $("#finger_code").val(data["data"].finger_code);
+          }, 1000)
         }
       });
     }

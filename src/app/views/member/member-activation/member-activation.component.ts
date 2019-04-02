@@ -252,9 +252,9 @@ export class MemberActivationComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkMemberRegistration(this.member.id_card_number)
+          .checkMemberRegistration(this.member.finger_code)
           .subscribe((data: any) => {
-            console.log(this.id_card_number);
+            console.log(this.member.finger_code);
             if (data["status"] === "200") {
               subscribe.unsubscribe();
               this.toastr.success(data["message"], "Saved", {

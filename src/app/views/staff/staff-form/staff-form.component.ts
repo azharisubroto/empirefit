@@ -50,7 +50,7 @@ export class StaffFormComponent implements OnInit {
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean | string> = new Subject<
     boolean | string
-  >();
+    >();
 
   constructor(
     private fb: FormBuilder,
@@ -64,7 +64,7 @@ export class StaffFormComponent implements OnInit {
     private parserFormatter: NgbDateParserFormatter,
     private activatedRoute: ActivatedRoute,
     private sanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.staffForm = this.fb.group({
@@ -93,7 +93,7 @@ export class StaffFormComponent implements OnInit {
         this.getpositions = data["data"].positions;
 
         setTimeout(() => {
-          $.each(this.getpositions, function(i, item) {
+          $.each(this.getpositions, function (i, item) {
             $("input[name='position'][value=" + item.position_id + "]").prop(
               "checked",
               true
@@ -128,8 +128,11 @@ export class StaffFormComponent implements OnInit {
         this.finspot = data["url"];
 
         this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-        $("#staff-name").text(data["data"].name);
-        $("#staff-status").text(data["data"].status);
+
+        setTimeout(() => {
+          $("#staff-name").text(data["data"].name);
+          $("#staff-status").text(data["data"].status);
+        }, 1000)
       });
 
     this.branchService.getBranches().subscribe((data: any) => {
@@ -169,7 +172,7 @@ export class StaffFormComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkStaffRegistration(this.staff.id_card)
+          .checkStaffRegistration(this.staff.finger_code)
           .subscribe((data: any) => {
             if (data["status"] === "200") {
               subscribe.unsubscribe();
@@ -193,7 +196,7 @@ export class StaffFormComponent implements OnInit {
       let dataPositions = [];
       let dataPositionName = [];
 
-      $.each($("input[name='position']:checked"), function() {
+      $.each($("input[name='position']:checked"), function () {
         dataPositions.push($(this).val());
         dataPositionName.push(
           $(this)
