@@ -10,7 +10,7 @@ export class MemberService {
   readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(private http: HttpClient, private store: LocalStoreService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -33,6 +33,14 @@ export class MemberService {
   updateLiability(id, data) {
     return this.http.put(
       this.apiURL + "/update_liability/" + id,
+      data,
+      this.httpOptions
+    );
+  }
+
+  updateIdentification(id, data) {
+    return this.http.put(
+      this.apiURL + "/identification_member/" + id,
       data,
       this.httpOptions
     );
