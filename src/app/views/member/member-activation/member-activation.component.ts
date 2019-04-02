@@ -18,7 +18,7 @@ import { FingerService } from "src/app/shared/services/finger.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { PriceService } from "src/app/shared/services/price.service";
 import { DomSanitizer } from "@angular/platform-browser";
-import { Observable, Subject} from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
@@ -57,11 +57,14 @@ export class MemberActivationComponent implements OnInit {
   user_signature;
   personal_trainer_id;
   subscription;
+  photo;
+  is_membersign_exists: Boolean;
+  is_staffsign_exists: Boolean;
 
-  @ViewChild(SignaturePad) signaturePad : SignaturePad;
+  @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadMember = {
-    "minWidth" : 1,
-    penColor : 'rgb(0,0,0)',
+    "minWidth": 1,
+    penColor: 'rgb(0,0,0)',
     backgroundColor: 'rgb(255,240,240)',
     //onEnd: this.saveimg(),
     // canvasWeight: 250,
@@ -69,13 +72,13 @@ export class MemberActivationComponent implements OnInit {
   }
 
   public signaturePadStaff = {
-    "minWidth" : 1,
-    penColor : 'rgb(0,0,0)',
+    "minWidth": 1,
+    penColor: 'rgb(0,0,0)',
     backgroundColor: 'rgb(255,240,240)',
     // canvasWeight: 250,
     // canvasHeight: 150
   }
-  
+
   public showWebcam = true;
   public allowCameraSwitch = true;
   public multipleWebcamsAvailable = false;
@@ -93,7 +96,7 @@ export class MemberActivationComponent implements OnInit {
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean | string> = new Subject<
     boolean | string
-  >();
+    >();
 
   constructor(
     private fb: FormBuilder,
@@ -109,7 +112,7 @@ export class MemberActivationComponent implements OnInit {
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
     private sanitizer: DomSanitizer
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.member = { make: "" };
@@ -123,6 +126,7 @@ export class MemberActivationComponent implements OnInit {
 
     // liabilityFormBuilder
     this.liabilityForm = this.fb.group({
+      user_id: ["", Validators.required],
       member_sign: ["", Validators.required],
       staff_sign: ["", Validators.required]
     });
@@ -153,6 +157,18 @@ export class MemberActivationComponent implements OnInit {
         //results.push(list[1]+" "+list[2]);
         this.expirydate = list[1] + " " + list[2] + " " + list[3];
         console.log(this.member);
+
+        if (this.member.liability_signature) {
+          this.is_membersign_exists = true;
+        } else {
+          this.is_membersign_exists = false;
+        }
+
+        if (this.member.liability_user_signature) {
+          this.is_staffsign_exists = true;
+        } else {
+          this.is_staffsign_exists = false;
+        }
 
         this.membershipForm.setValue({
           member_type_id: data["data"].member_type_id,
@@ -224,22 +240,11 @@ export class MemberActivationComponent implements OnInit {
       ].value;
       data["payment_id"] = this.membershipForm.controls["payment_id"].value;
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $.each(data["data"], function(i, item) {
+        $.each(data["data"], function (i, item) {
           $("#price").val(item.price);
         });
       });
     }, 2000);
-  }
-
-  //save sign
-  saveimg(target, test) {
-    var image = test.toDataURL();
-    setTimeout(() => {
-      $('#'+target).val(image);
-      this.toastr.success("Sign of "+ target +" has been saved", "Saved", {
-        progressBar: false
-      });
-    }, 500);
   }
 
   // Check Reg
@@ -276,7 +281,7 @@ export class MemberActivationComponent implements OnInit {
       $("#price").val(0);
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $.each(data["data"], function(i, item) {
+        $.each(data["data"], function (i, item) {
           $("#price").val(item.price);
         });
       });
@@ -302,6 +307,7 @@ export class MemberActivationComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     console.info("received webcam image", webcamImage);
     this.webcamImage = webcamImage;
+    this.photo = webcamImage.imageAsDataUrl;
   }
 
   public handleInitError(error: WebcamInitError): void {
@@ -316,25 +322,40 @@ export class MemberActivationComponent implements OnInit {
     return this.nextWebcam.asObservable();
   }
 
-  onStep1Next(e) {
-    // if (this.liabilityForm.invalid) {
-    //   this.toastr.error("Please complete the data", "Not Saved!", {
-    //     progressBar: true
-    //   });
-    // } else {
-    //   this.memberService.updateLiability(
-    //     this.activatedRoute.snapshot.params["id"],
-    //     this.liabilityForm.value
-    //   ).subscribe((data:any) => {
-    //     if (data['status'] == "200") {
-    //       this.toastr.error(data["message"], "Success", {
-    //         progressBar: true
-    //       });
-    //     }
-    //   });
-    // }
+  onStep1Next(member_sign, staff_sign) {
+    if (this.member.liability_signature || this.member.liability_user_signature) {
+      console.log("Signature exist");
+    } else {
+      let _member_sign = member_sign.toDataURL(),
+        _staff_sign = staff_sign.toDataURL(),
+        formValue = this.liabilityForm.value;
+
+      formValue["member_sign"] = _member_sign;
+      formValue["staff_sign"] = _staff_sign;
+      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
+      console.log(formValue["member_sign"])
+      this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.toastr.success(data["message"], "Saved", {
+            progressBar: true
+          });
+        }
+      });
+    }
   }
-  onStep2Next(e) {}
+  onStep2Next(e) {
+    let formValue = ({
+      photo: this.photo,
+    })
+
+    this.memberService.updateIdentification(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+      if (data["status"] == "200") {
+        this.toastr.success(data["message"], "Saved", {
+          progressBar: true
+        });
+      }
+    })
+  }
   onStep3Next(e) {
     let formValue = this.membershipForm.value;
     let exp_month = this.membershipForm.controls["exp_month"].value;

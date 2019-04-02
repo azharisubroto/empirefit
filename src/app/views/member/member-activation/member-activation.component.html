@@ -6,208 +6,269 @@
 </div>
 
 <div class="separator-breadcrumb border-top"></div>
-	
-	<div class="row" id="form-step">
-		<div class="col-md-12">
-	
-			<form-wizard>
-				<wizard-step [title]="'Agreement'" (onNext)="onStep1Next($event)">
-					<h4 class="text-medium text-bold">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
 
-					<p class="text-plain my-3">THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT, YOU ARE WAIVING CERTAIN LEGAL RIGHTS AND ARE COMPLETELY RELEASING POTENTIAL CLAIMS. PLEASE READ IT CAREFULLY.</p>
+<div class="row" id="form-step">
+	<div class="col-md-12">
 
-					<form #basicForm="ngForm" [formGroup]="liabilityForm">
-						<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
-							<ngb-panel title="I. Personal Data of the Participant">
-								<ng-template ngbPanelContent>
-									<ul class="list no-list-style">
-										<li><strong>Name:</strong> <div class="text-medium">{{member.name}}</div></li>
-			
-										<li><strong>Address:</strong> <div class="text-medium">{{member.address}}</div></li>
-					
-										<li><strong>Date of Birth:</strong> <div class="text-medium">{{member.date_of_birth}}</div></li>
-					
-										<li><strong>Contact Number:</strong> <div class="text-medium">{{member.phone}}</div></li>
-					
-										<li><strong>In an emergency, I would like EMPIRE FIT CLUB to Call:</strong> <div class="text-medium">{{ member.phone }}</div></li>
-					
-										<li><strong>Email:</strong> <div class="text-medium">{{member.email}}</div></li>
-									</ul>
-								</ng-template>
-							</ngb-panel>
-							<ngb-panel title="II. Health Questions">
-								<ng-template ngbPanelContent>
-									<ul class="list" style="list-style:none;" *ngFor="let healthquestion of healthquestions">
-										<li>
-											<strong>{{healthquestion.question}}</strong>
-											<div class="answer" id="{{healthquestion.id}}" data-id="healthquestion.id" class="text-medium">{{ !! healthquestion.answer === false ? "No" : "Yes" }}</div>
-										</li>
-									</ul>
-								</ng-template>
-							</ngb-panel>
-							<ngb-panel title="III. Reviewer Notes:">
-								<ng-template ngbPanelContent>
-									{{member.notes}}
-								</ng-template>
-							</ngb-panel>
-							<ngb-panel title="IV. Photography and/or Video Release">
-								<ng-template ngbPanelContent>
-									Photography and/or Video Release of Participant involved in any activities offered by EMPIRE FIT CLUB may be photographed  or  videotaped  during  training.  The  undersigned  hereby  consents  to   the   use  of   these photographs and/or videos without compensation, on the EMPIRE FIT CLUB website or in any editorial, promotional or marketing material produced and/or published by EMPIRE FIT CLUB.
-								</ng-template>
-							</ngb-panel>
-							<ngb-panel title="V. Waiver and Release of Liability">
-								<ng-template ngbPanelContent>
-									<ul style="list-style:none" class="p-0 m-0 p-list">
-										<li><strong>(i)</strong> Express Assumption of Risk: I, the undersigned, am aware that there are significant risks involved in all aspects of physical training. These risks include, but are not limited to: falls, muscle strains, muscle pulls,  muscle tears,  broken  bones,  shin  splints,  heat  prostration,  injuries  to  knees; , injuries to back, injuries to foot, heart attacks, or any other illness or soreness  that I may  incur  which  can  result  in serious injury or death; injury or death  due to negligence  on  the  part of myself,  my training  partner, or other people around me; injury or death due to improper use or failure of equipment; strains and sprains. I am aware that any of these above mentioned risks may result in serious injury or death to myself and or my partner(s). I willingly assume full responsibility for  the  risks that I am exposing myself to and accept full responsibility for  any injury or death that may result from participation  in any activity or class while at, or under direction of EMPIRE FIT CLUB. I acknowledge that I have no physical impairments, injuries , or illnesses that will endanger me or others.</li>
+		<form-wizard>
+			<wizard-step [title]="'Agreement'" (onNext)="onStep1Next(member_sign, staff_sign)">
+				<h4 class="text-medium text-bold">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
 
-										<li><strong>(ii)</strong> Release: In consideration of the above  mentioned  risks  and  hazards  and  in  consideration  of  the  fact that I am willingly and voluntarily participating in the activities offered by EMPIRE FIT CLUB, I,  the undersigned hereby release EMPIRE FIT CLUB,  their  directors,  coaches,  officers,  employees,  agents, from any and all liability, claims, demands,  actions or  rights  of  action, which are related  to,  arise  out  of,  or are in any way connected  with  my participation in this activity,  including  those  allegedly  attributed  to the negligent acts or omissions of the  above mentioned  parties . This  agreement  shall be binding  upon me, my spouse, my children, my guardians, my successors, representatives, heirs, executors, assigns, or transferees (collectively, the "Releasors"). I accept full and  complete  responsibility  for  the  safety  of myself, any guests, observers or other individuals who I have  invited  to  the  venue of  EMPIRE  FIT CLUB, and property, and I assume the risk of  damage, theft, loss  or  injury caused  by others  to  me,  my guests and property <br><br>
+				<p class="text-plain my-3">THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT,
+					YOU ARE WAIVING CERTAIN LEGAL RIGHTS AND ARE COMPLETELY RELEASING POTENTIAL CLAIMS. PLEASE READ IT CAREFULLY.</p>
 
-										If any portion of this agreement is held invalid, I agree that  the  remainder  of  the  agreement  shall remain in full legal force and effect. If I am signing on behalf of a minor child, I also give full permission for any person connected with EMPIRE FIT CLUB to administer first aid deemed necessary, and in case of serious illness or injury, I give permission to call for medical and or surgical care for the child and to transport the child to a medical facility deemed necessary for the wellbeing of the child </li>
+				<form #basicForm="ngForm" [formGroup]="liabilityForm">
+					<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+						<ngb-panel title="I. Personal Data of the Participant">
+							<ng-template ngbPanelContent>
+								<ul class="list no-list-style">
+									<li><strong>Name:</strong>
+										<div class="text-medium">{{member.name}}</div>
+									</li>
 
-										<li><strong>(iii)</strong> Indemnification: On behalf of the Releasers, the Participant recognizes that there is risk involved in the types of activities offered by EMPIRE FIT CLUB. Therefore the Participant accepts financial responsibility for any injury that the Participant may cause either to him/herself or to any other participant due to his/her negligence. Should the above mentioned parties, or anyone acting on their behalf, be required to incur attorney's fees and costs to enforce this agreement, I agree to reimburse them for such fees and costs. I further agree to indemnify and hold harmless EMPIRE FIT CLUB, their directors, coaches, officers, employees, agents from liability for the injury or death of any person(s) and damage to property that may result from my negligent or intentional act or omission while participating in <br>
-										_____ activities offered by EMPIRE FIT CLUB, at the main building or aboard. This includes but is not limited to parks, recreational areas, playgrounds, areas adjacent to main building, and/or any area selected for training by EMPIRE FIT CLUB. <br><br>
+									<li><strong>Address:</strong>
+										<div class="text-medium">{{member.address}}</div>
+									</li>
 
-										I Have read and understood the foregoing assumption of risk, and release of liability and I understand that by signing it obligates me to indemnify the parties named for any liability for injury or death of any person and damage to property caused by my negligent or intentional act or omission. I understand that by signing this form I am waiving valuable legal rights.</li>
+									<li><strong>Date of Birth:</strong>
+										<div class="text-medium">{{member.date_of_birth}}</div>
+									</li>
 
-										<li><strong>(iv)</strong> Promise Not To Bring Suit: I hereby agree and covenant not to, and shall cause the Releasors not to, bring a claim against, sue, demand compensation from or attach the property or assets of EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents, for any loss or damage arising or resulting from my participation in EMPIRE FIT CLUB or my travel to or from or presence at the venue, 2nd forever release and discharge EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents them from liability under such claims.</li>
-									</ul>
-								</ng-template>
-							</ngb-panel>
+									<li><strong>Contact Number:</strong>
+										<div class="text-medium">{{member.phone}}</div>
+									</li>
 
-						</ngb-accordion>
-					
-						<div class="row mt-5">
-							<div class="form-group col-md-6 mb-3">
-								<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
-								<signature-pad [options]="signaturePadMember" id="member" #member></signature-pad>
-								<input type="hidden" formControlName="member_sign" id="member-sign" value="">
-								<div class="text-left">
-									<button class="btn btn-primary py-2 px-5 mr-3" (click)="member.clear()">Clear</button>
-									<button class="btn btn-primary py-2 px-5" (click)="saveimg('member-sign',member)">Save</button>
+									<li><strong>In an emergency, I would like EMPIRE FIT CLUB to Call:</strong>
+										<div class="text-medium">{{ member.phone }}</div>
+									</li>
+
+									<li><strong>Email:</strong>
+										<div class="text-medium">{{member.email}}</div>
+									</li>
+								</ul>
+							</ng-template>
+						</ngb-panel>
+						<ngb-panel title="II. Health Questions">
+							<ng-template ngbPanelContent>
+								<ul class="list" style="list-style:none;" *ngFor="let healthquestion of healthquestions">
+									<li>
+										<strong>{{healthquestion.question}}</strong>
+										<div class="answer" id="{{healthquestion.id}}" data-id="healthquestion.id" class="text-medium">{{ !!
+											healthquestion.answer === false ? "No" : "Yes" }}</div>
+									</li>
+								</ul>
+							</ng-template>
+						</ngb-panel>
+						<ngb-panel title="III. Reviewer Notes:">
+							<ng-template ngbPanelContent>
+								{{member.notes}}
+							</ng-template>
+						</ngb-panel>
+						<ngb-panel title="IV. Photography and/or Video Release">
+							<ng-template ngbPanelContent>
+								Photography and/or Video Release of Participant involved in any activities offered by EMPIRE FIT CLUB may be
+								photographed or videotaped during training. The undersigned hereby consents to the use of these photographs
+								and/or videos without compensation, on the EMPIRE FIT CLUB website or in any editorial, promotional or
+								marketing material produced and/or published by EMPIRE FIT CLUB.
+							</ng-template>
+						</ngb-panel>
+						<ngb-panel title="V. Waiver and Release of Liability">
+							<ng-template ngbPanelContent>
+								<ul style="list-style:none" class="p-0 m-0 p-list">
+									<li><strong>(i)</strong> Express Assumption of Risk: I, the undersigned, am aware that there are significant
+										risks involved in all aspects of physical training. These risks include, but are not limited to: falls,
+										muscle strains, muscle pulls, muscle tears, broken bones, shin splints, heat prostration, injuries to knees;
+										, injuries to back, injuries to foot, heart attacks, or any other illness or soreness that I may incur which
+										can result in serious injury or death; injury or death due to negligence on the part of myself, my training
+										partner, or other people around me; injury or death due to improper use or failure of equipment; strains and
+										sprains. I am aware that any of these above mentioned risks may result in serious injury or death to myself
+										and or my partner(s). I willingly assume full responsibility for the risks that I am exposing myself to and
+										accept full responsibility for any injury or death that may result from participation in any activity or
+										class while at, or under direction of EMPIRE FIT CLUB. I acknowledge that I have no physical impairments,
+										injuries , or illnesses that will endanger me or others.</li>
+
+									<li><strong>(ii)</strong> Release: In consideration of the above mentioned risks and hazards and in
+										consideration of the fact that I am willingly and voluntarily participating in the activities offered by
+										EMPIRE FIT CLUB, I, the undersigned hereby release EMPIRE FIT CLUB, their directors, coaches, officers,
+										employees, agents, from any and all liability, claims, demands, actions or rights of action, which are
+										related to, arise out of, or are in any way connected with my participation in this activity, including those
+										allegedly attributed to the negligent acts or omissions of the above mentioned parties . This agreement shall
+										be binding upon me, my spouse, my children, my guardians, my successors, representatives, heirs, executors,
+										assigns, or transferees (collectively, the "Releasors"). I accept full and complete responsibility for the
+										safety of myself, any guests, observers or other individuals who I have invited to the venue of EMPIRE FIT
+										CLUB, and property, and I assume the risk of damage, theft, loss or injury caused by others to me, my guests
+										and property <br><br>
+
+										If any portion of this agreement is held invalid, I agree that the remainder of the agreement shall remain in
+										full legal force and effect. If I am signing on behalf of a minor child, I also give full permission for any
+										person connected with EMPIRE FIT CLUB to administer first aid deemed necessary, and in case of serious
+										illness or injury, I give permission to call for medical and or surgical care for the child and to transport
+										the child to a medical facility deemed necessary for the wellbeing of the child </li>
+
+									<li><strong>(iii)</strong> Indemnification: On behalf of the Releasers, the Participant recognizes that there
+										is risk involved in the types of activities offered by EMPIRE FIT CLUB. Therefore the Participant accepts
+										financial responsibility for any injury that the Participant may cause either to him/herself or to any other
+										participant due to his/her negligence. Should the above mentioned parties, or anyone acting on their behalf,
+										be required to incur attorney's fees and costs to enforce this agreement, I agree to reimburse them for such
+										fees and costs. I further agree to indemnify and hold harmless EMPIRE FIT CLUB, their directors, coaches,
+										officers, employees, agents from liability for the injury or death of any person(s) and damage to property
+										that may result from my negligent or intentional act or omission while participating in <br>
+										_____ activities offered by EMPIRE FIT CLUB, at the main building or aboard. This includes but is not limited
+										to parks, recreational areas, playgrounds, areas adjacent to main building, and/or any area selected for
+										training by EMPIRE FIT CLUB. <br><br>
+
+										I Have read and understood the foregoing assumption of risk, and release of liability and I understand that
+										by signing it obligates me to indemnify the parties named for any liability for injury or death of any person
+										and damage to property caused by my negligent or intentional act or omission. I understand that by signing
+										this form I am waiving valuable legal rights.</li>
+
+									<li><strong>(iv)</strong> Promise Not To Bring Suit: I hereby agree and covenant not to, and shall cause the
+										Releasors not to, bring a claim against, sue, demand compensation from or attach the property or assets of
+										EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents, for any loss or damage
+										arising or resulting from my participation in EMPIRE FIT CLUB or my travel to or from or presence at the
+										venue, 2nd forever release and discharge EMPIRE FIT CLUB or any of their directors, coaches, officers,
+										employees, agents them from liability under such claims.</li>
+								</ul>
+							</ng-template>
+						</ngb-panel>
+						<ngb-panel title="VI. Signature">
+							<ng-template ngbPanelContent>
+								<div class="row">
+									<div class="col-md-6">
+										<img src="{{member.liability_signature}}" alt="">
+									</div>
+									<div class="col-md-6">
+										<img src="{{member.liability_user_signature}}" alt="">
+									</div>
 								</div>
-								<!-- <img src="https://via.placeholder.com/250x150" alt="">
+							</ng-template>
+						</ngb-panel>
+
+					</ngb-accordion>
+
+					<div class="row mt-5">
+						<div class="form-group col-md-6 mb-3">
+							<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
+							<signature-pad [options]="signaturePadMember" id="member" #member_sign></signature-pad>
+							<input type="hidden" formControlName="member_sign" id="member-sign" value="">
+							<div class="text-left">
+								<button class="btn btn-primary py-2 px-5 mr-3" (click)="member_sign.clear()">Clear</button>
+							</div>
+							<!-- <img src="https://via.placeholder.com/250x150" alt="">
 								<input name="signature" type="hidden" formConrolName="signature"> -->
-							</div>
-							<div class="form-group col-md-6 mb-3">
-								<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
-								<signature-pad [options]="signaturePadStaff" id="staff" #staff></signature-pad>
-								<input type="hidden" formControlName="staff_sign" id="staff-sign" value="">
-								<div class="text-left">
-									<button class="btn btn-primary py-2 px-5 mr-3" (click)="staff.clear()">Clear</button>
-									<button class="btn btn-primary py-2 px-5" (click)="saveimg('staff-sign',staff)">Save</button>
-								</div>
-								<!-- <img src="https://via.placeholder.com/250x150" alt="">
-								<input name="user_signature" type="hidden" formConrolName="user_signature"> -->
+						</div>
+						<div class="form-group col-md-6 mb-3">
+							<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
+							<signature-pad [options]="signaturePadStaff" id="staff" #staff_sign></signature-pad>
+							<input type="hidden" formControlName="staff_sign" id="staff-sign" value="">
+							<div class="text-left">
+								<button class="btn btn-primary py-2 px-5 mr-3" (click)="staff_sign.clear()">Clear</button>
 							</div>
 						</div>
-					</form>
-				</wizard-step>
-	
-				<wizard-step [title]="'Identification'" (onNext)="onStep2Next($event)">
-					<form [formGroup]="step2Form">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-									<div class="text-muted mb-0">
-										<strong>Name</strong>
-									</div>
-									<div class="text-medium">
-										{{member.name}}
-									</div>
-								</div>
-							</div>
-						</div>
+					</div>
+				</form>
+			</wizard-step>
 
-						<div class="row">
-							<div class="col-md-12">
-								<h4 class="fancy-head"><span>Photo</span></h4>
+			<wizard-step [title]="'Identification'" (onNext)="onStep2Next($event)">
+				<form [formGroup]="step2Form">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+								<div class="text-muted mb-0">
+									<strong>Name</strong>
+								</div>
+								<div class="text-medium">
+									{{member.name}}
+								</div>
 							</div>
 						</div>
-						
-						<div class="row">
-							<!-- <div class="col-md-2 snapshot" *ngIf="webcamImage">
-						              <img [src]="webcamImage.imageAsDataUrl"/>
-						            </div> -->
-							<div class="col-md-3">
-								<webcam [height]="250" [width]="250" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
-								 [videoOptions]="videoOptions" [imageQuality]="1" (initError)="handleInitError($event)">
-								</webcam>
-							</div>
-							<ng-container *ngIf="webcamImage; then adaImage; else gaAda"></ng-container>
-							<ng-template #adaImage>
-								<div class="col-md-3 snapshot">
-									<img [src]="webcamImage.imageAsDataUrl" width="250" height="187" />
-								</div>
-							</ng-template>
-							<ng-template #gaAda>
-								<div class="col-md-3 snapshot">
-									<img src="https://via.placeholder.com/150" alt="" width="250" height="187" />
-								</div>
-							</ng-template>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							<h4 class="fancy-head"><span>Photo</span></h4>
 						</div>
-						<div class="row">
-							<!-- <div class="col-md-2">
+					</div>
+
+					<div class="row">
+						<div class="col-md-3">
+							<webcam [height]="250" [width]="250" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+							 [videoOptions]="videoOptions" [imageQuality]="1" (initError)="handleInitError($event)">
+							</webcam>
+						</div>
+						<ng-container *ngIf="webcamImage; then adaImage; else gaAda"></ng-container>
+						<ng-template #adaImage>
+							<div class="col-md-3 snapshot">
+								<img [src]="webcamImage.imageAsDataUrl" width="250" height="187" />
+							</div>
+						</ng-template>
+						<ng-template #gaAda>
+							<div class="col-md-3 snapshot">
+								<img src="{{member.photo}}" alt="" width="250" height="187" />
+							</div>
+						</ng-template>
+					</div>
+					<div class="row">
+						<!-- <div class="col-md-2">
 						              <img src="https://via.placeholder.com/150" alt="" />
 						            </div> -->
-							<div class="col-md-6">
-								<a class="actionBtn btn btn-primary btn-lg btn-block py-3" (click)="triggerSnapshot()">Take a Picture</a>
-								<!-- <a href="#" class="btn btn-primary btn-lg btn-block py-3"
-						                >Retry</a
-						              > -->
-							</div>
+						<div class="col-md-6">
+							<a class="actionBtn btn btn-primary btn-lg btn-block py-3" (click)="triggerSnapshot()">Take a Picture</a>
 						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-12 mt-4">
-										<h4 class="fancy-head"><span>Fingerprint</span></h4>
-									</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="row">
+								<div class="col-12 mt-4">
+									<h4 class="fancy-head"><span>Fingerprint</span></h4>
 								</div>
-								<div class="row mt-4">
-									<div class="col-md-6">
-										<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-											<div class="text-muted mb-0">
-												status
-											</div>
-											<div id="finger-status" class="text-medium mt-1">
-												
-											</div>
+							</div>
+							<div class="row mt-4">
+								<div class="col-md-6">
+									<div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+										<div class="text-muted mb-0">
+											status
+										</div>
+										<div id="finger-status" class="text-medium mt-1">
+
 										</div>
 									</div>
 								</div>
-								<div class="row mt-2 mb-5">
-									<div class="col-md-6">
-										<a id="btn-scan" [href]="finger" (click)="checkReg()" class="btn btn-primary btn-lg btn-block py-3">Scan</a>
-									</div>
+							</div>
+							<div class="row mt-2 mb-5">
+								<div class="col-md-6">
+									<a id="btn-scan" [href]="finger" (click)="checkReg()" class="btn btn-primary btn-lg btn-block py-3">Scan</a>
 								</div>
 							</div>
 						</div>
-					</form>
-				</wizard-step>
-	
-				<wizard-step [title]="'Membership'" (onNext)="onStep3Next($event)">
-					<form #paymentForm="ngForm" [formGroup]="membershipForm">
+					</div>
+				</form>
+			</wizard-step>
 
-						<div class="row">
-							<div class="col-12">
-								<h4 class="fancy-head"><span>Membership</span></h4>
-							</div>
+			<wizard-step [title]="'Membership'" (onNext)="onStep3Next($event)">
+				<form #paymentForm="ngForm" [formGroup]="membershipForm">
+
+					<div class="row">
+						<div class="col-12">
+							<h4 class="fancy-head"><span>Membership</span></h4>
 						</div>
-						
-						<div class="row mb-4">
-							<div class="form-group col-md-6 mb-3">
-								<label for="member_type_id">Type</label>
-								<select id="member_type" (change)="getPriceNonPt()" required name="member_type_id" formControlName="member_type_id" class="form-control">
-									<option *ngFor="let title of type" value="title.id" [value]="title.id">
-										{{title.member_type_name}}
-									</option>
-								</select>
-								<input type="hidden" name="period" formControlName="period" value="title.period">
-								<input type="hidden" name="duration" formControlName="duration" value="title.duration">
-								<input type="hidden" name="session_remains" formControlName="session_remains" value="title.session_remains">
-							</div>
-							<!-- <div class="form-group col-md-6 mb-3">
+					</div>
+
+					<div class="row mb-4">
+						<div class="form-group col-md-6 mb-3">
+							<label for="member_type_id">Type</label>
+							<select id="member_type" (change)="getPriceNonPt()" required name="member_type_id" formControlName="member_type_id"
+							 class="form-control">
+								<option *ngFor="let title of type" value="title.id" [value]="title.id">
+									{{title.member_type_name}}
+								</option>
+							</select>
+							<input type="hidden" name="period" formControlName="period" value="title.period">
+							<input type="hidden" name="duration" formControlName="duration" value="title.duration">
+							<input type="hidden" name="session_remains" formControlName="session_remains" value="title.session_remains">
+						</div>
+						<!-- <div class="form-group col-md-6 mb-3">
 								<label for="card">Package</label>
 								<select name="package" class="form-control">
 									<option *ngFor="let title of package" [value]="title.id">
@@ -215,171 +276,175 @@
 									</option>
 								</select>
 							</div> -->
-						</div>
+					</div>
 
-						<div class="row">
-							<div class="col-12">
-								<h4 class="fancy-head"><span>Payment</span></h4>
-							</div>
+					<div class="row">
+						<div class="col-12">
+							<h4 class="fancy-head"><span>Payment</span></h4>
 						</div>
+					</div>
 
-						<div class="row mb-3">
-							<div class="col-md-6 mb-3 form-group">
-								<label for="card">Type</label>
-								<select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id" class="form-control">
-									<option *ngFor="let pa of paymenttype" [value]="pa.id">
-										{{pa.payment_type_name}}
-									</option>
-								</select>
-							</div>
-							<div class="col-md-6 mb-3 form-group">
-								<label for="card">Bank</label>
-								<select formControlName="bank_id" name="bank_id" class="form-control">
-									<option *ngFor="let bank of banks" [value]="bank.id">
-										{{bank.bank_name}}
-									</option>
-								</select>
-							</div>
+					<div class="row mb-3">
+						<div class="col-md-6 mb-3 form-group">
+							<label for="card">Type</label>
+							<select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id" class="form-control">
+								<option *ngFor="let pa of paymenttype" [value]="pa.id">
+									{{pa.payment_type_name}}
+								</option>
+							</select>
 						</div>
-
-						<div class="row mb-3">
-							<div class="col-md-6 mb-3 form-group">
-								<label for="card_number">Card</label>
-								<input formControlName="card_number" type="text" name="card_number" class="form-control">
-							</div>
-							<div class="col-md-6 mb-3 form-group">
-								<label for="exp_date">Exp Date</label>
-								<div class="clearfix"></div>
-								<input type="text" formControlName="exp_month" name="mm" class="form-control d-inline-block" style="width:100px">
-								/
-								<input type="text" formControlName="exp_year" name="yy" class="form-control d-inline-block" style="width:100px">
-							</div>
+						<div class="col-md-6 mb-3 form-group">
+							<label for="card">Bank</label>
+							<select formControlName="bank_id" name="bank_id" class="form-control">
+								<option *ngFor="let bank of banks" [value]="bank.id">
+									{{bank.bank_name}}
+								</option>
+							</select>
 						</div>
+					</div>
 
-						<div class="row mb-3">
-							<div class="col-md-6 mb-3 form-group">
-								<label for="auto_debit">Auto Debit</label>
-								<select formControlName="auto_debet" name="auto_debit" class="form-control">
-									<option value="1">Yes</option>
-									<option value="0">No</option>
-								</select>
-							</div>
-							<div class="col-md-6 mb-3 form-group">
-								<label for="price">Price</label>
-								<input readonly class="form-control" type="text" name="price" id="price">
-							</div>
+					<div class="row mb-3">
+						<div class="col-md-6 mb-3 form-group">
+							<label for="card_number">Card</label>
+							<input formControlName="card_number" type="text" name="card_number" class="form-control">
 						</div>
-
-						<div class="row mb-3">
-							<div class="col-md-12">
-								<h4 class="fancy-head"><span>Trainer</span></h4>
-								
-								<table id="mytable" class="table table-hover table-bordered" cellspacing="0">
-									<thead class="text-center">
-										<tr>
-											<th>#</th>
-											<th>Trainer Name</th>
-											<th>Price (IDR)</th>
-											<th>Action</th>
-										</tr>
-									</thead>
-									<tbody class="text-center">
-										<tr *ngFor="let trainer of trainers; let i = index">
-											<td>{{ i+1 }}</td>
-											<td>{{ trainer.name }}</td>
-											<td>{{ trainer.state }}</td>
-											<td>
-												<button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)" class="btn btn-primary pesonal-trainer">Select</button>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
+						<div class="col-md-6 mb-3 form-group">
+							<label for="exp_date">Exp Date</label>
+							<div class="clearfix"></div>
+							<input type="text" formControlName="exp_month" name="mm" class="form-control d-inline-block" style="width:100px">
+							/
+							<input type="text" formControlName="exp_year" name="yy" class="form-control d-inline-block" style="width:100px">
 						</div>
-						
-					</form>
-				</wizard-step>
-	
-				<wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep4Next($event)">
-					<div class="mt-0 mb-4">
-						<p>Have agreed to allow Empire Fit Club to deduct IDR from my credit card in order to pay the monthly subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount of money will be automatically deducted unless I instructed them other wise.</p>
-						<p>Terms &amp; Condition.</p>
-						<ul>
-							<li>Within the 2 months of initial sign up the members are not encouraged to stop the monthly subscription. (stopping within two months will result on IDR 200.000 process fee)</li>
-							<li>Members are allowed to cancel the automatic payment anytime after the initial 2 months after the sign up</li>
-							<li>The Member are allowed to freeze the account for the minimum of 15 days and maximum of 3 months</li>
-							<li>To freeze or stop the membership, the member will have to notify 2 weeks prior.</li>
-							<li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
-						</ul>
+					</div>
 
-						<div class="row">
-							<div class="col-md-7">
-								<div class="px-4 py-3 border border-light rounded align-items-center">
-									<div class="row mb-3">
-										<div class="col-3">
-											Name on Card
-										</div>
-										<div class="col-9">
-											<div class="boxvalue">
-												{{member.card_name}}
-											</div>
+					<div class="row mb-3">
+						<div class="col-md-6 mb-3 form-group">
+							<label for="auto_debit">Auto Debit</label>
+							<select formControlName="auto_debet" name="auto_debit" class="form-control">
+								<option value="1">Yes</option>
+								<option value="0">No</option>
+							</select>
+						</div>
+						<div class="col-md-6 mb-3 form-group">
+							<label for="price">Price</label>
+							<input readonly class="form-control" type="text" name="price" id="price">
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-md-12">
+							<h4 class="fancy-head"><span>Trainer</span></h4>
+
+							<table id="mytable" class="table table-hover table-bordered" cellspacing="0">
+								<thead class="text-center">
+									<tr>
+										<th>#</th>
+										<th>Trainer Name</th>
+										<th>Price (IDR)</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody class="text-center">
+									<tr *ngFor="let trainer of trainers; let i = index">
+										<td>{{ i+1 }}</td>
+										<td>{{ trainer.name }}</td>
+										<td>{{ trainer.state }}</td>
+										<td>
+											<button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)"
+											 class="btn btn-primary pesonal-trainer">Select</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+				</form>
+			</wizard-step>
+
+			<wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep4Next($event)">
+				<div class="mt-0 mb-4">
+					<p>Have agreed to allow Empire Fit Club to deduct IDR from my credit card in order to pay the monthly
+						subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount of
+						money will be automatically deducted unless I instructed them other wise.</p>
+					<p>Terms &amp; Condition.</p>
+					<ul>
+						<li>Within the 2 months of initial sign up the members are not encouraged to stop the monthly subscription.
+							(stopping within two months will result on IDR 200.000 process fee)</li>
+						<li>Members are allowed to cancel the automatic payment anytime after the initial 2 months after the sign up</li>
+						<li>The Member are allowed to freeze the account for the minimum of 15 days and maximum of 3 months</li>
+						<li>To freeze or stop the membership, the member will have to notify 2 weeks prior.</li>
+						<li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
+					</ul>
+
+					<div class="row">
+						<div class="col-md-7">
+							<div class="px-4 py-3 border border-light rounded align-items-center">
+								<div class="row mb-3">
+									<div class="col-3">
+										Name on Card
+									</div>
+									<div class="col-9">
+										<div class="boxvalue">
+											{{member.card_name}}
 										</div>
 									</div>
-									<div class="row mb-3">
-										<div class="col-3">
-											Card Number
-										</div>
-										<div class="col-9">
-											<div class="boxvalue">
-												{{member.card_number}}
-											</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-3">
+										Card Number
+									</div>
+									<div class="col-9">
+										<div class="boxvalue">
+											{{member.card_number}}
 										</div>
 									</div>
-									<div class="row mb-3">
-										<div class="col-3">
-											EXP Date
-										</div>
-										<div class="col-9">
-											<div class="boxvalue d-inline-block">
-												{{member.exp_date}}
-											</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-3">
+										EXP Date
+									</div>
+									<div class="col-9">
+										<div class="boxvalue d-inline-block">
+											{{member.exp_date}}
 										</div>
 									</div>
-									<div class="row mb-3">
-										<div class="col-3">
-											Signature
-										</div>
-										<div class="col-9">
-											<div class="boxvalue">
-												{{!! member.signature === null ? "Verified" : "Unverified"}}
-											</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-3">
+										Signature
+									</div>
+									<div class="col-9">
+										<div class="boxvalue">
+											{{!! member.signature === null ? "Verified" : "Unverified"}}
 										</div>
 									</div>
-									<div class="row mb-3">
-										<div class="col-3">
-											Date
-										</div>
-										<div class="col-9">
-											<div class="boxvalue">
-												{{member.credit_card_date}}
-											</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-3">
+										Date
+									</div>
+									<div class="col-9">
+										<div class="boxvalue">
+											{{member.credit_card_date}}
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</wizard-step>
+				</div>
+			</wizard-step>
 
-				<wizard-step [title]="'Final'" (onComplete)="onComplete($event)">
-					<div class="p5 text-center mt-5">
-						<i class="text-50 i-Checked-User text-success"></i>
-					
-						<h2 class="mt-5">Thank you! you have completed all the steps. &amp; Registration is successful</h2>
-					</div>
-				</wizard-step>
-				
-			</form-wizard>
-	
-		</div>
+			<wizard-step [title]="'Final'" (onComplete)="onComplete($event)">
+				<div class="p5 text-center mt-5">
+					<i class="text-50 i-Checked-User text-success"></i>
+
+					<h2 class="mt-5">Thank you! you have completed all the steps. &amp; Registration is successful</h2>
+				</div>
+			</wizard-step>
+
+		</form-wizard>
+
 	</div>
+</div>
