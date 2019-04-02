@@ -92,6 +92,8 @@ export class StaffFormComponent implements OnInit {
       .subscribe((data: any) => {
         this.getpositions = data["data"].positions;
 
+        this.staff = data["data"];
+
         setTimeout(() => {
           $.each(this.getpositions, function (i, item) {
             $("input[name='position'][value=" + item.position_id + "]").prop(
