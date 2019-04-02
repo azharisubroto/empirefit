@@ -116,7 +116,7 @@ export class StaffFormComponent implements OnInit {
         });
 
         setTimeout(() => {
-          if (data["data"].state == "Active") {
+          if (data["data"].status == "Active") {
             $("#finger-status").text("Success");
             $("#btn-scan").addClass("disabled");
           } else {
@@ -130,11 +130,6 @@ export class StaffFormComponent implements OnInit {
         this.finspot = data["url"];
 
         this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-
-        setTimeout(() => {
-          $("#staff-name").text(data["data"].name);
-          $("#staff-status").text(data["data"].status);
-        }, 1000)
       });
 
     this.branchService.getBranches().subscribe((data: any) => {
