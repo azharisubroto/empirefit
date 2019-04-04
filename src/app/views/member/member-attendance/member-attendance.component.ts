@@ -436,7 +436,12 @@ export class MemberAttendanceComponent implements OnInit {
   // Check Auto Registration Class
   checkAutoRegistrationClass() {
     let formValue = this.userForm.value;
-    formValue['schedule_id'] = 1;
+    // let dataMt = [];
+    // $.each($("input[name='member_type']:checked"), function () {
+    //   dataMt.push($(this).val());
+    // });
+    // $(".member_type-final").val(dataMt);
+    formValue['schedule_id'] = [1, 2];
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
