@@ -204,11 +204,12 @@ export class StaffRegistrationComponent implements OnInit {
 
           this.finspot = data["url"];
           this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+          console.log(this.finger)
 
           setTimeout(() => {
             $("#staff_name").text(data["data"].name);
             $("#finger_code").val(data["data"].finger_code);
-            $("#btn-finger").attr('href', this.finger);
+            $("#btn-finger").attr('href', data["url"]);
           }, 1000)
         }
       });
