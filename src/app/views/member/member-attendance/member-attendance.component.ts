@@ -440,7 +440,7 @@ export class MemberAttendanceComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkAutoRegClass(this.activatedRoute.snapshot.params["id"], formValue['schedule_id'])
+          .checkAutoRegClass(this.activatedRoute.snapshot.params["id"], formValue)
           .subscribe((data: any) => {
             if (data["status"] === "200") {
               subscribe.unsubscribe();
