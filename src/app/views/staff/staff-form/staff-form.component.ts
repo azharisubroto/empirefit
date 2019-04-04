@@ -102,6 +102,8 @@ export class StaffFormComponent implements OnInit {
               true
             );
           });
+
+          $("#photo").attr('src', data["data"].photo);
         }, 1000);
 
         this.staffForm.setValue({
