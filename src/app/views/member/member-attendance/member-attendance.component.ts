@@ -120,6 +120,22 @@ export class MemberAttendanceComponent implements OnInit {
           $("#btn-classhis").addClass("disabled");
         }
 
+        // 10 Pass Membership
+        if (data["data"].member_type_id == 4) {
+          if (data["data"].session_remains == 0) {
+            $("#btn-manualreg").attr("disabled", "disabled");
+            $("#btn-manualattendance").attr("disabled", "disabled");
+
+            $("#btn-attendance").addClass("disabled");
+
+            $("#btn-attendance").addClass("disabled");
+            $("#btn-history").addClass("disabled");
+            $("#btn-autoreg").addClass("disabled");
+
+            $("#btn-classhis").addClass("disabled");
+          }
+        }
+
         this.member = data["data"];
         var member = this.member;
         var date = new Date(data["data"]["expairy_date"]);

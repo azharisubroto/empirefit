@@ -16,65 +16,36 @@
           <div class="row">
             <div class="col-md-12 form-group mb-3">
               <label for="member_type_name">Name</label>
-              <input
-                autofocus
-                type="text"
-                class="form-control "
-                id="member_type_name"
-                class="form-control"
-                formControlName="member_type_name"
-              />
-              <i
-                *ngIf="
+              <input autofocus type="text" class="form-control " id="member_type_name" class="form-control"
+                formControlName="member_type_name" />
+              <i *ngIf="
                   !memberTypeForm.get('member_type_name').valid &&
                   memberTypeForm.get('member_type_name').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter member type name</i
-              >
+                class="i-Information text-danger">
+                Please enter member type name</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="duration">Duration</label>
-              <input
-                type="text"
-                class="form-control"
-                id="duration"
-                placeholder="Enter duration"
-                formControlName="duration"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control" id="duration" placeholder="Enter duration" formControlName="duration" />
+              <i *ngIf="
                   !memberTypeForm.get('duration').valid &&
                   memberTypeForm.get('duration').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter total duration</i
-              >
+                class="i-Information text-danger">
+                Please enter total duration</i>
             </div>
             <div class="col-md-6 form-group mb-3">
               <label for="period">Period</label>
-              <select
-                name="period"
-                id="period"
-                class="form-control"
-                formControlName="period"
-              >
+              <select name="period" id="period" class="form-control" formControlName="period">
                 <option value="Month">Month</option>
                 <option value="Day">Day</option>
               </select>
             </div>
             <div class="col-md-6 form-group mb-3">
               <label for="session">Session</label>
-              <input
-                type="text"
-                class="form-control"
-                id="session"
-                placeholder="Enter Session"
-                formControlName="session"
-              />
+              <input type="text" class="form-control" id="session" placeholder="Enter Session" formControlName="session" />
             </div>
 
             <!-- <div class="col-md-12 mb-3">
@@ -99,24 +70,17 @@
               <h4>Benefit :</h4>
             </div>
             <div class="col-md-12" *ngFor="let benefit of benefits">
-              <input
-                checked
-                type="checkbox"
-                name="benefit"
-                value="{{ benefit.id }}"
-              />
-              <span class="ml-3">{{ benefit.benefit_name }}</span>
-              <span class="checkmark"></span>
+              <label class="checkbox checkbox-secondary">
+                <input checked type="checkbox" name="benefit" value="{{ benefit.id }}" />
+                <span class="ml-3">{{ benefit.benefit_name }}</span>
+                <span class="checkmark"></span>
+              </label>
             </div>
             <hr />
 
             <div class="col-md-12">
               <input type="hidden" class="benefit-final" value="" />
-              <btn-loading
-                btnClass="btn-primary btn-rounded"
-                [loading]="loading"
-                >Save</btn-loading
-              >
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
             </div>
           </div>
         </form>
