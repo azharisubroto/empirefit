@@ -32,6 +32,7 @@ export class StaffFormComponent implements OnInit {
   finger;
   finspot;
   id_card;
+  photo;
 
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -150,6 +151,7 @@ export class StaffFormComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     console.info("received webcam image", webcamImage);
     this.webcamImage = webcamImage;
+    this.photo = webcamImage.imageAsDataUrl;
   }
 
   public handleInitError(error: WebcamInitError): void {
@@ -242,6 +244,24 @@ export class StaffFormComponent implements OnInit {
     }
   }
   onComplete(e) {
-    this.router.navigateByUrl("staff");
+    let formValue = ({
+      photo: this.photo,
+    })
+
+    if (this.photo) {
+      this.staffService.updatePhoto(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.toastr.success(data["message"], "Saved", {
+            progressBar: true
+          });
+          this.router.navigateByUrl("staff");
+        }
+      })
+    } else {
+      this.toastr.success("Successfully updated member", "Saved", {
+        progressBar: true
+      });
+      this.router.navigateByUrl("staff");
+    }
   }
 }
