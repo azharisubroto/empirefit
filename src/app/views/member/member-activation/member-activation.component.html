@@ -328,6 +328,7 @@
 						<div class="col-md-6 mb-3 form-group">
 							<label for="price">Price</label>
 							<input readonly class="form-control" type="text" name="price" id="price">
+							<input class="form-control" type="hidden" name="session" id="session">
 						</div>
 					</div>
 
@@ -351,7 +352,7 @@
 										<td>{{ trainer.state }}</td>
 										<td>
 											<button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)"
-											 class="btn btn-primary pesonal-trainer">Select</button>
+											 (click)="getSession(trainer.session)" class="btn btn-primary pesonal-trainer">Select</button>
 										</td>
 									</tr>
 								</tbody>

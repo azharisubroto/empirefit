@@ -58,6 +58,7 @@ export class MemberActivationComponent implements OnInit {
   personal_trainer_id;
   subscription;
   photo;
+  session_pt: Boolean;
   is_membersign_exists: Boolean;
   is_staffsign_exists: Boolean;
 
@@ -295,6 +296,12 @@ export class MemberActivationComponent implements OnInit {
     $("#price").val(price);
   }
 
+  getSession(sesi) {
+    this.session_pt = true;
+    $("#session").val(0);
+    $("#session").val(sesi);
+  }
+
   getPtId(id) {
     this.personal_trainer_id = null;
     this.personal_trainer_id = id;
@@ -349,13 +356,19 @@ export class MemberActivationComponent implements OnInit {
       photo: this.photo,
     })
 
-    this.memberService.updateIdentification(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-      if (data["status"] == "200") {
-        this.toastr.success(data["message"], "Saved", {
-          progressBar: true
-        });
-      }
-    })
+    if (this.photo) {
+      this.memberService.updateIdentification(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.toastr.success(data["message"], "Saved", {
+            progressBar: true
+          });
+        }
+      })
+    } else {
+      this.toastr.success("Successfully updated member", "Saved", {
+        progressBar: true
+      });
+    }
   }
   onStep3Next(e) {
     let formValue = this.membershipForm.value;
@@ -373,9 +386,13 @@ export class MemberActivationComponent implements OnInit {
     formValue["exp_date"] = exp_year + "-" + exp_month + "-" + "01";
     formValue["duration"] = this.membershipForm.controls["duration"].value;
     formValue["period"] = this.membershipForm.controls["period"].value;
-    formValue["session_remains"] = this.membershipForm.controls[
-      "session_remains"
-    ].value;
+    if (this.session_pt == true) {
+      formValue["session_remains"] = $("#session").val();
+    } else {
+      formValue["session_remains"] = this.membershipForm.controls[
+        "session_remains"
+      ].value;
+    }
     formValue["price"] = $("#price").val();
 
     if (this.membershipForm.controls["auto_debet"].value === "0") {
