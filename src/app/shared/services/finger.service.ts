@@ -31,7 +31,13 @@ export class FingerService {
     return this.http.get(this.apiURL + "/finger/member_auto_attendance/" + id);
   }
 
+  // Auto Attendance
   checkAttendance(member_id) {
     return this.http.get(this.apiURL + "/finger/member_attendance/check/" + member_id, this.httpOptions);
+  }
+
+  // Auto Registration
+  checkAutoRegClass(member_id, data) {
+    return this.http.post(this.apiURL + "/finger/member_register_class/check/" + member_id, data, this.httpOptions);
   }
 }
