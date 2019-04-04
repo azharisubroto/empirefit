@@ -231,13 +231,13 @@ export class StaffRegistrationComponent implements OnInit {
             progressBar: true
           });
         }
-        this.router.navigateByUrl("staff");
       })
     } else {
       this.toastr.success("Successfully updated member", "Saved", {
         progressBar: true
       });
-      this.router.navigateByUrl("staff");
     }
+
+    this.router.navigateByUrl("staff");
   }
 }

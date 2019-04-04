@@ -121,9 +121,11 @@ export class StaffFormComponent implements OnInit {
         setTimeout(() => {
           if (data["data"].status == "Active") {
             $("#finger-status").text("Success");
+            $("#staff_name").text(data["data"].name);
             $("#btn-scan").addClass("disabled");
           } else {
-            $("#finger-status").text("Unverified");
+            $("#staff-name").text(data["data"].name);
+            $("#finger_status").text("Unverified");
             $("#btn-scan").removeClass("disabled");
           }
         }, 2000);
@@ -256,14 +258,14 @@ export class StaffFormComponent implements OnInit {
           this.toastr.success(data["message"], "Saved", {
             progressBar: true
           });
-          this.router.navigateByUrl("staff");
         }
       })
     } else {
       this.toastr.success("Successfully updated member", "Saved", {
         progressBar: true
       });
-      this.router.navigateByUrl("staff");
     }
+
+    this.router.navigateByUrl("staff");
   }
 }

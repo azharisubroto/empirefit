@@ -53,6 +53,7 @@ export class MemberAttendanceComponent implements OnInit {
   history;
   classhistory: any;
   memberid: any;
+  first_time;
 
   constructor(
     private fb: FormBuilder,
@@ -105,6 +106,7 @@ export class MemberAttendanceComponent implements OnInit {
     this.memberService
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
+        this.first_time = data["data"].first_time[0].classtime;
         if (data["data"].member_type_id == null) {
           $("#btn-manualreg").attr("disabled", "disabled");
           $("#btn-manualattendance").attr("disabled", "disabled");
