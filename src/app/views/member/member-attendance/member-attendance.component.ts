@@ -43,6 +43,8 @@ export class MemberAttendanceComponent implements OnInit {
   public todayDate: any;
   finger;
   finspot;
+  finger_class;
+  finspot_class;
   present;
   id_card_number;
   classes;
@@ -128,9 +130,13 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.id_card_number = data["data"].id_card_number;
 
+        // Auto Attendance
         this.finspot = data["urlattendance"];
-
         this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+
+        // Auto RegistrationClass
+        this.finspot_class = data["urlregistrationclass"];
+        this.finger_class = this.sanitizer.bypassSecurityTrustUrl(this.finspot_class);
 
         this.ClassesService.getClasses(this.member.member_type_id).subscribe(
           (data: any) => {
@@ -251,6 +257,7 @@ export class MemberAttendanceComponent implements OnInit {
     }, 1000);
   }
 
+  // Check Attendance
   attendanceCheck() {
     this.UserService.userCheckPassword(
       this.user.staff_id,
@@ -285,6 +292,7 @@ export class MemberAttendanceComponent implements OnInit {
     });
   }
 
+  // Cek Class
   classCheck() {
     var mod = this;
     this.UserService.userCheckPassword(
@@ -366,6 +374,7 @@ export class MemberAttendanceComponent implements OnInit {
     return matches.length > 0;
   }
 
+  // Cancel Class
   cancelClass() {
     //alert("clicked");
     var mod = this;
@@ -395,6 +404,7 @@ export class MemberAttendanceComponent implements OnInit {
     });
   }
 
+  // Check Auto Atendance
   checkAttendance() {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
@@ -415,6 +425,29 @@ export class MemberAttendanceComponent implements OnInit {
               setTimeout(() => {
                 $("#code-first_time").text("n/a");
               });
+              this.toastr.error(data["message"], "Error", {
+                progressBar: true
+              });
+            }
+          });
+      });
+  }
+
+  // Check Auto Registration Class
+  checkAutoRegistrationClass() {
+    let schedule_id = 1;
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkAutoRegClass(this.activatedRoute.snapshot.params["id"], schedule_id)
+          .subscribe((data: any) => {
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
+            } else {
+              subscribe.unsubscribe();
               this.toastr.error(data["message"], "Error", {
                 progressBar: true
               });
