@@ -9,7 +9,7 @@ export class StaffService {
   readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(private http: HttpClient, private store: LocalStoreService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -43,5 +43,9 @@ export class StaffService {
 
   getStaffPt() {
     return this.http.get(this.apiURL + "/staff_pt/", this.httpOptions);
+  }
+
+  updatePhoto(id, data) {
+    return this.http.post(this.apiURL + "/staff_photo/" + id, data, this.httpOptions);
   }
 }

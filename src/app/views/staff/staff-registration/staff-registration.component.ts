@@ -5,7 +5,7 @@ import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
 import { BankService } from "src/app/shared/services/bank.service";
 import { FingerService } from "src/app/shared/services/finger.service";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
@@ -31,6 +31,7 @@ export class StaffRegistrationComponent implements OnInit {
   banks;
   finger;
   finspot;
+  photo;
 
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -61,7 +62,8 @@ export class StaffRegistrationComponent implements OnInit {
     private fingerService: FingerService,
     private toastr: ToastrService,
     private parserFormatter: NgbDateParserFormatter,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   ngOnInit() {
@@ -114,6 +116,7 @@ export class StaffRegistrationComponent implements OnInit {
   public handleImage(webcamImage: WebcamImage): void {
     console.info("received webcam image", webcamImage);
     this.webcamImage = webcamImage;
+    this.photo = webcamImage.imageAsDataUrl;
   }
 
   public handleInitError(error: WebcamInitError): void {
@@ -209,6 +212,7 @@ export class StaffRegistrationComponent implements OnInit {
           setTimeout(() => {
             $("#staff_name").text(data["data"].name);
             $("#finger_code").val(data["data"].finger_code);
+            $("#staff-id").val(data["data"].id);
             $("#btn-finger").attr('href', data["url"]);
           }, 1000)
         }
@@ -216,6 +220,24 @@ export class StaffRegistrationComponent implements OnInit {
     }
   }
   onComplete(e) {
-    this.router.navigateByUrl("staff");
+    let formValue = ({
+      photo: this.photo,
+    })
+
+    if (this.photo) {
+      this.staffService.updatePhoto($("#staff-id").val(), formValue).subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.toastr.success(data["message"], "Saved", {
+            progressBar: true
+          });
+        }
+        this.router.navigateByUrl("staff");
+      })
+    } else {
+      this.toastr.success("Successfully updated member", "Saved", {
+        progressBar: true
+      });
+      this.router.navigateByUrl("staff");
+    }
   }
 }
