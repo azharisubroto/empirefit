@@ -18,6 +18,7 @@ import { TextMaskModule } from "angular2-text-mask";
 import { MemberActivationSuccessComponent } from "./member-activation-success/member-activation-success.component";
 import { WebcamModule } from "ngx-webcam";
 import { SignaturePadModule } from "angular2-signaturepad";
+import { PtSessionComponent } from './pt-session/pt-session.component';
 
 @NgModule({
   imports: [
@@ -40,7 +41,8 @@ import { SignaturePadModule } from "angular2-signaturepad";
     MemberAttendanceComponent,
     MemberLeaveComponent,
     MemberActivationComponent,
-    MemberActivationSuccessComponent
+    MemberActivationSuccessComponent,
+    PtSessionComponent
   ]
 })
 export class MemberModule {}

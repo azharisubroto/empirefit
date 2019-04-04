@@ -6,6 +6,7 @@ import { MemberAttendanceComponent } from "./member-attendance/member-attendance
 import { MemberLeaveComponent } from "./member-leave/member-leave.component";
 import { MemberActivationComponent } from "./member-activation/member-activation.component";
 import { MemberActivationSuccessComponent } from "./member-activation-success/member-activation-success.component";
+import { PtSessionComponent } from "./pt-session/pt-session.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: "member/activation/:id",
     component: MemberActivationComponent
+  },
+  {
+    path: "member/pt-session/:id",
+    component: PtSessionComponent
   },
   {
     path: "member/activate/success",

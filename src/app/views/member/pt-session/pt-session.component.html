@@ -1,0 +1,228 @@
+<div class="breadcrumb">
+  <h1>Customer Search</h1>
+  <ul>
+    <li>Detail</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row mb-4">
+  <div class="col-md-6 mb-4 mb-md-0">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="fancy-head"><span>Biodata</span></div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="avatar">
+                <img src="{{ !!member.photo ? member.photo : '/assets/images/user.png'}}" class="img-fluid rounded-circle"
+                alt="" />
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <span class="text-muted mb-0">Name</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.name }}
+                  </div>
+                </div>
+                <div>
+                  <span class="text-muted mb-0">Phone</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.phone }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <span class="text-muted mb-0">Club</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.branch_name }}
+                  </div>
+                </div>
+                <div>
+                  <span class="text-muted mb-0">ID Card Number</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.id_card_number }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="fancy-head"><span>Membership</span></div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center mb-4"
+            >
+              <span class="text-muted mb-0">Type</span>
+              <div class="text-plain text-primary mt-1 text-capitalize">
+                {{ !!member.member_type_name ? member.member_type_name : "-" }}
+              </div>
+            </div>
+            <div
+              class="px-4 py-3 border border-light rounded align-items-center"
+            >
+              <span class="text-muted mb-0">Expiry Date</span>
+              <div class="text-medium text-primary mt-1">
+                {{ expirydate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+              <span class="text-muted mb-0">Session Remains</span>
+              <div class="text-medium text-primary mt-1">
+                {{ !!member.session_remains ? member.session_remains : "-" }}
+              </div>
+            </div>
+            <div class="px-4 py-3 border border-light rounded align-items-center">
+              <span class="text-muted mb-0">Personal Trainer Name</span>
+              <div class="text-medium text-primary mt-1">
+                Dimas
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <div class="fancy-head"><span>PT End Session Recording</span></div>
+          </div>
+        </div>
+        
+        <div class="row align-items-center mb-4">
+          <div class="col-md-4">
+            <div class="px-4 py-3 border border-light rounded align-items-center bg-gray">
+              <span class="text-muted mb-0">(MEMBER ID) Name</span>
+              <div class="text-plain text-primary mt-1 text-capitalize">
+                <span class="text-mute">n/a</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <a href="#" class="btn btn-primary btn-block py-3">AUTO SCAN</a>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">MANUAL SCAN</button>
+          </div>
+        </div>
+
+        <div class="row align-items-center mb-4">
+          <div class="col-md-4">
+            <div class="px-4 py-3 border border-light rounded align-items-center bg-gray">
+              <span class="text-muted mb-0">(PT ID) Name</span>
+              <div class="text-plain text-primary mt-1 text-capitalize">
+                <span class="text-muted thistrainer">n/a</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <a href="#" class="btn btn-primary btn-block py-3">AUTO SCAN</a>
+          </div>
+          <div class="col-md-4">
+              <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">MANUAL SCAN</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="fancy-head"><span>PT Session History</span></div>
+
+        <table class="table table-bordered" id="mytable">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">End Time Exercise</th>
+              <th scope="col">PT Name</th>
+              <th scope="col">Automatic</th>
+              <th scope="col">Authorized by</th>
+            </tr>
+          </thead>
+          <tbody class="historytoput">
+            <tr *ngFor="let item of trainhistory; let i = index">
+              <th scope="row">{{ item.end_date }}</th>
+              <td>{{ item.end_time }}</td>
+              <td>{{ item.pt_name }}</td>
+              <td>{{ !! item.automatic == 0 ? 'No' : 'Manual' }}</td>
+              <td>{{ item.autorized_by }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #manualAttendance let-modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Manual Scan</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+      <form [formGroup]="userForm" (ngSubmit)="ptsessioncheck()">
+      <div class="form-group">
+        <div class="px-4 py-3 border border-light rounded bg-gray mb-3">
+          <span class="text-muted mb-0">(MEMBER ID) Name</span>
+          <div class="text-medium text-primary mt-1">
+            {{ !!member.name ? member.name : 'n/a' }}
+          </div>
+        </div>
+        <div class="px-4 py-3 border border-light rounded bg-gray mb-3">
+          <span class="text-muted mb-0">(PT ID) Name</span>
+          <select formControlName="trainer_id" id="pts" class="form-control mb-0">
+            <option *ngFor="let item of personaltrainers" [value]="item.id">{{item.name}}</option>
+          </select>
+        </div>
+        <div class="px-4 py-3 border border-light rounded bg-gray mb-3">
+          <span class="text-muted mb-0">Front Officer</span>
+          <div class="text-medium text-primary mt-1">
+            {{ !!user.name ? user.name : user.role }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+          <label class="text-muted mb-0">Your Password</label>
+          <input
+            type="password"
+            name="password"
+            formControlName="password"
+            placeholder="..."
+            class="form-control mb-3"
+          />
+          <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
+          <btn-loading
+            btnClass="btn btn-outline-dark btn-rounded btn-block"
+            [loading]="loading"
+            >Proceed</btn-loading>
+      </div>
+    </form>
+  </div>
+</ng-template>
