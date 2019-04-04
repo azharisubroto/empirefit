@@ -323,7 +323,7 @@
             <td>{{ item.schedule_time }}</td>
             <td>{{ item.exercise }}</td>
             <td>{{ !! item.automatic === false ? 'No' : 'Yes' }}</td>
-            <td>{{ item.user_name }}</td>
+            <td>{{ !! item.user_name ? item.user_name : '' }}</td>
             <td>{{ !! item.canceled === false ? 'No' : 'Yes' }}</td>
             <td>{{ item.canceled_by }}</td>
           </tr>
@@ -356,7 +356,7 @@
             <td>{{ item.date }}</td>
             <td>{{ item.time }}</td>
             <td>{{ !! item.automatic === false ? 'No' : 'Yes' }}</td>
-            <td>{{ item.user_name['0']['name'] }}</td>
+            <td>{{ !! item.user_name ? item.user_name : '' }}</td>
           </tr>
         </tbody>
       </table>

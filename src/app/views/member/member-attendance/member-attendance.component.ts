@@ -106,7 +106,8 @@ export class MemberAttendanceComponent implements OnInit {
     this.memberService
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
-        this.first_time = data["data"].first_time[0].classtime;
+        $("#code-first_time").text(data["data"].first_time[0].classtime);
+        console.log(data["data"].first_time[0].classtime)
         if (data["data"].member_type_id == null) {
           $("#btn-manualreg").attr("disabled", "disabled");
           $("#btn-manualattendance").attr("disabled", "disabled");
@@ -247,7 +248,7 @@ export class MemberAttendanceComponent implements OnInit {
       this.activatedRoute.snapshot.params["id"]
     ).subscribe((data: any) => {
       this.classhistory = data["data"];
-      //console.log(this.classhistory);
+      console.log(this.classhistory);
     });
 
     // Attendance History
