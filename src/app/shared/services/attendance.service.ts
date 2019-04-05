@@ -31,4 +31,19 @@ export class AttendanceService {
       this.httpOptions
     );
   }
+
+  trainerCheckin(data) {
+    return this.http.post(
+      this.apiURL + "/member_attendances/",
+      data,
+      this.httpOptions
+    );
+  }
+
+  trainerHistory( member_id ) {
+    return this.http.get(
+      this.apiURL + "/personal_trainer_members/" + member_id,
+      this.httpOptions
+    );
+  }
 }

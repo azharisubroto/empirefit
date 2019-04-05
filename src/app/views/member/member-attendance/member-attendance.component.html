@@ -14,10 +14,12 @@
         <div class="fancy-head"><span>Biodata</span></div>
         <div class="row">
           <div class="col-md-3">
-            <img src="{{
-                !!member.photo ? member.photo : '/assets/images/user.png'
-              }}"
-              class="img-fluid rounded-circle" alt="" />
+            <div class="avatar">
+              <img src="{{
+                  !!member.photo ? member.photo : '/assets/images/user.png'
+                }}"
+                class="img-fluid rounded-circle" alt="" />
+            </div>
           </div>
           <div class="col-md-9">
             <div class="row">
@@ -72,19 +74,36 @@
             </div>
           </div>
           <div class="col-md-6 mb-3">
-            <div class="px-4 py-3 border border-light rounded align-items-center">
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Session Remains</span>
               <div class="text-medium text-primary mt-1">
                 {{ !!member.session_remains ? member.session_remains : "-" }}
+              </div>
+            </div>
+            <div class="px-4 py-3 border border-light rounded align-items-center">
+              <span class="text-muted mb-0">Personal Trainer Name</span>
+              <div class="text-medium text-primary mt-1">
+                Dimas
               </div>
             </div>
           </div>
         </div>
 
         <div class="row mt-2">
-          <div class="col-12">
+          <div class="col-md-6 mb-3">
             <a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership
               Update</a>
+          </div>
+          <div class="col-md-6 mb-3">
+            <a routerLink="/dashboard/member/pt-session/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">PT
+              Session</a>
+          </div>
+          <div class="col-md-6 mb-3">
+            <a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership
+              History</a>
+          </div>
+          <div class="col-md-6 mb-3">
+            <a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Leave</a>
           </div>
         </div>
       </div>

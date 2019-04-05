@@ -11,12 +11,12 @@ import { MemberService } from "src/app/shared/services/member.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { AttendanceService } from "src/app/shared/services/attendance.service";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
-import { FingerService } from "src/app/shared/services/finger.service";
 import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ClassesService } from "src/app/shared/services/classes.service";
-import { interval } from "rxjs/observable/interval";
+import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
+
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
@@ -24,11 +24,11 @@ import "datatables.net-bs4";
 import { timeout } from "rxjs/operators";
 
 @Component({
-  selector: "app-basic-form",
-  templateUrl: "./member-attendance.component.html",
-  styleUrls: ["./member-attendance.component.scss"]
+  selector: 'app-pt-session',
+  templateUrl: './pt-session.component.html',
+  styleUrls: ['./pt-session.component.scss']
 })
-export class MemberAttendanceComponent implements OnInit {
+export class PtSessionComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
   radioGroup: FormGroup;
@@ -38,22 +38,24 @@ export class MemberAttendanceComponent implements OnInit {
   firstTime: any;
   userForm: FormGroup;
   absen: FormGroup;
+  trainerform: FormGroup;
   password_att;
   password_class;
   public todayDate: any;
   finger;
   finspot;
-  finger_class;
-  finspot_class;
   present;
   id_card_number;
   classes;
   gymhistory;
   todayName;
   history;
+  personaltrainers;
   classhistory: any;
   memberid: any;
-  first_time;
+  pt_id;
+  trainer_name;
+  trainhistory: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -64,11 +66,11 @@ export class MemberAttendanceComponent implements OnInit {
     private UserService: UserService,
     private attendanceService: AttendanceService,
     private scheduleService: ScheduleService,
-    private fingerService: FingerService,
     private ClassesService: ClassesService,
     private sanitizer: DomSanitizer,
-    private chRef: ChangeDetectorRef
-  ) { }
+    private chRef: ChangeDetectorRef,
+    private personalTrainerService: PersonaltrainerService
+  ) {}
 
   ngOnInit() {
     var mod = this;
@@ -80,14 +82,20 @@ export class MemberAttendanceComponent implements OnInit {
     this.classhistory = { make: "" };
     this.gymhistory = { make: "" };
     this.memberid = { make: "" };
+    this.pt_id = { make: "" };
+    this.trainer_name = { make: "" };
+    this.personaltrainers = { make: "" };
+    this.trainhistory = { make: "" };
     this.buildFormBasic();
     this.radioGroup = this.fb.group({
       radio: []
     });
 
+    // get today's day name
+
     this.userForm = this.fb.group({
       password: ["", Validators.required],
-      schedule_id: ["", Validators.required],
+      trainer_id: ["", Validators.required],
       user_id: ["", Validators.required]
     });
 
@@ -100,12 +108,18 @@ export class MemberAttendanceComponent implements OnInit {
       automatic: ["", Validators.required]
     });
 
+    this.trainerform = this.fb.group({
+      member_id: ["", Validators.required],
+      personal_trainer_id: ["", Validators.required],
+      state: ["", Validators.required],
+      automatic: ["", Validators.required],
+      user_id: ["", Validators.required]
+    });
+
     //Get Member Detail
     this.memberService
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
-        $("#code-first_time").text(data["data"].first_time[0].classtime);
-        console.log(data["data"].first_time[0].classtime)
         if (data["data"].member_type_id == null) {
           $("#btn-manualreg").attr("disabled", "disabled");
           $("#btn-manualattendance").attr("disabled", "disabled");
@@ -119,22 +133,6 @@ export class MemberAttendanceComponent implements OnInit {
           $("#btn-classhis").addClass("disabled");
         }
 
-        // 10 Pass Membership
-        if (data["data"].member_type_id == 4) {
-          if (data["data"].session_remains == 0) {
-            $("#btn-manualreg").attr("disabled", "disabled");
-            $("#btn-manualattendance").attr("disabled", "disabled");
-
-            $("#btn-attendance").addClass("disabled");
-
-            $("#btn-attendance").addClass("disabled");
-            $("#btn-history").addClass("disabled");
-            $("#btn-autoreg").addClass("disabled");
-
-            $("#btn-classhis").addClass("disabled");
-          }
-        }
-
         this.member = data["data"];
         var member = this.member;
         var date = new Date(data["data"]["expairy_date"]);
@@ -145,88 +143,6 @@ export class MemberAttendanceComponent implements OnInit {
         this.todayDate = this.getTanggal();
         //console.log(this.member['id']);
 
-        this.id_card_number = data["data"].id_card_number;
-
-        // Auto Attendance
-        this.finspot = data["urlattendance"];
-        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-
-        // Auto RegistrationClass
-        this.finspot_class = data["urlregistrationclass"];
-        this.finger_class = this.sanitizer.bypassSecurityTrustUrl(this.finspot_class);
-
-        this.ClassesService.getClasses(this.member.member_type_id).subscribe(
-          (data: any) => {
-            this.classes = data["data"];
-            var obj = this.classes;
-            var days = [
-              "Sunday",
-              "Monday",
-              "Tuesday",
-              "Wednesday",
-              "Thursday",
-              "Friday",
-              "Saturday"
-            ];
-            var d = new Date();
-            var n = d.getDay();
-            var todayName = days[n];
-            $.each(obj, function (i, item) {
-              if (item.day === todayName) {
-                // Print Jadwal
-                if (mod.hasmatch(item.log, "member_id", member.id)) {
-                  var logarray = item.log;
-                  var _index = logarray.findIndex(
-                    x => x.member_id === member.id
-                  ),
-                    _iscanceled = item.log[_index].canceled,
-                    _logid = item.log[_index]["id"];
-
-                  if (_iscanceled == 1) {
-                    var _checked = "";
-                    var _cancelbtn = "";
-                    var _class = "notyet";
-                  } else {
-                    var _class = "";
-                    var _checked = "checked";
-                    var _cancelbtn =
-                      '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
-                      _logid +
-                      '">Cancel</button>';
-                  }
-                  console.log(_checked);
-                } else {
-                  var _class = "notyet",
-                    _checked = "",
-                    _cancelbtn = "",
-                    _logid = null;
-                }
-
-                var markup =
-                  '<label class="checkbox checkbox-success ' +
-                  _class +
-                  '">' +
-                  '<input type="checkbox" disabled ' +
-                  _checked +
-                  " name=" +
-                  item.schedule_id +
-                  ">" +
-                  "<span>" +
-                  item.time +
-                  " - " +
-                  item.exercise +
-                  '</span><span class="checkmark"></span>' +
-                  _cancelbtn +
-                  "</label>";
-                // Apend
-                $(".jadwal").append(markup);
-              }
-            });
-            setTimeout(() => {
-              mod.cancelClass();
-            }, 1000);
-          }
-        );
       });
 
     // Get single User
@@ -235,27 +151,20 @@ export class MemberAttendanceComponent implements OnInit {
       // console.log(this.user);
     });
 
-    this.scheduleService
-      .showClassRegistration(this.member.member_type_id)
-      .subscribe((data: any) => {
-        this.present = data["data"].present;
-      });
-
-    // Class History
-    this.ClassesService.classCheck(
-      this.activatedRoute.snapshot.params["id"]
-    ).subscribe((data: any) => {
-      this.classhistory = data["data"];
-      console.log(this.classhistory);
+    // Personal Trainer
+    this.personalTrainerService.getPersonalTrainers().subscribe((data: any) => {
+      this.personaltrainers = data["data"];
+      //console.log(this.personaltrainers);
     });
 
-    // Attendance History
-    this.attendanceService
-      .attendanceHistory(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {
-        this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
-        console.log( this.gymhistory );
-      });
+    //PT Session History
+    this.attendanceService.trainerHistory(this.activatedRoute.snapshot.params["id"]).subscribe((data:any)=>{
+      this.trainhistory = data['data']['log'];
+      console.log(this.trainhistory);
+      setTimeout(() => {
+        $("#mytable").DataTable();
+      }, 500);
+    });
   }
 
   open(content) {
@@ -268,40 +177,45 @@ export class MemberAttendanceComponent implements OnInit {
 
   openLg(content) {
     this.modalService.open(content, { windowClass: "big-modal" });
-    setTimeout(() => {
-      this.chRef.detectChanges();
-      $("#mytable").DataTable();
-    }, 1000);
   }
 
-  // Check Attendance
-  attendanceCheck() {
+  // input password for pt
+  ptsessioncheck() {
+    var mod = this;
+    
     this.UserService.userCheckPassword(
       this.user.staff_id,
       this.userForm.value
     ).subscribe((data: any) => {
       var pass = data;
-      let formValue = this.userForm.value;
-      formValue["user_id"] = this.user.id;
-      console.log(this.user.id);
-      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
-      this.loading = true;
+      //console.log(pass);
       if (pass != null && pass["status"] == 200) {
-        this.attendanceService
-          .createAttendance(formValue)
-          .subscribe((data: any) => {
-            if (data["status"] == "200") {
-              $(".first_time").text(
-                data["data"].date + " - " + data["data"].time
-              );
-              this.loading = false;
-              $(".modal-header .close").trigger("click");
-            } else {
-              this.loading = false;
-              $(".modal-header .close").trigger("click");
-              alert(data["message"]);
-            }
-          });
+        var trainer_name = $('#pts option:selected').text();
+        $('.thistrainer').text( trainer_name );
+        var trainerID = mod.userForm.controls['trainer_id'].value;
+        //console.log(mod.userForm.controls['trainer_id'].value);
+        mod.pt_id = trainerID;
+        this.trainerform.setValue({
+          member_id: this.member.id,
+          personal_trainer_id: this.pt_id,
+          state: "1",
+          automatic: "0",
+          user_id: this.user.id
+        });
+    
+        // Send checkin
+        this.attendanceService.trainerCheckin(
+          mod.trainerform.value
+        ).subscribe((data: any) => {
+          var res = data['status'];
+          console.log(res);
+          if( res == '200'  ) {
+            $(".modal-header .close").trigger("click");
+            location.reload();
+          }
+        });
+
+        
       } else {
         alert("Your password is incorrect");
         this.loading = false;
@@ -309,7 +223,6 @@ export class MemberAttendanceComponent implements OnInit {
     });
   }
 
-  // Cek Class
   classCheck() {
     var mod = this;
     this.UserService.userCheckPassword(
@@ -384,14 +297,13 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   hasmatch(array, key, value) {
-    var matches = array.filter(function (element) {
+    var matches = array.filter(function(element) {
       return element[key] === value;
     });
 
     return matches.length > 0;
   }
 
-  // Cancel Class
   cancelClass() {
     //alert("clicked");
     var mod = this;
@@ -399,7 +311,7 @@ export class MemberAttendanceComponent implements OnInit {
     formValue["user_id"] = mod.user.id;
 
     //console.log(formValue);
-    $(".delete_class").on("click", function (e) {
+    $(".delete_class").on("click", function(e) {
       e.preventDefault();
       var btn = $(this);
       var id = $(this).data("logid");
@@ -419,64 +331,6 @@ export class MemberAttendanceComponent implements OnInit {
       });
       return false;
     });
-  }
-
-  // Check Auto Atendance
-  checkAttendance() {
-    const source = interval(3000),
-      subscribe = source.subscribe(val => {
-        this.fingerService
-          .checkAttendance(this.activatedRoute.snapshot.params["id"])
-          .subscribe((data: any) => {
-            if (data["status"] === "200") {
-              subscribe.unsubscribe();
-              setTimeout(() => {
-                $("#code-first_time").text(data["date"]);
-              });
-              this.toastr.success(data["message"], "Success", {
-                progressBar: true
-              });
-              $("#finger-status").text("Success");
-            } else {
-              subscribe.unsubscribe();
-              setTimeout(() => {
-                $("#code-first_time").text("n/a");
-              });
-              this.toastr.error(data["message"], "Error", {
-                progressBar: true
-              });
-            }
-          });
-      });
-  }
-
-  // Check Auto Registration Class
-  checkAutoRegistrationClass() {
-    let formValue = this.userForm.value;
-    // let dataMt = [];
-    // $.each($("input[name='member_type']:checked"), function () {
-    //   dataMt.push($(this).val());
-    // });
-    // $(".member_type-final").val(dataMt);
-    formValue['schedule_id'] = [1, 2];
-    const source = interval(3000),
-      subscribe = source.subscribe(val => {
-        this.fingerService
-          .checkAutoRegClass(this.activatedRoute.snapshot.params["id"], formValue)
-          .subscribe((data: any) => {
-            if (data["status"] === "200") {
-              subscribe.unsubscribe();
-              this.toastr.success(data["message"], "Success", {
-                progressBar: true
-              });
-            } else {
-              subscribe.unsubscribe();
-              this.toastr.error(data["message"], "Error", {
-                progressBar: true
-              });
-            }
-          });
-      });
   }
 
   getClock() {
