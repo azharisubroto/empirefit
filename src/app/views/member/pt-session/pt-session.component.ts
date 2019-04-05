@@ -211,7 +211,7 @@ export class PtSessionComponent implements OnInit {
           console.log(res);
           if( res == '200'  ) {
             $(".modal-header .close").trigger("click");
-            location.reload();
+            //location.reload();
           }
         });
 
