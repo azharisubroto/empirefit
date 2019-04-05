@@ -66,7 +66,9 @@ export class MemberActivationComponent implements OnInit {
   public signaturePadMember = {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
-    backgroundColor: 'rgb(255,240,240)',
+    backgroundColor: '#f5f5f5',
+    canvasWidth: 523,
+    canvasHeight: 300
     //onEnd: this.saveimg(),
     // canvasWeight: 250,
     // canvasHeight: 150
@@ -75,9 +77,17 @@ export class MemberActivationComponent implements OnInit {
   public signaturePadStaff = {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
-    backgroundColor: 'rgb(255,240,240)',
-    // canvasWeight: 250,
-    // canvasHeight: 150
+    backgroundColor: '#f5f5f5',
+    canvasWidth: 523,
+    canvasHeight: 300
+  }
+
+  public debitsign = {
+    "minWidth": 1,
+    penColor: 'rgb(0,0,0)',
+    backgroundColor: '#f5f5f5',
+    canvasWidth: 422,
+    canvasHeight: 300
   }
 
   public showWebcam = true;

@@ -379,7 +379,7 @@
 					</ul>
 
 					<div class="row">
-						<div class="col-md-7">
+						<div class="col-md-7 mb-4 mb-md-0">
 							<div class="px-4 py-3 border border-light rounded align-items-center">
 								<div class="row mb-3">
 									<div class="col-3">
@@ -411,7 +411,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row mb-3">
+								<div class="row mb-3 d-none">
 									<div class="col-3">
 										Signature
 									</div>
@@ -431,6 +431,13 @@
 										</div>
 									</div>
 								</div>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>
+							<input type="hidden" formControlName="debit_sign" id="debit-sign" value="">
+							<div class="text-left">
+								<button class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
 							</div>
 						</div>
 					</div>
