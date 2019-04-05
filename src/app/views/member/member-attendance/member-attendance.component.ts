@@ -54,6 +54,7 @@ export class MemberAttendanceComponent implements OnInit {
   classhistory: any;
   memberid: any;
   first_time;
+  schedule;
 
   constructor(
     private fb: FormBuilder,
@@ -105,7 +106,7 @@ export class MemberAttendanceComponent implements OnInit {
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         $("#code-first_time").text(data["data"].first_time[0].classtime);
-        console.log(data["data"].first_time[0].classtime)
+        // console.log(data["data"].first_time[0].classtime)
         if (data["data"].member_type_id == null) {
           $("#btn-manualreg").attr("disabled", "disabled");
           $("#btn-manualattendance").attr("disabled", "disabled");
@@ -117,6 +118,9 @@ export class MemberAttendanceComponent implements OnInit {
           $("#btn-autoreg").addClass("disabled");
 
           $("#btn-classhis").addClass("disabled");
+          $("#btn-ptsession").addClass("disabled");
+          $("#btn-membership-history").addClass("disabled");
+          $("#btn-membership-leave").addClass("disabled");
         }
 
         // 10 Pass Membership
@@ -132,6 +136,16 @@ export class MemberAttendanceComponent implements OnInit {
             $("#btn-autoreg").addClass("disabled");
 
             $("#btn-classhis").addClass("disabled");
+            $("#btn-ptsession").addClass("disabled");
+            $("#btn-membership-leave").addClass("disabled");
+          }
+        }
+
+        if (data["data"].member_type_id == 3) {
+          if (data["data"].session_remains > 0) {
+            $("#btn-ptsession").removeClass("disabled");
+          } else {
+            $("#btn-ptsession").addClass("disabled");
           }
         }
 
@@ -157,6 +171,7 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.ClassesService.getClasses(this.member.member_type_id).subscribe(
           (data: any) => {
+            // console.log(data["data"])
             this.classes = data["data"];
             var obj = this.classes;
             var days = [
@@ -170,54 +185,86 @@ export class MemberAttendanceComponent implements OnInit {
             ];
             var d = new Date();
             var n = d.getDay();
+            var t = d.getTime();
             var todayName = days[n];
+            $('.class-loading').remove();
             $.each(obj, function (i, item) {
               if (item.day === todayName) {
+                // console.log('jam ' + mod.getClock());
+                // console.log('jam item ' + item.time_schedule);
                 // Print Jadwal
                 if (mod.hasmatch(item.log, "member_id", member.id)) {
                   var logarray = item.log;
-                  var _index = logarray.findIndex(
-                    x => x.member_id === member.id
-                  ),
+                  var _index = logarray.findIndex(x => x.member_id === member.id),
                     _iscanceled = item.log[_index].canceled,
                     _logid = item.log[_index]["id"];
 
-                  if (_iscanceled == 1) {
-                    var _checked = "";
-                    var _cancelbtn = "";
-                    var _class = "notyet";
+                  // if late 
+                  if (item.time_schedule < mod.getClock()) {
+                    if (_iscanceled == 1) {
+                      var _checked = "checked";
+                      var _disabled = "disabled";
+                      var _cancelbtn = "";
+                      var _class = "notavailable";
+                      var _checkbox_class = "checkbox-secondary";
+                    } else {
+                      var _class = "notavailable";
+                      var _disabled = "disabled";
+                      var _checkbox_class = "checkbox-success";
+                      var _checked = "checked";
+                      var _cancelbtn = "";
+                    }
+
+                    //belom lewat
                   } else {
-                    var _class = "";
-                    var _checked = "checked";
-                    var _cancelbtn =
-                      '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
-                      _logid +
-                      '">Cancel</button>';
+                    if (_iscanceled == 1) {
+                      var _class = "notyet";
+                      var _disabled = "";
+                      var _checkbox_class = "checkbox-success";
+                      var _checked = "";
+                      var _cancelbtn = "";
+                    } else {
+                      var _class = "notyet";
+                      var _disabled = "disabled";
+                      var _checkbox_class = "checkbox-success";
+                      var _checked = "checked";
+                      var _cancelbtn =
+                        '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
+                        _logid +
+                        '" style="color: #fff!important">Cancel</button>';
+                    }
                   }
-                  console.log(_checked);
+                  // console.log(_checked);
                 } else {
                   var _class = "notyet",
                     _checked = "",
                     _cancelbtn = "",
-                    _logid = null;
+                    _logid = null,
+                    _disabled = "disabled";
+
+                  if (item.time_schedule < mod.getClock()) {
+                    var _class = "notavailble",
+                      _checked = "",
+                      _cancelbtn = "",
+                      _logid = null,
+                      _disabled = "disabled",
+                      _checkbox_class = "checkbox-success";
+                  } else {
+                    var _class = "notyet",
+                      _checked = "",
+                      _cancelbtn = "",
+                      _logid = null,
+                      _disabled = "",
+                      _checkbox_class = "checkbox-success";
+                  }
                 }
 
                 var markup =
-                  '<label class="checkbox checkbox-success ' +
-                  _class +
-                  '">' +
-                  '<input type="checkbox" disabled ' +
-                  _checked +
-                  " name=" +
-                  item.schedule_id +
-                  ">" +
-                  "<span>" +
-                  item.time +
-                  " - " +
-                  item.exercise +
-                  '</span><span class="checkmark"></span>' +
-                  _cancelbtn +
-                  "</label>";
+                  `<label class="checkbox ` + _checkbox_class + " " + _class + `" data-logstring="` + _logid + `">
+                    <input class="`+ _logid + `" name="schedulepick" type="checkbox" ` + _disabled + " " + _checked + ` value="` + item.schedule_id + `">
+                    <span>` + item.time + "-" + item.exercise + `</span>
+                    <span class="checkmark"></span> ` + _cancelbtn + `
+                  </label>`;
                 // Apend
                 $(".jadwal").append(markup);
               }
@@ -246,7 +293,7 @@ export class MemberAttendanceComponent implements OnInit {
       this.activatedRoute.snapshot.params["id"]
     ).subscribe((data: any) => {
       this.classhistory = data["data"];
-      console.log(this.classhistory);
+      // console.log(this.classhistory);
     });
 
     // Attendance History
@@ -254,7 +301,7 @@ export class MemberAttendanceComponent implements OnInit {
       .attendanceHistory(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
-        console.log( this.gymhistory );
+        // console.log(this.gymhistory);
       });
   }
 
@@ -283,7 +330,7 @@ export class MemberAttendanceComponent implements OnInit {
       var pass = data;
       let formValue = this.userForm.value;
       formValue["user_id"] = this.user.id;
-      console.log(this.user.id);
+      // console.log(this.user.id);
       formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
@@ -291,9 +338,7 @@ export class MemberAttendanceComponent implements OnInit {
           .createAttendance(formValue)
           .subscribe((data: any) => {
             if (data["status"] == "200") {
-              $(".first_time").text(
-                data["data"].date + " - " + data["data"].time
-              );
+              $(".first_time").text(data["data"].time);
               this.loading = false;
               $(".modal-header .close").trigger("click");
             } else {
@@ -319,16 +364,16 @@ export class MemberAttendanceComponent implements OnInit {
       var pass = data;
       this.loading = true;
       if (pass != null && pass["status"] == 200) {
-        var toCheckIn = $(".jadwal")
-          .find(".notyet:eq(0)")
-          .find("input")
-          .attr("name");
+        let dataSchedule = [];
+        $.each($("input[name='schedulepick']:checked"), function () {
+          dataSchedule.push($(this).val());
+        });
         //console.log(toCheckIn);
 
         this.absen.setValue({
           member_id: this.member.id,
           user_id: this.user.id,
-          schedule_id: toCheckIn,
+          schedule_id: dataSchedule,
           date: this.getTanggal(),
           time: this.firstTime,
           automatic: 0
@@ -337,38 +382,31 @@ export class MemberAttendanceComponent implements OnInit {
         this.ClassesService.classCheckIn(this.absen.value).subscribe(
           (data: any) => {
             var res = data["data"];
-            var member = mod.member;
-            console.log(data["message"]);
-            console.log(data["data"]);
+            // console.log(data["message"]);
+            // console.log(data["data"]);
+            let obj = data["data"].schedule_id;
 
-            if (mod.hasmatch(res, "member_id", member.id)) {
-              var logarray = res;
-              var _index = logarray.findIndex(x => x.member_id === member.id),
-                _iscanceled = res[_index].canceled,
-                _logid = res[_index]["id"];
-
-              if (_iscanceled == 1) {
-                var _checked = "";
-                var _class = "notyet";
-              } else {
-                var _class = "";
-                var _checked = "checked";
-              }
+            $.each(obj, function (i, item) {
+              // console.log(item);
               var _cancelbtn =
-                '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
-                _logid +
+                '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" style="color:#fff!important" data-logid="' +
+                item +
                 '">Cancel</button>';
-              $(".jadwal")
-                .find(".notyet:eq(0)")
-                .find(".checkmark")
-                .after(_cancelbtn);
-              $(".jadwal")
-                .find(".notyet:eq(0)")
-                .removeClass("notyet")
-                .find("input")
-                .prop("checked", true);
-              console.log(_checked);
-            }
+              $('[name="schedulepick"][value="' + item + '"]').prop("disabled", true).parents('.checkbox').removeClass('notyet').find(".checkmark").after(_cancelbtn);
+            });
+
+            setTimeout(() => {
+              if ($('[name="schedulepick"]').is(':checked')) {
+                $('[name="schedulepick"]:checked').each(function () {
+                  let _ini = $(this);
+                  let _parent = _ini.parents('.checkbox');
+                  let _delBtn = _parent.find('.delete_class');
+                  let _newlogID = _parent.data('logstring');
+                  // console.log(_newlogID);
+                  _delBtn.attr('data-logid', _newlogID);
+                });
+              }
+            }, 500);
 
             this.loading = false;
             this.cancelClass();
@@ -403,15 +441,19 @@ export class MemberAttendanceComponent implements OnInit {
       e.preventDefault();
       var btn = $(this);
       var id = $(this).data("logid");
-      console.log(id);
+      // console.log(id);
       mod.ClassesService.classCancel(id, formValue).subscribe((data: any) => {
         if (data["status"] == 200) {
-          console.log("deleted");
+          // console.log("deleted");
           $(btn)
             .parents(".checkbox")
             .addClass("notyet")
             .find("input")
-            .prop("checked", false);
+            .prop("checked", false)
+            .prop("disabled", false);
+          $(btn)
+            .parents(".checkbox")
+            .find("." + id + "")
           $(btn)
             .delay(300)
             .remove();
@@ -453,22 +495,53 @@ export class MemberAttendanceComponent implements OnInit {
   // Check Auto Registration Class
   checkAutoRegistrationClass() {
     let formValue = this.userForm.value;
-    // let dataMt = [];
-    // $.each($("input[name='member_type']:checked"), function () {
-    //   dataMt.push($(this).val());
-    // });
-    // $(".member_type-final").val(dataMt);
-    formValue['schedule_id'] = [1, 2];
+    let dataSchedule = [];
+    $.each($("input[name='schedulepick']:checked"), function () {
+      dataSchedule.push($(this).val());
+    });
+    formValue['schedule_id'] = dataSchedule;
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
           .checkAutoRegClass(this.activatedRoute.snapshot.params["id"], formValue)
           .subscribe((data: any) => {
             if (data["status"] === "200") {
+
               subscribe.unsubscribe();
               this.toastr.success(data["message"], "Success", {
                 progressBar: true
               });
+
+              var res = data["data"];
+              // console.log(data["message"]);
+              // console.log(data["data"]);
+              let obj = data["schedule_id"];
+
+              $.each(obj, function (i, item) {
+                // console.log(item);
+                var _cancelbtn =
+                  '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" style="color:#fff!important" data-logid="' +
+                  item +
+                  '">Cancel</button>';
+                $('[name="schedulepick"][value="' + item + '"]').prop("disabled", true).parents('.checkbox').removeClass('notyet').find(".checkmark").after(_cancelbtn);
+              });
+
+              setTimeout(() => {
+                if ($('[name="schedulepick"]').is(':checked')) {
+                  $('[name="schedulepick"]:checked').each(function () {
+                    let _ini = $(this);
+                    let _parent = _ini.parents('.checkbox');
+                    let _delBtn = _parent.find('.delete_class');
+                    let _newlogID = _parent.data('logstring');
+                    // console.log(_newlogID);
+                    _delBtn.attr('data-logid', _newlogID);
+                  });
+                }
+              }, 500);
+
+              this.loading = false;
+              this.cancelClass();
+
             } else {
               subscribe.unsubscribe();
               this.toastr.error(data["message"], "Error", {
@@ -488,7 +561,7 @@ export class MemberAttendanceComponent implements OnInit {
       "-" +
       today.getDate();
     var time =
-      today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      today.getHours() + "" + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
     var dateTime = time;
     return dateTime;
   }

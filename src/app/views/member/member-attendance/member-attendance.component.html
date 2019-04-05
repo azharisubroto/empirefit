@@ -91,19 +91,19 @@
 
         <div class="row mt-2">
           <div class="col-md-6 mb-3">
-            <a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership
+            <a id="btn-membership" routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership
               Update</a>
           </div>
           <div class="col-md-6 mb-3">
-            <a routerLink="/dashboard/member/pt-session/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">PT
+            <a id="btn-ptsession" routerLink="/dashboard/member/pt-session/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">PT
               Session</a>
           </div>
           <div class="col-md-6 mb-3">
-            <a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership
+            <a id="btn-membership-history" routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership
               History</a>
           </div>
           <div class="col-md-6 mb-3">
-            <a routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Leave</a>
+            <a id="btn-membership-leave" routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Leave</a>
           </div>
         </div>
       </div>
@@ -232,7 +232,7 @@
           <span>Today's Class</span>
         </div>
         <div class="mt-4 jadwal">
-
+          <div class="class-loading">Loading Data...</div>
         </div>
         <div class="row mt-4">
           <div class="col-12">
