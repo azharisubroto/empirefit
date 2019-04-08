@@ -225,11 +225,11 @@ export class MemberActivationComponent implements OnInit {
             $("#btn-scan").removeClass("disabled");
           }
 
-          if (data["data"].member_type_id != 3) {
-            $(".personal-trainer").attr('disabled', 'disabled');
-          } else {
-            $(".personal-trainer").removeAttr("disabled");
-          }
+          // if (data["data"].member_type_id != 3) {
+          //   $(".personal-trainer").attr('disabled', 'disabled');
+          // } else {
+          //   $(".personal-trainer").removeAttr("disabled");
+          // }
         }, 2000);
 
         this.id_card_number = data["data"].id_card_number;
