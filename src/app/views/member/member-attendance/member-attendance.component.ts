@@ -105,6 +105,7 @@ export class MemberAttendanceComponent implements OnInit {
     this.memberService
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
+        console.log(data["data"])
         $("#code-first_time").text((data["data"].first_time[0].classtime) ? data["data"].first_time[0].classtime : "n/a");
         // console.log(data["data"].first_time[0].classtime)
         if (data["data"].member_type_id == null) {

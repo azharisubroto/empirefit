@@ -68,7 +68,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.auth.getUser().subscribe((data: any) => {
+    this.auth.getuser().subscribe((data: any) => {
       if (data["status"] == "200") {
         this.user = data["data"];
         this.photo = this.user.photo;
