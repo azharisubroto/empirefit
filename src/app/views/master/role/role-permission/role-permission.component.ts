@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { ProductService } from "src/app/shared/services/product.service";
-import { FormControl } from "@angular/forms";
+import { FormControl, FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
 import { Router, ActivatedRoute } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
@@ -25,6 +25,7 @@ export class RolePermissionComponent implements OnInit {
   role;
   detail;
   loading: boolean;
+  permissionForm: FormGroup;
 
   constructor(
     private roleService: RoleService,
@@ -32,8 +33,9 @@ export class RolePermissionComponent implements OnInit {
     private router: Router,
     private chRef: ChangeDetectorRef,
     private toastr: ToastrService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
+  ) { }
 
   ngOnInit() {
     this.roleService
@@ -44,8 +46,12 @@ export class RolePermissionComponent implements OnInit {
 
     this.permissionService.getPermissions().subscribe((data: any) => {
       this.permissions = data["data"];
-      this.chRef.detectChanges();
-      $("#mytable").DataTable();
+      // this.chRef.detectChanges();
+      // $("#mytable").DataTable();
+    });
+
+    this.permissionForm = this.fb.group({
+      permission: [],
     });
 
     this.roleService
@@ -55,7 +61,7 @@ export class RolePermissionComponent implements OnInit {
       });
 
     //Checbox
-    $(".selectall").click(function() {
+    $(".selectall").click(function () {
       if ($(this).is(":checked")) {
         $('input[name="permission"]').prop("checked", true);
       } else {
@@ -71,7 +77,7 @@ export class RolePermissionComponent implements OnInit {
 
         setTimeout(() => {
           var perms = JSON.parse(JSON.stringify(this.getpermissions));
-          $.each(perms, function(i, item) {
+          $.each(perms, function (i, item) {
             $(
               "input[name='permission'][value=" + item.permission_id + "]"
             ).prop("checked", true);
@@ -82,20 +88,17 @@ export class RolePermissionComponent implements OnInit {
 
   submit() {
     let dataPermission = [];
-    let permission;
-    $.each($("input[name='permission']:checked"), function() {
+    let data = this.permissionForm.value;
+    $.each($("input[name='permission']:checked"), function () {
       dataPermission.push($(this).val());
     });
-    $(".permission-final").val(dataPermission.join(","));
 
-    permission = "[" + dataPermission.join(",") + "]";
-
-    console.log(permission)
+    data['permission'] = dataPermission;
     this.loading = true;
     this.permissionService
       .createPermissionRole(
         this.activatedRoute.snapshot.params["id"],
-        permission
+        data
       )
       .subscribe((res: any) => {
         setTimeout(() => {
@@ -104,6 +107,7 @@ export class RolePermissionComponent implements OnInit {
             this.toastr.success(res["message"], "Success!", {
               progressBar: true
             });
+            console.log(res["data"])
             this.router.navigateByUrl("master/role");
           } else {
             this.toastr.error(res["message"], "Error!", {

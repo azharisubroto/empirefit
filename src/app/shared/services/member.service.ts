@@ -46,9 +46,9 @@ export class MemberService {
     );
   }
 
-  createAutoDebet(credit_card_id, data) {
+  createAutoDebet(member_id, data) {
     return this.http.put(
-      this.apiURL + "/auto_debet/" + credit_card_id,
+      this.apiURL + "/auto_debet/" + member_id,
       data,
       this.httpOptions
     );
