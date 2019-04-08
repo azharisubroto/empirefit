@@ -385,7 +385,7 @@
 										Name on Card
 									</div>
 									<div class="col-9">
-										<div class="boxvalue">
+										<div class="boxvalue" id="card_name_text">
 											{{!! cc_name ? cc_name : "-"}}
 										</div>
 									</div>
@@ -395,7 +395,7 @@
 										Card Number
 									</div>
 									<div class="col-9">
-										<div class="boxvalue">
+										<div class="boxvalue" id="card_number_text">
 											{{!! cc_card ? cc_card : "-"}}
 										</div>
 									</div>
@@ -406,9 +406,9 @@
 									</div>
 									<div class="col-9">
 										<div class="boxvalue d-inline-block">
-											<label for="">{{!! cc_month ? cc_month : "-"}}</label>
+											<label for="" id="card_month_text">{{!! cc_month ? cc_month : "-"}}</label>
 											<label for=""> / </label>
-											<label for="">{{!! cc_year ? cc_year : "-"}}</label>
+											<label for="" id="card_year_text">{{!! cc_year ? cc_year : "-"}}</label>
 										</div>
 									</div>
 								</div>
@@ -417,7 +417,7 @@
 										Date
 									</div>
 									<div class="col-9">
-										<div class="boxvalue">
+										<div class="boxvalue" id="card_date_text">
 											{{!! cc_date ? cc_date : "-"}}
 										</div>
 									</div>
