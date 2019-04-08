@@ -110,7 +110,7 @@ export class MemberAttendanceComponent implements OnInit {
       .subscribe((data: any) => {
         console.log(data["data"])
         this.personalTrainerService.personalTrainerMember(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
-          this.personaltrainername = data["data"].personal_trainer_name;
+          this.personaltrainername = data["data"].personal_trainer_name ? data["data"].personal_trainer_name : "-";
         })
 
         $("#code-first_time").text((data["data"].first_time[0].classtime) ? data["data"].first_time[0].classtime : "n/a");

@@ -453,11 +453,15 @@ export class MemberActivationComponent implements OnInit {
               this.toastr.success(data["message"], "Saved", {
                 progressBar: true
               });
-              $("#card_name_text").text(data["data"].card_name);
-              $("#card_number_text").text(data["data"].card_number);
-              $("#card_month_text").text(data["data"].exp_month);
-              $("#card_year_text").text(data["data"].exp_year);
-              $("#card_date_text").text(data["data"].created_at);
+
+              setTimeout(() => {
+                $("#card_name_text").text(data["data"][0].card_name);
+                $("#card_number_text").text(data["data"][0].card_number);
+                $("#card_month_text").text(data["data"][0].exp_month);
+                $("#card_year_text").text(data["data"][0].exp_year);
+                $("#card_date_text").text(data["data"][0].created_at);
+                $("#card_id_text").val(data["data"][0].id);
+              }, 500)
             } else {
               this.toastr.error(data["message"], "Not Saved!", {
                 progressBar: true
@@ -475,8 +479,8 @@ export class MemberActivationComponent implements OnInit {
       let formValue = this.liabilityForm.value;
       let _debit_sign = debit_sign.toDataURL();
       formValue["signature"] = _debit_sign;
-      formValue["credit_card_id"] = this.credit_cards.id;
-      if (field_autodebits === 1) {
+      formValue["credit_card_id"] = $("#card_id_text").val();
+      if (field_autodebits == "1") {
         this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
           if (data["status"] == "200") {
             this.toastr.success(data["message"], "Saved", {
