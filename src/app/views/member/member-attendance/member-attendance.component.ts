@@ -12,6 +12,7 @@ import { UserService } from "src/app/shared/services/user.service";
 import { AttendanceService } from "src/app/shared/services/attendance.service";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { FingerService } from "src/app/shared/services/finger.service";
+import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -55,6 +56,7 @@ export class MemberAttendanceComponent implements OnInit {
   memberid: any;
   first_time;
   schedule;
+  personaltrainername;
 
   constructor(
     private fb: FormBuilder,
@@ -67,6 +69,7 @@ export class MemberAttendanceComponent implements OnInit {
     private scheduleService: ScheduleService,
     private fingerService: FingerService,
     private ClassesService: ClassesService,
+    private personalTrainerService: PersonaltrainerService,
     private sanitizer: DomSanitizer,
     private chRef: ChangeDetectorRef
   ) { }
@@ -106,6 +109,10 @@ export class MemberAttendanceComponent implements OnInit {
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         console.log(data["data"])
+        this.personalTrainerService.personalTrainerMember(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
+          this.personaltrainername = data["data"].personal_trainer_name;
+        })
+
         $("#code-first_time").text((data["data"].first_time[0].classtime) ? data["data"].first_time[0].classtime : "n/a");
         // console.log(data["data"].first_time[0].classtime)
         if (data["data"].member_type_id == null) {
