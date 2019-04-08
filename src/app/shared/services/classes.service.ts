@@ -46,4 +46,11 @@ export class ClassesService {
       this.httpOptions
     );
   }
+
+  classesByDay(date){
+    return this.http.get(
+      this.apiURL + "/schedules/day" + date,
+      this.httpOptions
+    );
+  }
 }

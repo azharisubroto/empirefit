@@ -9,6 +9,7 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { UserService } from "src/app/shared/services/user.service";
 import { MemberPartnerService } from "src/app/shared/services/memberpartner.service";
+import { ClassesService } from "src/app/shared/services/classes.service";
 import { Router } from "@angular/router";
 import * as $ from "jquery";
 
@@ -38,6 +39,7 @@ export class MemberPartnerCreateComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private MemberPartnerService: MemberPartnerService,
+    private ClassesService: ClassesService,
   ) { 
     
   }
@@ -56,6 +58,18 @@ export class MemberPartnerCreateComponent implements OnInit {
       status: ["", Validators.required],
       created_by: ["", Validators.required],
     });
+  }
+
+  changeDate(event: any) {
+    var year = event['year'];
+    var month = event['month'];
+    var day = event['day'];
+    var tosend = year + '-' + this.pad(month) + '-' + this.pad(day);
+    console.log(tosend);
+  }
+
+  pad(d) {
+    return (d < 10) ? '0' + d.toString() : d.toString();
   }
 
   submit() {
