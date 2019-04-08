@@ -175,7 +175,7 @@ export class MemberActivationComponent implements OnInit {
 
         // autodebits
         this.autodebits = data["data"].auto_debits[0];
-        this.cc_signature = this.autodebits ? this.autodebits.signature : "";
+        this.cc_signature = this.autodebits ? this.autodebits.signature : null;
 
         // Credit card
         this.credit_cards = data["data"].credit_cards[0];
@@ -405,7 +405,7 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onStep3Next(e) {
-    if (this.member.member_type_id !== "null") {
+    if (this.member.member_type_id) {
       console.log('next')
     } else {
       let formValue = this.membershipForm.value;
@@ -453,6 +453,11 @@ export class MemberActivationComponent implements OnInit {
               this.toastr.success(data["message"], "Saved", {
                 progressBar: true
               });
+              $("#card_name_text").text(data["data"].card_name);
+              $("#card_number_text").text(data["data"].card_number);
+              $("#card_month_text").text(data["data"].exp_month);
+              $("#card_year_text").text(data["data"].exp_year);
+              $("#card_date_text").text(data["data"].created_at);
             } else {
               this.toastr.error(data["message"], "Not Saved!", {
                 progressBar: true
@@ -467,7 +472,6 @@ export class MemberActivationComponent implements OnInit {
       console.log("Signature exist");
     } else {
       let field_autodebits = this.membershipForm.controls["auto_debet"].value;
-      console.log(field_autodebits)
       let formValue = this.liabilityForm.value;
       let _debit_sign = debit_sign.toDataURL();
       formValue["signature"] = _debit_sign;

@@ -407,6 +407,7 @@
 									<div class="col-9">
 										<div class="boxvalue d-inline-block">
 											<label for="">{{!! cc_month ? cc_month : "-"}}</label>
+											<label for=""> / </label>
 											<label for="">{{!! cc_year ? cc_year : "-"}}</label>
 										</div>
 									</div>
@@ -432,7 +433,7 @@
 						</div>
 						<div class="col-md-5">
 							<div *ngIf="cc_signature">
-								<img class="img-fluid" src="{{ cc_signature }}" alt="">
+								<img class="img-fluid" src="{{!! cc_signature ? cc_signature : '' }}" alt="">
 							</div>
 						</div>
 					</div>
