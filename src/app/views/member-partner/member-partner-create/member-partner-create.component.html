@@ -1,0 +1,91 @@
+<div class="breadcrumb">
+    <h1>Member Partner</h1>
+    <ul>
+      <li>Create</li>
+    </ul>
+  </div>
+  
+  <div class="separator-breadcrumb border-top"></div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card mb-4">
+        <div class="card-body">
+          <form [formGroup]="userForm" (ngSubmit)="submit()">
+            <div class="row">
+              
+              <div class="col-md-6 mb-3">
+                <div class="fancy-head"><span>Booking Info</span></div>
+
+                <div class="mb-3">
+                  <label for="company">Partner Name</label>
+                  <input type="text" formControlName="name" class="form-control" id="company">
+                </div>
+                <div class="mb-3">
+                  <label for="emaildate">Email date &amp; time</label>
+                  <div class="input-group">
+                      <input id="picker1" class="form-control" placeholder="yyyy-mm-dd" formControlName="email_date_time"
+                          ngbDatepicker #dp="ngbDatepicker">
+                      <div class="input-group-append">
+                          <button class="btn btn-secondary" style="height:41px;" (click)="dp.toggle()" type="button">
+                              <i class="icon-regular i-Calendar-4"></i>
+                          </button>
+                      </div>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="reference">Booking Reference</label>
+                  <input type="text" formControlName="reference" class="form-control" id="reference">
+                </div>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <div class="fancy-head"><span>Biodata</span></div>
+
+                <div class="mb-3">
+                  <label for="name">Partner Name</label>
+                  <input type="text" formControlName="name" class="form-control" id="name">
+                </div>
+                <div class="mb-3">
+                  <label for="phone">Phone Number</label>
+                  <input type="text" formControlName="phone" class="form-control" id="phone">
+                </div>
+                <div class="mb-3">
+                  <label for="email">Email</label>
+                  <input type="text" formControlName="email" class="form-control" id="email">
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                  <div class="fancy-head"><span>Class</span></div>
+
+                  <div class="mb-3">
+                    <label for="emaildate">Date</label>
+                      <div class="input-group">
+                          <input id="picker1" class="form-control" placeholder="yyyy-mm-dd" formControlName="claspicker"
+                              ngbDatepicker #cp="ngbDatepicker">
+                          <div class="input-group-append">
+                              <button class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
+                                  <i class="icon-regular i-Calendar-4"></i>
+                              </button>
+                          </div>
+                      </div>
+
+                      <div class="classes-list mt-4">
+                        <input type="radio" value="1"> Class 1
+                      </div>
+                  </div>
+              </div>
+  
+              <div class="col-md-12">
+                <button
+                  class="btn-primary btn-rounded"
+                  >Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
