@@ -17,34 +17,30 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="table table-responsive">
-                    <table
-                      id="mytable"
-                      class="table table-hover"
-                      cellspacing="0"
-                    >
-                      <thead class="text-center">
+                    <table id="mytable" class="table table-hover" cellspacing="0">
+                      <thead>
                         <tr>
                           <th>Permission Name</th>
                           <th>Display Name</th>
                           <th>Description</th>
                           <th>
-                            <input type="checkbox" class="selectall" />
-                            <span class="checkmark"></span>
+                            <label class="checkbox checkbox-secondary">
+                              <input type="checkbox" class="selectall" />
+                              <span class="checkmark"></span>
+                            </label>
                           </th>
                         </tr>
                       </thead>
-                      <tbody class="text-center">
+                      <tbody>
                         <tr *ngFor="let list of permissions">
                           <td>{{ list.name }}</td>
                           <td>{{ list.display_name }}</td>
                           <td>{{ list.description }}</td>
                           <td>
-                            <input
-                              type="checkbox"
-                              name="permission"
-                              value="{{ list.id }}"
-                            />
-                            <span class="checkmark"></span>
+                            <label class="checkbox checkbox-secondary">
+                              <input type="checkbox" name="permission" value="{{ list.id }}" />
+                              <span class="checkmark"></span>
+                            </label>
                           </td>
                         </tr>
                       </tbody>
@@ -56,12 +52,7 @@
           </div>
           <div class="row mt-4">
             <div class="col-12 text-right">
-              <input type="hidden" class="permission-final" value="" />
-              <btn-loading
-                btnClass="btn-primary btn-rounded"
-                [loading]="loading"
-                >Save</btn-loading
-              >
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
             </div>
           </div>
         </form>

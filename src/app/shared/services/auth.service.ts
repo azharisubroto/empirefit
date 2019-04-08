@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { delay } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { PermissionService } from "./permission.service";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +19,8 @@ export class AuthService {
   constructor(
     private store: LocalStoreService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private permissionService: PermissionService
   ) {
     this.checkAuth();
     this.getuser();
@@ -58,5 +60,13 @@ export class AuthService {
           this.router.navigateByUrl("sessions/signin");
         }
       });
+  }
+
+  getUser() {
+    return this.http.get(this.apiURL + "/get_user", this.httpOptions)
+  }
+
+  checkPermission(permission_id) {
+    return this.http.get(this.apiURL + "/check_permission/" + permission_id, this.httpOptions)
   }
 }

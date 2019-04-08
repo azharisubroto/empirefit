@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private location: Location,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.title = "bootDash";
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
       console.log("signin page");
     } else {
       this.authService.checkAccess();
-      console.log(window.location.href);
+      // console.log(window.location.href);
     }
   }
 }

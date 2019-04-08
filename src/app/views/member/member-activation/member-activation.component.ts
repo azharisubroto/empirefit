@@ -61,6 +61,15 @@ export class MemberActivationComponent implements OnInit {
   session_pt: Boolean;
   is_membersign_exists: Boolean;
   is_staffsign_exists: Boolean;
+  cc_signature;
+  cc_name;
+  cc_card;
+  cc_month;
+  cc_year;
+  cc_date;
+  ccForm;
+  credit_cards;
+  autodebits;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadMember = {
@@ -163,6 +172,19 @@ export class MemberActivationComponent implements OnInit {
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.member = data["data"];
+
+        // autodebits
+        this.autodebits = data["data"].auto_debits[0];
+        this.cc_signature = this.autodebits ? this.autodebits.signature : "";
+
+        // Credit card
+        this.credit_cards = data["data"].credit_cards[0];
+        this.cc_name = this.credit_cards ? this.credit_cards.card_name : "-";
+        this.cc_card = this.credit_cards ? this.credit_cards.card_number : "-";
+        this.cc_month = this.credit_cards ? this.credit_cards.exp_month : "-";
+        this.cc_year = this.credit_cards ? this.credit_cards.exp_year : "-";
+        this.cc_date = this.credit_cards ? this.credit_cards.created_at : "-";
+
         var date = new Date(data["data"]["expairy_date"]);
         var list = date.toUTCString().split(" ");
         //results.push(list[1]+" "+list[2]);
@@ -184,11 +206,11 @@ export class MemberActivationComponent implements OnInit {
         this.membershipForm.setValue({
           member_type_id: data["data"].member_type_id,
           payment_id: data["data"].payment_id,
-          bank_id: data["data"].bank_id,
-          card_number: data["data"].card_number,
+          bank_id: this.credit_cards ? this.credit_cards.bank_id : "-",
+          card_number: this.credit_cards ? this.credit_cards.card_number : "-",
           auto_debet: data["data"].auto_debet,
-          exp_month: null,
-          exp_year: null,
+          exp_month: this.credit_cards ? this.credit_cards.exp_month : "-",
+          exp_year: this.credit_cards ? this.credit_cards.exp_year : "-",
           duration: data["data"].duration,
           session_remains: data["data"].session_remains,
           period: data["data"].period
@@ -201,6 +223,12 @@ export class MemberActivationComponent implements OnInit {
           } else {
             $("#finger-status").text("Unverified");
             $("#btn-scan").removeClass("disabled");
+          }
+
+          if (data["data"].member_type_id != 3) {
+            $(".personal-trainer").attr('disabled', 'disabled');
+          } else {
+            $(".personal-trainer").removeAttr("disabled");
           }
         }, 2000);
 
@@ -351,7 +379,7 @@ export class MemberActivationComponent implements OnInit {
       formValue["member_sign"] = _member_sign;
       formValue["staff_sign"] = _staff_sign;
       formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
-      console.log(formValue["member_sign"])
+      console.log(formValue)
       this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
         if (data["status"] == "200") {
           this.toastr.success(data["message"], "Saved", {
@@ -374,81 +402,92 @@ export class MemberActivationComponent implements OnInit {
           });
         }
       })
-    } else {
-      this.toastr.success("Successfully updated member", "Saved", {
-        progressBar: true
-      });
     }
   }
   onStep3Next(e) {
-    let formValue = this.membershipForm.value;
-    let exp_month = this.membershipForm.controls["exp_month"].value;
-    let exp_year = this.membershipForm.controls["exp_year"].value;
-    formValue["payment_id"] = this.membershipForm.controls["payment_id"].value;
-    formValue["member_type_id"] = this.membershipForm.controls[
-      "member_type_id"
-    ].value;
-    formValue["personal_trainer_id"] = this.personal_trainer_id;
-    formValue["bank_id"] = this.membershipForm.controls["bank_id"].value;
-    formValue["card_number"] = this.membershipForm.controls[
-      "card_number"
-    ].value;
-    formValue["exp_date"] = exp_year + "-" + exp_month + "-" + "01";
-    formValue["duration"] = this.membershipForm.controls["duration"].value;
-    formValue["period"] = this.membershipForm.controls["period"].value;
-    if (this.session_pt == true) {
-      formValue["session_remains"] = $("#session").val();
+    if (this.member.member_type_id !== "null") {
+      console.log('next')
     } else {
-      formValue["session_remains"] = this.membershipForm.controls[
-        "session_remains"
+      let formValue = this.membershipForm.value;
+      let exp_month = this.membershipForm.controls["exp_month"].value;
+      let exp_year = this.membershipForm.controls["exp_year"].value;
+      formValue["payment_id"] = this.membershipForm.controls["payment_id"].value;
+      formValue["member_type_id"] = this.membershipForm.controls[
+        "member_type_id"
       ].value;
-    }
-    formValue["price"] = $("#price").val();
+      formValue["personal_trainer_id"] = this.personal_trainer_id;
+      formValue["bank_id"] = this.membershipForm.controls["bank_id"].value;
+      formValue["card_number"] = this.membershipForm.controls[
+        "card_number"
+      ].value;
+      formValue["exp_month"] = exp_month;
+      formValue["exp_year"] = exp_year;
+      formValue["duration"] = this.membershipForm.controls["duration"].value;
+      formValue["period"] = this.membershipForm.controls["period"].value;
+      if (this.session_pt == true) {
+        formValue["session_remains"] = $("#session").val();
+      } else {
+        formValue["session_remains"] = this.membershipForm.controls[
+          "session_remains"
+        ].value;
+      }
+      formValue["price"] = $("#price").val();
 
-    if (this.membershipForm.controls["auto_debet"].value === "0") {
-      formValue["auto_debet"] = false;
-    } else {
-      formValue["auto_debet"] = true;
-    }
-    formValue["card_name"] = this.member.name;
+      if (this.membershipForm.controls["auto_debet"].value === "0") {
+        formValue["auto_debet"] = false;
+      } else {
+        formValue["auto_debet"] = true;
+      }
+      formValue["card_name"] = this.member.name;
 
-    if (this.membershipForm.invalid) {
-      return this.toastr.error("Please complete the data", "Not Saved!", {
-        progressBar: true
-      });
+      if (this.membershipForm.invalid) {
+        return this.toastr.error("Please complete the data", "Not Saved!", {
+          progressBar: true
+        });
+      } else {
+        this.memberService
+          .updateMember(this.activatedRoute.snapshot.params["id"], formValue)
+          .subscribe((data: any) => {
+            console.log(data);
+            if (data["status"] == "200") {
+              this.toastr.success(data["message"], "Saved", {
+                progressBar: true
+              });
+            } else {
+              this.toastr.error(data["message"], "Not Saved!", {
+                progressBar: true
+              });
+            }
+          });
+      }
+    }
+  }
+  onStep4Next(debit_sign) {
+    if (this.cc_signature) {
+      console.log("Signature exist");
     } else {
-      this.memberService
-        .updateMember(this.activatedRoute.snapshot.params["id"], formValue)
-        .subscribe((data: any) => {
-          console.log(data);
+      let field_autodebits = this.membershipForm.controls["auto_debet"].value;
+      console.log(field_autodebits)
+      let formValue = this.liabilityForm.value;
+      let _debit_sign = debit_sign.toDataURL();
+      formValue["signature"] = _debit_sign;
+      formValue["credit_card_id"] = this.credit_cards.id;
+      if (field_autodebits === 1) {
+        this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
           if (data["status"] == "200") {
             this.toastr.success(data["message"], "Saved", {
               progressBar: true
             });
           } else {
-            this.toastr.error(data["message"], "Not Saved!", {
+            this.toastr.error(data["message"], "Not Saved", {
               progressBar: true
             });
           }
         });
+      } else {
+        return false;
+      }
     }
-  }
-  onStep4Next(e) {
-    // let formValue = this.membershipForm.value;
-    // formValue["auto_debet"] = this.membershipForm.controls["auto_debet"];
-    // if (formValue["auto_debet"] === "1") {
-    //   this.memberService.createAutoDebet().subscribe((data: any) => {
-    //     if (data["status"] == "200") {
-    //       this.toastr.success(data["message"], "Saved", {
-    //         progressBar: true
-    //       });
-    //     } else {
-    //       this.toastr.error(data["message"], "Not Saved!", {
-    //         progressBar: true
-    //       });
-    //     }
-    //   });
-    // }
   }
   onComplete(e) {
     this.router.navigateByUrl(

@@ -14,6 +14,7 @@ export interface IMenuItem {
   sub?: IChildItem[]; // Dropdown items
   badges?: IBadge[];
   active?: boolean;
+  perm?: string;
 }
 export interface IChildItem {
   id?: string;
@@ -24,6 +25,7 @@ export interface IChildItem {
   icon?: string;
   sub?: IChildItem[];
   active?: boolean;
+  perm?: string;
 }
 
 interface IBadge {
@@ -40,45 +42,51 @@ interface ISidebarState {
   providedIn: "root"
 })
 export class NavigationService {
+  permission;
   public sidebarState: ISidebarState = {
     sidenavOpen: true,
     childnavOpen: false
   };
-  constructor() {}
+  constructor() { }
 
   defaultMenu: IMenuItem[] = [
     {
       name: "Customer Search",
       type: "link",
       icon: "i-Gey",
-      state: "/"
+      state: "/",
+      perm: "2",
     },
     {
       name: "Member Partner",
       type: "link",
       tooltip: "Member Partner",
       icon: "i-Business-Mens",
-      state: "/member-partner"
+      state: "/member-partner",
+      perm: "3",
     },
     {
       name: "Staff",
       type: "link",
       tooltip: "Staff",
       icon: "i-Conference",
-      state: "/staff"
+      state: "/staff",
+      perm: "4",
     },
     {
       name: "Schedules",
       type: "link",
       tooltip: "Schedules",
       icon: "i-Calendar",
-      state: "/schedule"
+      state: "/schedule",
+      perm: "5",
     },
     {
       name: "Finance",
       description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       type: "dropDown",
       icon: "i-Financial",
+      perm: "6",
       sub: [
         {
           icon: "i-File-Horizontal-Text",
@@ -98,18 +106,20 @@ export class NavigationService {
           state: "/finance/report",
           type: "link"
         }
-      ]
+      ],
     },
     {
       name: "Master",
       description: "This data master",
       type: "dropDown",
       icon: "i-Folders",
+      perm: "7",
       sub: [
         {
           name: "Users",
           type: "dropDown",
           icon: "i-Administrator",
+          perm: "8",
           sub: [
             {
               icon: "i-File-Horizontal-Text",
@@ -135,19 +145,22 @@ export class NavigationService {
           icon: "i-Library",
           name: "Branch",
           state: "/master/branch",
-          type: "link"
+          type: "link",
+          perm: "9",
         },
         {
           icon: "i-Money-2",
           name: "Pricing PT",
           state: "/master/pricing-pt",
-          type: "link"
+          type: "link",
+          perm: "10",
         },
         {
           icon: "i-Money-2",
           name: "Pricing Non PT",
           state: "/master/pricing-non-pt",
-          type: "link"
+          type: "link",
+          perm: "11",
         },
         // {
         //   icon: "i-Male",
@@ -159,55 +172,64 @@ export class NavigationService {
           icon: "i-Calendar",
           name: "Schedule",
           state: "/master/schedule",
-          type: "link"
+          type: "link",
+          perm: "12",
         },
         {
           icon: "i-Visa",
           name: "Payment Type",
           state: "/master/payment-type",
-          type: "link"
+          type: "link",
+          perm: "13",
         },
         {
           icon: "i-Visa",
           name: "Bank",
           state: "/master/bank",
-          type: "link"
+          type: "link",
+          perm: "14",
         },
         {
           icon: "i-Geek",
           name: "Member Type",
           state: "/master/member-type",
-          type: "link"
+          type: "link",
+          perm: "15",
         },
         {
           icon: "i-Wallet",
           name: "Benefit",
           state: "/master/benefit",
-          type: "link"
+          type: "link",
+          perm: "16",
         },
         {
           icon: "i-Library",
           name: "Dropin Company",
           state: "/master/dropin-company",
-          type: "link"
+          type: "link",
+          perm: "17",
         },
         {
           icon: "i-Library",
           name: "Health Questions",
           state: "/master/health-questions",
-          type: "link"
+          type: "link",
+          perm: "18",
         },
         {
           icon: "i-Library",
           name: "Positions",
           state: "/master/position",
-          type: "link"
+          type: "link",
+          perm: "19",
         },
         {
           icon: "i-Library",
           name: "Devices",
           state: "/master/device",
-          type: "link"
+          type: "link",
+          perm: "20",
         }
       ]
     }

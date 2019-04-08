@@ -154,8 +154,6 @@
 							<div class="text-left">
 								<button class="btn btn-primary py-2 px-5 mr-3" (click)="member_sign.clear()">Clear</button>
 							</div>
-							<!-- <img src="https://via.placeholder.com/250x150" alt="">
-								<input name="signature" type="hidden" formConrolName="signature"> -->
 						</div>
 						<div class="form-group col-md-6 mb-3">
 							<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
@@ -352,7 +350,7 @@
 										<td>{{ trainer.state }}</td>
 										<td>
 											<button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)"
-											 (click)="getSession(trainer.session)" class="btn btn-primary pesonal-trainer">Select</button>
+											 (click)="getSession(trainer.session)" class="btn btn-primary personal-trainer">Select</button>
 										</td>
 									</tr>
 								</tbody>
@@ -363,9 +361,10 @@
 				</form>
 			</wizard-step>
 
-			<wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep4Next($event)">
+			<wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep4Next(debit_sign)">
 				<div class="mt-0 mb-4">
-					<p>Have agreed to allow Empire Fit Club to deduct IDR from my credit card in order to pay the monthly
+					<p>I <strong>{{ member.name }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong class="show-price"></strong>
+						from my credit card in order to pay the monthly
 						subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount of
 						money will be automatically deducted unless I instructed them other wise.</p>
 					<p>Terms &amp; Condition.</p>
@@ -387,7 +386,7 @@
 									</div>
 									<div class="col-9">
 										<div class="boxvalue">
-											{{member.card_name}}
+											{{!! cc_name ? cc_name : "-"}}
 										</div>
 									</div>
 								</div>
@@ -397,7 +396,7 @@
 									</div>
 									<div class="col-9">
 										<div class="boxvalue">
-											{{member.card_number}}
+											{{!! cc_card ? cc_card : "-"}}
 										</div>
 									</div>
 								</div>
@@ -407,17 +406,8 @@
 									</div>
 									<div class="col-9">
 										<div class="boxvalue d-inline-block">
-											{{member.exp_date}}
-										</div>
-									</div>
-								</div>
-								<div class="row mb-3 d-none">
-									<div class="col-3">
-										Signature
-									</div>
-									<div class="col-9">
-										<div class="boxvalue">
-											{{!! member.signature === null ? "Verified" : "Unverified"}}
+											<label for="">{{!! cc_month ? cc_month : "-"}}</label>
+											<label for="">{{!! cc_year ? cc_year : "-"}}</label>
 										</div>
 									</div>
 								</div>
@@ -427,7 +417,7 @@
 									</div>
 									<div class="col-9">
 										<div class="boxvalue">
-											{{member.credit_card_date}}
+											{{!! cc_date ? cc_date : "-"}}
 										</div>
 									</div>
 								</div>
@@ -435,9 +425,14 @@
 						</div>
 						<div class="col-md-5">
 							<signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>
-							<input type="hidden" formControlName="debit_sign" id="debit-sign" value="">
+							<input type="hidden" id="debit-sign" value="">
 							<div class="text-left">
 								<button class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div *ngIf="cc_signature">
+								<img class="img-fluid" src="{{ cc_signature }}" alt="">
 							</div>
 						</div>
 					</div>
