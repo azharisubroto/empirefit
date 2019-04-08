@@ -304,3 +304,8 @@ body#registration {
 .big-modal.modal.show .modal-dialog {
   max-width: 1200px!important;
 }  
+
+.notavailble {
+  opacity: .5!important;
+  text-decoration: line-through
+}
