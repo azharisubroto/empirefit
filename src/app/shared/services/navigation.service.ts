@@ -230,6 +230,13 @@ export class NavigationService {
           state: "/master/device",
           type: "link",
           perm: "20",
+        },
+        {
+          icon: "i-Library",
+          name: "Edc",
+          state: "/master/edc",
+          type: "link",
+          perm: "21",
         }
       ]
     }
