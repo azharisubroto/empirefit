@@ -1,8 +1,8 @@
 <div class="">
   <div class="breadcrumb">
-    <h1>Dashboard</h1>
+    <h1>User</h1>
     <ul>
-      <li>Member</li>
+      <li>List</li>
     </ul>
   </div>
 
@@ -11,79 +11,72 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <input
-          id="email"
-          placeholder="Search By ID, Name or Phone"
-          [formControl]="searchControl"
-          class="form-control "
-          type="email"
-        />
+        <a
+          href="#"
+          [routerLink]="['user-create']"
+          class="btn btn-primary btn-rounded"
+        >
+          Create
+        </a>
       </div>
     </div>
     <div class="col-md-12">
-      <div class="card  o-hidden">
-        <ngx-datatable
-          style="height: 500px; box-shadow: none"
-          class="material fullscreen"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [rowHeight]="60"
-          [scrollbarV]="true"
-          [rows]="filteredProducts"
-        >
-          <ngx-datatable-column name="name" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              ID
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="category" [width]="50">
-            <ng-template ngx-datatable-header-template>
-              Name
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="subtitle" [width]="50">
-            <ng-template ngx-datatable-header-template>
-              Phone
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="20">
-            <ng-template ngx-datatable-header-template>
-              State
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              Action
-            </ng-template>
-            <ng-template ngx-datatable-cell-template>
-              <div ngbDropdown>
-                <button
-                  class="btn btn-outline-primary"
-                  id="dropdownBasic1"
-                  ngbDropdownToggle
-                >
-                  Toggle dropdown
-                </button>
-                <div
-                  ngbDropdownMenu
-                  class="dropdown-menu"
-                  aria-labelledby="dropdownBasic1"
-                >
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Action - 1
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Another Action
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Something else is here
-                  </button>
-                </div>
+      <div class="card o-hidden">
+        <div class="table table-responsive mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 1500px;">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Partner</th>
+                      <th>Class Date</th>
+                      <th>Class Time</th>
+                      <th>Booking Reference</th>
+                      <th>Name</th>
+                      <th>Phone Number</th>
+                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Verified By</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center partners">
+                    <tr *ngFor="let item of members">
+                      <td>{{ item.company }}</td>
+                      <td>{{ item.class_date }}</td>
+                      <td>{{ item.class_time }}</td>
+                      <td>{{ item.booking_referance }}</td>
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.phone }}</td>
+                      <td>{{ item.email }}</td>
+                      <td class="inistatus">{{ item.status === '1' ? 'Used' : 'n/a' }}</td>
+                      <td>{{ !! item.updated_by != NULL ? item.updated_by : 'n/a' }}</td>
+                      <td>
+                        <button (click)="absencoy($event)" class="btn btn-success absenbutton"
+                          [attr.data-id]="item.id" 
+                          [attr.data-name]="item.name" 
+                          [attr.data-email]="item.email" 
+                          [attr.data-phone]="item.phone" 
+                          [attr.data-reference]="item.booking_referance" 
+                          [attr.data-emaildatetime]="item.email_date_time" 
+                          [attr.data-company]="item.company" 
+                          [attr.data-class]="item.class_id" 
+                          [attr.data-classdate]="item.class_date" 
+                          [attr.data-classtime]="item.class_time" 
+                          [attr.data-branch]="item.branch" 
+                          [attr.data-status]="item.status" 
+                          [attr.data-createdby]="user.id" 
+                        ><i class="i-Clock-Forward"></i></button>
+                        <button class="btn btn-success ml-2"><i class="i-Edit"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

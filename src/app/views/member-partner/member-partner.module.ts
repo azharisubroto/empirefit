@@ -5,6 +5,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 
 import { MemberPartnerRoutingModule } from "./member-partner-routing.module";
 import { MemberPartnerComponent } from "./member-partner-list/member-partner-list.component";
+import { MemberPartnerCreateComponent } from './member-partner-create/member-partner-create.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
@@ -18,6 +19,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     NgbModule,
     MemberPartnerRoutingModule
   ],
-  declarations: [MemberPartnerComponent]
+  declarations: [MemberPartnerComponent, MemberPartnerCreateComponent]
 })
 export class MemberPartnerModule {}
