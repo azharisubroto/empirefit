@@ -1,0 +1,50 @@
+<div class="breadcrumb">
+  <h1>EDC</h1>
+  <ul>
+    <li>Create</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Create EDC</div>
+        <form [formGroup]="edcForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="branch_id">Branch</label>
+              <select class="form-control" name="branch_id" id="branch_id" formControlName="branch_id">
+                <option *ngFor="let branch of branches" value="{{branch.id}}">{{branch.branch_name}}</option>
+              </select>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="bank_id">Bank</label>
+              <select class="form-control" name="bank_id" id="bank_id" formControlName="bank_id">
+                <option *ngFor="let bank of banks" value="{{bank.id}}">{{bank.bank_name}}</option>
+              </select>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="mid">MID</label>
+              <input type="text" class="form-control " id="mid" placeholder="Enter MID " formControlName="mid" />
+              <i *ngIf="!edcForm.get('mid').valid && edcForm.get('mid').touched" class="i-Information text-danger">
+                Please enter MID Number</i>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="tid">TID</label>
+              <input type="text" class="form-control " id="tid" placeholder="Enter TID " formControlName="tid" />
+              <i *ngIf="!edcForm.get('tid').valid && edcForm.get('tid').touched" class="i-Information text-danger">
+                Please enter TID Number</i>
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

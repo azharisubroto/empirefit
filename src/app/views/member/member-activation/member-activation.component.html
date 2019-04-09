@@ -324,6 +324,15 @@
 							</select>
 						</div>
 						<div class="col-md-6 mb-3 form-group">
+							<label for="edc_id">EDC</label>
+							<select *ngFor="let edc of edcs" formControlName="edc_id" name="edc_id" class="form-control">
+								<option value="{{edc_id}}">{{edc.bank_name}}</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col-md-6 mb-3 form-group">
 							<label for="price">Price</label>
 							<input readonly class="form-control" type="text" name="price" id="price">
 							<input class="form-control" type="hidden" name="session" id="session">

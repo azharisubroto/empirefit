@@ -46,8 +46,11 @@ import { PositionListComponent } from "./position/position-list/position-list.co
 import { PositionCreateComponent } from "./position/position-create/position-create.component";
 import { PositionFormComponent } from "./position/position-form/position-form.component";
 import { DeviceFormComponent } from "./finger/device-form/device-form.component";
+import { EdcFormComponent } from "./edc/edc-form/edc-form.component";
 import { DeviceCreateComponent } from "./finger/device-create/device-create.component";
+import { EdcCreateComponent } from "./edc/edc-create/edc-create.component";
 import { DeviceListComponent } from "./finger/device-list/device-list.component";
+import { EdcListComponent } from "./edc/edc-list/edc-list.component";
 
 const routes: Routes = [
   {
@@ -241,6 +244,18 @@ const routes: Routes = [
   {
     path: "device/device-create",
     component: DeviceCreateComponent
+  },
+  {
+    path: "edc",
+    component: EdcListComponent
+  },
+  {
+    path: "edc/edc-create",
+    component: EdcCreateComponent
+  },
+  {
+    path: "edc/edc-edit/:id",
+    component: EdcFormComponent
   }
 ];
 
@@ -248,4 +263,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MasterRoutingModule {}
+export class MasterRoutingModule { }

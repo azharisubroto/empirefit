@@ -59,6 +59,9 @@ import { PositionCreateComponent } from "./position/position-create/position-cre
 import { DeviceListComponent } from "./finger/device-list/device-list.component";
 import { DeviceFormComponent } from './finger/device-form/device-form.component';
 import { DeviceCreateComponent } from './finger/device-create/device-create.component';
+import { EdcListComponent } from './edc/edc-list/edc-list.component';
+import { EdcCreateComponent } from './edc/edc-create/edc-create.component';
+import { EdcFormComponent } from './edc/edc-form/edc-form.component';
 
 @NgModule({
   imports: [
@@ -121,7 +124,10 @@ import { DeviceCreateComponent } from './finger/device-create/device-create.comp
     PositionCreateComponent,
     DeviceListComponent,
     DeviceFormComponent,
-    DeviceCreateComponent
+    DeviceCreateComponent,
+    EdcListComponent,
+    EdcCreateComponent,
+    EdcFormComponent
   ]
 })
 export class MasterModule {}

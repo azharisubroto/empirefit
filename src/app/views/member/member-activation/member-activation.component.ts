@@ -17,6 +17,8 @@ import { BankService } from "src/app/shared/services/bank.service";
 import { FingerService } from "src/app/shared/services/finger.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { PriceService } from "src/app/shared/services/price.service";
+import { EdcService } from "src/app/shared/services/edc.service";
+import { AuthService } from "src/app/shared/services/auth.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Observable, Subject } from "rxjs";
 import { interval } from "rxjs/observable/interval";
@@ -70,6 +72,7 @@ export class MemberActivationComponent implements OnInit {
   ccForm;
   credit_cards;
   autodebits;
+  edcs;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadMember = {
@@ -126,11 +129,13 @@ export class MemberActivationComponent implements OnInit {
     private paymentTypeService: PaymentTypeService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private bank: BankService,
+    private bankService: BankService,
+    private authService: AuthService,
     private fingerService: FingerService,
     private PersonalTrainer: PersonaltrainerService,
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
+    private edcService: EdcService,
     private sanitizer: DomSanitizer
   ) { }
 
@@ -162,7 +167,8 @@ export class MemberActivationComponent implements OnInit {
       auto_debet: ["1"],
       duration: [],
       session_remains: [],
-      period: []
+      period: [],
+      edc_id: []
     });
 
     this.personal_trainer_id = null;
@@ -179,11 +185,11 @@ export class MemberActivationComponent implements OnInit {
 
         // Credit card
         this.credit_cards = data["data"].credit_cards[0];
-        this.cc_name = this.credit_cards ? this.credit_cards.card_name : "-";
-        this.cc_card = this.credit_cards ? this.credit_cards.card_number : "-";
-        this.cc_month = this.credit_cards ? this.credit_cards.exp_month : "-";
-        this.cc_year = this.credit_cards ? this.credit_cards.exp_year : "-";
-        this.cc_date = this.credit_cards ? this.credit_cards.created_at : "-";
+        this.cc_name = this.credit_cards ? this.credit_cards.card_name : null;
+        this.cc_card = this.credit_cards ? this.credit_cards.card_number : null;
+        this.cc_month = this.credit_cards ? this.credit_cards.exp_month : null;
+        this.cc_year = this.credit_cards ? this.credit_cards.exp_year : null;
+        this.cc_date = this.credit_cards ? this.credit_cards.created_at : null;
 
         var date = new Date(data["data"]["expairy_date"]);
         var list = date.toUTCString().split(" ");
@@ -206,15 +212,22 @@ export class MemberActivationComponent implements OnInit {
         this.membershipForm.setValue({
           member_type_id: data["data"].member_type_id,
           payment_id: data["data"].payment_id,
-          bank_id: this.credit_cards ? this.credit_cards.bank_id : "-",
-          card_number: this.credit_cards ? this.credit_cards.card_number : "-",
+          bank_id: this.credit_cards ? this.credit_cards.bank_id : null,
+          card_number: this.credit_cards ? this.credit_cards.card_number : null,
           auto_debet: data["data"].auto_debet,
-          exp_month: this.credit_cards ? this.credit_cards.exp_month : "-",
-          exp_year: this.credit_cards ? this.credit_cards.exp_year : "-",
+          exp_month: this.credit_cards ? this.credit_cards.exp_month : null,
+          exp_year: this.credit_cards ? this.credit_cards.exp_year : null,
           duration: data["data"].duration,
           session_remains: data["data"].session_remains,
-          period: data["data"].period
+          period: data["data"].period,
+          edc_id: data["data"].edc_id[0] ? data["data"].edc_id[0].edc_id : null,
         });
+
+        this.authService.getuser().subscribe((data: any) => {
+          this.edcService.getEdcByBranch(data["data"].branch_id).subscribe((data: any) => {
+            this.edcs = data["data"];
+          });
+        })
 
         setTimeout(() => {
           if (data["data"].state == "Active") {
@@ -257,7 +270,7 @@ export class MemberActivationComponent implements OnInit {
       this.paymenttype = data["data"];
     });
 
-    this.bank.getBanks().subscribe((data: any) => {
+    this.bankService.getBanks().subscribe((data: any) => {
       this.banks = data["data"];
     });
 
@@ -476,6 +489,7 @@ export class MemberActivationComponent implements OnInit {
       console.log("Signature exist");
     } else {
       let field_autodebits = this.membershipForm.controls["auto_debet"].value;
+      let edc_id = this.membershipForm.controls["edc_id"].value;
       let formValue = this.liabilityForm.value;
       let _debit_sign = debit_sign.toDataURL();
       formValue["signature"] = _debit_sign;
