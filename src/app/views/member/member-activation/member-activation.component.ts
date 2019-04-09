@@ -490,9 +490,12 @@ export class MemberActivationComponent implements OnInit {
     } else {
       let field_autodebits = this.membershipForm.controls["auto_debet"].value;
       let edc_id = this.membershipForm.controls["edc_id"].value;
+      let _price = $("#price").val();
       let formValue = this.liabilityForm.value;
       let _debit_sign = debit_sign.toDataURL();
       formValue["signature"] = _debit_sign;
+      formValue["edc_id"] = edc_id;
+      formValue["price"] = _price;
       formValue["credit_card_id"] = $("#card_id_text").val();
       if (field_autodebits == "1") {
         this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
