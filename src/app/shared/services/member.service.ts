@@ -64,4 +64,12 @@ export class MemberService {
   getSingleMember($id) {
     return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
   }
+
+  memberLeave(member_id, data) {
+    return this.http.put(this.apiURL + "/member_leave/" + member_id, data, this.httpOptions);
+  }
+
+  reactiveLeave(member_id) {
+    return this.http.post(this.apiURL + "/member_leave/" + member_id, this.httpOptions);
+  }
 }
