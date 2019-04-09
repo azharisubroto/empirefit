@@ -84,29 +84,11 @@ export class NavigationService {
     {
       name: "Finance",
       description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
-      type: "dropDown",
+      type: "link",
+      tooltip: "Finance",
       icon: "i-Financial",
+      state: "/finance",
       perm: "6",
-      sub: [
-        {
-          icon: "i-File-Horizontal-Text",
-          name: "Member List",
-          state: "/finance/member-list",
-          type: "link"
-        },
-        {
-          icon: "i-Management",
-          name: "Transactions",
-          state: "/finance/transaction-list",
-          type: "link"
-        },
-        {
-          icon: "i-File-Clipboard-File--Text",
-          name: "Report",
-          state: "/finance/report",
-          type: "link"
-        }
-      ],
     },
     {
       name: "Master",

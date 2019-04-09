@@ -440,10 +440,9 @@ export class MemberActivationComponent implements OnInit {
       if (this.session_pt == true) {
         formValue["session_remains"] = $("#session").val();
       } else {
-        formValue["session_remains"] = this.membershipForm.controls[
-          "session_remains"
-        ].value;
+        formValue["session_remains"] = "0"
       }
+
       formValue["price"] = $("#price").val();
 
       if (this.membershipForm.controls["auto_debet"].value === "0") {

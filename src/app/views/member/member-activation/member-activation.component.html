@@ -258,22 +258,11 @@
 							<label for="member_type_id">Type</label>
 							<select id="member_type" (change)="getPriceNonPt()" required name="member_type_id" formControlName="member_type_id"
 							 class="form-control">
-								<option *ngFor="let title of type" value="title.id" [value]="title.id">
+								<option *ngFor="let title of type" [value]="title.id">
 									{{title.member_type_name}}
 								</option>
 							</select>
-							<input type="hidden" name="period" formControlName="period" value="title.period">
-							<input type="hidden" name="duration" formControlName="duration" value="title.duration">
-							<input type="hidden" name="session_remains" formControlName="session_remains" value="title.session">
 						</div>
-						<!-- <div class="form-group col-md-6 mb-3">
-								<label for="card">Package</label>
-								<select name="package" class="form-control">
-									<option *ngFor="let title of package" [value]="title.id">
-										{{title.package_name}}
-									</option>
-								</select>
-							</div> -->
 					</div>
 
 					<div class="row">

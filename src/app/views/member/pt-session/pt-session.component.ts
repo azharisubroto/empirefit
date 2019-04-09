@@ -55,7 +55,7 @@ export class PtSessionComponent implements OnInit {
   memberid: any;
   pt_id;
   trainer_name;
-  trainhistory;
+  trainhistory: any = [];
 
   constructor(
     private fb: FormBuilder,
@@ -192,6 +192,7 @@ export class PtSessionComponent implements OnInit {
       if (pass != null && pass["status"] == 200) {
         var trainer_name = $('#pts option:selected').text();
         $('.thistrainer').text(trainer_name);
+        $("#trainer-id").val(mod.pt_id);
         var trainerID = mod.userForm.controls['trainer_id'].value;
         //console.log(mod.userForm.controls['trainer_id'].value);
         mod.pt_id = trainerID;
@@ -203,24 +204,52 @@ export class PtSessionComponent implements OnInit {
           user_id: this.user.id
         });
 
-        // Send checkin
-        this.attendanceService.trainerCheckin(
-          mod.trainerform.value
-        ).subscribe((data: any) => {
-          var res = data['status'];
-          console.log(res);
-          if (res == '200') {
-            $(".modal-header .close").trigger("click");
-            //location.reload();
-          }
-        });
+        this.memberService.getSingleMember(this.member.id).subscribe((data: any) => {
+          console.log(data["data"]);
+          $("#member-name").text(data["data"].name);
+          $("#member-id").val(data["data"].id);
+        })
 
-
+        $(".modal-header .close").trigger("click");
       } else {
         alert("Your password is incorrect");
         this.loading = false;
       }
     });
+  }
+
+  send() {
+    this.loading = true;
+    let member_id = $("#member-id").val(),
+      pt_id = $("#trainer-id").val();
+
+    let formValue = this.trainerform.value;
+    formValue['member_id'] = member_id;
+    formValue['personal_trainer_id'] = pt_id;
+    formValue['state'] = "1";
+    formValue['automatic'] = 0;
+    formValue['user_id'] = this.user.id;
+
+    if (member_id == "0" || pt_id == "0") {
+      this.loading = false;
+      this.toastr.error("Member ID and PT ID Can't empty", "Not Success!", {
+        progressBar: true
+      });
+    } else {
+      this.attendanceService.trainerCheckin(formValue).subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.loading = false;
+          this.toastr.success(data["message"], "Success!", {
+            progressBar: true
+          });
+          setTimeout(() => {
+            location.reload();
+          }, 2000)
+        }
+      })
+    }
+
+
   }
 
   classCheck() {

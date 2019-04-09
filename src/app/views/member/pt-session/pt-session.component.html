@@ -111,7 +111,8 @@
             <div class="px-4 py-3 border border-light rounded align-items-center bg-gray">
               <span class="text-muted mb-0">(MEMBER ID) Name</span>
               <div class="text-plain text-primary mt-1 text-capitalize">
-                <span class="text-mute">n/a</span>
+                <span class="text-mute" id="member-name">n/a</span>
+                <input type="hidden" id="member-id" value="0">
               </div>
             </div>
           </div>
@@ -125,7 +126,8 @@
             <div class="px-4 py-3 border border-light rounded align-items-center bg-gray">
               <span class="text-muted mb-0">(PT ID) Name</span>
               <div class="text-plain text-primary mt-1 text-capitalize">
-                <span class="text-muted thistrainer">n/a</span>
+                <span class="text-muted thistrainer" id="trainer-name">n/a</span>
+                <input type="hidden" id="trainer-id" value="0">
               </div>
             </div>
           </div>
@@ -139,7 +141,9 @@
             <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">MANUAL SCAN</button>
           </div>
           <div class="col-md-8 mt-4">
-            <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">PROCEED</button>
+            <!-- <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">PROCEED</button>
+             -->
+            <btn-loading btnClass="btn btn-primary py-3 btn-block" (click)="send()" [loading]="loading">PROCEED</btn-loading>
           </div>
         </div>
       </div>
@@ -211,7 +215,7 @@
         <label class="text-muted mb-0">Your Password</label>
         <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
         <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
-        <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">Proceed</btn-loading>
+        <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">SUBMIT</btn-loading>
       </div>
     </form>
   </div>
