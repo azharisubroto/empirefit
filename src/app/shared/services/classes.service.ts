@@ -49,7 +49,7 @@ export class ClassesService {
 
   classesByDay(date){
     return this.http.get(
-      this.apiURL + "/schedules/day" + date,
+      this.apiURL + "/schedules/day/" + date,
       this.httpOptions
     );
   }

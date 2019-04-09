@@ -23,6 +23,10 @@ export class MemberPartnerService {
     return this.http.get(this.apiURL + "/member_partners/", this.httpOptions);
   }
 
+  getDropinCompanies() {
+    return this.http.get(this.apiURL + "/dropin_companies", this.httpOptions);
+  }
+
   createMemberPartner(data) {
     return this.http.post(
       this.apiURL + "/member_partners/",
