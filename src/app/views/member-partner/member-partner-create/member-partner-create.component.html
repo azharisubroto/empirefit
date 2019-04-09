@@ -19,18 +19,14 @@
 
                 <div class="mb-3">
                   <label for="company">Partner Name</label>
-                  <input type="text" formControlName="name" class="form-control" id="company">
+                  <select formControlName="company" class="form-control">
+                    <option *ngFor="let item of partners" value="{{item.id}}">{{item.partner_name}}</option>
+                  </select>
                 </div>
                 <div class="mb-3">
                   <label for="emaildate">Email date &amp; time</label>
                   <div class="input-group">
-                      <input id="picker1" class="form-control" placeholder="yyyy-mm-dd" formControlName="email_date_time"
-                          ngbDatepicker #dp="ngbDatepicker">
-                      <div class="input-group-append">
-                          <button class="btn btn-secondary" style="height:41px;" (click)="dp.toggle()" type="button">
-                              <i class="icon-regular i-Calendar-4"></i>
-                          </button>
-                      </div>
+                      <input class="form-control" placeholder="yyyy-mm-dd" formControlName="email_date_time"/>
                   </div>
                 </div>
                 <div class="mb-3">
@@ -43,7 +39,7 @@
                 <div class="fancy-head"><span>Biodata</span></div>
 
                 <div class="mb-3">
-                  <label for="name">Partner Name</label>
+                  <label for="name">Name</label>
                   <input type="text" formControlName="name" class="form-control" id="name">
                 </div>
                 <div class="mb-3">
@@ -62,8 +58,9 @@
                   <div class="mb-3">
                     <label for="emaildate">Date</label>
                       <div class="input-group">
-                          <input id="picker1" class="form-control" placeholder="yyyy-mm-dd"
+                          <input class="form-control" placeholder="yyyy-mm-dd"
                               ngbDatepicker #cp="ngbDatepicker" (dateSelect)="changeDate($event)">
+                          <input type="hidden" class="actualdate" formControlName="class_date">
                           <div class="input-group-append">
                               <button class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
                                   <i class="icon-regular i-Calendar-4"></i>
@@ -71,16 +68,30 @@
                           </div>
                       </div>
 
-                      <div class="classes-list mt-4">
-                        <input type="radio" value="1"> Class 1
-                      </div>
+                      <div class="classes-list mt-4"></div>
+                      <input type="hidden" formControlName="class">
                   </div>
               </div>
+
+              <div class="col-md-6 mb-3">
+                <div class="fancy-head"><span>Attendance</span></div>
+                <div class="mb-3">
+                  <label for="email">Status</label>
+                  <div class="clearfix"></div>
+                  <span class="text-danger">n/a</span>
+                </div>
+                <div class="mb-3">
+                  <label for="email">Verified by</label>
+                  <div class="clearfix"></div>
+                  <span class="text-danger">n/a</span>
+                </div>
+              </div>
   
-              <div class="col-md-12">
-                <button
-                  class="btn-primary btn-rounded"
-                  >Save</button>
+              <div class="col-md-12 text-right">
+                  <input type="hidden" formControlName="created_by" value="{{userid}}">
+                  <input type="hidden" formControlName="status" value="0">
+                  <input type="hidden" formControlName="branch" value="1">
+                  <button class="btn-primary btn-rounded btn-lg" id="saving">Save</button>
               </div>
             </div>
           </form>
