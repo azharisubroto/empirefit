@@ -14,7 +14,9 @@ import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
+import { interval } from "rxjs/observable/interval";
 import { ClassesService } from "src/app/shared/services/classes.service";
+import { FingerService } from "src/app/shared/services/finger.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 
 import * as $ from "jquery";
@@ -44,6 +46,8 @@ export class PtSessionComponent implements OnInit {
   public todayDate: any;
   finger;
   finspot;
+  finger_staff;
+  finspot_staff;
   present;
   id_card_number;
   classes;
@@ -66,6 +70,8 @@ export class PtSessionComponent implements OnInit {
     private UserService: UserService,
     private attendanceService: AttendanceService,
     private scheduleService: ScheduleService,
+    private personaltrainerService: PersonaltrainerService,
+    private fingerService: FingerService,
     private ClassesService: ClassesService,
     private sanitizer: DomSanitizer,
     private chRef: ChangeDetectorRef,
@@ -142,6 +148,17 @@ export class PtSessionComponent implements OnInit {
         //console.log( this.member );
         this.todayDate = this.getTanggal();
         //console.log(this.member['id']);
+
+        // Auto Scan
+        this.finspot = data["urlptattendance"];
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+
+        this.personaltrainerService.personalTrainerMember(this.member.id).subscribe((data: any) => {
+          // Auto Scan
+          this.finspot_staff = data["data"].staff_finger_code;
+          console.log(data["data"])
+          this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
+        })
 
       });
 
@@ -248,8 +265,46 @@ export class PtSessionComponent implements OnInit {
         }
       })
     }
+  }
 
+  // Check Auto Atendance
+  checkAttendancePt() {
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkPtAttendance(this.activatedRoute.snapshot.params["id"])
+          .subscribe((data: any) => {
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              $("#member-name").val(data["data"].name);
+              $("#member-id").val(data["data"].id);
+            } else {
+              this.toastr.error(data["message"], "Error", {
+                progressBar: true
+              });
+            }
+          });
+      });
+  }
 
+  // Check Auto Atendance
+  checkAttendancePt2() {
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkPtAttendance2(this.member.personal_trainer_id)
+          .subscribe((data: any) => {
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              $("#trainer-name").val(data["data"].name);
+              $("#trainer-id").val(data["data"].id);
+            } else {
+              this.toastr.error(data["message"], "Error", {
+                progressBar: true
+              });
+            }
+          });
+      });
   }
 
   classCheck() {
