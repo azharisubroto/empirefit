@@ -55,7 +55,7 @@ export class PtSessionComponent implements OnInit {
   memberid: any;
   pt_id;
   trainer_name;
-  trainhistory: any = [];
+  trainhistory;
 
   constructor(
     private fb: FormBuilder,
@@ -70,7 +70,7 @@ export class PtSessionComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private chRef: ChangeDetectorRef,
     private personalTrainerService: PersonaltrainerService
-  ) {}
+  ) { }
 
   ngOnInit() {
     var mod = this;
@@ -158,7 +158,7 @@ export class PtSessionComponent implements OnInit {
     });
 
     //PT Session History
-    this.attendanceService.trainerHistory(this.activatedRoute.snapshot.params["id"]).subscribe((data:any)=>{
+    this.attendanceService.trainerHistory(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
       this.trainhistory = data['data']['log'];
       console.log(this.trainhistory);
       setTimeout(() => {
@@ -182,7 +182,7 @@ export class PtSessionComponent implements OnInit {
   // input password for pt
   ptsessioncheck() {
     var mod = this;
-    
+
     this.UserService.userCheckPassword(
       this.user.staff_id,
       this.userForm.value
@@ -191,7 +191,7 @@ export class PtSessionComponent implements OnInit {
       //console.log(pass);
       if (pass != null && pass["status"] == 200) {
         var trainer_name = $('#pts option:selected').text();
-        $('.thistrainer').text( trainer_name );
+        $('.thistrainer').text(trainer_name);
         var trainerID = mod.userForm.controls['trainer_id'].value;
         //console.log(mod.userForm.controls['trainer_id'].value);
         mod.pt_id = trainerID;
@@ -202,20 +202,20 @@ export class PtSessionComponent implements OnInit {
           automatic: "0",
           user_id: this.user.id
         });
-    
+
         // Send checkin
         this.attendanceService.trainerCheckin(
           mod.trainerform.value
         ).subscribe((data: any) => {
           var res = data['status'];
           console.log(res);
-          if( res == '200'  ) {
+          if (res == '200') {
             $(".modal-header .close").trigger("click");
             //location.reload();
           }
         });
 
-        
+
       } else {
         alert("Your password is incorrect");
         this.loading = false;
@@ -297,7 +297,7 @@ export class PtSessionComponent implements OnInit {
   }
 
   hasmatch(array, key, value) {
-    var matches = array.filter(function(element) {
+    var matches = array.filter(function (element) {
       return element[key] === value;
     });
 
@@ -311,7 +311,7 @@ export class PtSessionComponent implements OnInit {
     formValue["user_id"] = mod.user.id;
 
     //console.log(formValue);
-    $(".delete_class").on("click", function(e) {
+    $(".delete_class").on("click", function (e) {
       e.preventDefault();
       var btn = $(this);
       var id = $(this).data("logid");

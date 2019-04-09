@@ -15,7 +15,7 @@
         <div class="row">
           <div class="col-md-3">
             <div class="avatar">
-                <img src="{{ !!member.photo ? member.photo : '/assets/images/user.png'}}" class="img-fluid rounded-circle"
+              <img src="{{ !!member.photo ? member.photo : '/assets/images/user.png'}}" class="img-fluid rounded-circle"
                 alt="" />
             </div>
           </div>
@@ -63,17 +63,13 @@
             <div class="fancy-head"><span>Membership</span></div>
           </div>
           <div class="col-md-6 mb-3">
-            <div
-              class="px-4 py-3 border border-light rounded align-items-center mb-4"
-            >
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Type</span>
               <div class="text-plain text-primary mt-1 text-capitalize">
                 {{ !!member.member_type_name ? member.member_type_name : "-" }}
               </div>
             </div>
-            <div
-              class="px-4 py-3 border border-light rounded align-items-center"
-            >
+            <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Expiry Date</span>
               <div class="text-medium text-primary mt-1">
                 {{ expirydate }}
@@ -109,7 +105,7 @@
             <div class="fancy-head"><span>PT End Session Recording</span></div>
           </div>
         </div>
-        
+
         <div class="row align-items-center mb-4">
           <div class="col-md-4">
             <div class="px-4 py-3 border border-light rounded align-items-center bg-gray">
@@ -121,9 +117,6 @@
           </div>
           <div class="col-md-4">
             <a href="#" class="btn btn-primary btn-block py-3">AUTO SCAN</a>
-          </div>
-          <div class="col-md-4">
-            <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">MANUAL SCAN</button>
           </div>
         </div>
 
@@ -139,8 +132,14 @@
           <div class="col-md-4">
             <a href="#" class="btn btn-primary btn-block py-3">AUTO SCAN</a>
           </div>
-          <div class="col-md-4">
-              <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">MANUAL SCAN</button>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8">
+            <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">MANUAL SCAN</button>
+          </div>
+          <div class="col-md-8 mt-4">
+            <button class="btn btn-primary btn-block py-3" (click)="open(manualAttendance)">PROCEED</button>
           </div>
         </div>
       </div>
@@ -187,7 +186,7 @@
     </button>
   </div>
   <div class="modal-body">
-      <form [formGroup]="userForm" (ngSubmit)="ptsessioncheck()">
+    <form [formGroup]="userForm" (ngSubmit)="ptsessioncheck()">
       <div class="form-group">
         <div class="px-4 py-3 border border-light rounded bg-gray mb-3">
           <span class="text-muted mb-0">(MEMBER ID) Name</span>
@@ -209,19 +208,10 @@
         </div>
       </div>
       <div class="form-group">
-          <label class="text-muted mb-0">Your Password</label>
-          <input
-            type="password"
-            name="password"
-            formControlName="password"
-            placeholder="..."
-            class="form-control mb-3"
-          />
-          <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
-          <btn-loading
-            btnClass="btn btn-outline-dark btn-rounded btn-block"
-            [loading]="loading"
-            >Proceed</btn-loading>
+        <label class="text-muted mb-0">Your Password</label>
+        <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
+        <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
+        <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">Proceed</btn-loading>
       </div>
     </form>
   </div>

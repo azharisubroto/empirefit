@@ -156,6 +156,7 @@ export class MemberAttendanceComponent implements OnInit {
           $("#btn-classhis").addClass("disabled");
           $("#btn-ptsession").addClass("disabled");
           $("#btn-membership-history").addClass("disabled");
+          $("#btn-payment-update").addClass('disabled');
         }
 
         // 10 Pass Membership
@@ -190,8 +191,10 @@ export class MemberAttendanceComponent implements OnInit {
             } else {
               $("#btn-membership-leave").addClass("disabled");
             }
+            // $("#btn-ptsession").addClass("disabled");
           } else {
             $("#btn-membership-leave").addClass("disabled");
+            $("#btn-ptsession").addClass("disabled");
           }
         }, 1000)
 
@@ -206,6 +209,7 @@ export class MemberAttendanceComponent implements OnInit {
             $("#btn-autoreg").addClass("disabled");
 
             $("#btn-ptsession").addClass("disabled");
+            $("#btn-payment-update").addClass('disabled');
           }
         }, 1000)
 
