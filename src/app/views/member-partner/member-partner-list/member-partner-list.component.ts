@@ -37,7 +37,7 @@ export class MemberPartnerComponent implements OnInit {
     private UserService: UserService,
     private chRef: ChangeDetectorRef,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     var mod = this;
@@ -60,47 +60,47 @@ export class MemberPartnerComponent implements OnInit {
 
       this.chRef.detectChanges();
       $("#mytable").DataTable({
-        "initComplete": function() {
-          $('.partners').find('tr').each(function(){
+        "initComplete": function () {
+          $('.partners').find('tr').each(function () {
             var ini = $(this),
-            absenbutton = ini.find('.absenbutton'),
-            classtime = absenbutton.data('classtime'),
-            classdate = absenbutton.data('classdate'),
-            datenow = mod.getTanggal(),
-            datenow2 = datenow.replace(/\//g, '-'),
-            classtime2 = classtime.replace(/\:/g, ''),
+              absenbutton = ini.find('.absenbutton'),
+              classtime = absenbutton.data('classtime'),
+              classdate = absenbutton.data('classdate'),
+              datenow = mod.getTanggal(),
+              datenow2 = datenow.replace(/\//g, '-'),
+              classtime2 = classtime.replace(/\:/g, ''),
 
-            sekarang = new Date(datenow2),
-            jadwal = new Date(classdate),
+              sekarang = new Date(datenow2),
+              jadwal = new Date(classdate),
 
-            status = absenbutton.data('status');
-            console.log('sekarang: '+sekarang);
-            console.log('class Date: '+jadwal);
-            if( status == '1' ) {
+              status = absenbutton.data('status');
+            console.log('sekarang: ' + sekarang);
+            console.log('class Date: ' + jadwal);
+            if (status == '1') {
               mod.status = 'Used';
               absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
               ini.addClass('bg-warning').css('color', '#fff');
-            } 
+            }
             // Belom dipake
-            else if( status = '0' ) {
+            else if (status = '0') {
               // kalo tanggal jadwal lebih dari sekarang
-              if( jadwal > sekarang ) {
+              if (jadwal > sekarang) {
                 ini.find('.inistatus').html('Available');
-              } 
+              }
               else {
-                if( classtime2 > mod.getClock() ) {
+                if (classtime2 > mod.getClock()) {
                   ini.find('.inistatus').html('Active');
-                } else if( classtime2 < mod.getClock() ){
+                } else if (classtime2 < mod.getClock()) {
                   ini.addClass('bg-danger').css('color', '#fff');
                   ini.find('.inistatus').html('Expired');
                   absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
                 }
               }
-            } 
+            }
           });
         }
       });
-      
+
       console.log(this.members);
     });
 
@@ -123,8 +123,8 @@ export class MemberPartnerComponent implements OnInit {
       updated_by: this.user.id
     };
 
-    if( _this.data('status') != 1 ) {
-      this.MemberPartnerService.memberPartnerCheckIn( _this.data('id'), data ).subscribe((data: any)=> {
+    if (_this.data('status') != 1) {
+      this.MemberPartnerService.memberPartnerCheckIn(_this.data('id'), data).subscribe((data: any) => {
         var response = data;
         if (data["status"] === "200") {
           this.toastr.success(data["message"], "Success", {
@@ -183,7 +183,7 @@ export class MemberPartnerComponent implements OnInit {
       return;
     }
 
-    const rows = this.members.filter(function(d) {
+    const rows = this.members.filter(function (d) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
         // console.log(d[column]);

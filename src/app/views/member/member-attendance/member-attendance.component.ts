@@ -57,6 +57,9 @@ export class MemberAttendanceComponent implements OnInit {
   first_time;
   schedule;
   personaltrainername;
+  recuring_date;
+  payment_unpaid;
+  status;
 
   constructor(
     private fb: FormBuilder,
@@ -115,6 +118,31 @@ export class MemberAttendanceComponent implements OnInit {
 
         $("#code-first_time").text((data["data"].first_time[0].classtime) ? data["data"].first_time[0].classtime : "n/a");
         // console.log(data["data"].first_time[0].classtime)
+
+        this.member = data["data"];
+        var member = this.member;
+        var date = new Date(data["data"]["expairy_date"]);
+        var list = date.toUTCString().split(" ");
+        //results.push(list[1]+" "+list[2]);
+        this.expirydate = this.member.expairy_date;
+        //console.log( this.member );
+        this.todayDate = this.getTanggal();
+        this.status = data["data"].state;
+        //console.log(this.member['id']);
+
+        this.id_card_number = data["data"].id_card_number;
+        this.recuring_date = data["data"].auto_debits[0] ? data["data"].auto_debits[0].date : "-";
+        this.payment_unpaid = data["data"].auto_debits[0] ? data["data"].auto_debits[0].unpaid : "0";
+
+        let today = this.todayDate.replace(/\//g, '-'),
+          sekarang = new Date(today);
+
+        if (date < sekarang) {
+          this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
+            this.status = data["status_member"];
+          });
+        }
+
         if (data["data"].member_type_id == null) {
           $("#btn-manualreg").attr("disabled", "disabled");
           $("#btn-manualattendance").attr("disabled", "disabled");
@@ -128,7 +156,6 @@ export class MemberAttendanceComponent implements OnInit {
           $("#btn-classhis").addClass("disabled");
           $("#btn-ptsession").addClass("disabled");
           $("#btn-membership-history").addClass("disabled");
-          $("#btn-membership-leave").addClass("disabled");
         }
 
         // 10 Pass Membership
@@ -145,7 +172,6 @@ export class MemberAttendanceComponent implements OnInit {
 
             $("#btn-classhis").addClass("disabled");
             $("#btn-ptsession").addClass("disabled");
-            $("#btn-membership-leave").addClass("disabled");
           }
         }
 
@@ -157,17 +183,31 @@ export class MemberAttendanceComponent implements OnInit {
           }
         }
 
-        this.member = data["data"];
-        var member = this.member;
-        var date = new Date(data["data"]["expairy_date"]);
-        var list = date.toUTCString().split(" ");
-        //results.push(list[1]+" "+list[2]);
-        this.expirydate = list[1] + " " + list[2] + " " + list[3];
-        //console.log( this.member );
-        this.todayDate = this.getTanggal();
-        //console.log(this.member['id']);
+        setTimeout(() => {
+          if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {
+            if (data["data"].auto_debet == 1) {
+              $("#btn-membership-leave").removeClass("disabled");
+            } else {
+              $("#btn-membership-leave").addClass("disabled");
+            }
+          } else {
+            $("#btn-membership-leave").addClass("disabled");
+          }
+        }, 1000)
 
-        this.id_card_number = data["data"].id_card_number;
+        setTimeout(() => {
+          if (this.status === "Expired") {
+            $("#btn-manualreg").attr("disabled", "disabled");
+            $("#btn-manualattendance").attr("disabled", "disabled");
+
+            $("#btn-attendance").addClass("disabled");
+
+            $("#btn-attendance").addClass("disabled");
+            $("#btn-autoreg").addClass("disabled");
+
+            $("#btn-ptsession").addClass("disabled");
+          }
+        }, 1000)
 
         // Auto Attendance
         this.finspot = data["urlattendance"];

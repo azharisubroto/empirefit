@@ -54,6 +54,13 @@ export class MemberService {
     );
   }
 
+  updateStatus(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/update_status/" + member_id, data,
+      this.httpOptions
+    );
+  }
+
   getSingleMember($id) {
     return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
   }

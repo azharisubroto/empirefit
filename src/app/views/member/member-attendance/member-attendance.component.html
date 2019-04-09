@@ -69,7 +69,7 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Expiry Date</span>
               <div class="text-medium text-primary mt-1">
-                {{ expirydate }}
+                {{ !! member.expairy_date ? member.expairy_date : "-" }}
               </div>
             </div>
           </div>
@@ -140,7 +140,7 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Recurring Date</span>
               <div class="text-medium text-primary mt-1">
-                {{ !!member.recuring_date ? member.recuring_date : "-" }}
+                {{ recuring_date }}
               </div>
             </div>
           </div>
@@ -148,7 +148,7 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Payment Unpaid</span>
               <div class="text-medium text-primary mt-1">
-                Rp {{ member.payment_unpaid }}
+                Rp {{ payment_unpaid }}
               </div>
             </div>
           </div>
@@ -197,14 +197,14 @@
               </div>
             </div>
           </div>
-          <!-- <div class="col-md-6 mb-4 mb-md-0">
+          <div class="col-md-6 mb-4 mb-md-0">
             <div class="px-4 py-3 border border-light rounded align-items-center">
-              <span class="text-muted mb-0">Finger Print Status</span>
+              <span class="text-muted mb-0">Member Status</span>
               <div class="text-medium text-primary mt-1">
-                {{ member.state }}
+                {{ status ? status : "Unverified" }}
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
 
         <div class="row mt-4">
@@ -354,7 +354,8 @@
 
 <ng-template #attendancehistory let-modal let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title"><strong><span class="text-capitalize">{{ member.name }}'s</span></strong> Class History</h4>
+    <h4 class="modal-title"><strong><span class="text-capitalize">{{ member.name }}'s</span></strong> Attendance
+      History</h4>
     <button type="button" class="close" aria-label="Close" (click)="c('close')">
       <span aria-hidden="true">&times;</span>
     </button>
