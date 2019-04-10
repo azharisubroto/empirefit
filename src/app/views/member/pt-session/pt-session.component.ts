@@ -59,7 +59,9 @@ export class PtSessionComponent implements OnInit {
   memberid: any;
   pt_id;
   trainer_name;
+  personal_trainer_member;
   trainhistory: any = [];
+  datahistory = [];
 
   constructor(
     private fb: FormBuilder,
@@ -140,12 +142,12 @@ export class PtSessionComponent implements OnInit {
         }
 
         this.member = data["data"];
-        var member = this.member;
+        this.personal_trainer_member = data["data"].personal_trainer[0] ? data["data"].personal_trainer[0] : "-";
         var date = new Date(data["data"]["expairy_date"]);
         var list = date.toUTCString().split(" ");
         //results.push(list[1]+" "+list[2]);
         this.expirydate = list[1] + " " + list[2] + " " + list[3];
-        //console.log( this.member );
+        console.log(this.member)
         this.todayDate = this.getTanggal();
         //console.log(this.member['id']);
 
@@ -156,7 +158,6 @@ export class PtSessionComponent implements OnInit {
         this.personaltrainerService.personalTrainerMember(this.member.id).subscribe((data: any) => {
           // Auto Scan
           this.finspot_staff = data["data"].staff_finger_code;
-          console.log(data["data"])
           this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
         })
 
@@ -177,7 +178,8 @@ export class PtSessionComponent implements OnInit {
     //PT Session History
     this.attendanceService.trainerHistory(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
       this.trainhistory = data['data']['log'];
-      console.log(this.trainhistory);
+      this.datahistory.push(this.trainhistory);
+      console.log(this.datahistory)
       setTimeout(() => {
         $("#mytable").DataTable();
       }, 500);
@@ -222,7 +224,6 @@ export class PtSessionComponent implements OnInit {
         });
 
         this.memberService.getSingleMember(this.member.id).subscribe((data: any) => {
-          console.log(data["data"]);
           $("#member-name").text(data["data"].name);
           $("#member-id").val(data["data"].id);
         })
@@ -295,7 +296,6 @@ export class PtSessionComponent implements OnInit {
 
   // Check Auto Atendance
   checkAttendancePt2() {
-    console.log(this.member.personal_trainer[0].personal_trainer_id)
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
@@ -307,7 +307,6 @@ export class PtSessionComponent implements OnInit {
                 progressBar: true
               });
               setTimeout(() => {
-                console.log(data)
                 $("#trainer-name").text(data["data"][0].name);
                 $("#trainer-id").val(data["data"][0].id);
               }, 1000);

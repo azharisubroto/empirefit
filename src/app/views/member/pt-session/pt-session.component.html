@@ -72,7 +72,7 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Expiry Date</span>
               <div class="text-medium text-primary mt-1">
-                {{ expirydate }}
+                {{ !! member.expairy_date ? member.expairy_date : "-"}}
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Personal Trainer Name</span>
               <div class="text-medium text-primary mt-1">
-                Dimas
+                {{!! personal_trainer_member ? personal_trainer_member.personal_trainer_name : "-"}}
               </div>
             </div>
           </div>
@@ -168,12 +168,12 @@
             </tr>
           </thead>
           <tbody class="historytoput">
-            <tr *ngFor="let item of trainhistory; let i = index">
-              <th scope="row">{{ item.end_date }}</th>
-              <td>{{ item.end_time }}</td>
-              <td>{{ item.pt_name }}</td>
-              <td>{{ !! item.automatic == 0 ? 'No' : 'Manual' }}</td>
-              <td>{{ item.autorized_by }}</td>
+            <tr *ngFor="let data of datahistory[0]">
+              <th scope="row">{{ data.end_date }}</th>
+              <td>{{ data.end_time }}</td>
+              <td>{{ data.pt_name }}</td>
+              <td>{{ !! data.automatic == 0 ? 'No' : 'Manual' }}</td>
+              <td>{{ data.autorized_by }}</td>
             </tr>
           </tbody>
         </table>
