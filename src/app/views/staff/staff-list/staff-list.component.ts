@@ -1,9 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
-import { ProductService } from "src/app/shared/services/product.service";
 import { FormControl } from "@angular/forms";
-import { debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import * as $ from "jquery";
