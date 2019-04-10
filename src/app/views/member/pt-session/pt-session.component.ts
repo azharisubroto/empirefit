@@ -307,9 +307,10 @@ export class PtSessionComponent implements OnInit {
                 progressBar: true
               });
               setTimeout(() => {
+                console.log(data)
                 $("#trainer-name").text(data["data"].name);
                 $("#trainer-id").val(data["data"].id);
-              }, 500);
+              }, 1000);
             } else {
               subscribe.unsubscribe();
               this.toastr.error(data["message"], "Error", {
