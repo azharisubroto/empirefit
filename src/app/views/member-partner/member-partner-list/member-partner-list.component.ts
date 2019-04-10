@@ -74,8 +74,8 @@ export class MemberPartnerComponent implements OnInit {
             jadwal = new Date(classdate),
 
             status = absenbutton.data('status');
-            console.log('sekarang: '+sekarang);
-            console.log('class Date: '+jadwal);
+            //console.log('sekarang: '+sekarang);
+            //console.log('class Date: '+jadwal);
             if( status == '1' ) {
               mod.status = 'Used';
               absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
@@ -101,7 +101,7 @@ export class MemberPartnerComponent implements OnInit {
         }
       });
       
-      console.log(this.members);
+      //console.log(this.members);
     });
 
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
@@ -110,7 +110,7 @@ export class MemberPartnerComponent implements OnInit {
 
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
-      console.log(this.user);
+      //console.log(this.user);
     });
   }
 
@@ -130,7 +130,7 @@ export class MemberPartnerComponent implements OnInit {
           this.toastr.success(data["message"], "Success", {
             progressBar: false
           });
-          console.log(data['message']);
+          //console.log(data['message']);
         } else {
           this.toastr.error(data["message"], "Error", {
             progressBar: false

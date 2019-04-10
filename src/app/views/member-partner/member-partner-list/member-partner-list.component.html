@@ -68,7 +68,9 @@
                           [attr.data-status]="item.status" 
                           [attr.data-createdby]="user.id" 
                         ><i class="i-Clock-Forward"></i></button>
-                        <button class="btn btn-success ml-2"><i class="i-Edit"></i></button>
+                        <a href="#" [routerLink]="['member-partner-edit/', item.id]" class="btn btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave">
+                          <i class="i-Pen-5"></i>
+                        </a>
                       </td>
                     </tr>
                   </tbody>

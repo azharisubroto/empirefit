@@ -35,6 +35,18 @@ export class MemberPartnerService {
     );
   }
 
+  getSingleMemberPartner(id) {
+    return this.http.get(this.apiURL + "/member_partners/"+id, this.httpOptions);
+  }
+
+  updateMemberPartner(id, data) {
+    return this.http.put(
+      this.apiURL + "/member_partners/"+id,
+      data,
+      this.httpOptions
+    );
+  }
+
   memberPartnerCheckIn(id, data) {
     return this.http.put(
       this.apiURL + "/member_partners/used/"+id,
