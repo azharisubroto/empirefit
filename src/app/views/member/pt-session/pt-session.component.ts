@@ -289,10 +289,11 @@ export class PtSessionComponent implements OnInit {
 
   // Check Auto Atendance
   checkAttendancePt2() {
+    console.log(this.member)
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkPtAttendance2(this.member.personal_trainer_id)
+          .checkPtAttendance2(this.member.personal_trainer[0].id)
           .subscribe((data: any) => {
             if (data["status"] === "200") {
               subscribe.unsubscribe();
