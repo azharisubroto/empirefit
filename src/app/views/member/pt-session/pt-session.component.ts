@@ -211,7 +211,7 @@ export class PtSessionComponent implements OnInit {
       if (pass != null && pass["status"] == 200) {
         var trainer_name = $('#pts option:selected').text();
         $('.thistrainer').text(trainer_name);
-        $("#trainer-id").val(mod.pt_id);
+        $("#trainer-id").val(this.userForm.controls['trainer_id'].value);
         $("#automatic").val("0");
         var trainerID = mod.userForm.controls['trainer_id'].value;
         //console.log(mod.userForm.controls['trainer_id'].value);

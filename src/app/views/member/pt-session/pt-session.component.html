@@ -128,6 +128,7 @@
               <div class="text-plain text-primary mt-1 text-capitalize">
                 <span class="text-muted thistrainer" id="trainer-name">n/a</span>
                 <input type="hidden" id="trainer-id" value="0">
+                <input type="hidden" id="automatic" name="automatic" placeholder="..." class="form-control mb-3" value="0" />
               </div>
             </div>
           </div>
@@ -215,7 +216,6 @@
         <label class="text-muted mb-0">Your Password</label>
         <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
         <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
-        <input type="hidden" id="automatic" name="automatic" placeholder="..." class="form-control mb-3" value="0" />
         <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">SUBMIT</btn-loading>
       </div>
     </form>
