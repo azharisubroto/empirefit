@@ -280,7 +280,7 @@ export class PtSessionComponent implements OnInit {
                 progressBar: true
               });
               setTimeout(() => {
-                $("#member-name").val(data["data"].name);
+                $("#member-name").text(data["data"].name);
                 $("#member-id").val(data["data"].id);
               }, 500);
             } else {
@@ -307,7 +307,7 @@ export class PtSessionComponent implements OnInit {
                 progressBar: true
               });
               setTimeout(() => {
-                $("#trainer-name").val(data["data"].name);
+                $("#trainer-name").text(data["data"].name);
                 $("#trainer-id").val(data["data"].id);
               }, 500);
             } else {
