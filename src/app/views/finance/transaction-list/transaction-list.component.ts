@@ -1,7 +1,19 @@
-import { Component, OnInit } from "@angular/core";
-import { ProductService } from "src/app/shared/services/product.service";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
+import { FinanceService } from "src/app/shared/services/finance.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrService } from "ngx-toastr";
+import * as $ from "jquery";
+import Tabulator from "tabulator-tables";
+import jsPDF from 'jspdf';
+import { saveAs } from 'file-saver';
+import 'xlsx';
+import 'jspdf-autotable';
+import 'tableexport';
+import { UserService } from "src/app/shared/services/user.service";
+    
 
 @Component({
   selector: "app-filter-table",
@@ -10,49 +22,102 @@ import { debounceTime } from "rxjs/operators";
 })
 export class TransactionListComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  products;
+  finance:any;
+  edc:any;
+  user:any;
   filteredProducts;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private FinanceService: FinanceService,
+    private router: Router,
+    private chRef: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private toastr: ToastrService,
+    private UserService: UserService,
+  ) {}
 
   ngOnInit() {
-    this.productService.getProducts().subscribe((res: any[]) => {
-      this.products = [...res];
-      this.filteredProducts = res;
+    this.FinanceService.getAutodebits().subscribe((data: any[]) => {
+      var res = data['data'];
+      this.finance = [...res];
+      this.edc = data['edc'];
+      //console.log([...res]);
+      console.log(data);
+      setTimeout(() => {
+        var table = new Tabulator("#tableaja", {
+          layout:"fitDataFill",
+        });
+      }, 10);
     });
-
-    this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
-      this.filerData(value);
+    // Get single User
+    this.UserService.getSingleUser().subscribe((data: any) => {
+      this.user = data["data"];
+      // console.log(this.user);
     });
   }
 
-  filerData(val) {
-    if (val) {
-      val = val.toLowerCase();
-    } else {
-      return (this.filteredProducts = [...this.products]);
-    }
+  open(content) {
+    var mod = this;
+    this.modalService.open(content, { windowClass: "big-modal" });
+    setTimeout(() => {
+      // var table = new Tabulator("#example-table", {
+      //   layout:"fitColumns",
+      // });
 
-    const columns = Object.keys(this.products[0]);
-    if (!columns.length) {
-      return;
-    }
+      var tanggal = mod.getTanggal();
 
-    const rows = this.products.filter(function(d) {
-      for (let i = 0; i <= columns.length; i++) {
-        const column = columns[i];
-        // console.log(d[column]);
-        if (
-          d[column] &&
-          d[column]
-            .toString()
-            .toLowerCase()
-            .indexOf(val) > -1
-        ) {
-          return true;
-        }
-      }
-    });
-    this.filteredProducts = rows;
+      $("#pdf-download").click(function(){
+        const doc = new jsPDF({
+          title:"Example Report"
+        });
+        var header = function (data) {
+          doc.setFontSize(18);
+          doc.setTextColor(40);
+          doc.setFontStyle('normal');
+          doc.text("Credit Card Recurring List", data.settings.margin.left, 20);
+          doc.setFontStyle('bold');
+          doc.text("EMPIRE FIT CLUB", data.settings.margin.left, 30);
+          doc.setFontSize(8);
+          doc.text("EDC:" + mod.edc.bank_name, data.settings.margin.left, 40);
+          doc.text("MID:" + mod.edc.mid, data.settings.margin.left, 45);
+          doc.text("TID:" + mod.edc.tid, data.settings.margin.left, 50);
+        };
+        doc.autoTable({html: '#example-table', didDrawPage: header, margin: {top: 60}});
+        doc.save('EFC-Credit-Card-Recurring-List-'+tanggal+'.pdf'); 
+      });
+
+      // $("#xls-download").click(function(){
+      //   table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
+      // });
+      
+      var table = $("#example-table").tableExport({
+        exportButtons: true,
+        formats: ["xlsx", "csv"],
+        bootstrap: false,
+        position: 'bottom',
+        filename: 'EFC-Credit-Card-Recurring-List-'+tanggal
+      });
+
+      $('.button-default').delay(100).addClass('btn btn-primary mr-2');
+      $('#pdf-download').delay(100).appendTo('.tableexport-caption');
+    }, 100);
   }
+
+  getTanggal() {
+    var d = new Date();
+
+    var month = d.getMonth() + 1;
+    var day = d.getDate();
+
+    var output =
+      d.getFullYear() +
+      "/" +
+      (month < 10 ? "0" : "") +
+      month +
+      "/" +
+      (day < 10 ? "0" : "") +
+      day;
+    return output;
+  }
+
 }
