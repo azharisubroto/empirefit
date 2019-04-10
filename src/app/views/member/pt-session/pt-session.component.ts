@@ -289,17 +289,18 @@ export class PtSessionComponent implements OnInit {
 
   // Check Auto Atendance
   checkAttendancePt2() {
-    console.log(this.member)
+    console.log(this.member.personal_trainer[0].id)
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkPtAttendance2(this.member.personal_trainer[0].id)
+          .checkPtAttendance2(this.member.personal_trainer[0].personal_trainer_id)
           .subscribe((data: any) => {
-            if (data["status"] === "200") {
+            if (data["status"] == "200") {
               subscribe.unsubscribe();
               $("#trainer-name").val(data["data"].name);
               $("#trainer-id").val(data["data"].id);
             } else {
+              subscribe.unsubscribe();
               this.toastr.error(data["message"], "Error", {
                 progressBar: true
               });
