@@ -269,7 +269,6 @@ export class PtSessionComponent implements OnInit {
 
   // Check Auto Atendance
   checkAttendancePt() {
-    console.log(this.activatedRoute.snapshot.params["id"])
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
@@ -277,8 +276,13 @@ export class PtSessionComponent implements OnInit {
           .subscribe((data: any) => {
             if (data["status"] == "200") {
               subscribe.unsubscribe();
-              $("#member-name").val(data["data"].name);
-              $("#member-id").val(data["data"].id);
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
+              setTimeout(() => {
+                $("#member-name").val(data["data"].name);
+                $("#member-id").val(data["data"].id);
+              }, 500);
             } else {
               subscribe.unsubscribe();
               this.toastr.error(data["message"], "Error", {
@@ -292,23 +296,28 @@ export class PtSessionComponent implements OnInit {
   // Check Auto Atendance
   checkAttendancePt2() {
     console.log(this.member.personal_trainer[0].personal_trainer_id)
-    // const source = interval(3000),
-    //   subscribe = source.subscribe(val => {
-    //     this.fingerService
-    //       .checkPtAttendance2(this.member.personal_trainer[0].personal_trainer_id)
-    //       .subscribe((data: any) => {
-    //         if (data["status"] == "200") {
-    //           subscribe.unsubscribe();
-    //           $("#trainer-name").val(data["data"].name);
-    //           $("#trainer-id").val(data["data"].id);
-    //         } else {
-    //           subscribe.unsubscribe();
-    //           this.toastr.error(data["message"], "Error", {
-    //             progressBar: true
-    //           });
-    //         }
-    //       });
-    //   });
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkPtAttendance2(this.member.personal_trainer[0].personal_trainer_id)
+          .subscribe((data: any) => {
+            if (data["status"] == "200") {
+              subscribe.unsubscribe();
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
+              setTimeout(() => {
+                $("#trainer-name").val(data["data"].name);
+                $("#trainer-id").val(data["data"].id);
+              }, 500);
+            } else {
+              subscribe.unsubscribe();
+              this.toastr.error(data["message"], "Error", {
+                progressBar: true
+              });
+            }
+          });
+      });
   }
 
   classCheck() {
