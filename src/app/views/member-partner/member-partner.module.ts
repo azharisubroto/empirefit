@@ -8,6 +8,7 @@ import { MemberPartnerComponent } from "./member-partner-list/member-partner-lis
 import { MemberPartnerCreateComponent } from './member-partner-create/member-partner-create.component';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { MemberPartnerFormComponent } from './member-partner-form/member-partner-form.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     NgbModule,
     MemberPartnerRoutingModule
   ],
-  declarations: [MemberPartnerComponent, MemberPartnerCreateComponent]
+  declarations: [MemberPartnerComponent, MemberPartnerCreateComponent, MemberPartnerFormComponent]
 })
 export class MemberPartnerModule {}

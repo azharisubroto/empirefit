@@ -74,8 +74,8 @@ export class MemberPartnerComponent implements OnInit {
               jadwal = new Date(classdate),
 
               status = absenbutton.data('status');
-            console.log('sekarang: ' + sekarang);
-            console.log('class Date: ' + jadwal);
+            // console.log('sekarang: ' + sekarang);
+            // console.log('class Date: ' + jadwal);
             if (status == '1') {
               mod.status = 'Used';
               absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
@@ -101,7 +101,7 @@ export class MemberPartnerComponent implements OnInit {
         }
       });
 
-      console.log(this.members);
+      // console.log(this.members);
     });
 
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
@@ -110,27 +110,27 @@ export class MemberPartnerComponent implements OnInit {
 
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
-      console.log(this.user);
+      //console.log(this.user);
     });
   }
 
   absencoy(e) {
-    var _this = $(e.currentTarget);
-    // alert(_this.data('email'));
+    var tag = $(e.currentTarget);
+    // alert(tag.data('email'));
 
     var data = {
       status: 1,
       updated_by: this.user.id
     };
 
-    if (_this.data('status') != 1) {
-      this.MemberPartnerService.memberPartnerCheckIn(_this.data('id'), data).subscribe((data: any) => {
+    if (tag.data('status') != 1) {
+      this.MemberPartnerService.memberPartnerCheckIn(tag.data('id'), data).subscribe((data: any) => {
         var response = data;
         if (data["status"] === "200") {
           this.toastr.success(data["message"], "Success", {
             progressBar: false
           });
-          console.log(data['message']);
+          //console.log(data['message']);
         } else {
           this.toastr.error(data["message"], "Error", {
             progressBar: false
