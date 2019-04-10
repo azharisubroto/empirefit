@@ -212,6 +212,7 @@ export class PtSessionComponent implements OnInit {
         var trainer_name = $('#pts option:selected').text();
         $('.thistrainer').text(trainer_name);
         $("#trainer-id").val(mod.pt_id);
+        $("#automatic").val("0");
         var trainerID = mod.userForm.controls['trainer_id'].value;
         //console.log(mod.userForm.controls['trainer_id'].value);
         mod.pt_id = trainerID;
@@ -245,7 +246,7 @@ export class PtSessionComponent implements OnInit {
     formValue['member_id'] = member_id;
     formValue['personal_trainer_id'] = pt_id;
     formValue['state'] = "1";
-    formValue['automatic'] = 0;
+    formValue['automatic'] = $("#automatic").val();
     formValue['user_id'] = this.user.id;
 
     if (member_id == "0" || pt_id == "0") {
@@ -283,6 +284,7 @@ export class PtSessionComponent implements OnInit {
               setTimeout(() => {
                 $("#member-name").text(data["data"].name);
                 $("#member-id").val(data["data"].id);
+                $("#automatic").val("1");
               }, 500);
             } else {
               subscribe.unsubscribe();
@@ -309,6 +311,7 @@ export class PtSessionComponent implements OnInit {
               setTimeout(() => {
                 $("#trainer-name").text(data["data"][0].name);
                 $("#trainer-id").val(data["data"][0].id);
+                $("#automatic").val("1");
               }, 1000);
             } else {
               subscribe.unsubscribe();
