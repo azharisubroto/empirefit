@@ -308,8 +308,8 @@ export class PtSessionComponent implements OnInit {
               });
               setTimeout(() => {
                 console.log(data)
-                $("#trainer-name").text(data["data"].name);
-                $("#trainer-id").val(data["data"].id);
+                $("#trainer-name").text(data["data"][0].name);
+                $("#trainer-id").val(data["data"][0].id);
               }, 1000);
             } else {
               subscribe.unsubscribe();
