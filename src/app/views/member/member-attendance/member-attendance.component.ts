@@ -60,6 +60,8 @@ export class MemberAttendanceComponent implements OnInit {
   recuring_date;
   payment_unpaid;
   status;
+  full_recuring_date;
+  status_leave: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -120,8 +122,16 @@ export class MemberAttendanceComponent implements OnInit {
         // console.log(data["data"].first_time[0].classtime)
 
         this.member = data["data"];
+
+        if (this.member.state == "Leave") {
+          this.status_leave = true;
+        } else {
+          this.status_leave = false;
+        }
+
         var member = this.member;
         var date = new Date(data["data"]["expairy_date"]);
+        var active_date = new Date(data["data"]["active_date"]);
         var list = date.toUTCString().split(" ");
         //results.push(list[1]+" "+list[2]);
         this.expirydate = this.member.expairy_date;
@@ -131,7 +141,8 @@ export class MemberAttendanceComponent implements OnInit {
         //console.log(this.member['id']);
 
         this.id_card_number = data["data"].id_card_number;
-        this.recuring_date = data["data"].auto_debits[0] ? data["data"].auto_debits[0].date : "-";
+        this.recuring_date = this.member.recuring_date;
+        this.full_recuring_date = data["data"].auto_debits[0] ? data["data"].auto_debits[0].date : "0";
         this.payment_unpaid = data["data"].auto_debits[0] ? data["data"].auto_debits[0].unpaid : "0";
 
         let today = this.todayDate.replace(/\//g, '-'),
@@ -143,25 +154,18 @@ export class MemberAttendanceComponent implements OnInit {
           });
         }
 
-        if (data["data"].member_type_id == null) {
-          $("#btn-manualreg").attr("disabled", "disabled");
-          $("#btn-manualattendance").attr("disabled", "disabled");
+        // if (this.status_leave) {
+        //   if (active_date > sekarang) {
+        //     this.memberService.updateStatusLeave(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
+        //       if (data["status"] == "200") {
+        //         this.status_leave = false;
+        //       }
+        //     })
+        //   }
+        // }
 
-          $("#btn-attendance").addClass("disabled");
-
-          $("#btn-attendance").addClass("disabled");
-          $("#btn-history").addClass("disabled");
-          $("#btn-autoreg").addClass("disabled");
-
-          $("#btn-classhis").addClass("disabled");
-          $("#btn-ptsession").addClass("disabled");
-          $("#btn-membership-history").addClass("disabled");
-          $("#btn-payment-update").addClass('disabled');
-        }
-
-        // 10 Pass Membership
-        if (data["data"].member_type_id == 4) {
-          if (data["data"].session_remains == 0) {
+        setTimeout(() => {
+          if (this.status_leave) {
             $("#btn-manualreg").attr("disabled", "disabled");
             $("#btn-manualattendance").attr("disabled", "disabled");
 
@@ -173,42 +177,80 @@ export class MemberAttendanceComponent implements OnInit {
 
             $("#btn-classhis").addClass("disabled");
             $("#btn-ptsession").addClass("disabled");
-          }
-        }
-
-        if (data["data"].member_type_id == 3) {
-          if (data["data"].session_remains > 0) {
-            $("#btn-ptsession").removeClass("disabled");
+            $("#btn-membership").addClass("disabled");
+            $("#btn-membership-leave").addClass("disabled");
+            $("#btn-membership-history").addClass("disabled");
+            $("#btn-payment-update").addClass('disabled');
           } else {
-            $("#btn-ptsession").addClass("disabled");
-          }
-        }
+            if (data["data"].member_type_id == null) {
+              $("#btn-manualreg").attr("disabled", "disabled");
+              $("#btn-manualattendance").attr("disabled", "disabled");
 
-        setTimeout(() => {
-          if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {
-            if (data["data"].auto_debet == 1) {
-              $("#btn-membership-leave").removeClass("disabled");
+              $("#btn-attendance").addClass("disabled");
+
+              $("#btn-attendance").addClass("disabled");
+              $("#btn-history").addClass("disabled");
+              $("#btn-autoreg").addClass("disabled");
+
+              $("#btn-classhis").addClass("disabled");
+              $("#btn-ptsession").addClass("disabled");
+              $("#btn-membership-history").addClass("disabled");
+              $("#btn-membership-leave").addClass("disabled");
+              $("#btn-payment-update").addClass('disabled');
+            }
+
+            // 10 Pass Membership
+            if (data["data"].member_type_id == 4) {
+              if (data["data"].session_remains == 0) {
+                $("#btn-manualreg").attr("disabled", "disabled");
+                $("#btn-manualattendance").attr("disabled", "disabled");
+
+                $("#btn-attendance").addClass("disabled");
+
+                $("#btn-attendance").addClass("disabled");
+                $("#btn-history").addClass("disabled");
+                $("#btn-autoreg").addClass("disabled");
+
+                $("#btn-classhis").addClass("disabled");
+                $("#btn-ptsession").addClass("disabled");
+              }
+            }
+
+            if (data["data"].member_type_id == 3) {
+              if (data["data"].session_remains > 0) {
+                $("#btn-ptsession").removeClass("disabled");
+              } else {
+                $("#btn-ptsession").addClass("disabled");
+              }
+            }
+
+            if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {
+              if (data["data"].auto_debet == 1) {
+                if (this.status_leave) {
+                  $("#btn-membership-leave").addClass("disabled");
+                } else {
+                  $("#btn-membership-leave").removeClass("disabled");
+                }
+              } else {
+                $("#btn-membership-leave").addClass("disabled");
+              }
+              $("#btn-ptsession").addClass("disabled");
             } else {
               $("#btn-membership-leave").addClass("disabled");
             }
-            $("#btn-ptsession").addClass("disabled");
-          } else {
-            $("#btn-membership-leave").addClass("disabled");
-          }
-        }, 1000)
 
-        setTimeout(() => {
-          if (this.status === "Expired") {
-            $("#btn-manualreg").attr("disabled", "disabled");
-            $("#btn-manualattendance").attr("disabled", "disabled");
+            if (this.status === "Expired") {
+              $("#btn-manualreg").attr("disabled", "disabled");
+              $("#btn-manualattendance").attr("disabled", "disabled");
 
-            $("#btn-attendance").addClass("disabled");
+              $("#btn-attendance").addClass("disabled");
 
-            $("#btn-attendance").addClass("disabled");
-            $("#btn-autoreg").addClass("disabled");
+              $("#btn-attendance").addClass("disabled");
+              $("#btn-autoreg").addClass("disabled");
 
-            $("#btn-ptsession").addClass("disabled");
-            $("#btn-payment-update").addClass('disabled');
+              $("#btn-ptsession").addClass("disabled");
+              $("#btn-payment-update").addClass('disabled');
+            }
           }
         }, 1000)
 
@@ -648,5 +690,87 @@ export class MemberAttendanceComponent implements OnInit {
         progressBar: true
       });
     }, 3000);
+  }
+
+  // leave
+  leaveCheck() {
+    var mod = this;
+    this.UserService.userCheckPassword(
+      this.user.staff_id,
+      this.userForm.value
+    ).subscribe((data: any) => {
+      var pass = data;
+      this.loading = true;
+      if (pass != null && pass["status"] == 200) {
+        let formValue = ({
+          'user_id': this.user.id,
+          'duration': $("#duration").val()
+        });
+
+        this.memberService.memberLeave(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+          if (data["status"] == "200") {
+            this.loading = false;
+            this.toastr.success(data["message"], "Success!", {
+              progressBar: true
+            });
+
+            setTimeout(() => {
+              location.reload();
+            }, 500)
+
+            $(".modal-header .close").trigger("click");
+          } else {
+            this.loading = false;
+            this.toastr.error("Leave Error", "Not Success!", {
+              progressBar: true
+            });
+          }
+        });
+      } else {
+        alert("Your password is incorrect");
+        this.loading = false;
+      }
+    });
+  }
+
+  // reactivated
+  reactivateCheck() {
+    var mod = this;
+    this.UserService.userCheckPassword(
+      this.user.staff_id,
+      this.userForm.value
+    ).subscribe((data: any) => {
+      var pass = data;
+      this.loading = true;
+      if (pass != null && pass["status"] == 200) {
+        let formValue = ({
+          'user_id': this.user.id,
+          'duration': $("#duration").val()
+        });
+
+        this.memberService.reactiveLeave(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+          if (data["status"] == "200") {
+            this.loading = false;
+            this.toastr.success(data["message"], "Success!", {
+              progressBar: true
+            });
+
+            setTimeout(() => {
+              location.reload();
+            }, 500)
+
+            $(".modal-header .close").trigger("click");
+          } else {
+            this.loading = false;
+            this.toastr.error("Reactivated Error", "Not Success!", {
+              progressBar: true
+            });
+          }
+        });
+      } else {
+        alert("Your password is incorrect");
+        this.loading = false;
+      }
+    });
   }
 }
