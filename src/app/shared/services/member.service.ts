@@ -61,6 +61,13 @@ export class MemberService {
     );
   }
 
+  updateStatusLeave(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/update_status_leave/" + member_id, data,
+      this.httpOptions
+    );
+  }
+
   getSingleMember($id) {
     return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
   }
@@ -69,7 +76,7 @@ export class MemberService {
     return this.http.put(this.apiURL + "/member_leave/" + member_id, data, this.httpOptions);
   }
 
-  reactiveLeave(member_id) {
-    return this.http.post(this.apiURL + "/member_leave/" + member_id, this.httpOptions);
+  reactiveLeave(member_id, data) {
+    return this.http.put(this.apiURL + "/reactive_leave/" + member_id, data, this.httpOptions);
   }
 }

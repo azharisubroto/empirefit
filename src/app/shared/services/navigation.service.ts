@@ -87,7 +87,7 @@ export class NavigationService {
       type: "link",
       tooltip: "Finance",
       icon: "i-Financial",
-      state: "/finance",
+      state: "/finance/transaction-list",
       perm: "6",
     },
     {

@@ -59,6 +59,42 @@
           <div class="col-12 mb-3">
             <div class="fancy-head"><span>Membership</span></div>
           </div>
+          <div *ngIf="status_leave">
+            <div class="container mb-3">
+              <div class="row">
+                <div class="col-12">
+                  <div class="container">
+                    <div class="row border border-light rounded">
+                      <div class="col-12 mb-3">
+                        <div class="fancy-head text-danger"><span>Membership Inactive</span></div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                          <span class="text-muted mb-0">Reason</span>
+                          <div class="text-medium text-primary mt-1">
+                            {{ !! status ? status : "Unverified" }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center">
+                          <span class="text-muted mb-0">Active Date</span>
+                          <div class="text-medium text-primary mt-1">
+                            {{ !! member.active_date ? member.active_date : "-" }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                          <button (click)="open(reactivate)" id="btn-reactivate" class="btn btn-primary btn-lg btn-block py-3">Reactivate</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-md-6 mb-3">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Type</span>
@@ -95,7 +131,7 @@
               Update</a>
           </div>
           <div class="col-md-6 mb-3">
-            <button (click)="open(leave)" id="btn-leave" class="btn btn-primary btn-lg btn-block py-3">Leave</button>
+            <button (click)="open(leave)" id="btn-membership-leave" class="btn btn-primary btn-lg btn-block py-3">Leave</button>
           </div>
           <div class="col-md-6 mb-3">
             <a id="btn-membership-history" routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Membership
@@ -143,8 +179,8 @@
           <div class="col-md-6 mb-4 mb-md-0">
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Recurring Date</span>
-              <div class="text-medium text-primary mt-1">
-                {{ recuring_date }}
+              <div class="text-medium text-primary mt-1 recuring_date_leave">
+                {{ recuring_date }} {{ full_recuring_date }}
               </div>
             </div>
           </div>
@@ -300,6 +336,17 @@
     <form>
       <div class="form-group">
         <div class="px-4 py-3 border border-light rounded align-items-center">
+          <span class="text-muted mb-0">Duration</span>
+          <div class="text-medium text-primary mt-1">
+            <select class="form-control" name="duration" id="duration">
+              <option value="1">1 Month</option>
+              <option value="2">2 Months</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="px-4 py-3 border border-light rounded align-items-center">
           <span class="text-muted mb-0">Front Officer</span>
           <div class="text-medium text-primary mt-1">
             {{ !!user.name ? user.name : user.role }}
@@ -307,10 +354,38 @@
         </div>
       </div>
       <div class="form-group">
-        <form [formGroup]="userForm" (ngSubmit)="attendanceCheck()">
+        <form [formGroup]="userForm" (ngSubmit)="leaveCheck()">
           <label class="text-muted mb-0">Your Password</label>
           <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
-          <input type="hidden" name="schedule_id" formControlName="schedule_id" placeholder="..." class="form-control mb-3" />
+          <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
+          <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">Proceed</btn-loading>
+        </form>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<ng-template #reactivate let-modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reactivated</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('Close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <div class="px-4 py-3 border border-light rounded align-items-center">
+          <span class="text-muted mb-0">Front Officer</span>
+          <div class="text-medium text-primary mt-1">
+            {{ !!user.name ? user.name : user.role }}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <form [formGroup]="userForm" (ngSubmit)="reactivateCheck()">
+          <label class="text-muted mb-0">Your Password</label>
+          <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
           <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
           <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">Proceed</btn-loading>
         </form>
