@@ -6,7 +6,8 @@ import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import * as $ from "jquery";
-import Tabulator from "tabulator-tables";
+import "datatables.net";
+import "datatables.net-bs4";
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
 import 'xlsx';
@@ -22,7 +23,7 @@ import { UserService } from "src/app/shared/services/user.service";
 })
 export class TransactionListComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  finance:any;
+  finance:any=[];
   edc:any;
   user:any;
   filteredProducts;
@@ -39,20 +40,31 @@ export class TransactionListComponent implements OnInit {
   ngOnInit() {
     this.FinanceService.getAutodebits().subscribe((data: any[]) => {
       var res = data['data'];
-      this.finance = [...res];
+      this.finance = res;
       this.edc = data['edc'];
-      //console.log([...res]);
-      console.log(data);
       setTimeout(() => {
-        var table = new Tabulator("#tableaja", {
-          layout:"fitDataFill",
+        $("#mytable").DataTable({
+          scrollX: true,
         });
-      }, 10);
+      }, 200);
+      //console.log([...res]);
+      //console.log(data);
     });
     // Get single User
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
       // console.log(this.user);
+    });
+  }
+
+  update(auto_debit_id) {
+    let data = {
+      test: 'anjay'
+    }
+    this.FinanceService.updateAutodebit(auto_debit_id, data).subscribe((data:any)=>{
+      var res = data;
+      //console.log(res);
+      location.reload();
     });
   }
 

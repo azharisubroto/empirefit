@@ -21,12 +21,20 @@ export class FinanceService {
         return this.http.get(this.apiURL + "/autodebits", this.httpOptions);
     }
 
+    getSingleAutoDebit( autodebit_id ) {
+        return this.http.get(this.apiURL + "/autodebits/" + autodebit_id, this.httpOptions);
+    }
+
     searchAutodebit(data) {
         return this.http.post(this.apiURL + "/autodebit_search", data, this.httpOptions);
     }
 
     updateAutodebit(autodebit_id, data) {
-        return this.http.post(this.apiURL + "/autodebit_search/" + autodebit_id, data, this.httpOptions);
+        return this.http.post(this.apiURL + "/autodebits/" + autodebit_id, data, this.httpOptions);
+    }
+
+    updateAutodebitManual(autodebit_id, data) {
+        return this.http.post(this.apiURL + "/autodebit_manual_update/" + autodebit_id, data, this.httpOptions);
     }
 
     downloadPdf(data) {

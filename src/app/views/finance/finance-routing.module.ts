@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { MemberListComponent } from "./member-list/member-list.component";
 import { TransactionListComponent } from "./transaction-list/transaction-list.component";
+import { TransactionFormComponent } from "./transaction-form/transaction-form.component";
 
 const routes: Routes = [
   {
@@ -9,8 +10,12 @@ const routes: Routes = [
     component: MemberListComponent
   },
   {
-    path: "transaction-list",
+    path: "",
     component: TransactionListComponent
+  },
+  {
+    path: "transaction-form/:id",
+    component: TransactionFormComponent
   }
 ];
 
