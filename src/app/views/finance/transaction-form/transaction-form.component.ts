@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FinanceService } from "src/app/shared/services/finance.service";
 import { UserService } from "src/app/shared/services/user.service";
 import { debounceTime } from "rxjs/operators";
-import { Router, ActivatedRoute} from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import * as $ from "jquery";
@@ -21,9 +21,9 @@ import {
 })
 export class TransactionFormComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  finance:any=[];
-  edc:any;
-  user:any;
+  finance: any = [];
+  edc: any;
+  user: any;
   filteredProducts;
   userForm: FormGroup;
 
@@ -47,8 +47,8 @@ export class TransactionFormComponent implements OnInit {
       bank_withdrawal: ["", Validators.required],
       bank_approval_code: ["", Validators.required],
     });
-    
-    this.FinanceService.getSingleAutoDebit( this.activatedRoute.snapshot.params["id"] ).subscribe((data: any[]) => {
+
+    this.FinanceService.getSingleRecuring(this.activatedRoute.snapshot.params["id"]).subscribe((data: any[]) => {
       var res = data['data'];
       this.finance = res;
       this.edc = data['edc'];
@@ -71,9 +71,9 @@ export class TransactionFormComponent implements OnInit {
   submit() {
     $('#saving').html('Saving...');
     if (this.userForm.invalid) {
-      return; 
+      return;
     } else {
-      this.FinanceService.updateAutodebitManual(this.activatedRoute.snapshot.params["id"], this.userForm.value).subscribe((res: any) => {
+      this.FinanceService.updateRecuringManual(this.activatedRoute.snapshot.params["id"], this.userForm.value).subscribe((res: any) => {
         setTimeout(() => {
           if (res["status"] === "200") {
             this.toastr.success(res["message"], "Success!", {

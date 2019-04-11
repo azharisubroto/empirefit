@@ -17,31 +17,31 @@ export class FinanceService {
         })
     };
 
-    getAutodebits() {
-        return this.http.get(this.apiURL + "/autodebits", this.httpOptions);
+    getRecurings() {
+        return this.http.get(this.apiURL + "/recurings", this.httpOptions);
     }
 
-    getSingleAutoDebit( autodebit_id ) {
-        return this.http.get(this.apiURL + "/autodebits/" + autodebit_id, this.httpOptions);
+    getSingleRecuring(recuring_id) {
+        return this.http.get(this.apiURL + "/recurings/" + recuring_id, this.httpOptions);
     }
 
-    searchAutodebit(data) {
-        return this.http.post(this.apiURL + "/autodebit_search", data, this.httpOptions);
+    searchRecuring(data) {
+        return this.http.post(this.apiURL + "/recuring_search", data, this.httpOptions);
     }
 
-    updateAutodebit(autodebit_id, data) {
-        return this.http.post(this.apiURL + "/autodebits/" + autodebit_id, data, this.httpOptions);
+    updateRecuring(recuring_id, data) {
+        return this.http.post(this.apiURL + "/recurings/" + recuring_id, data, this.httpOptions);
     }
 
-    updateAutodebitManual(autodebit_id, data) {
-        return this.http.post(this.apiURL + "/autodebit_manual_update/" + autodebit_id, data, this.httpOptions);
+    updateRecuringManual(recuring_id, data) {
+        return this.http.post(this.apiURL + "/recuring_manual_update/" + recuring_id, data, this.httpOptions);
     }
 
     downloadPdf(data) {
-        return this.http.post(this.apiURL + "/autodebit_download_pdf", data, this.httpOptions);
+        return this.http.post(this.apiURL + "/recuring_download_pdf", data, this.httpOptions);
     }
 
     downloadExcel(data) {
-        return this.http.post(this.apiURL + "/autodebit_download_excel", data, this.httpOptions);
+        return this.http.post(this.apiURL + "/recuring_download_excel", data, this.httpOptions);
     }
 }

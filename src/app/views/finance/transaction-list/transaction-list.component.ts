@@ -14,7 +14,7 @@ import 'xlsx';
 import 'jspdf-autotable';
 import 'tableexport';
 import { UserService } from "src/app/shared/services/user.service";
-    
+
 
 @Component({
   selector: "app-filter-table",
@@ -23,9 +23,9 @@ import { UserService } from "src/app/shared/services/user.service";
 })
 export class TransactionListComponent implements OnInit {
   searchControl: FormControl = new FormControl();
-  finance:any=[];
-  edc:any;
-  user:any;
+  finance: any = [];
+  edc: any;
+  user: any;
   filteredProducts;
 
   constructor(
@@ -35,10 +35,10 @@ export class TransactionListComponent implements OnInit {
     private modalService: NgbModal,
     private toastr: ToastrService,
     private UserService: UserService,
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.FinanceService.getAutodebits().subscribe((data: any[]) => {
+    this.FinanceService.getRecurings().subscribe((data: any[]) => {
       var res = data['data'];
       this.finance = res;
       this.edc = data['edc'];
@@ -57,11 +57,11 @@ export class TransactionListComponent implements OnInit {
     });
   }
 
-  update(auto_debit_id) {
+  update(recuring_id) {
     let data = {
       test: 'anjay'
     }
-    this.FinanceService.updateAutodebit(auto_debit_id, data).subscribe((data:any)=>{
+    this.FinanceService.updateRecuring(recuring_id, data).subscribe((data: any) => {
       var res = data;
       //console.log(res);
       location.reload();
@@ -78,9 +78,9 @@ export class TransactionListComponent implements OnInit {
 
       var tanggal = mod.getTanggal();
 
-      $("#pdf-download").click(function(){
+      $("#pdf-download").click(function () {
         const doc = new jsPDF({
-          title:"Example Report"
+          title: "Example Report"
         });
         var header = function (data) {
           doc.setFontSize(18);
@@ -94,20 +94,20 @@ export class TransactionListComponent implements OnInit {
           doc.text("MID:" + mod.edc.mid, data.settings.margin.left, 45);
           doc.text("TID:" + mod.edc.tid, data.settings.margin.left, 50);
         };
-        doc.autoTable({html: '#example-table', didDrawPage: header, margin: {top: 60}});
-        doc.save('EFC-Credit-Card-Recurring-List-'+tanggal+'.pdf'); 
+        doc.autoTable({ html: '#example-table', didDrawPage: header, margin: { top: 60 } });
+        doc.save('EFC-Credit-Card-Recurring-List-' + tanggal + '.pdf');
       });
 
       // $("#xls-download").click(function(){
       //   table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
       // });
-      
+
       var table = $("#example-table").tableExport({
         exportButtons: true,
         formats: ["xlsx", "csv"],
         bootstrap: false,
         position: 'bottom',
-        filename: 'EFC-Credit-Card-Recurring-List-'+tanggal
+        filename: 'EFC-Credit-Card-Recurring-List-' + tanggal
       });
 
       $('.button-default').delay(100).addClass('btn btn-primary mr-2');
