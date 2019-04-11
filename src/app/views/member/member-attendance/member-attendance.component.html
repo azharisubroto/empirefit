@@ -138,8 +138,8 @@
               History</a>
           </div>
           <div class="col-md-6 mb-3">
-            <a id="btn-membership-leave-history" routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Leave
-              History</a>
+            <button id="btn-membership-leave-history" (click)="openLg(leaveHistory)" class="btn btn-primary btn-lg btn-block py-3">Leave
+              History</button>
           </div>
           <div class="col-md-12 mb-3">
             <a id="btn-ptsession" routerLink="/dashboard/member/pt-session/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">PT
@@ -180,7 +180,7 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Recurring Date</span>
               <div class="text-medium text-primary mt-1 recuring_date_leave">
-                {{ recuring_date }} {{ full_recuring_date }}
+                {{ recuring_date }} ON {{ full_recuring_date ? full_recuring_date : "-" }}
               </div>
             </div>
           </div>
@@ -391,6 +391,41 @@
         </form>
       </div>
     </form>
+  </div>
+</ng-template>
+
+<ng-template #leaveHistory let-modal let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title"><strong><span class="text-capitalize">{{ member.name }}'s</span></strong> Leave History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="table-responsive-sm">
+      <table class="table table-striped" id="mytable">
+        <thead>
+          <tr>
+            <th scope="col">STATUS</th>
+            <th scope="col">RECURRING DATE ORIGIN</th>
+            <th scope="col">RECURRING DATE LEAVE</th>
+            <th scope="col">RECURRING DATE LEAVE (FULL FORMAT)</th>
+            <th scope="col">INACTIVE DATE</th>
+            <th scope="col">ACTIVE DATE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let l of leaves">
+            <td>{{ l.status }}</td>
+            <td class="text-center">{{ l.recuring_date_first }}</td>
+            <td class="text-center">{{ l.recuring_date_second }}</td>
+            <td class="text-center">{{ l.date ? l.date : "-" }}</td>
+            <td class="text-center">{{ l.start_date }}</td>
+            <td class="text-center">{{ l.end_date ? l.end_date : "-" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </ng-template>
 

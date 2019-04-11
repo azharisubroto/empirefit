@@ -61,6 +61,7 @@ export class MemberAttendanceComponent implements OnInit {
   payment_unpaid;
   status;
   full_recuring_date;
+  leaves;
   status_leave: boolean = false;
 
   constructor(
@@ -122,6 +123,7 @@ export class MemberAttendanceComponent implements OnInit {
         // console.log(data["data"].first_time[0].classtime)
 
         this.member = data["data"];
+        this.leaves = data["data"].leaves;
 
         if (this.member.state == "Leave") {
           this.status_leave = true;
@@ -154,15 +156,15 @@ export class MemberAttendanceComponent implements OnInit {
           });
         }
 
-        // if (this.status_leave) {
-        //   if (active_date > sekarang) {
-        //     this.memberService.updateStatusLeave(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
-        //       if (data["status"] == "200") {
-        //         this.status_leave = false;
-        //       }
-        //     })
-        //   }
-        // }
+        if (this.status_leave) {
+          if (active_date < sekarang) {
+            this.memberService.updateStatusLeave(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
+              if (data["status"] == "200") {
+                this.status_leave = false;
+              }
+            })
+          }
+        }
 
         setTimeout(() => {
           if (this.status_leave) {

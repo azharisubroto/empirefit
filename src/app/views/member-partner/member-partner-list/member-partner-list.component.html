@@ -11,11 +11,7 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <a
-          href="#"
-          [routerLink]="['member-partner-create']"
-          class="btn btn-primary btn-rounded"
-        >
+        <a href="#" [routerLink]="['member-partner-create']" class="btn btn-primary btn-rounded">
           Create
         </a>
       </div>
@@ -37,7 +33,7 @@
                       <th>Phone Number</th>
                       <th>Email</th>
                       <th>Status</th>
-                      <th>Verified By</th>
+                      <!-- <th>Verified By</th> -->
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -51,24 +47,16 @@
                       <td>{{ item.phone }}</td>
                       <td>{{ item.email }}</td>
                       <td class="inistatus">{{ item.status === '1' ? 'Used' : 'n/a' }}</td>
-                      <td>{{ !! item.updated_by != NULL ? item.updated_by : 'n/a' }}</td>
+                      <!-- <td>{{ !! item.updated_by != NULL ? item.updated_by : 'n/a' }}</td> -->
                       <td>
-                        <button (click)="absencoy($event)" class="btn btn-success absenbutton"
-                          [attr.data-id]="item.id" 
-                          [attr.data-name]="item.name" 
-                          [attr.data-email]="item.email" 
-                          [attr.data-phone]="item.phone" 
-                          [attr.data-reference]="item.booking_referance" 
-                          [attr.data-emaildatetime]="item.email_date_time" 
-                          [attr.data-company]="item.company" 
-                          [attr.data-class]="item.class_id" 
-                          [attr.data-classdate]="item.class_date" 
-                          [attr.data-classtime]="item.class_time" 
-                          [attr.data-branch]="item.branch" 
-                          [attr.data-status]="item.status" 
-                          [attr.data-createdby]="user.id" 
-                        ><i class="i-Clock-Forward"></i></button>
-                        <a href="#" [routerLink]="['member-partner-edit/', item.id]" class="btn btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave">
+                        <button (click)="absencoy($event)" class="btn btn-success absenbutton" [attr.data-id]="item.id"
+                          [attr.data-name]="item.name" [attr.data-email]="item.email" [attr.data-phone]="item.phone"
+                          [attr.data-reference]="item.booking_referance" [attr.data-emaildatetime]="item.email_date_time"
+                          [attr.data-company]="item.company" [attr.data-class]="item.class_id" [attr.data-classdate]="item.class_date"
+                          [attr.data-classtime]="item.class_time" [attr.data-branch]="item.branch" [attr.data-status]="item.status"
+                          [attr.data-createdby]="user.id"><i class="i-Clock-Forward"></i></button>
+                        <a href="#" [routerLink]="['member-partner-edit/', item.id]" class="btn btn-success ml-2" title="Edit"
+                          triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>
                         </a>
                       </td>
