@@ -1,6 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { FinanceService } from "src/app/shared/services/finance.service";
-import { FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -14,6 +19,7 @@ import 'xlsx';
 import 'jspdf-autotable';
 import 'tableexport';
 import { UserService } from "src/app/shared/services/user.service";
+import { EdcService } from "src/app/shared/services/edc.service";
 
 
 @Component({
@@ -27,6 +33,9 @@ export class TransactionListComponent implements OnInit {
   edc: any;
   user: any;
   filteredProducts;
+  userForm: FormGroup;
+  edcs;
+  table;
 
   constructor(
     private FinanceService: FinanceService,
@@ -35,25 +44,43 @@ export class TransactionListComponent implements OnInit {
     private modalService: NgbModal,
     private toastr: ToastrService,
     private UserService: UserService,
+    private fb: FormBuilder,
+    private EdcService: EdcService,
   ) { }
 
+
   ngOnInit() {
+    var mod = this;
+    this.userForm = this.fb.group({
+      recuring_date: ["1", Validators.required],
+      branch_id: ["1", Validators.required],
+      edc_id: ["1", Validators.required],
+    });
     this.FinanceService.getRecurings().subscribe((data: any[]) => {
       var res = data['data'];
       this.finance = res;
       this.edc = data['edc'];
       setTimeout(() => {
-        $("#mytable").DataTable({
+        this.table = $("#mytable").DataTable({
           scrollX: true,
+          //dom: '<"toolbar">frtip'
         });
+        //$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
       }, 200);
       //console.log([...res]);
       //console.log(data);
     });
+
     // Get single User
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
       // console.log(this.user);
+    });
+
+    // get edc
+    this.EdcService.getEdcs().subscribe((data: any) =>{
+      this.edcs = data['data'];
+      console.log(this.edcs);
     });
   }
 
@@ -65,6 +92,16 @@ export class TransactionListComponent implements OnInit {
       var res = data;
       //console.log(res);
       location.reload();
+    });
+  }
+
+  submit() {
+    this.table.clear().draw();
+    this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
+      var res = data['data'];
+      //this.finance = res;
+      //this.edc = data['edc'];
+      console.log(res);
     });
   }
 

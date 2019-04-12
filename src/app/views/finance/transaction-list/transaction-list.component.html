@@ -8,18 +8,72 @@
 
   <div class="separator-breadcrumb border-top"></div>
 
-  <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <!-- <a
-            href="#"
-            [routerLink]="['member-partner-create']"
-            class="btn btn-primary btn-rounded"
-          >
-            Create
-          </a> -->
+  <div class="row mb-4">
+    <div class="col-md-12 mb-2">
+      <div class="fancy-head"><span>Summary</span></div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-small">Total Recurring Payment</div>
+              <div class="form-control">
+                Rp 5,000,000.00
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <div class="text-small">Total Unpaid</div>
+              <div class="form-control">
+                Rp 5,000,000.00
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <div class="col-md-12">
+      <div class="fancy-head"><span>Search</span></div>
+      <form [formGroup]="userForm" (ngSubmit)="submit()">
+        <div class="row">
+          <div class="col">
+            <div class="text-small">Branch</div>
+            <select class="form-control" formControlName="branch_id">
+              <option value="1">Jakarta</option>
+              <option value="2">Bali</option>
+            </select>
+          </div>
+          <div class="col">
+            <div class="text-small">EDC Machine</div>
+            <select class="form-control" formControlName="edc_id">
+              <option *ngFor="let edc of edcs" value="{{edc.id}}">{{edc.bank_name}}</option> 
+            </select>
+          </div>
+          <div class="col">
+            <div class="text-small">Date</div>
+            <select name="date" class="form-control" formControlName="recuring_date">
+              <option value="1">1</option>
+              <option value="15">15</option>
+            </select>
+          </div>
+          <div class="col">
+            <div class="text-small mb-3">Finance Status</div>
+            <input type="checkbox" checked value="done"> Done
+            <input class="ml-2" type="checkbox" checked value="undone"> Undone
+          </div>
+          <div class="col">
+            <div class="text-small">&nbsp;</div>
+            <button class="btn btn-warning btn-block py-2">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-md-12">
       <div class="card o-hidden">
         <div class="table mt-4">
@@ -65,15 +119,9 @@
                       <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
                       <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
                       <td>
-                        <div class="row">
-                          <div class="col-6">
-                            <button class="btn btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
-                          </div>
-                          <div class="col-6">
-                            <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm btn-warning mr-2 ml-2"><i
-                                class="i-Pen-4"></i></a>
-                          </div>
-                        </div>
+                          <button class="btn btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
+                          <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm btn-warning"><i
+                              class="i-Pen-4"></i></a>
                       </td>
                     </tr>
                   </tbody>
