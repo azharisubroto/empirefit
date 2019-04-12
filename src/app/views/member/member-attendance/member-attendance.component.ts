@@ -177,7 +177,6 @@ export class MemberAttendanceComponent implements OnInit {
             $("#btn-history").addClass("disabled");
             $("#btn-autoreg").addClass("disabled");
 
-            $("#btn-classhis").addClass("disabled");
             $("#btn-ptsession").addClass("disabled");
             $("#btn-membership").addClass("disabled");
             $("#btn-membership-leave").addClass("disabled");
