@@ -9,77 +9,78 @@
   <div class="separator-breadcrumb border-top"></div>
 
   <div class="row">
-      <div class="col-md-4">
-        <div class="form-group">
-          <a
+    <div class="col-md-4">
+      <div class="form-group">
+        <!-- <a
             href="#"
             [routerLink]="['member-partner-create']"
             class="btn btn-primary btn-rounded"
           >
             Create
-          </a>
-        </div>
+          </a> -->
       </div>
-      <div class="col-md-12">
-        <div class="card o-hidden">
-          <div class="table mt-4">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="container">
-                  <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
-                    <thead class="text-center">
-                      <tr>
-                        <th>Date</th>
-                        <th>Member</th>
-                        <th>Name on Card</th>
-                        <th>CC Number</th>
-                        <th>EXP Date</th>
-                        <th>Recurring Date</th>
-                        <th>Recurring Payment</th>
-                        <th>Unpaid (IDR)</th>
-                        <th>Finance Status</th>
-                        <th>Finance Notes</th>
-                        <th>Bank Approval Code</th>
-                        <th>Bank Notes</th>
-                        <th>Bank Withdrawal</th>
-                        <th>FO Status</th>
-                        <th>FO Payment</th>
-                        <th width="30%">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-center partners">
-                      <tr *ngFor="let item of finance">
-                        <td>{{ item.date }}</td>
-                        <td>{{ item.member_name }}</td>
-                        <td>{{ item.credit_card_name }}</td>
-                        <td>{{ item.credit_card_number }}</td>
-                        <td>{{ item.credit_card_exp_month }} - {{ item.credit_card_exp_year }}</td>
-                        <td>{{ item.recuring_date }}</td>
-                        <td>{{ item.recuring_payment | number:0 }}</td>
-                        <td>{{ item.unpaid | number:0 }}</td>
-                        <td>{{ item.finance_status === NULL ? 'UNDONE' : 'DONE' }}</td>
-                        <td>{{ !! item.finance_notes ? item.finance_notes : 'n/a' }}</td>
-                        <td>{{ !! item.bank_approval_code ? item.bank_approval_code : 'n/a' }}</td>
-                        <td>{{ !! item.bank_notes ? item.bank_notes : 'n/a' }}</td>
-                        <td>{{ !! item.bank_withdrawal ? item.bank_withdrawal : 'n/a' }}</td>
-                        <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
-                        <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
-                        <td>
-                          <button class="btn btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
-                          <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm btn-warning mr-2 ml-2"><i class="i-Pen-4"></i></a>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card o-hidden">
+        <div class="table mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Date</th>
+                      <th>Member</th>
+                      <th>Name on Card</th>
+                      <th>CC Number</th>
+                      <th>EXP Date</th>
+                      <th>Recurring Date</th>
+                      <th>Recurring Payment</th>
+                      <th>Unpaid (IDR)</th>
+                      <th>Finance Status</th>
+                      <th>Finance Notes</th>
+                      <th>Bank Approval Code</th>
+                      <th>Bank Notes</th>
+                      <th>Bank Withdrawal</th>
+                      <th>FO Status</th>
+                      <th>FO Payment</th>
+                      <th width="30%">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center partners">
+                    <tr *ngFor="let item of finance">
+                      <td>{{ item.date }}</td>
+                      <td>{{ item.member_name }}</td>
+                      <td>{{ item.credit_card_name }}</td>
+                      <td>{{ item.credit_card_number }}</td>
+                      <td>{{ item.credit_card_exp_month }} - {{ item.credit_card_exp_year }}</td>
+                      <td>{{ item.recuring_date }}</td>
+                      <td>{{ item.recuring_payment | number:0 }}</td>
+                      <td>{{ item.unpaid | number:0 }}</td>
+                      <td>{{ item.finance_status === NULL ? 'UNDONE' : 'DONE' }}</td>
+                      <td>{{ !! item.finance_notes ? item.finance_notes : 'n/a' }}</td>
+                      <td>{{ !! item.bank_approval_code ? item.bank_approval_code : 'n/a' }}</td>
+                      <td>{{ !! item.bank_notes ? item.bank_notes : 'n/a' }}</td>
+                      <td>{{ !! item.bank_withdrawal ? item.bank_withdrawal : 'n/a' }}</td>
+                      <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
+                      <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
+                      <td>
+                        <button class="btn btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
+                        <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm btn-warning mr-2 ml-2"><i
+                            class="i-Pen-4"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
         </div>
-
-        <button class="btn btn-primary btn-lg mt-4" (click)="open(toprint)">Download Preview</button>
       </div>
+
+      <button class="btn btn-primary btn-lg mt-4" (click)="open(toprint)">Download Preview</button>
     </div>
+  </div>
 </div>
 
 
@@ -92,44 +93,44 @@
   </div>
   <div class="modal-body">
     <div id="printpdf">
-        <div class="mb-4">
-          <h2>Credit Card Recurring List</h2>
-          <h3><strong>EMPIRE FIT CLUB</strong></h3>
-          <div class="text-small">
-            Branch: {{edc.branch_name}}<br>
-            EDC: {{edc.bank_name}}<br>
-            MID: {{edc.mid}}<br>
-            TID: {{edc.tid}}<br>
-          </div>
+      <div class="mb-4">
+        <h2>Credit Card Recurring List</h2>
+        <h3><strong>EMPIRE FIT CLUB</strong></h3>
+        <div class="text-small">
+          Branch: {{edc.branch_name}}<br>
+          EDC: {{edc.bank_name}}<br>
+          MID: {{edc.mid}}<br>
+          TID: {{edc.tid}}<br>
         </div>
-        <div class="px-1">
-          <table id="example-table" class="table table-hover table-bordered table-striped" cellspacing="0">
-            <thead class="text-center bg-dark text-light">
-              <tr>
-                <th>No</th>
-                <th>CC Number</th>
-                <th>Card Name</th>
-                <th>EXP Date</th>
-                <th>Bank Name</th>
-                <th>Description</th>
-                <th>Amount</th>
-                <th>Formula</th>
-              </tr>
-            </thead>
-            <tbody class="text-center partners">
-              <tr *ngFor="let item of finance; let i = index">
-                <td>{{ i+1 }}</td>
-                <td>{{ item.credit_card_number }}</td>
-                <td>{{ item.credit_card_name }}</td>
-                <td>{{ item.credit_card_exp_month }}/{{ item.credit_card_exp_year }}</td>
-                <td>{{ item.credit_card_bank_name }}</td>
-                <td></td>
-                <td>{{ item.recuring_payment | number:0 }}</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      </div>
+      <div class="px-1">
+        <table id="example-table" class="table table-hover table-bordered table-striped" cellspacing="0">
+          <thead class="text-center bg-dark text-light">
+            <tr>
+              <th>No</th>
+              <th>CC Number</th>
+              <th>Card Name</th>
+              <th>EXP Date</th>
+              <th>Bank Name</th>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Formula</th>
+            </tr>
+          </thead>
+          <tbody class="text-center partners">
+            <tr *ngFor="let item of finance; let i = index">
+              <td>{{ i+1 }}</td>
+              <td>{{ item.credit_card_number }}</td>
+              <td>{{ item.credit_card_name }}</td>
+              <td>{{ item.credit_card_exp_month }}/{{ item.credit_card_exp_year }}</td>
+              <td>{{ item.credit_card_bank_name }}</td>
+              <td></td>
+              <td>{{ item.recuring_payment | number:0 }}</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <button id="pdf-download" class="btn btn-primary">PDF Download</button>
