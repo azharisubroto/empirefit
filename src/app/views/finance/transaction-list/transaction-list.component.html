@@ -65,9 +65,15 @@
                       <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
                       <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
                       <td>
-                        <button class="btn btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
-                        <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm btn-warning mr-2 ml-2"><i
-                            class="i-Pen-4"></i></a>
+                        <div class="row">
+                          <div class="col-6">
+                            <button class="btn btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
+                          </div>
+                          <div class="col-6">
+                            <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm btn-warning mr-2 ml-2"><i
+                                class="i-Pen-4"></i></a>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   </tbody>
