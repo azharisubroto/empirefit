@@ -18,6 +18,7 @@ import { TextMaskModule } from "angular2-text-mask";
 import { StaffFormComponent } from './staff-form/staff-form.component';
 
 import { WebcamModule } from 'ngx-webcam';
+import { StaffAttendanceComponent } from './staff-attendance/staff-attendance.component';
 
 @NgModule({
   imports: [
@@ -36,6 +37,6 @@ import { WebcamModule } from 'ngx-webcam';
     SharedComponentsModule,
     WebcamModule
   ],
-  declarations: [StaffListComponent, StaffRegistrationComponent, StaffFormComponent]
+  declarations: [StaffListComponent, StaffRegistrationComponent, StaffFormComponent, StaffAttendanceComponent]
 })
 export class StaffModule {}

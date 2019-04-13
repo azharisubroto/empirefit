@@ -1,0 +1,190 @@
+<div class="breadcrumb">
+  <h1>Staff</h1>
+  <ul>
+    <li>Data & Attendance</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row mb-4">
+  <div class="col-md-6 mb-4 mb-md-0">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="fancy-head"><span>Biodata</span></div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="avatar">
+              <img src="{{
+                  !! photo ? photo : '/assets/images/user.png'
+                }}" class="img-fluid rounded-circle"
+                alt="" />
+            </div>
+          </div>
+          <div class="col-md-9">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <span class="text-muted mb-0">Name</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ name }}
+                  </div>
+                </div>
+                <div>
+                  <span class="text-muted mb-0">Phone</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ phone }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-4">
+                  <span class="text-muted mb-0">Date of Birth</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ date_of_birth }}
+                  </div>
+                </div>
+                <div>
+                  <span class="text-muted mb-0">Position</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ !! position_name ? position_name : "-" }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="fancy-head"><span>Today's Attendance</span></div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+              <span class="text-muted mb-0">Date</span>
+              <div class="text-medium text-primary mt-1">
+                {{ date }}
+              </div>
+            </div>
+            <div class="px-4 py-3 border border-light rounded align-items-center">
+              <span class="text-muted mb-0">Branch</span>
+              <div class="text-medium text-primary mt-1">
+                {{ branch_name }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+              <span class="text-muted mb-0">First Time</span>
+              <div id="first_time" class="text-medium text-primary mt-1 first-time">
+                {{ !! first_time ? first_time : "-" }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6 mb-3">
+            <a id="btn-attendance" (click)="checkAttendance()" [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Attendance</a>
+          </div>
+          <div class="col-md-6 mb-3">
+            <button (click)="open(mt_attendance)" id="btn-mt-attendance" class="btn btn-primary btn-lg btn-block py-3">Manual
+              Attendance</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-4 mb-md-0">
+    <!-- PAYMENT -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="fancy-head mb-3">
+          <span>Attendance History</span>
+        </div>
+        <form [formGroup]="filterForm" (ngSubmit)="searchHistory()">
+          <div class="row mb-2">
+            <div class="col-md-3">
+              <input class="form-control" type="text" name="dp1" ngbDatepicker formControlName="date_first" #dp1="ngbDatepicker">
+            </div>
+            <div class="col-1">
+              <button class="btn btn-secondary" (click)="dp1.toggle()" type="button">
+                <i class="icon-regular i-Calendar-4"></i>
+              </button>
+            </div>
+            <div class="col-md-1 text-center">
+            </div>
+            <div class="col-md-3">
+              <input class="form-control" type="text" name="dp2" ngbDatepicker formControlName="date_second" #dp2="ngbDatepicker">
+            </div>
+            <div class="col-1">
+              <button class="btn btn-secondary" (click)="dp2.toggle()" type="button">
+                <i class="icon-regular i-Calendar-4"></i>
+              </button>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-2">
+              <button class="btn btn-dark" type="button" (click)="searchHistory()">Filter</button>
+            </div>
+          </div>
+        </form>
+        <hr>
+        <table id="mytable" class="table table-light">
+          <thead>
+            <tr>
+              <th>Date Time</th>
+              <th>Verified By</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let attendance of attendanceHistory">
+            <tr class="text-center">
+              <td>{{attendance.date_time}}</td>
+              <td>{{attendance.verified_by}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <!-- <a id="btn-membership" routerLink="/dashboard/member/activation/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Download
+                  Preview</a> -->
+            <a id="btn-membership" href="#" class="btn btn-primary btn-lg btn-block py-3">Download
+              Preview</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #mt_attendance let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Manual Attendance</h4>
+      <button type="button" class="close" aria-label="Close" (click)="c('Close')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <div class="px-4 py-3 border border-light rounded align-items-center">
+            <span class="text-muted mb-0">Front Officer</span>
+            <div class="text-medium text-primary mt-1">
+              {{ !!user.name ? user.name : user.role }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <form [formGroup]="userForm" (ngSubmit)="attendanceCheck()">
+            <label class="text-muted mb-0">Your Password</label>
+            <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
+            <input type="hidden" name="schedule_id" formControlName="schedule_id" placeholder="..." class="form-control mb-3" />
+            <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
+            <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">Proceed</btn-loading>
+          </form>
+        </div>
+      </form>
+    </div>
+  </ng-template>

@@ -11,11 +11,7 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <a
-          href="#"
-          [routerLink]="['staff-registration']"
-          class="btn btn-primary btn-rounded"
-        >
+        <a href="#" [routerLink]="['staff-registration']" class="btn btn-primary btn-rounded">
           Registration
         </a>
       </div>
@@ -43,6 +39,17 @@
                       <td>{{ staff.phone }}</td>
                       <td>{{ staff.date_of_birth }}</td>
                       <td>
+                        <a href="#" [routerLink]="['staff-attendance/', staff.id]" class="btn btn-sm btn-dark mr-2"
+                          title="Attendance" triggers="mouseenter:mouseleave">
+                          <i class="i-Clock"></i>
+                        </a>
+                        <a href="#" [routerLink]="['staff-edit/', staff.id]" class="btn btn-sm btn-warning mr-2" title="Edit"
+                          triggers="mouseenter:mouseleave">
+                          <i class="i-Pen-5"></i>
+                        </a>
+                        <button title="Delete" triggers="mouseenter:mouseleave" class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, staff.id)">
+                          <i class="i-Close-Window"></i>
+                        </button>
                         <!-- <button
                           title="Edit"
                           triggers="mouseenter:mouseleave"
@@ -51,23 +58,8 @@
                         >
                           <i class="i-Pen-5"></i>
                         </button> -->
-                        <a
-                          href="#"
-                          [routerLink]="['staff-edit/', staff.id]"
-                          class="btn btn-sm btn-warning mr-2"
-                          title="Edit"
-                          triggers="mouseenter:mouseleave"
-                        >
-                          <i class="i-Pen-5"></i>
-                        </a>
-                        <button
-                          title="Delete"
-                          triggers="mouseenter:mouseleave"
-                          class="btn btn-sm btn-danger"
-                          (click)="confirm(modalConfirm, staff.id)"
-                        >
-                          <i class="i-Close-Window"></i>
-                        </button>
+
+
 
                         <!-- Delete Modal -->
                         <ng-template #modalConfirm let-modal>
@@ -75,49 +67,28 @@
                             <h4 class="modal-title" id="modal-title">
                               Staff deletion
                             </h4>
-                            <button
-                              type="button"
-                              triggers="mouseenter:mouseleave"
-                              title="Show"
-                              class="close"
-                              aria-label="Close button"
-                              aria-describedby="modal-title"
-                              (click)="modal.dismiss('Cross click')"
-                            >
+                            <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
+                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
                             <p>
-                              <strong
-                                >Are you sure you want to delete
-                                <span class="text-primary"
-                                  >"{{ staff.name }}"</span
-                                >
+                              <strong>Are you sure you want to delete
+                                <span class="text-primary">"{{ staff.name }}"</span>
                               </strong>
                             </p>
                             <p>
                               All information associated to this staff will be
                               permanently deleted.
-                              <span class="text-danger"
-                                >This operation can not be undone.</span
-                              >
+                              <span class="text-danger">This operation can not be undone.</span>
                             </p>
                           </div>
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-outline-secondary btn-rounded"
-                              (click)="modal.dismiss('cancel')"
-                            >
+                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
                               Cancel
                             </button>
-                            <button
-                              type="button"
-                              ngbAutofocus
-                              class="btn btn-danger btn-rounded"
-                              (click)="modal.close('Ok')"
-                            >
+                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
                               Ok
                             </button>
                           </div>

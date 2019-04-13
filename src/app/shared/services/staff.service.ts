@@ -48,4 +48,20 @@ export class StaffService {
   updatePhoto(id, data) {
     return this.http.post(this.apiURL + "/staff_photo/" + id, data, this.httpOptions);
   }
+
+  staffAttendance(id) {
+    return this.http.get(this.apiURL + "/staff_attendances/" + id, this.httpOptions);
+  }
+
+  staffManualAttendance(data) {
+    return this.http.post(
+      this.apiURL + "/staff_attendances",
+      data,
+      this.httpOptions
+    );
+  }
+
+  searchAttendance(id, data) {
+    return this.http.post(this.apiURL + "/search_staff_attendance/" + id, data, this.httpOptions);
+  }
 }

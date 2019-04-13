@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { StaffListComponent } from "./staff-list/staff-list.component";
 import { StaffRegistrationComponent } from "./staff-registration/staff-registration.component";
 import { StaffFormComponent } from "./staff-form/staff-form.component";
+import { StaffAttendanceComponent } from "./staff-attendance/staff-attendance.component";
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: "staff-edit/:id",
     component: StaffFormComponent
+  },
+  {
+    path: "staff-attendance/:id",
+    component: StaffAttendanceComponent
   }
 ];
 
@@ -23,4 +28,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class StaffRoutingModule {}
+export class StaffRoutingModule { }
