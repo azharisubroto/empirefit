@@ -102,7 +102,7 @@ export class StaffAttendanceComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkAttendance(this.activatedRoute.snapshot.params["id"])
+          .checkStaffAttendance(this.activatedRoute.snapshot.params["id"])
           .subscribe((data: any) => {
             if (data["status"] === "200") {
               subscribe.unsubscribe();
