@@ -62,6 +62,7 @@ export class MemberAttendanceComponent implements OnInit {
   status;
   full_recuring_date;
   leaves;
+  cc_autodebit_payment: boolean = false;
   status_leave: boolean = false;
 
   constructor(
@@ -129,6 +130,12 @@ export class MemberAttendanceComponent implements OnInit {
           this.status_leave = true;
         } else {
           this.status_leave = false;
+        }
+
+        if (this.member.auto_debet == "0") {
+          this.cc_autodebit_payment = false;
+        } else {
+          this.cc_autodebit_payment = true;
         }
 
         var member = this.member;

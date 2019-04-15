@@ -143,21 +143,22 @@
             <a id="btn-ptsession" routerLink="/dashboard/member/pt-session/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">PT
               Session</a>
           </div>
-          <div class="col-md-12 mb-3">
-            <button id="excel-bio" class="btn btn-primary btn-lg btn-block py-3">Download Bio &amp; Liability Excel</button>
+          <div class="col-md-6 mb-3">
+            <button id="excel-bio" class="btn btn-primary btn-lg btn-block py-3">Download Bio &amp; Liability <br>
+              (Excel)</button>
           </div>
-          <div class="col-md-12 mb-3">
-            <button id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Download Bio &amp; Liability PDF</button>
+          <div class="col-md-6 mb-3">
+            <button id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Download Bio &amp; Liability <br> (PDF)</button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- PAYMENT -->
-    <div class="card mb-4">
+    <div class="card mb-4" *ngIf="cc_autodebit_payment">
       <div class="card-body">
         <div class="fancy-head mb-3">
-          <span>Payment</span>
+          <span>CC Autodebit Payment</span>
         </div>
         <div class="row mb-4">
           <div class="col-md-6 mb-4 mb-md-0">
@@ -199,8 +200,11 @@
         </div>
 
         <div class="row mt-4">
-          <div class="col-12">
-            <a id="btn-payment-update" href="#" class="btn btn-primary btn-lg btn-block py-3">Payment Update</a>
+          <div class="col-6">
+            <a id="btn-payment-update" href="#" class="btn btn-primary btn-lg btn-block py-3">Update Payment</a>
+          </div>
+          <div class="col-6">
+            <a href="#" class="btn btn-primary btn-lg btn-block py-3">Download Signing Form</a>
           </div>
         </div>
       </div>
