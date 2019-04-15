@@ -51,7 +51,7 @@ export class FingerService {
     return this.http.get(this.apiURL + "/finger/pt_attendance/check/" + pt_id);
   }
 
-  checkStaffAttendance(staff_id) {
-    return this.http.get(this.apiURL + "/finger/staff_attendance/check/" + staff_id, this.httpOptions);
+  checkStaffAttendance(staff_id, data) {
+    return this.http.post(this.apiURL + "/finger/staff_attendance/check/" + staff_id, data, this.httpOptions);
   }
 }

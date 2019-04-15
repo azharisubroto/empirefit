@@ -99,10 +99,14 @@ export class StaffAttendanceComponent implements OnInit {
 
   // Check Auto Atendance
   checkAttendance() {
+    let formValue = ({
+      'user_id': this.user.id,
+    });
+
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkStaffAttendance(this.activatedRoute.snapshot.params["id"])
+          .checkStaffAttendance(this.activatedRoute.snapshot.params["id"], formValue)
           .subscribe((data: any) => {
             if (data["status"] === "200") {
               subscribe.unsubscribe();
