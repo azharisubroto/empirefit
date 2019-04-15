@@ -18,6 +18,7 @@ import { saveAs } from 'file-saver';
 import 'xlsx';
 import 'jspdf-autotable';
 import 'tableexport';
+import html2canvas from 'html2canvas';
 import { UserService } from "src/app/shared/services/user.service";
 import { EdcService } from "src/app/shared/services/edc.service";
 
@@ -38,6 +39,7 @@ export class TransactionListComponent implements OnInit {
   table;
   thead;
   tbody;
+  tanggal;
 
   constructor(
     private FinanceService: FinanceService,
@@ -53,6 +55,7 @@ export class TransactionListComponent implements OnInit {
 
   ngOnInit() {
     var mod = this;
+    this.tanggal = this.getTanggal();
     this.userForm = this.fb.group({
       branch_id: ["1", Validators.required],
       edc_id: ["1", Validators.required],
@@ -67,12 +70,13 @@ export class TransactionListComponent implements OnInit {
       setTimeout(() => {
         this.table = $("#mytable").DataTable({
           scrollX: true,
+          autoWidth: true
           //dom: '<"toolbar">frtip'
         });
         //$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
       }, 200);
       //console.log([...res]);
-      //console.log(data);
+      console.log(res);
     });
 
     // Get single User
@@ -89,6 +93,37 @@ export class TransactionListComponent implements OnInit {
 
     this.thead = $('.tocpy');
     this.thead = $('.tocpy');
+  }
+
+  memberpdf($id, $img) {
+    var doc = new jsPDF('p', 'pt', 'letter');
+
+    // We'll make our own renderer to skip this editor
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+    doc.addImage($img, 'PNG', 15, 450, 211, 150);
+    doc.fromHTML($('#pdf-'+$id).get(0), 15, 25, {
+      'pagesplit': true,
+      'width': 550,
+      'useCORS': false,
+      'elementHandlers': specialElementHandlers
+    }, function(dispose){
+      doc.save('autodebit-contract-'+$id+'.pdf');
+    });
+
+    
+    
+    // const filename  = 'autodebit-contract-'+$id+'.pdf';
+
+		// html2canvas(document.querySelector('#pdf-'+$id)).then(canvas => {
+		// 	let pdf = new jsPDF('p', 'mm', 'a4');
+		// 	pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
+		// 	pdf.save(filename);
+		// });
+    
   }
 
   changeDate(event: any, $target) {
@@ -151,7 +186,7 @@ export class TransactionListComponent implements OnInit {
             !! item.bank_withdrawal ? item.bank_withdrawal : 'n/a',
             !! item.fo_status ? item.fo_status : 'n/a',
             !! item.fo_payment ? item.fo_payment : 'n/a',
-            '<button class="btn btn btn-sm btn-warning mr-2 ajax-update-btn" data-update="'+item.id+'"><i class="i-Check"></i></button><a href="/finance/transaction-form/'+item.id+'" class="btn btn-sm btn-warning"><i class="i-Pen-4"></i></a>'
+            '<button class="btn btn btn-sm btn-warning mr-2 ajax-update-btn" data-update="'+item.id+'"><i class="i-Check"></i></button><a href="/finance/transaction-form/'+item.id+'" class="btn btn-sm btn-warning"><i class="i-Pen-4"></i></a><button class="btn btn-sm btn-warning"><i class="i-Download"></i></button>'
         ];
         items.push(newthis);
       });
