@@ -189,8 +189,9 @@ export class StaffAttendanceComponent implements OnInit {
         progressBar: true
       });
     } else {
-      this.staffService.searchAttendance(this.activatedRoute.snapshot.params["id"], formValues).subscribe((data: any) => {
-        console.log(data);
+      this.staffService.searchAttendance(this.activatedRoute.snapshot.params["id"], formValues).subscribe((res: any) => {
+        console.log(res);
+
       })
     }
 

@@ -107,7 +107,8 @@
         <form [formGroup]="filterForm" (ngSubmit)="searchHistory()">
           <div class="row mb-2">
             <div class="col-md-3">
-              <input class="form-control" type="text" name="dp1" ngbDatepicker formControlName="date_first" #dp1="ngbDatepicker">
+              <input id="fd" class="form-control" type="text" name="dp1" ngbDatepicker formControlName="date_first"
+                #dp1="ngbDatepicker">
             </div>
             <div class="col-1">
               <button class="btn btn-secondary" (click)="dp1.toggle()" type="button">
@@ -117,7 +118,8 @@
             <div class="col-md-1 text-center">
             </div>
             <div class="col-md-3">
-              <input class="form-control" type="text" name="dp2" ngbDatepicker formControlName="date_second" #dp2="ngbDatepicker">
+              <input id="sd" class="form-control" type="text" name="dp2" ngbDatepicker formControlName="date_second"
+                #dp2="ngbDatepicker">
             </div>
             <div class="col-1">
               <button class="btn btn-secondary" (click)="dp2.toggle()" type="button">
