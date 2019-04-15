@@ -183,6 +183,8 @@ export class MemberAttendanceComponent implements OnInit {
             $("#btn-membership-leave").addClass("disabled");
             $("#btn-membership-history").addClass("disabled");
             $("#btn-payment-update").addClass('disabled');
+            $("#excel-bio").attr('disabled', 'disabled');
+            $("#pdf-bio").attr('disabled', 'disabled');
           } else {
             if (data["data"].member_type_id == null) {
               $("#btn-manualreg").attr("disabled", "disabled");
