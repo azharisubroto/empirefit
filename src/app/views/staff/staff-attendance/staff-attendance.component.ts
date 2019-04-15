@@ -39,7 +39,10 @@ export class StaffAttendanceComponent implements OnInit {
   attendanceHistory;
   finspot;
   finger;
+  total_attendance;
   user;
+  table;
+  previewAttendance;
   userForm: FormGroup;
   filterForm: FormGroup;
   loading: boolean;
@@ -69,10 +72,15 @@ export class StaffAttendanceComponent implements OnInit {
       this.branch_name = this.staff.branch_name;
       this.first_time = this.staff.attendance.first_time;
       this.attendanceHistory = data["data"].attendance.history;
-      console.log(this.staff.position)
+      this.total_attendance = data["data"].total_attendance;
+      console.log(this.total_attendance)
 
       this.chRef.detectChanges();
-      $("#mytable").DataTable();
+      setTimeout(() => {
+        this.table = $("#mytable").DataTable({
+          // scrollX: true,
+        });
+      }, 200);
 
       // Auto Attendance
       this.finspot = data["url_attendance"];
@@ -189,13 +197,32 @@ export class StaffAttendanceComponent implements OnInit {
         progressBar: true
       });
     } else {
-      this.staffService.searchAttendance(this.activatedRoute.snapshot.params["id"], formValues).subscribe((res: any) => {
-        console.log(res);
-
-      })
+      var mod = this;
+      this.table.destroy();
+      var items: any = [];
+      this.staffService.searchAttendance(this.activatedRoute.snapshot.params["id"], formValues).subscribe((data: any) => {
+        var res = data['data'];
+        $.each(res, function (i, item) {
+          var newthis = [
+            item.start_date,
+            item.user_name,
+          ];
+          items.push(newthis);
+        });
+        mod.table = $('#mytable').DataTable({
+          // scrollX: true,
+          columns: [
+            { title: 'Date Time' },
+            { title: 'Verified By' },
+          ],
+          data: items,
+        });
+        setTimeout(() => {
+          $(".total-attendance").text(data["total_attendance"]);
+          console.log(data);
+        }, 500);
+      });
     }
-
-    console.log(formValues);
   }
 
 }

@@ -8,9 +8,9 @@ describe('MemberPartnerFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MemberPartnerFormComponent ]
+      declarations: [MemberPartnerFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

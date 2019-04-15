@@ -7,6 +7,7 @@ import { MemberLeaveComponent } from "./member-leave/member-leave.component";
 import { MemberActivationComponent } from "./member-activation/member-activation.component";
 import { MemberActivationSuccessComponent } from "./member-activation-success/member-activation-success.component";
 import { PtSessionComponent } from "./pt-session/pt-session.component";
+import { MemberPackageComponent } from "./member-package/member-package.component";
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: "member/activate/success",
     component: MemberActivationSuccessComponent
+  },
+  {
+    path: "member/select-package",
+    component: MemberPackageComponent
   }
 ];
 
@@ -43,4 +48,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MemberRoutingModule {}
+export class MemberRoutingModule { }

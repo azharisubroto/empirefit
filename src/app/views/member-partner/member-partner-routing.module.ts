@@ -10,17 +10,17 @@ const routes: Routes = [
     component: MemberPartnerComponent
   },
   {
-    path: "member-partner-create", 
+    path: "member-partner-create",
     component: MemberPartnerCreateComponent
   },
   {
-    path: "member-partner-edit/:id", 
+    path: "member-partner-edit/:id",
     component: MemberPartnerFormComponent
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MemberPartnerRoutingModule {}
+export class MemberPartnerRoutingModule { }
