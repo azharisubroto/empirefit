@@ -36,6 +36,8 @@ export class TransactionListComponent implements OnInit {
   userForm: FormGroup;
   edcs;
   table;
+  thead;
+  tbody;
 
   constructor(
     private FinanceService: FinanceService,
@@ -52,9 +54,11 @@ export class TransactionListComponent implements OnInit {
   ngOnInit() {
     var mod = this;
     this.userForm = this.fb.group({
-      recuring_date: ["1", Validators.required],
       branch_id: ["1", Validators.required],
       edc_id: ["1", Validators.required],
+      first_date: ["", Validators.required],
+      second_date: ["", Validators.required],
+      progress: ["1", Validators.required]
     });
     this.FinanceService.getRecurings().subscribe((data: any[]) => {
       var res = data['data'];
@@ -82,6 +86,35 @@ export class TransactionListComponent implements OnInit {
       this.edcs = data['data'];
       console.log(this.edcs);
     });
+
+    this.thead = $('.tocpy');
+    this.thead = $('.tocpy');
+  }
+
+  changeDate(event: any, $target) {
+    var mod = this;
+    var year = event['year'];
+    var month = event['month'];
+    var day = event['day'];
+    var tosend = year + '-' + this.pad(month) + '-' + this.pad(day);
+    console.log($target+' is: '+tosend); 
+    //$('.classes-list').html('Loading...');
+    if( $target ==  'first_date' ) {
+      this.userForm.patchValue({
+        first_date: tosend
+      });
+    }
+
+    if( $target == 'second_date' ) {
+      this.userForm.patchValue({
+        second_date: tosend
+      });
+    }
+    
+  }
+
+  pad(d) {
+    return (d < 10) ? '0' + d.toString() : d.toString();
   }
 
   update(recuring_id) {
@@ -96,11 +129,61 @@ export class TransactionListComponent implements OnInit {
   }
 
   submit() {
-    this.table.clear().draw();
+    var mod = this;
+    this.table.destroy();
+    var items: any = [];
     this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
       var res = data['data'];
-      //this.finance = res;
-      //this.edc = data['edc'];
+      $.each(res, function(i, item){
+        var newthis = [
+            item.date,
+            item.member_name,
+            item.credit_card_name,
+            item.credit_card_number,
+            item.credit_card_exp_month+'/'+item.credit_card_exp_year,
+            item.recuring_date,
+            item.recuring_payment,
+            item.unpaid,
+            item.finance_status,
+            !! item.finance_notes ? item.finance_notes : 'n/a',
+            !! item.bank_approval_code ? item.bank_approval_code : 'n/a',
+            !! item.bank_notes ? item.bank_notes : 'n/a',
+            !! item.bank_withdrawal ? item.bank_withdrawal : 'n/a',
+            !! item.fo_status ? item.fo_status : 'n/a',
+            !! item.fo_payment ? item.fo_payment : 'n/a',
+            '<button class="btn btn btn-sm btn-warning mr-2 ajax-update-btn" data-update="'+item.id+'"><i class="i-Check"></i></button><a href="/finance/transaction-form/'+item.id+'" class="btn btn-sm btn-warning"><i class="i-Pen-4"></i></a>'
+        ];
+        items.push(newthis);
+      });
+      mod.table = $('#mytable').DataTable( {
+        scrollX: true,
+        columns: [
+          {title: 'Date'},
+          {title: 'Member'},
+          {title: 'Name on Card'},
+          {title: 'CC Number'},
+          {title: 'EXP Date'},
+          {title: 'Recurring Date'},
+          {title: 'Recurring Payment'},
+          {title: 'Unpaid (IDR)'},
+          {title: 'Finance Status'},
+          {title: 'Finance Notes'},
+          {title: 'Bank Approval Code'},
+          {title: 'Bank Notes'},
+          {title: 'Bank Withdrawal'},
+          {title: 'FO Status'},
+          {title: 'FO Payment'},
+          {title: 'Action'},
+        ],
+        data: items,
+        initComplete: function() {
+          $('.ajax-update-btn').on('click', function(e){
+            e.preventDefault();
+            var update_id = $(this).data('update'); //dapet id
+            mod.update(update_id);
+          });
+        }
+      } );
       console.log(res);
     });
   }

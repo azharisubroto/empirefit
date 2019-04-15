@@ -30,7 +30,7 @@ export class FinanceService {
     }
 
     updateRecuring(recuring_id, data) {
-        return this.http.post(this.apiURL + "/recurings/" + recuring_id, data, this.httpOptions);
+        return this.http.put(this.apiURL + "/recurings/" + recuring_id, data, this.httpOptions);
     }
 
     updateRecuringManual(recuring_id, data) {
