@@ -144,8 +144,8 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.id_card_number = data["data"].id_card_number;
         this.recuring_date = this.member.recuring_date;
-        this.full_recuring_date = data["data"].auto_debits[0] ? data["data"].auto_debits[0].date : "";
-        this.payment_unpaid = data["data"].auto_debits[0] ? data["data"].auto_debits[0].unpaid : "0";
+        this.full_recuring_date = data["data"].recurings.date ? data["data"].recurings.date : "-";
+        this.payment_unpaid = data["data"].recurings.unpaid ? data["data"].recurings.unpaid : "0";
 
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
@@ -243,7 +243,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-membership-leave").addClass("disabled");
             }
 
-            if (this.status === "Expired") {
+            if (this.status === "Expired" || this.status === "Inactive") {
               $("#btn-manualreg").attr("disabled", "disabled");
               $("#btn-manualattendance").attr("disabled", "disabled");
 
