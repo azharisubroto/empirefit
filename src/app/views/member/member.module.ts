@@ -19,6 +19,7 @@ import { MemberActivationSuccessComponent } from "./member-activation-success/me
 import { WebcamModule } from "ngx-webcam";
 import { SignaturePadModule } from "angular2-signaturepad";
 import { PtSessionComponent } from './pt-session/pt-session.component';
+import { MemberPackageComponent } from './member-package/member-package.component';
 
 @NgModule({
   imports: [
@@ -42,7 +43,8 @@ import { PtSessionComponent } from './pt-session/pt-session.component';
     MemberLeaveComponent,
     MemberActivationComponent,
     MemberActivationSuccessComponent,
-    PtSessionComponent
+    PtSessionComponent,
+    MemberPackageComponent
   ]
 })
 export class MemberModule {}

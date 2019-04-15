@@ -238,14 +238,18 @@ export class MemberAttendanceComponent implements OnInit {
             if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {
               if (data["data"].auto_debet == 1) {
                 if (this.status_leave) {
-                  $("#btn-membership-leave").addClass("disabled");
-                } else {
                   $("#btn-membership-leave").removeClass("disabled");
+                } else {
+                  $("#btn-membership-leave").addClass("disabled");
                 }
               } else {
                 $("#btn-membership-leave").addClass("disabled");
               }
               $("#btn-ptsession").addClass("disabled");
+            }
+
+            if (data["data"].auto_debet == 1) {
+              $("#btn-membership-leave").removeClass("disabled");
             } else {
               $("#btn-membership-leave").addClass("disabled");
             }
@@ -783,5 +787,9 @@ export class MemberAttendanceComponent implements OnInit {
         this.loading = false;
       }
     });
+  }
+
+  close() {
+    $(".modal-header .close").trigger("click");
   }
 }

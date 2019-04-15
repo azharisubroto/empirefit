@@ -180,11 +180,11 @@ export class MemberActivationComponent implements OnInit {
         this.member = data["data"];
 
         // autodebits
-        this.autodebits = data["data"].auto_debits[0];
+        this.autodebits = data["data"].auto_debits;
         this.cc_signature = this.autodebits ? this.autodebits.signature : null;
 
         // Credit card
-        this.credit_cards = data["data"].credit_cards[0];
+        this.credit_cards = data["data"].credit_cards;
         this.cc_name = this.credit_cards ? this.credit_cards.card_name : null;
         this.cc_card = this.credit_cards ? this.credit_cards.card_number : null;
         this.cc_month = this.credit_cards ? this.credit_cards.exp_month : null;
@@ -220,7 +220,7 @@ export class MemberActivationComponent implements OnInit {
           duration: data["data"].duration,
           session_remains: data["data"].session_remains,
           period: data["data"].period,
-          edc_id: data["data"].edc_id[0] ? data["data"].edc_id[0].edc_id : null,
+          edc_id: data["data"].edc_id ? data["data"].edc_id.edc_id : null,
         });
 
         this.authService.getuser().subscribe((data: any) => {
