@@ -26,11 +26,11 @@ export class FinanceService {
     }
 
     searchRecuring(data) {
-        return this.http.post(this.apiURL + "/recuring_search", data, this.httpOptions);
+        return this.http.post(this.apiURL + "/recuring_search/", data, this.httpOptions);
     }
 
     updateRecuring(recuring_id, data) {
-        return this.http.post(this.apiURL + "/recurings/" + recuring_id, data, this.httpOptions);
+        return this.http.put(this.apiURL + "/recurings/" + recuring_id, data, this.httpOptions);
     }
 
     updateRecuringManual(recuring_id, data) {
