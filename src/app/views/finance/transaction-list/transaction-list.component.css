@@ -4,3 +4,7 @@ table.dataTable thead .sorting_desc {
   background: none;
   text-align: center;
 }
+
+th, td {
+  white-space: nowrap;
+}
