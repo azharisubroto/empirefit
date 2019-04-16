@@ -16,8 +16,14 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { interval } from "rxjs/observable/interval";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 import * as $ from "jquery";
-import "datatables.net";
-import "datatables.net-bs4";
+// import "datatables.net";
+// import "datatables.net-bs4";
+// import JSZip from "jszip";
+// import 'datatables.net-bs4';
+// import 'datatables.net-dt';
+import 'datatables.net-buttons'; 
+import 'datatables.net-buttons-bs4';
+import 'datatables.net-buttons/js/buttons.html5.js';
 //import { setTimeout } from "timers";
 import { timeout } from "rxjs/operators";
 
@@ -78,7 +84,18 @@ export class StaffAttendanceComponent implements OnInit {
       this.chRef.detectChanges();
       setTimeout(() => {
         this.table = $("#mytable").DataTable({
-          // scrollX: true,
+          dom: 'Bfrtip',
+          buttons: {
+            dom: {
+              button: {
+                className: 'btn '
+              }
+            },
+            buttons: [
+              { extend: 'excel', className: 'btn-warning' },
+              { extend: 'csv', className: 'btn-warning' }
+            ]
+          }
         });
       }, 200);
 
@@ -210,7 +227,18 @@ export class StaffAttendanceComponent implements OnInit {
           items.push(newthis);
         });
         mod.table = $('#mytable').DataTable({
-          // scrollX: true,
+          dom: 'Bfrtip',
+          buttons: {
+            dom: {
+              button: {
+                className: 'btn '
+              }
+            },
+            buttons: [
+              { extend: 'excel', className: 'btn-warning' },
+              { extend: 'csv', className: 'btn-warning' }
+            ]
+          },
           columns: [
             { title: 'Date Time' },
             { title: 'Verified By' },
