@@ -1,0 +1,214 @@
+<div class="">
+    <div class="breadcrumb">
+        <h1>CC Autodebit Payment</h1>
+        <ul>
+            <li>{{ member.name }}</li>
+        </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <!-- MEMBERSHIP AND RECURRINGS -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <!-- MEMBERSHIP -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="fancy-head">
+                                <span>Membership</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Type</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ member.member_type_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Price</span>
+                                <div class="text-medium text-primary mt-1">
+                                    Rp {{ recurings.recuring_payment | number:0 }}
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                    <!-- end membership -->
+                    
+                    <!-- Recurring details -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="fancy-head">
+                                <span>Recurrings Detail</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Type</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ member.payment_type_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Auto Debit</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ !! member.auto_debet === false ? "No" : "Yes" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Recurring Date</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ recurings.date }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Payment Unpaid</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ member.payment_unpaid }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <!-- end recurring details -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-lg btn-block btn-primary py-3">Deactivate Auto Debit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CREDIT CARD INFORMATION -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="fancy-head">
+                        <span>Credit Card Information</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Card Number</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ creditcards.card_number }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Name on Card</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ creditcards.card_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Exp. Date</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ creditcards.exp_month }}/{{ creditcards.exp_year }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Bank Name</span>
+                                <div class="text-medium text-primary mt-1">
+                                    HSBC
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button class="btn btn-lg btn-block btn-primary py-3">Change CC</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3 mb-md-0">
+            <div class="card">
+                <div class="card-body">
+                    <div class="fancy-head">
+                        <span>Receipt Record</span>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <span class="text-muted mb-0">Type</span>
+                                <div class="text-medium text-primary mt-1">
+                                    <select class="form-control">
+                                        <option value="debit">Credit Card</option>
+                                        <option value="credit">Debit Card</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <span class="text-muted mb-0">Type</span>
+                                <div class="text-medium text-primary mt-1">
+                                    <select class="form-control">
+                                        <option value="bni">BNI</option>
+                                        <option value="bca">BCA</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <span class="text-muted mb-0">Card Number</span>
+                                <div class="text-medium text-primary mt-1">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <span class="text-muted mb-0">Trace Number</span>
+                                <div class="text-medium text-primary mt-1">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <span class="text-muted mb-0">Total Payment</span>
+                                <div class="text-medium text-primary mt-1">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="mb-3">
+                                <span class="text-muted mb-0">Date &amp; Time</span>
+                                <div class="text-medium text-primary mt-1">
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-lg btn-block btn-primary py-3">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

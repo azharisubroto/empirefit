@@ -8,6 +8,7 @@ import { MemberActivationComponent } from "./member-activation/member-activation
 import { MemberActivationSuccessComponent } from "./member-activation-success/member-activation-success.component";
 import { PtSessionComponent } from "./pt-session/pt-session.component";
 import { MemberPackageComponent } from "./member-package/member-package.component";
+import { MemberAutodebitComponent } from "./member-autodebit/member-autodebit.component";
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: "member/pt-session/:id",
     component: PtSessionComponent
+  },
+  {
+    path: "member/cc-autodebit/:id",
+    component: MemberAutodebitComponent
   },
   {
     path: "member/activate/success",

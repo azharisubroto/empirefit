@@ -10,6 +10,8 @@ import { debounceTime } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
+import { UserService } from "src/app/shared/services/user.service";
+import { EdcService } from "src/app/shared/services/edc.service";
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
@@ -19,8 +21,7 @@ import 'xlsx';
 import 'jspdf-autotable';
 import 'tableexport';
 import html2canvas from 'html2canvas';
-import { UserService } from "src/app/shared/services/user.service";
-import { EdcService } from "src/app/shared/services/edc.service";
+
 
 
 @Component({
