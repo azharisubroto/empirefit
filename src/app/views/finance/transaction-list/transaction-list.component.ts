@@ -41,6 +41,9 @@ export class TransactionListComponent implements OnInit {
   thead;
   tbody;
   tanggal;
+  total_recuring_payment;
+  total_unpaid;
+
 
   constructor(
     private FinanceService: FinanceService,
@@ -66,6 +69,8 @@ export class TransactionListComponent implements OnInit {
     });
     this.FinanceService.getRecurings().subscribe((data: any[]) => {
       var res = data['data'];
+      this.total_recuring_payment = data["total_recuring_payment"];
+      this.total_unpaid = data["unpaid"];
       this.finance = res;
       this.edc = data['edc'];
       setTimeout(() => {
@@ -77,7 +82,7 @@ export class TransactionListComponent implements OnInit {
         //$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
       }, 200);
       //console.log([...res]);
-      console.log(res);
+      console.log(data);
     });
 
     // Get single User
@@ -87,7 +92,7 @@ export class TransactionListComponent implements OnInit {
     });
 
     // get edc
-    this.EdcService.getEdcs().subscribe((data: any) =>{
+    this.EdcService.getEdcs().subscribe((data: any) => {
       this.edcs = data['data'];
       console.log(this.edcs);
     });
@@ -101,30 +106,30 @@ export class TransactionListComponent implements OnInit {
 
     // We'll make our own renderer to skip this editor
     var specialElementHandlers = {
-        '#editor': function (element, renderer) {
-            return true;
-        }
+      '#editor': function (element, renderer) {
+        return true;
+      }
     };
     doc.addImage($img, 'PNG', 15, 450, 211, 150);
-    doc.fromHTML($('#pdf-'+$id).get(0), 15, 25, {
+    doc.fromHTML($('#pdf-' + $id).get(0), 15, 25, {
       'pagesplit': true,
       'width': 550,
       'useCORS': false,
       'elementHandlers': specialElementHandlers
-    }, function(dispose){
-      doc.save('autodebit-contract-'+$id+'.pdf');
+    }, function (dispose) {
+      doc.save('autodebit-contract-' + $id + '.pdf');
     });
 
-    
-    
+
+
     // const filename  = 'autodebit-contract-'+$id+'.pdf';
 
-		// html2canvas(document.querySelector('#pdf-'+$id)).then(canvas => {
-		// 	let pdf = new jsPDF('p', 'mm', 'a4');
-		// 	pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
-		// 	pdf.save(filename);
-		// });
-    
+    // html2canvas(document.querySelector('#pdf-'+$id)).then(canvas => {
+    // 	let pdf = new jsPDF('p', 'mm', 'a4');
+    // 	pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 211, 298);
+    // 	pdf.save(filename);
+    // });
+
   }
 
   changeDate(event: any, $target) {
@@ -133,20 +138,20 @@ export class TransactionListComponent implements OnInit {
     var month = event['month'];
     var day = event['day'];
     var tosend = year + '-' + this.pad(month) + '-' + this.pad(day);
-    console.log($target+' is: '+tosend); 
+    console.log($target + ' is: ' + tosend);
     //$('.classes-list').html('Loading...');
-    if( $target ==  'first_date' ) {
+    if ($target == 'first_date') {
       this.userForm.patchValue({
         first_date: tosend
       });
     }
 
-    if( $target == 'second_date' ) {
+    if ($target == 'second_date') {
       this.userForm.patchValue({
         second_date: tosend
       });
     }
-    
+
   }
 
   pad(d) {
@@ -170,56 +175,56 @@ export class TransactionListComponent implements OnInit {
     var items: any = [];
     this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
       var res = data['data'];
-      $.each(res, function(i, item){
+      $.each(res, function (i, item) {
         var newthis = [
-            item.date,
-            item.member_name,
-            item.credit_card_name,
-            item.credit_card_number,
-            item.credit_card_exp_month+'/'+item.credit_card_exp_year,
-            item.recuring_date,
-            item.recuring_payment,
-            item.unpaid,
-            item.finance_status,
-            !! item.finance_notes ? item.finance_notes : 'n/a',
-            !! item.bank_approval_code ? item.bank_approval_code : 'n/a',
-            !! item.bank_notes ? item.bank_notes : 'n/a',
-            !! item.bank_withdrawal ? item.bank_withdrawal : 'n/a',
-            !! item.fo_status ? item.fo_status : 'n/a',
-            !! item.fo_payment ? item.fo_payment : 'n/a',
-            '<button class="btn btn btn-sm btn-warning mr-2 ajax-update-btn" data-update="'+item.id+'"><i class="i-Check"></i></button><a href="/finance/transaction-form/'+item.id+'" class="btn btn-sm btn-warning"><i class="i-Pen-4"></i></a><button class="btn btn-sm btn-warning"><i class="i-Download"></i></button>'
+          item.date,
+          item.member_name,
+          item.credit_card_name,
+          item.credit_card_number,
+          item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+          item.recuring_date,
+          item.recuring_payment,
+          item.unpaid,
+          item.finance_status,
+          !!item.finance_notes ? item.finance_notes : 'n/a',
+          !!item.bank_approval_code ? item.bank_approval_code : 'n/a',
+          !!item.bank_notes ? item.bank_notes : 'n/a',
+          !!item.bank_withdrawal ? item.bank_withdrawal : 'n/a',
+          !!item.fo_status ? item.fo_status : 'n/a',
+          !!item.fo_payment ? item.fo_payment : 'n/a',
+          '<button class="btn btn btn-sm btn-warning mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Check"></i></button><a href="/finance/transaction-form/' + item.id + '" class="btn btn-sm btn-warning"><i class="i-Pen-4"></i></a><button class="btn btn-sm btn-warning"><i class="i-Download"></i></button>'
         ];
         items.push(newthis);
       });
-      mod.table = $('#mytable').DataTable( {
+      mod.table = $('#mytable').DataTable({
         scrollX: true,
         columns: [
-          {title: 'Date'},
-          {title: 'Member'},
-          {title: 'Name on Card'},
-          {title: 'CC Number'},
-          {title: 'EXP Date'},
-          {title: 'Recurring Date'},
-          {title: 'Recurring Payment'},
-          {title: 'Unpaid (IDR)'},
-          {title: 'Finance Status'},
-          {title: 'Finance Notes'},
-          {title: 'Bank Approval Code'},
-          {title: 'Bank Notes'},
-          {title: 'Bank Withdrawal'},
-          {title: 'FO Status'},
-          {title: 'FO Payment'},
-          {title: 'Action'},
+          { title: 'Date' },
+          { title: 'Member' },
+          { title: 'Name on Card' },
+          { title: 'CC Number' },
+          { title: 'EXP Date' },
+          { title: 'Recurring Date' },
+          { title: 'Recurring Payment' },
+          { title: 'Unpaid (IDR)' },
+          { title: 'Finance Status' },
+          { title: 'Finance Notes' },
+          { title: 'Bank Approval Code' },
+          { title: 'Bank Notes' },
+          { title: 'Bank Withdrawal' },
+          { title: 'FO Status' },
+          { title: 'FO Payment' },
+          { title: 'Action' },
         ],
         data: items,
-        initComplete: function() {
-          $('.ajax-update-btn').on('click', function(e){
+        initComplete: function () {
+          $('.ajax-update-btn').on('click', function (e) {
             e.preventDefault();
             var update_id = $(this).data('update'); //dapet id
             mod.update(update_id);
           });
         }
-      } );
+      });
       console.log(res);
     });
   }

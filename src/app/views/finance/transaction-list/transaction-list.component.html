@@ -17,7 +17,7 @@
             <div class="card-body">
               <div class="text-small">Total Recurring Payment</div>
               <div class="form-control">
-                Rp 5,000,000.00
+                Rp. {{total_recuring_payment | number:0}}
               </div>
             </div>
           </div>
@@ -27,7 +27,7 @@
             <div class="card-body">
               <div class="text-small">Total Unpaid</div>
               <div class="form-control">
-                Rp 5,000,000.00
+                Rp. {{total_unpaid | number:0}}
               </div>
             </div>
           </div>
@@ -49,7 +49,7 @@
           <div class="col-md-2">
             <div class="text-small">EDC Machine</div>
             <select class="form-control" formControlName="edc_id">
-              <option *ngFor="let edc of edcs" value="{{edc.id}}">{{edc.bank_name}}</option> 
+              <option *ngFor="let edc of edcs" value="{{edc.id}}">{{edc.bank_name}}</option>
             </select>
           </div>
           <div class="col-md-5">
@@ -57,26 +57,24 @@
             <div class="row">
               <div class="col mb-3 mb-md-0">
                 <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd"
-                        ngbDatepicker #cp="ngbDatepicker" (dateSelect)="changeDate($event, 'first_date')">
-                    <input type="hidden" class="first_actualdate" formControlName="first_date">
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
-                            <i class="icon-regular i-Calendar-4"></i>
-                        </button>
-                    </div>
+                  <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #cp="ngbDatepicker" (dateSelect)="changeDate($event, 'first_date')">
+                  <input type="hidden" class="first_actualdate" formControlName="first_date">
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
+                      <i class="icon-regular i-Calendar-4"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="col mb-3 mb-md-0">
                 <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd"
-                        ngbDatepicker #sd="ngbDatepicker" (dateSelect)="changeDate($event, 'second_date')">
-                    <input type="hidden" class="first_actualdate" formControlName="second_date">
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" style="height:41px;" (click)="sd.toggle()" type="button">
-                            <i class="icon-regular i-Calendar-4"></i>
-                        </button>
-                    </div>
+                  <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #sd="ngbDatepicker" (dateSelect)="changeDate($event, 'second_date')">
+                  <input type="hidden" class="first_actualdate" formControlName="second_date">
+                  <div class="input-group-append">
+                    <button class="btn btn-secondary" style="height:41px;" (click)="sd.toggle()" type="button">
+                      <i class="icon-regular i-Calendar-4"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -141,12 +139,11 @@
                       <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
                       <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
                       <td>
-                          <button class="btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
-                          <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i
-                              class="i-Pen-4"></i></a>
-                          <button class="btn btn-sm btn-warning" (click)="memberpdf(item.id, item.signature_base)">
-                            <i class="i-Download"></i>
-                          </button>
+                        <button class="btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
+                        <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i class="i-Pen-4"></i></a>
+                        <button class="btn btn-sm btn-warning" (click)="memberpdf(item.id, item.signature_base)">
+                          <i class="i-Download"></i>
+                        </button>
                       </td>
                     </tr>
                   </tbody>
@@ -162,29 +159,33 @@
   </div>
 </div>
 
-<div class="d-none" >
+<div class="d-none">
   <div *ngFor="let item of finance" id="pdf-{{item.id}}">
-      <p align="center" style="font-size: 20pt;text-align:center;margin-bottom:10pt"><strong>Empire Fit Club recurring automattic payment</strong></p>
-      <p>I <strong>{{item.member_name}}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong>{{item.recuring_payment | number:0}}</strong> from my credit card in order to pay the monthly subscriptions.I understand that this payment process is a reoccurringpayment process and the agreed amount of money will be automatically deducted unless I instructed them other wise.</p>
+    <p align="center" style="font-size: 20pt;text-align:center;margin-bottom:10pt"><strong>Empire Fit Club recurring
+        automattic payment</strong></p>
+    <p>I <strong>{{item.member_name}}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong>{{item.recuring_payment
+        | number:0}}</strong> from my credit card in order to pay the monthly subscriptions.I understand that this
+      payment process is a reoccurringpayment process and the agreed amount of money will be automatically deducted
+      unless I instructed them other wise.</p>
 
-      <p><strong>Terms &amp; Condition.</strong></p>
-      
-      <ul>
-        <li>Within the 2 months of initial sign up the members are not encouraged to stop the monthly subscription.</li>
-        <li><br>(stopping within two months will result on IDR 200.000 process fee)<br></li>
-        <li>Members are allowed to cancel the automatic payment anytime after the initial 2 months after the sign up</li>
-        <li>The Member are allowed to freeze the account for the minimum of 15 days and maximum of 3 months</li>
-        <li>To freeze or stop the membership, the member will have to notify 2 weeks prior.</li>
-        <li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
-      </ul>
-      <p color="white">.</p>
+    <p><strong>Terms &amp; Condition.</strong></p>
 
-      <p><strong>Name on the Card:</strong> {{item.credit_card_name}}</p>
-      <p><strong>Card Number:</strong> {{item.credit_card_number}}</p>
-      <p><strong>Exp. Date:</strong> {{ item.credit_card_exp_month }}/{{ item.credit_card_exp_year }}</p>
-      <p><br><br><br></p>
-      <p><strong>Date:</strong> {{tanggal}}</p>
-      <p><strong>Signature:</strong></p>
+    <ul>
+      <li>Within the 2 months of initial sign up the members are not encouraged to stop the monthly subscription.</li>
+      <li><br>(stopping within two months will result on IDR 200.000 process fee)<br></li>
+      <li>Members are allowed to cancel the automatic payment anytime after the initial 2 months after the sign up</li>
+      <li>The Member are allowed to freeze the account for the minimum of 15 days and maximum of 3 months</li>
+      <li>To freeze or stop the membership, the member will have to notify 2 weeks prior.</li>
+      <li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
+    </ul>
+    <p color="white">.</p>
+
+    <p><strong>Name on the Card:</strong> {{item.credit_card_name}}</p>
+    <p><strong>Card Number:</strong> {{item.credit_card_number}}</p>
+    <p><strong>Exp. Date:</strong> {{ item.credit_card_exp_month }}/{{ item.credit_card_exp_year }}</p>
+    <p><br><br><br></p>
+    <p><strong>Date:</strong> {{tanggal}}</p>
+    <p><strong>Signature:</strong></p>
   </div>
 </div>
 
