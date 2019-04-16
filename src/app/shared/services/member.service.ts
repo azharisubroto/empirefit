@@ -79,4 +79,12 @@ export class MemberService {
   reactiveLeave(member_id, data) {
     return this.http.put(this.apiURL + "/reactive_leave/" + member_id, data, this.httpOptions);
   }
+
+  updateMembership(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/update_membership/" + member_id,
+      data,
+      this.httpOptions
+    );
+  }
 }

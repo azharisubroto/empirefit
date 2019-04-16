@@ -165,9 +165,9 @@ export class MemberActivationComponent implements OnInit {
       exp_month: [null],
       exp_year: [null],
       auto_debet: ["1"],
-      duration: [],
+      traceNumber: [],
+      card_name: [],
       session_remains: [],
-      period: [],
       edc_id: []
     });
 
@@ -217,9 +217,9 @@ export class MemberActivationComponent implements OnInit {
           auto_debet: data["data"].auto_debet,
           exp_month: this.credit_cards ? this.credit_cards.exp_month : null,
           exp_year: this.credit_cards ? this.credit_cards.exp_year : null,
-          duration: data["data"].duration,
           session_remains: data["data"].session_remains,
-          period: data["data"].period,
+          card_name: this.credit_cards ? this.credit_cards.card_name : null,
+          traceNumber: data["data"].traceNumber ? data["data"].traceNumber : null,
           edc_id: data["data"].edc_id ? data["data"].edc_id.edc_id : null,
         });
 
@@ -291,10 +291,8 @@ export class MemberActivationComponent implements OnInit {
         "member_type_id"
       ].value;
       data["payment_id"] = this.membershipForm.controls["payment_id"].value;
-      this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $.each(data["data"], function (i, item) {
-          $("#price").val(item.price);
-        });
+      this.priceService.getPriceNonPt(data).subscribe((r: any) => {
+        $("#price").val(r["data"] ? r["data"].price : 0);
       });
     }, 2000);
   }
@@ -333,10 +331,8 @@ export class MemberActivationComponent implements OnInit {
     if (data["member_type_id"] === 3) {
       $("#price").val(0);
     } else {
-      this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $.each(data["data"], function (i, item) {
-          $("#price").val(item.price);
-        });
+      this.priceService.getPriceNonPt(data).subscribe((r: any) => {
+        $("#price").val(r["data"] ? r["data"].price : 0);
       });
     }
   }
@@ -435,8 +431,7 @@ export class MemberActivationComponent implements OnInit {
       ].value;
       formValue["exp_month"] = exp_month;
       formValue["exp_year"] = exp_year;
-      formValue["duration"] = this.membershipForm.controls["duration"].value;
-      formValue["period"] = this.membershipForm.controls["period"].value;
+      formValue["trace_number"] = this.membershipForm.controls["traceNumber"].value;
       if (this.session_pt == true) {
         formValue["session_remains"] = $("#session").val();
       } else {
@@ -450,7 +445,7 @@ export class MemberActivationComponent implements OnInit {
       } else {
         formValue["auto_debet"] = true;
       }
-      formValue["card_name"] = this.member.name;
+      formValue["card_name"] = this.membershipForm.controls["card_name"].value;
 
       if (this.membershipForm.invalid) {
         return this.toastr.error("Please complete the data", "Not Saved!", {

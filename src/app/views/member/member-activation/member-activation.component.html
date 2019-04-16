@@ -296,15 +296,21 @@
 							<input formControlName="card_number" type="text" name="card_number" class="form-control">
 						</div>
 						<div class="col-md-6 mb-3 form-group">
-							<label for="exp_date">Exp Date</label>
-							<div class="clearfix"></div>
-							<input type="text" formControlName="exp_month" name="mm" class="form-control d-inline-block" style="width:100px">
-							/
-							<input type="text" formControlName="exp_year" name="yy" class="form-control d-inline-block" style="width:100px">
+							<label for="card_name">Card Name</label>
+							<input formControlName="card_name" type="text" name="card_name" class="form-control">
 						</div>
 					</div>
 
 					<div class="row mb-3">
+						<div class="col-md-6 mb-3 form-group">
+							<label for="exp_date">Exp Date</label>
+							<div class="clearfix"></div>
+							<input type="text" placeholder="dd" formControlName="exp_month" name="mm" class="form-control d-inline-block"
+							 style="width:100px">
+							/
+							<input type="text" placeholder="yyyy" formControlName="exp_year" name="yy" class="form-control d-inline-block"
+							 style="width:100px">
+						</div>
 						<div class="col-md-6 mb-3 form-group">
 							<label for="auto_debit">Auto Debit</label>
 							<select formControlName="auto_debet" name="auto_debit" class="form-control">
@@ -312,11 +318,18 @@
 								<option value="0">No</option>
 							</select>
 						</div>
+					</div>
+
+					<div class="row mb-3">
 						<div class="col-md-6 mb-3 form-group">
 							<label for="edc_id">EDC</label>
 							<select *ngFor="let edc of edcs" formControlName="edc_id" name="edc_id" class="form-control">
 								<option value="{{edc_id}}">{{edc.bank_name}}</option>
 							</select>
+						</div>
+						<div class="col-md-6 mb-3 form-group">
+							<label for="traceNumber">Trace Number</label>
+							<input formControlName="traceNumber" readonly class="form-control" type="text" name="traceNumber" id="traceNumber">
 						</div>
 					</div>
 
