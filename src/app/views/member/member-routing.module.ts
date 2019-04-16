@@ -39,7 +39,7 @@ const routes: Routes = [
     component: MemberActivationSuccessComponent
   },
   {
-    path: "member/select-package",
+    path: "member/select-package/:id",
     component: MemberPackageComponent
   }
 ];

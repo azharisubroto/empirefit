@@ -151,13 +151,16 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.id_card_number = data["data"].id_card_number;
         this.recuring_date = this.member.recuring_date;
-        this.full_recuring_date = data["data"].recurings.date ? data["data"].recurings.date : "-";
-        this.payment_unpaid = data["data"].recurings.unpaid ? data["data"].recurings.unpaid : "0";
+        this.full_recuring_date = data["data"].recurings ? data["data"].recurings.date : "-";
+        this.payment_unpaid = data["data"].recurings ? data["data"].recurings.unpaid : "0";
 
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
 
         if (date < sekarang) {
+          setTimeout(() => {
+            $("#btn-selectPackage").addClass('disabled');
+          }, 1100);
           this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
             this.status = data["status_member"];
           });
@@ -208,6 +211,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-membership-history").addClass("disabled");
               $("#btn-membership-leave").addClass("disabled");
               $("#btn-payment-update").addClass('disabled');
+              $("#btn-membership-leave-history").addClass("disabled");
             }
 
             // 10 Pass Membership
@@ -239,19 +243,24 @@ export class MemberAttendanceComponent implements OnInit {
               if (data["data"].auto_debet == 1) {
                 if (this.status_leave) {
                   $("#btn-membership-leave").removeClass("disabled");
+                  $("#btn-membership-leave-history").removeClass("disabled")
                 } else {
                   $("#btn-membership-leave").addClass("disabled");
+                  $("#btn-membership-leave-history").addClass("disabled");
                 }
               } else {
                 $("#btn-membership-leave").addClass("disabled");
+                $("#btn-membership-leave-history").addClass("disabled");
               }
               $("#btn-ptsession").addClass("disabled");
             }
 
             if (data["data"].auto_debet == 1) {
               $("#btn-membership-leave").removeClass("disabled");
+              $("#btn-membership-leave-history").removeClass("disabled")
             } else {
               $("#btn-membership-leave").addClass("disabled");
+              $("#btn-membership-leave-history").addClass("disabled");
             }
 
             if (this.status === "Expired" || this.status === "Inactive") {
@@ -267,7 +276,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-payment-update").addClass('disabled');
             }
           }
-        }, 1000)
+        }, 200)
 
         // Auto Attendance
         this.finspot = data["urlattendance"];
@@ -419,6 +428,27 @@ export class MemberAttendanceComponent implements OnInit {
       .result.then(result => {
         //console.log(result);
       });
+  }
+
+  disabledMenu() {
+    setTimeout(() => {
+      let today = this.todayDate.replace(/\//g, '-'),
+        date = this.member.expairy_date,
+        sekarang = new Date(today);
+
+      if (date < sekarang) {
+        setTimeout(() => {
+          $("#btn-selectPackage").addClass('disabled');
+        }, 200);
+      }
+
+      if (this.member.member_type_id == null) {
+        setTimeout(() => {
+          $("#btn-selectPackage").addClass('disabled');
+          $("#btn-upgradePackage").addClass('disabled');
+        }, 200);
+      }
+    }, 200)
   }
 
   openLg(content) {
