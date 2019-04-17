@@ -21,6 +21,7 @@ import { SignaturePadModule } from "angular2-signaturepad";
 import { PtSessionComponent } from './pt-session/pt-session.component';
 import { MemberPackageComponent } from './member-package/member-package.component';
 import { MemberAutodebitComponent } from './member-autodebit/member-autodebit.component';
+import { MemberChangeCcComponent } from './member-change-cc/member-change-cc.component';
 
 @NgModule({
   imports: [
@@ -46,7 +47,8 @@ import { MemberAutodebitComponent } from './member-autodebit/member-autodebit.co
     MemberActivationSuccessComponent,
     PtSessionComponent,
     MemberPackageComponent,
-    MemberAutodebitComponent
+    MemberAutodebitComponent,
+    MemberChangeCcComponent
   ]
 })
 export class MemberModule {}

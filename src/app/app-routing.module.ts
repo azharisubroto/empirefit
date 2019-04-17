@@ -35,7 +35,7 @@ const dashboard: Routes = [
     loadChildren: "./views/staff/staff.module#StaffModule"
   },
   {
-    path: "schedule",
+    path: "class-participants",
     canActivate: [AuthPermission],
     data: {
       expectedPermission: '5'

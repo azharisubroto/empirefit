@@ -64,6 +64,8 @@ export class MemberAttendanceComponent implements OnInit {
   leaves;
   cc_autodebit_payment: boolean = false;
   status_leave: boolean = false;
+  status_unpaid: boolean = false;
+  finance_notes;
 
   constructor(
     private fb: FormBuilder,
@@ -132,6 +134,12 @@ export class MemberAttendanceComponent implements OnInit {
           this.status_leave = false;
         }
 
+        if (this.member.state == "Unpaid") {
+          this.status_unpaid = true;
+        } else {
+          this.status_unpaid = false;
+        }
+
         if (this.member.auto_debet == "0") {
           this.cc_autodebit_payment = false;
         } else {
@@ -151,8 +159,9 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.id_card_number = data["data"].id_card_number;
         this.recuring_date = this.member.recuring_date;
-        this.full_recuring_date = data["data"].recurings ? data["data"].recurings.date : "-";
-        this.payment_unpaid = data["data"].recurings ? data["data"].recurings.unpaid : "0";
+        this.full_recuring_date = data["data"].auto_debits ? data["data"].auto_debits.date : "-";
+        this.payment_unpaid = data["data"].auto_debits ? data["data"].auto_debits.unpaid : "0";
+        this.finance_notes = data["data"].auto_debits ? data["data"].auto_debits.finance_notes : "0";
 
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
@@ -263,7 +272,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-membership-leave-history").addClass("disabled");
             }
 
-            if (this.status === "Expired" || this.status === "Inactive") {
+            if (this.status === "Expired" || this.status === "Inactive" || this.status === "Unpaid") {
               $("#btn-manualreg").attr("disabled", "disabled");
               $("#btn-manualattendance").attr("disabled", "disabled");
 

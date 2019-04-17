@@ -87,4 +87,28 @@ export class MemberService {
       this.httpOptions
     );
   }
+
+  updatePayment(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/update_payment/" + member_id,
+      data,
+      this.httpOptions
+    );
+  }
+
+  deactivateCC(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/deactivate_cc/" + member_id,
+      data,
+      this.httpOptions
+    );
+  }
+
+  updateCC(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/update_cc/" + member_id,
+      data,
+      this.httpOptions
+    );
+  }
 }

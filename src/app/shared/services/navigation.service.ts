@@ -74,11 +74,11 @@ export class NavigationService {
       perm: "4",
     },
     {
-      name: "Schedules",
+      name: "Class Participants",
       type: "link",
-      tooltip: "Schedules",
+      tooltip: "Class Participants",
       icon: "i-Calendar",
-      state: "/schedule",
+      state: "/class-participants",
       perm: "5",
     },
     {

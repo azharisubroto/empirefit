@@ -93,6 +93,37 @@
               </div>
             </div>
           </div>
+          <div *ngIf="status_unpaid">
+            <div class="container mb-3">
+              <div class="row">
+                <div class="col-12">
+                  <div class="container">
+                    <div class="row border border-light rounded">
+                      <div class="col-12 mb-3">
+                        <div class="fancy-head text-danger"><span>Membership Inactive</span></div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                          <span class="text-muted mb-0">Reason</span>
+                          <div class="text-medium text-primary mt-1">
+                            PAYMENT UNPAID IDR {{ payment_unpaid | number:0 }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                          <span class="text-muted mb-0">Finance Notes</span>
+                          <div class="text-medium text-primary mt-1">
+                            {{ finance_notes ? finance_notes : "-" }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="col-md-6 mb-3">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Type</span>
@@ -193,7 +224,7 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Payment Unpaid</span>
               <div class="text-medium text-primary mt-1">
-                Rp {{ payment_unpaid }}
+                Rp {{ payment_unpaid | number:0 }}
               </div>
             </div>
           </div>
@@ -201,7 +232,8 @@
 
         <div class="row mt-4">
           <div class="col-6">
-            <a id="btn-payment-update" href="#" routerLink="/dashboard/member/cc-autodebit/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Update Payment</a>
+            <a id="btn-payment-update" href="#" routerLink="/dashboard/member/cc-autodebit/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">Update
+              Payment</a>
           </div>
           <div class="col-6">
             <a href="#" class="btn btn-primary btn-lg btn-block py-3">Download Signing Form</a>

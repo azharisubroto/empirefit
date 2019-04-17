@@ -52,7 +52,7 @@
               <option *ngFor="let edc of edcs" value="{{edc.id}}">{{edc.bank_name}}</option>
             </select>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-4">
             <div class="text-small">Date</div>
             <div class="row">
               <div class="col mb-3 mb-md-0">
@@ -60,7 +60,7 @@
                   <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #cp="ngbDatepicker" (dateSelect)="changeDate($event, 'first_date')">
                   <input type="hidden" class="first_actualdate" formControlName="first_date">
                   <div class="input-group-append">
-                    <button class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
+                    <button type="button" class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
                   </div>
@@ -71,7 +71,7 @@
                   <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #sd="ngbDatepicker" (dateSelect)="changeDate($event, 'second_date')">
                   <input type="hidden" class="first_actualdate" formControlName="second_date">
                   <div class="input-group-append">
-                    <button class="btn btn-secondary" style="height:41px;" (click)="sd.toggle()" type="button">
+                    <button type="button" class="btn btn-secondary" style="height:41px;" (click)="sd.toggle()" type="button">
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
                   </div>
@@ -79,10 +79,11 @@
               </div>
             </div>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <div class="text-small mb-3">Finance Status</div>
             <input type="radio" checked value="1" formControlName="progress"> Done
             <input class="ml-2" type="radio" checked value="0" formControlName="progress"> Undone
+            <input class="ml-2" type="radio" checked value="ALL" formControlName="progress"> All
           </div>
           <div class="col-md-1">
             <div class="text-small">&nbsp;</div>
@@ -141,7 +142,7 @@
                       <td>
                         <button class="btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
                         <a routerLink="transaction-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i class="i-Pen-4"></i></a>
-                        <button class="btn btn-sm btn-warning" (click)="memberpdf(item.id, item.signature_base)">
+                        <button class="btn btn-sm btn-warning mr-2" (click)="memberpdf(item.id, item.signature_base)">
                           <i class="i-Download"></i>
                         </button>
                       </td>
