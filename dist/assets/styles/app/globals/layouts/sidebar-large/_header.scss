@@ -9,7 +9,7 @@
         flex-wrap: wrap;
         justify-content: space-between;
         background: $background;
-        z-index: 100;
+        z-index: 100; 
         .menu-toggle {
             width: 90px;
             display: flex;
@@ -56,8 +56,8 @@
         .logo {
             width: $sidebar-left-width;
             img {
-                width: 60px;
-                height: 60px;
+                width: 40px;
+                height: 40px;
                 margin: 0 auto;
                 display: block;
             }
