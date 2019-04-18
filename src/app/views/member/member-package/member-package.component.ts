@@ -53,6 +53,7 @@ export class MemberPackageComponent implements OnInit {
   healthquestions;
   liabilities;
   paymenttype;
+  membername;
   notes;
   signature;
   price;
@@ -120,6 +121,7 @@ export class MemberPackageComponent implements OnInit {
 
     this.memberService.getSingleMember(this.activatedRoute.snapshot.params['id']).subscribe((data: any) => {
       this.member = data["data"];
+      this.membername = this.member.name;
 
       // autodebits
       this.autodebits = data["data"].auto_debits;
@@ -180,10 +182,14 @@ export class MemberPackageComponent implements OnInit {
     data["payment_id"] = this.membershipForm.controls["payment_id"].value;
 
     if (data["member_type_id"] === 3) {
-      $("#price").val(0);
+      this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+      });
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
         $("#price").val(data["data"] ? data["data"].price : 0);
+        $("#session").val(data["member_type"].session);
+        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
       });
     }
   }
@@ -195,7 +201,6 @@ export class MemberPackageComponent implements OnInit {
   }
 
   getSession(sesi) {
-    this.session_pt = true;
     $("#session").val(0);
     $("#session").val(sesi);
   }
@@ -221,11 +226,7 @@ export class MemberPackageComponent implements OnInit {
     formValue["exp_month"] = exp_month;
     formValue["exp_year"] = exp_year;
     formValue["trace_number"] = this.membershipForm.controls["traceNumber"].value;
-    if (this.session_pt == true) {
-      formValue["session_remains"] = $("#session").val();
-    } else {
-      formValue["session_remains"] = "0"
-    }
+    formValue["session_remains"] = $("#session").val();
 
     formValue["price"] = $("#price").val();
     formValue["card_name"] = this.membershipForm.controls["card_name"].value;

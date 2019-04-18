@@ -1,89 +1,81 @@
 <div class="">
   <div class="breadcrumb">
-    <h1>Dashboard</h1>
+    <h1>Class Participants</h1>
     <ul>
-      <li>Member</li>
+      <li>List</li>
     </ul>
   </div>
 
   <div class="separator-breadcrumb border-top"></div>
 
   <div class="row">
-    <div class="col-md-4">
-      <div class="form-group">
-        <input
-          id="email"
-          placeholder="Search By ID, Name or Phone"
-          [formControl]="searchControl"
-          class="form-control "
-          type="email"
-        />
-      </div>
-    </div>
     <div class="col-md-12">
-      <div class="card  o-hidden">
-        <ngx-datatable
-          style="height: 500px; box-shadow: none"
-          class="material fullscreen"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [rowHeight]="60"
-          [scrollbarV]="true"
-          [rows]="filteredProducts"
-        >
-          <ngx-datatable-column name="name" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              ID
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="category" [width]="50">
-            <ng-template ngx-datatable-header-template>
-              Name
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="subtitle" [width]="50">
-            <ng-template ngx-datatable-header-template>
-              Phone
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="20">
-            <ng-template ngx-datatable-header-template>
-              State
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              Action
-            </ng-template>
-            <ng-template ngx-datatable-cell-template>
-              <div ngbDropdown>
-                <button
-                  class="btn btn-outline-primary"
-                  id="dropdownBasic1"
-                  ngbDropdownToggle
-                >
-                  Toggle dropdown
-                </button>
-                <div
-                  ngbDropdownMenu
-                  class="dropdown-menu"
-                  aria-labelledby="dropdownBasic1"
-                >
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Action - 1
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Another Action
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Something else is here
-                  </button>
+      <div class="card o-hidden">
+        <div class="table table-responsive mt-4">
+          <form [formGroup]="searchForm" (submit)="submit()">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-2 form-group mb-3">
+                  <label for="branch_id">Branch</label>
+                  <select formControlName="branch_id" class="form-control">
+                    <option *ngFor="let branch of branches" [value]="branch.id">{{branch.branch_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4 form-group mb-3">
+                  <label for="date">Class Date</label>
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #date="ngbDatepicker"
+                      (dateSelect)="changeDate($event, 'date')">
+                    <input type="hidden" class="first_actualdate" formControlName="date">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-secondary" style="height:41px;" (click)="date.toggle()" type="button">
+                        <i class="icon-regular i-Calendar-4"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4 form-group mb-3">
+                  <label for="schedule_id">Class Time & Name</label>
+                  <select formControlName="schedule_id" class="form-control" id="schedule_list">
+                    <option value="">Select Schedule</option>
+                  </select>
+                </div>
+                <div class="col-md-2 mt-4 form-group mb-3">
+                  <button type="submit" class="btn btn-warning btn-block">Search</button>
                 </div>
               </div>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
+            </div>
+          </form>
+          <hr>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Partner Name</th>
+                      <th>Class Date</th>
+                      <th>Class Time</th>
+                      <th>Class Name</th>
+                      <th>Name</th>
+                      <th>Phone Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let class of classregistrations">
+                      <td>{{ class.partner_name }}</td>
+                      <td>{{ class.schedule_date }}</td>
+                      <td>{{ class.schedule_time }}</td>
+                      <td>{{ class.exercise }}</td>
+                      <td>{{ class.member_name }}</td>
+                      <td>{{ class.phone }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
