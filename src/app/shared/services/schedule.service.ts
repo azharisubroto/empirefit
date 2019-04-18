@@ -9,7 +9,7 @@ export class ScheduleService {
   readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(private http: HttpClient, private store: LocalStoreService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -50,5 +50,9 @@ export class ScheduleService {
       this.apiURL + "/show_class_registration/" + id,
       this.httpOptions
     );
+  }
+
+  getByDay(date) {
+    return this.http.get(this.apiURL + "/schedules/day/" + date, this.httpOptions);
   }
 }

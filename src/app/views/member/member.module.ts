@@ -22,6 +22,8 @@ import { PtSessionComponent } from './pt-session/pt-session.component';
 import { MemberPackageComponent } from './member-package/member-package.component';
 import { MemberAutodebitComponent } from './member-autodebit/member-autodebit.component';
 import { MemberChangeCcComponent } from './member-change-cc/member-change-cc.component';
+import { MemberUpgradePaymentComponent } from './member-upgrade-payment/member-upgrade-payment.component';
+import { MemberHistoryComponent } from './member-history/member-history.component';
 
 @NgModule({
   imports: [
@@ -48,7 +50,9 @@ import { MemberChangeCcComponent } from './member-change-cc/member-change-cc.com
     PtSessionComponent,
     MemberPackageComponent,
     MemberAutodebitComponent,
-    MemberChangeCcComponent
+    MemberChangeCcComponent,
+    MemberUpgradePaymentComponent,
+    MemberHistoryComponent
   ]
 })
 export class MemberModule {}

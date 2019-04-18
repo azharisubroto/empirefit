@@ -10,6 +10,7 @@ import { PtSessionComponent } from "./pt-session/pt-session.component";
 import { MemberPackageComponent } from "./member-package/member-package.component";
 import { MemberAutodebitComponent } from "./member-autodebit/member-autodebit.component";
 import { MemberChangeCcComponent } from "./member-change-cc/member-change-cc.component";
+import { MemberHistoryComponent } from "./member-history/member-history.component";
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: "member/change-cc/:id",
     component: MemberChangeCcComponent
+  },
+  {
+    path: "member/membership-history/:id",
+    component: MemberHistoryComponent
   },
   {
     path: "member/activate/success",

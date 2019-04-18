@@ -13,126 +13,138 @@
             <form #paymentForm="ngForm" [formGroup]="membershipForm">
 
               <div class="row">
-                <div class="col-12">
-                  <h4 class="fancy-head"><span>Membership</span></h4>
-                </div>
-              </div>
+                <div class="col-6">
+                  <div class="row">
+                    <div class="col-12">
+                      <h4 class="fancy-head"><span>Membership</span></h4>
+                    </div>
+                    <div class="col-12">
+                      <div class="row mb-4">
+                        <div class="form-group col-md-12 mb-3">
+                          <label for="member_type_id">Type</label>
+                          <select id="member_type" (change)="getPriceNonPt()" required name="member_type_id"
+                            formControlName="member_type_id" class="form-control">
+                            <option *ngFor="let title of type" [value]="title.id">
+                              {{title.member_type_name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
 
-              <div class="row mb-4">
-                <div class="form-group col-md-6 mb-3">
-                  <label for="member_type_id">Type</label>
-                  <select id="member_type" (change)="getPriceNonPt()" required name="member_type_id" formControlName="member_type_id"
-                    class="form-control">
-                    <option *ngFor="let title of type" [value]="title.id">
-                      {{title.member_type_name}}
-                    </option>
-                  </select>
-                </div>
-              </div>
+                      <div class="row mb-3">
+                        <div class="col-md-12">
+                          <h4 class="fancy-head"><span>Trainer</span></h4>
 
-              <div class="row">
-                <div class="col-12">
-                  <h4 class="fancy-head"><span>Payment</span></h4>
-                </div>
-              </div>
+                          <table id="mytable" class="table table-hover table-bordered" cellspacing="0">
+                            <thead class="text-center">
+                              <tr>
+                                <th>Trainer Name</th>
+                                <th>Status</th>
+                                <th>Session</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-center">
+                              <tr *ngFor="let trainer of trainers; let i = index">
+                                <td>{{ trainer.name }}</td>
+                                <td>{{ trainer.state }}</td>
+                                <td>{{ trainer.session }}</td>
+                                <td>
+                                  <button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)"
+                                    (click)="getSession(trainer.session)" class="btn btn-primary personal-trainer">Select</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
 
-              <div class="row mb-3">
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="card">Type</label>
-                  <select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id"
-                    class="form-control">
-                    <option *ngFor="let pa of paymenttype" [value]="pa.id">
-                      {{pa.payment_type_name}}
-                    </option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="card">Bank</label>
-                  <select formControlName="bank_id" name="bank_id" class="form-control">
-                    <option [value]=""></option>
-                    <option *ngFor="let bank of banks" [value]="bank.id">
-                      {{bank.bank_name}}
-                    </option>
-                  </select>
-                </div>
-              </div>
+                      <div class="row mb-3">
+                        <input type="hidden" name="session" id="session" class="form-control">
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="expiry_in">Expiry In</label>
+                          <input readonly type="text" name="expiry_in" id="expiry_in" class="form-control">
+                        </div>
+                      </div>
 
-              <div class="row mb-3">
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="card_number">Card</label>
-                  <input formControlName="card_number" type="text" name="card_number" class="form-control">
-                </div>
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="card_name">Card Name</label>
-                  <input formControlName="card_name" type="text" name="card_name" class="form-control">
-                </div>
-              </div>
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="fancy-head"><span>Payment Method</span></h4>
+                        </div>
+                      </div>
 
-              <div class="row mb-3">
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="exp_date">Exp Date</label>
-                  <div class="clearfix"></div>
-                  <input type="text" placeholder="dd" formControlName="exp_month" name="mm" class="form-control d-inline-block"
-                    style="width:100px">
-                  /
-                  <input type="text" placeholder="yyyy" formControlName="exp_year" name="yy" class="form-control d-inline-block"
-                    style="width:100px">
+                      <div class="row mb-3">
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card">Type</label>
+                          <select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id"
+                            class="form-control">
+                            <option *ngFor="let pa of paymenttype" [value]="pa.id">
+                              {{pa.payment_type_name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card">Bank</label>
+                          <select formControlName="bank_id" name="bank_id" class="form-control">
+                            <option [value]=""></option>
+                            <option *ngFor="let bank of banks" [value]="bank.id">
+                              {{bank.bank_name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card_number">Card</label>
+                          <input formControlName="card_number" type="text" name="card_number" class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card_name">Card Name</label>
+                          <input formControlName="card_name" type="text" name="card_name" class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="exp_date">Exp Date</label>
+                          <div class="clearfix"></div>
+                          <input type="text" placeholder="dd" formControlName="exp_month" name="mm" class="form-control d-inline-block"
+                            style="width:100px">
+                          /
+                          <input type="text" placeholder="yyyy" formControlName="exp_year" name="yy" class="form-control d-inline-block"
+                            style="width:100px">
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="auto_debit">Auto Debit</label>
+                          <select formControlName="auto_debet" name="auto_debit" class="form-control">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="auto_debit">Auto Debit</label>
-                  <select formControlName="auto_debet" name="auto_debit" class="form-control">
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                  </select>
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="edc_id">EDC</label>
-                  <select formControlName="edc_id" name="edc_id" class="form-control">
-                    <option *ngFor="let edc of edcs" [value]="edc.id">{{edc.bank_name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="traceNumber">Trace Number</label>
-                  <input formControlName="traceNumber" class="form-control" type="text" name="traceNumber" id="traceNumber">
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-md-6 mb-3 form-group">
-                  <label for="price">Price</label>
-                  <input readonly class="form-control" type="text" name="price" id="price">
-                  <input class="form-control" type="hidden" name="session" id="session">
-                </div>
-              </div>
-
-              <div class="row mb-3">
-                <div class="col-md-12">
-                  <h4 class="fancy-head"><span>Trainer</span></h4>
-
-                  <table id="mytable" class="table table-hover table-bordered" cellspacing="0">
-                    <thead class="text-center">
-                      <tr>
-                        <th>#</th>
-                        <th>Trainer Name</th>
-                        <th>Price (IDR)</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody class="text-center">
-                      <tr *ngFor="let trainer of trainers; let i = index">
-                        <td>{{ i+1 }}</td>
-                        <td>{{ trainer.name }}</td>
-                        <td>{{ trainer.state }}</td>
-                        <td>
-                          <button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)"
-                            (click)="getSession(trainer.session)" class="btn btn-primary personal-trainer">Select</button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="col-6">
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <h4 class="fancy-head"><span>Total Payment</span></h4>
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
+                      <label for="price">Amount</label>
+                      <input readonly class="form-control" type="text" name="price" id="price">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <h4 class="fancy-head"><span>Receipt Record</span></h4>
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
+                      <label for="edc_id">EDC</label>
+                      <select formControlName="edc_id" name="edc_id" class="form-control">
+                        <option *ngFor="let edc of edcs" [value]="edc.id">{{edc.bank_name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
+                      <label for="traceNumber">Trace Number</label>
+                      <input formControlName="traceNumber" class="form-control" type="text" name="traceNumber" id="traceNumber">
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -143,7 +155,7 @@
 
       <wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep2Next(debit_sign)">
         <div class="mt-0 mb-4">
-          <p>I <strong>{{ member.name }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong class="show-price"></strong>
+          <p>I <strong>{{ membername }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong class="show-price"></strong>
             from my credit card in order to pay the monthly
             subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount
             of
