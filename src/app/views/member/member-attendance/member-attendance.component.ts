@@ -13,6 +13,7 @@ import { AttendanceService } from "src/app/shared/services/attendance.service";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { FingerService } from "src/app/shared/services/finger.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
+import { HealthQuestionsService } from "src/app/shared/services/health-questions.service";
 import { ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
@@ -21,6 +22,12 @@ import { interval } from "rxjs/observable/interval";
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
+import jsPDF from 'jspdf';
+import { saveAs } from 'file-saver';
+import 'xlsx';
+import 'jspdf-autotable';
+import 'tableexport';
+import html2canvas from 'html2canvas';
 //import { setTimeout } from "timers";
 import { timeout } from "rxjs/operators";
 
@@ -66,6 +73,7 @@ export class MemberAttendanceComponent implements OnInit {
   status_leave: boolean = false;
   status_unpaid: boolean = false;
   finance_notes;
+  healthquestions;
 
   constructor(
     private fb: FormBuilder,
@@ -80,7 +88,8 @@ export class MemberAttendanceComponent implements OnInit {
     private ClassesService: ClassesService,
     private personalTrainerService: PersonaltrainerService,
     private sanitizer: DomSanitizer,
-    private chRef: ChangeDetectorRef
+    private chRef: ChangeDetectorRef,
+    private healthQuestionService: HealthQuestionsService,
   ) { }
 
   ngOnInit() {
@@ -408,6 +417,13 @@ export class MemberAttendanceComponent implements OnInit {
       // console.log(this.user);
     });
 
+    //health questions
+    this.healthQuestionService
+    .getByMember(this.activatedRoute.snapshot.params["id"])
+    .subscribe((data: any) => {
+      this.healthquestions = data["data"];
+    });
+
     this.scheduleService
       .showClassRegistration(this.member.member_type_id)
       .subscribe((data: any) => {
@@ -458,6 +474,31 @@ export class MemberAttendanceComponent implements OnInit {
         }, 200);
       }
     }, 200)
+  }
+
+  downloadbio() {
+    var doc = new jsPDF('p', 'pt', 'letter');
+
+    // We'll make our own renderer to skip this editor
+    var specialElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
+      }
+    };
+    doc.fromHTML($('#downloadbio').get(0), 15, 25, {
+      'pagesplit': true,
+      'width': 550,
+      'useCORS': false,
+      'margins': {
+        top: 40,
+        bottom: 60,
+        left: 40,
+        width: 522
+      },
+      'elementHandlers': specialElementHandlers
+    }, function (dispose) {
+      doc.save('bio-liability' + '.pdf');
+    });
   }
 
   openLg(content) {
