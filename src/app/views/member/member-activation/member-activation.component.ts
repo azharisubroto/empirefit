@@ -73,6 +73,7 @@ export class MemberActivationComponent implements OnInit {
   credit_cards;
   autodebits;
   edcs;
+  isautodebit;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadMember = {
@@ -140,6 +141,7 @@ export class MemberActivationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    var mod = this;
     this.member = { make: "" };
     this.expirydate = { make: "" };
     this.radioGroup = this.fb.group({
@@ -295,6 +297,22 @@ export class MemberActivationComponent implements OnInit {
         $("#price").val(r["data"] ? r["data"].price : 0);
       });
     }, 2000);
+
+    // paymentcoy
+    $('.paymentcoy').on('change', function(){
+      var _ini = $(this);
+      console.log(_ini.val());
+
+      if( _ini.val() == 0 ) {
+        $('.nav .nav-item:nth-child(4)').hide();
+        $('#Autodebet').hide();
+        mod.isautodebit = false;
+      } else {
+        $('.nav .nav-item:nth-child(4)').show();
+        $('#Autodebet').show();
+        mod.isautodebit = true;
+      }
+    });
   }
 
   // Check Reg
@@ -341,6 +359,8 @@ export class MemberActivationComponent implements OnInit {
   getPricePt(price) {
     $("#price").val(0);
     $("#price").val(price);
+    var price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    $('.show-price').text(price);
   }
 
   getSession(sesi) {
@@ -378,31 +398,41 @@ export class MemberActivationComponent implements OnInit {
   }
 
   onStep1Next(member_sign, staff_sign) {
-    if (this.member.liability_signature || this.member.liability_user_signature) {
-      console.log("Signature exist");
-    } else {
-      let _member_sign = member_sign.toDataURL(),
+    let _member_sign = member_sign.toDataURL(),
         _staff_sign = staff_sign.toDataURL(),
         formValue = this.liabilityForm.value;
-
-      formValue["member_sign"] = _member_sign;
-      formValue["staff_sign"] = _staff_sign;
-      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
-      console.log(formValue)
-      this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-        if (data["status"] == "200") {
-          this.toastr.success(data["message"], "Saved", {
-            progressBar: true
-          });
-        }
+    
+    if( staff_sign.isEmpty() && !this.member.liability_signature && !this.member.liability_user_signature ) {
+      setTimeout(() => {
+        $('.prevaja').trigger('click');
+      }, 30);
+      this.toastr.error("Please draw signature", "Now Saved", {
+        progressBar: true
       });
+    } else {
+      if (this.member.liability_signature || this.member.liability_user_signature) {
+        console.log("Signature exist");
+      } else {
+  
+        formValue["member_sign"] = _member_sign;
+        formValue["staff_sign"] = _staff_sign;
+        formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
+        console.log(formValue);
+        this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+          if (data["status"] == "200") {
+            this.toastr.success(data["message"], "Saved", {
+              progressBar: true
+            });
+          }
+        });
+      }
     }
   }
   onStep2Next(e) {
     let formValue = ({
       photo: this.photo,
-    })
-
+    });
+    
     if (this.photo) {
       this.memberService.updateIdentification(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
         if (data["status"] == "200") {
@@ -411,11 +441,25 @@ export class MemberActivationComponent implements OnInit {
           });
         }
       })
+    } else {
+      if( ! this.member.photo ) {
+        this.toastr.success("Please take photo", "Error!", {
+          progressBar: true
+        });
+        setTimeout(() => {
+          $('.prevaja').trigger('click');
+        }, 50);
+      }
     }
   }
   onStep3Next(e) {
+    if( this.isautodebit == false ) {
+      setTimeout(() => {
+        $('.nextaja').trigger('click');
+      }, 50);
+    }
     if (this.member.member_type_id) {
-      console.log('next')
+      console.log('next');
     } else {
       let formValue = this.membershipForm.value;
       let exp_month = this.membershipForm.controls["exp_month"].value;
@@ -448,6 +492,9 @@ export class MemberActivationComponent implements OnInit {
       formValue["card_name"] = this.membershipForm.controls["card_name"].value;
 
       if (this.membershipForm.invalid) {
+        setTimeout(() => {
+          $('.prevaja').trigger('click');
+        }, 50);
         return this.toastr.error("Please complete the data", "Not Saved!", {
           progressBar: true
         });
@@ -475,12 +522,18 @@ export class MemberActivationComponent implements OnInit {
               this.toastr.error(data["message"], "Not Saved!", {
                 progressBar: true
               });
+              setTimeout(() => {
+                $('.prevaja').trigger('click');
+              }, 50);
             }
           });
       }
     }
   }
   onStep4Next(debit_sign) {
+    $('.prevaja').hide();
+    $('.nav .nav-item').toggleClass('enabled disabled');
+
     if (this.cc_signature) {
       console.log("Signature exist");
     } else {
