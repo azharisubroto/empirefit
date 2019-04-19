@@ -10,13 +10,16 @@ import { ProductService } from "src/app/shared/services/product.service";
 import { MemberPartnerService } from "src/app/shared/services/memberpartner.service";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { debounceTime } from "rxjs/operators";
-import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal, NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { UserService } from "src/app/shared/services/user.service";
 import * as $ from "jquery";
-import "datatables.net";
-import "datatables.net-bs4";
+// import "datatables.net";
+// import "datatables.net-bs4";
+import 'datatables.net-buttons';
+import 'datatables.net-buttons-bs4';
+import 'datatables.net-buttons/js/buttons.html5.js';
 
 @Component({
   selector: "app-filter-table",
@@ -29,14 +32,18 @@ export class MemberPartnerComponent implements OnInit {
   filteredMembers;
   user: any = [];
   absen: FormGroup;
+  filterForm: FormGroup;
   status: any;
+  table;
 
   constructor(
     private fb: FormBuilder,
     private MemberPartnerService: MemberPartnerService,
     private UserService: UserService,
     private chRef: ChangeDetectorRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private activatedRoute: ActivatedRoute,
+    private parserFormatter: NgbDateParserFormatter,
   ) { }
 
   ngOnInit() {
@@ -59,53 +66,68 @@ export class MemberPartnerComponent implements OnInit {
       this.members = data["data"];
 
       this.chRef.detectChanges();
-      $("#mytable").DataTable({
-        "initComplete": function () {
-          $('.partners').find('tr').each(function () {
-            var ini = $(this),
-              absenbutton = ini.find('.absenbutton'),
-              classtime = absenbutton.data('classtime'),
-              classdate = absenbutton.data('classdate'),
-              datenow = mod.getTanggal(),
-              datenow2 = datenow.replace(/\//g, '-'),
-              classtime2 = classtime.replace(/\:/g, ''),
-
-              sekarang = new Date(datenow2),
-              jadwal = new Date(classdate),
-
-              status = absenbutton.data('status');
-            // console.log('sekarang: ' + sekarang);
-            // console.log('class Date: ' + jadwal);
-            if (status == '1') {
-              mod.status = 'Used';
-              absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
-              ini.addClass('bg-warning').css('color', '#fff');
-            }
-            // Belom dipake
-            else if (status = '0') {
-              // kalo tanggal jadwal lebih dari sekarang
-              if (jadwal > sekarang) {
-                ini.find('.inistatus').html('Available');
+      setTimeout(() => {
+        this.table = $("#mytable").DataTable({
+          dom: 'Bfrtip',
+          buttons: {
+            dom: {
+              button: {
+                className: 'btn '
               }
-              else {
-                if (classtime2 > mod.getClock()) {
-                  ini.find('.inistatus').html('Active');
-                } else if (classtime2 < mod.getClock()) {
-                  ini.addClass('bg-danger').css('color', '#fff');
-                  ini.find('.inistatus').html('Expired');
-                  absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+            },
+            buttons: [
+              { extend: 'excel', className: 'btn-warning' },
+              { extend: 'csv', className: 'btn-warning' }
+            ]
+          },
+          "initComplete": function () {
+            $('.partners').find('tr').each(function () {
+              var ini = $(this),
+                absenbutton = ini.find('.absenbutton'),
+                classtime = absenbutton.data('classtime'),
+                classdate = absenbutton.data('classdate'),
+                datenow = mod.getTanggal(),
+                datenow2 = datenow.replace(/\//g, '-'),
+                classtime2 = classtime.replace(/\:/g, ''),
+
+                sekarang = new Date(datenow2),
+                jadwal = new Date(classdate),
+
+                status = absenbutton.data('status');
+              // console.log('sekarang: ' + sekarang);
+              // console.log('class Date: ' + jadwal);
+              if (status == '1') {
+                mod.status = 'Used';
+                absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                ini.addClass('bg-warning').css('color', '#fff');
+              }
+              // Belom dipake
+              else if (status = '0') {
+                // kalo tanggal jadwal lebih dari sekarang
+                if (jadwal > sekarang) {
+                  ini.find('.inistatus').html('Available');
+                }
+                else {
+                  if (classtime2 > mod.getClock()) {
+                    ini.find('.inistatus').html('Active');
+                  } else if (classtime2 < mod.getClock()) {
+                    ini.addClass('bg-danger').css('color', '#fff');
+                    ini.find('.inistatus').html('Expired');
+                    absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                  }
                 }
               }
-            }
-          });
-        }
-      });
+            });
+          }
+        });
+      }, 200);
 
       // console.log(this.members);
     });
 
-    this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
-      this.filerData(value);
+    this.filterForm = this.fb.group({
+      date_first: [Validators.required],
+      date_second: [Validators.required],
     });
 
     this.UserService.getSingleUser().subscribe((data: any) => {
@@ -171,33 +193,105 @@ export class MemberPartnerComponent implements OnInit {
     return output;
   }
 
-  filerData(val) {
-    if (val) {
-      val = val.toLowerCase();
-    } else {
-      return (this.filteredMembers = this.members);
-    }
-
-    const columns = Object.keys(this.members[0]);
-    if (!columns.length) {
-      return;
-    }
-
-    const rows = this.members.filter(function (d) {
-      for (let i = 0; i <= columns.length; i++) {
-        const column = columns[i];
-        // console.log(d[column]);
-        if (
-          d[column] &&
-          d[column]
-            .toString()
-            .toLowerCase()
-            .indexOf(val) > -1
-        ) {
-          return true;
-        }
-      }
+  searchHistory() {
+    let first_date = this.filterForm.controls["date_first"].value;
+    let second_date = this.filterForm.controls["date_second"].value;
+    let formValues = ({
+      'start_date': this.parserFormatter.format(first_date),
+      'second_date': this.parserFormatter.format(second_date),
     });
-    this.filteredMembers = rows;
+
+    if (this.filterForm.invalid) {
+      this.toastr.error("Please enter date", "Filter Failed", {
+        progressBar: true
+      });
+    } else {
+      var mod = this;
+      // console.log(this.table.destroy)
+      // this.table.destroy();
+      // var items: any = [];
+      // this.MemberPartnerService.searchMemberPartner(formValues).subscribe((data: any) => {
+      //   var res = data['data'];
+      //   $.each(res, function (i, item) {
+      //     var newthis = [
+      //       item.company,
+      //       item.class_date,
+      //       item.class_time,
+      //       item.name,
+      //       item.phone,
+      //       item.status === '1' ? 'Used' : 'n/a'
+      //     ];
+      //     items.push(newthis);
+      //   });
+      //   setTimeout(() => {
+      //     mod.table = $('#mytable').DataTable({
+      //       dom: 'Bfrtip',
+      //       buttons: {
+      //         dom: {
+      //           button: {
+      //             className: 'btn '
+      //           }
+      //         },
+      //         buttons: [
+      //           { extend: 'excel', className: 'btn-warning' },
+      //           { extend: 'csv', className: 'btn-warning' }
+      //         ]
+      //       },
+      //       columns: [
+      //         { title: 'Partner' },
+      //         { title: 'Class Date' },
+      //         { title: 'Class Time' },
+      //         { title: 'Name' },
+      //         { title: 'Phone Number' },
+      //         { title: 'Status' },
+      //       ],
+      //       data: items,
+      //       "initComplete": function () {
+      //         $('.partners').find('tr').each(function () {
+      //           var ini = $(this),
+      //             absenbutton = ini.find('.absenbutton'),
+      //             classtime = absenbutton.data('classtime'),
+      //             classdate = absenbutton.data('classdate'),
+      //             datenow = mod.getTanggal(),
+      //             datenow2 = datenow.replace(/\//g, '-'),
+      //             classtime2 = classtime.replace(/\:/g, ''),
+
+      //             sekarang = new Date(datenow2),
+      //             jadwal = new Date(classdate),
+
+      //             status = absenbutton.data('status');
+      //           // console.log('sekarang: ' + sekarang);
+      //           // console.log('class Date: ' + jadwal);
+      //           if (status == '1') {
+      //             mod.status = 'Used';
+      //             absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+      //             ini.addClass('bg-warning').css('color', '#fff');
+      //           }
+      //           // Belom dipake
+      //           else if (status = '0') {
+      //             // kalo tanggal jadwal lebih dari sekarang
+      //             if (jadwal > sekarang) {
+      //               ini.find('.inistatus').html('Available');
+      //             }
+      //             else {
+      //               if (classtime2 > mod.getClock()) {
+      //                 ini.find('.inistatus').html('Active');
+      //               } else if (classtime2 < mod.getClock()) {
+      //                 ini.addClass('bg-danger').css('color', '#fff');
+      //                 ini.find('.inistatus').html('Expired');
+      //                 absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+      //               }
+      //             }
+      //           }
+      //         });
+      //       }
+      //     });
+      //     setTimeout(() => {
+      //       $(".total-attendance").text(data["total_attendance"]);
+      //       console.log(data);
+      //     }, 500);
+      //   }, 500)
+      // });
+    }
   }
 }

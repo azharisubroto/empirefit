@@ -213,7 +213,6 @@
         <table id="example-table" class="table table-hover table-bordered table-striped" cellspacing="0">
           <thead class="text-center bg-dark text-light">
             <tr>
-              <th>No</th>
               <th>CC Number</th>
               <th>Card Name</th>
               <th>EXP Date</th>
@@ -225,14 +224,13 @@
           </thead>
           <tbody class="text-center partners">
             <tr *ngFor="let item of finance; let i = index">
-              <td>{{ i+1 }}</td>
               <td>{{ item.credit_card_number }}</td>
               <td>{{ item.credit_card_name }}</td>
               <td>{{ item.credit_card_exp_month }}/{{ item.credit_card_exp_year }}</td>
               <td>{{ item.credit_card_bank_name }}</td>
-              <td></td>
+              <td>-</td>
               <td>{{ item.recuring_payment | number:0 }}</td>
-              <td></td>
+              <td>-</td>
             </tr>
           </tbody>
         </table>

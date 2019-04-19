@@ -11,6 +11,7 @@ import { MemberPackageComponent } from "./member-package/member-package.componen
 import { MemberAutodebitComponent } from "./member-autodebit/member-autodebit.component";
 import { MemberChangeCcComponent } from "./member-change-cc/member-change-cc.component";
 import { MemberHistoryComponent } from "./member-history/member-history.component";
+import { MemberUpgradePaymentComponent } from "./member-upgrade-payment/member-upgrade-payment.component";
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: "member/select-package/:id",
     component: MemberPackageComponent
+  },
+  {
+    path: "member/upgrade-membership/:id",
+    component: MemberUpgradePaymentComponent
   }
 ];
 

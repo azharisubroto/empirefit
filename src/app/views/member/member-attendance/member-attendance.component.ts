@@ -118,9 +118,6 @@ export class MemberAttendanceComponent implements OnInit {
       .getSingleMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         console.log(data["data"])
-        this.personalTrainerService.personalTrainerMember(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
-          this.personaltrainername = data["data"].personal_trainer_name ? data["data"].personal_trainer_name : "-";
-        })
 
         $("#code-first_time").text((data["data"].first_time[0].classtime) ? data["data"].first_time[0].classtime : "n/a");
         // console.log(data["data"].first_time[0].classtime)
@@ -241,11 +238,16 @@ export class MemberAttendanceComponent implements OnInit {
             }
 
             if (data["data"].member_type_id == 3) {
+              this.personalTrainerService.personalTrainerMember(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
+                this.personaltrainername = data["data"].personal_trainer_name ? data["data"].personal_trainer_name : "-";
+              })
               if (data["data"].session_remains > 0) {
                 $("#btn-ptsession").removeClass("disabled");
               } else {
                 $("#btn-ptsession").addClass("disabled");
               }
+            } else {
+              this.personaltrainername = null;
             }
 
             if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {

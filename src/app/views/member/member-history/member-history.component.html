@@ -19,6 +19,8 @@
                   <thead>
                     <tr>
                       <th>IDTRX</th>
+                      <th>Trace Number</th>
+                      <th>Payment Type</th>
                       <th>Date</th>
                       <th>Member Type</th>
                       <th>Total Session</th>
@@ -31,6 +33,8 @@
                   <tbody>
                     <tr *ngFor="let transaction of transactions">
                       <td class="text-center">{{ transaction.idtrx }}</td>
+                      <td class="text-center">{{ transaction.trace_number }}</td>
+                      <td class="text-center">{{ transaction.payment_type }}</td>
                       <td class="text-center">{{ transaction.period }}</td>
                       <td>{{ transaction.member_type }}</td>
                       <td class="text-center">{{ transaction.total_session ? transaction.total_session : "Unlimited" }}</td>

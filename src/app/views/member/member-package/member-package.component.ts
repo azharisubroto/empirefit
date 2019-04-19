@@ -106,7 +106,7 @@ export class MemberPackageComponent implements OnInit {
   ngOnInit() {
     // membershipFormBuilder
     this.membershipForm = this.fb.group({
-      member_type_id: ["1", Validators.required],
+      member_type_id: [Validators.required],
       payment_id: ["1", Validators.required],
       bank_id: [],
       card_number: [null],
@@ -115,7 +115,7 @@ export class MemberPackageComponent implements OnInit {
       exp_year: [null],
       auto_debet: ["1"],
       session_remains: [],
-      edc_id: [1],
+      edc_id: [],
       traceNumber: [],
     });
 
@@ -132,19 +132,19 @@ export class MemberPackageComponent implements OnInit {
 
       console.log(data["data"]);
 
-      this.membershipForm.setValue({
-        member_type_id: data["data"].member_type_id,
-        payment_id: data["data"].payment_id,
-        bank_id: this.credit_cards ? this.credit_cards.bank_id : null,
-        card_number: this.credit_cards ? this.credit_cards.card_number : null,
-        auto_debet: data["data"].auto_debet,
-        exp_month: this.credit_cards ? this.credit_cards.exp_month : null,
-        exp_year: this.credit_cards ? this.credit_cards.exp_year : null,
-        session_remains: data["data"].session_remains,
-        card_name: this.credit_cards ? this.credit_cards.card_name : null,
-        traceNumber: data["data"].traceNumber ? data["data"].traceNumber : null,
-        edc_id: data["data"].edc_id ? data["data"].edc_id.edc_id : null,
-      });
+      // this.membershipForm.setValue({
+      //   member_type_id: data["data"].member_type_id,
+      //   payment_id: data["data"].payment_id,
+      //   bank_id: this.credit_cards ? this.credit_cards.bank_id : null,
+      //   card_number: this.credit_cards ? this.credit_cards.card_number : null,
+      //   auto_debet: data["data"].auto_debet,
+      //   exp_month: this.credit_cards ? this.credit_cards.exp_month : null,
+      //   exp_year: this.credit_cards ? this.credit_cards.exp_year : null,
+      //   session_remains: data["data"].session_remains,
+      //   card_name: this.credit_cards ? this.credit_cards.card_name : null,
+      //   traceNumber: data["data"].traceNumber ? data["data"].traceNumber : null,
+      //   edc_id: data["data"].edc_id ? data["data"].edc_id.edc_id : null,
+      // });
     })
 
     this.personal_trainer_id = null;
@@ -174,7 +174,6 @@ export class MemberPackageComponent implements OnInit {
 
   // Price Non PT
   getPriceNonPt() {
-    $("#price").val(0);
     let data = this.membershipForm.value;
     data["member_type_id"] = this.membershipForm.controls[
       "member_type_id"
@@ -187,6 +186,7 @@ export class MemberPackageComponent implements OnInit {
       });
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+        $("#price").val(0);
         $("#price").val(data["data"] ? data["data"].price : 0);
         $("#session").val(data["member_type"].session);
         $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
@@ -233,8 +233,11 @@ export class MemberPackageComponent implements OnInit {
 
     console.log(formValue);
 
-    if (this.membershipForm.invalid) {
-      return this.toastr.error("Please complete the data", "Not Saved!", {
+    if (this.membershipForm.invalid || $("#price").val() == "" || $("#price").val() == "0") {
+      setTimeout(() => {
+        $('.prevaja').trigger('click');
+      }, 50);
+      this.toastr.error("Please complete the data", "Not Saved!", {
         progressBar: true
       });
     } else {
@@ -256,8 +259,15 @@ export class MemberPackageComponent implements OnInit {
                 $("#card_date_text").text(data["data"][0].created_at ? data["data"][0].created_at : null);
                 $("#card_id_text").val(data["data"][0].id ? data["data"][0].id : null);
               }, 500)
+            } else {
+              setTimeout(() => {
+                $('.nextaja').trigger('click');
+              }, 50);
             }
           } else {
+            setTimeout(() => {
+              $('.prevaja').trigger('click');
+            }, 50);
             this.toastr.error(data["message"], "Not Saved!", {
               progressBar: true
             });
@@ -276,28 +286,17 @@ export class MemberPackageComponent implements OnInit {
     formValue["edc_id"] = edc_id;
     formValue["price"] = _price;
     formValue["credit_card_id"] = $("#card_id_text").val();
-    if (field_autodebits == "1") {
-      this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-        if (data["status"] == "200") {
-          this.toastr.success(data["message"], "Saved", {
-            progressBar: true
-          });
-          setTimeout(() => {
-            this.router.navigateByUrl(
-              "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
-            );
-          }, 1200);
-        } else {
-          this.toastr.error(data["message"], "Not Saved", {
-            progressBar: true
-          });
-        }
-      });
-    } else {
-      this.router.navigateByUrl(
-        "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
-      );
-    }
+    this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+      if (data["status"] == "200") {
+        this.toastr.success(data["message"], "Saved", {
+          progressBar: true
+        });
+      } else {
+        this.toastr.error(data["message"], "Not Saved", {
+          progressBar: true
+        });
+      }
+    });
   }
 
   onComplete(e) {

@@ -13,8 +13,11 @@ import { ToastrService } from "ngx-toastr";
 import { UserService } from "src/app/shared/services/user.service";
 import { EdcService } from "src/app/shared/services/edc.service";
 import * as $ from "jquery";
-import "datatables.net";
-import "datatables.net-bs4";
+// import "datatables.net";
+// import "datatables.net-bs4";
+import 'datatables.net-buttons';
+import 'datatables.net-buttons-bs4';
+import 'datatables.net-buttons/js/buttons.html5.js';
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
 import 'xlsx';
@@ -43,6 +46,7 @@ export class TransactionListComponent implements OnInit {
   tanggal;
   total_recuring_payment;
   total_unpaid;
+  printTable;
 
 
   constructor(
@@ -74,6 +78,7 @@ export class TransactionListComponent implements OnInit {
       this.finance = res;
       this.edc = data['edc'];
       setTimeout(() => {
+        this.printTable = $("#example-table").DataTable();
         this.table = $("#mytable").DataTable({
           scrollX: true,
           autoWidth: true
@@ -171,8 +176,10 @@ export class TransactionListComponent implements OnInit {
       alert("Please insert date");
     } else {
       var mod = this;
+      this.printTable.destroy();
       this.table.destroy();
       var items: any = [];
+      var itemprints: any = [];
       this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
         var res = data['data'];
         $.each(res, function (i, item) {
@@ -194,8 +201,19 @@ export class TransactionListComponent implements OnInit {
             !!item.fo_payment ? item.fo_payment : 'n/a',
             '<button class="btn btn btn-sm btn-warning mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Check"></i></button><a href="/finance/transaction-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button class="btn btn-sm mr-2 btn-warning"><i class="i-Download"></i></button>'
           ];
+          var newPrintThis = [
+            item.credit_card_number,
+            item.credit_card_name,
+            item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+            item.credit_card_bank_name,
+            "-",
+            item.recuring_payment,
+            "-",
+          ];
+          itemprints.push(newPrintThis);
           items.push(newthis);
         });
+
         mod.table = $('#mytable').DataTable({
           scrollX: true,
           columns: [
@@ -225,13 +243,29 @@ export class TransactionListComponent implements OnInit {
             });
           }
         });
-        console.log(res);
+
+        mod.printTable = $("#example-table").DataTable({
+          scrollX: true,
+          columns: [
+            { title: 'CC Number' },
+            { title: 'Card Name' },
+            { title: 'EXP Date' },
+            { title: 'Bank Name' },
+            { title: 'Description' },
+            { title: 'Amount' },
+            { title: 'Formula' },
+          ],
+          data: itemprints,
+        });
+        // console.log(res);
       });
     }
   }
 
   open(content) {
     var mod = this;
+    this.printTable.destroy();
+    var itemprints: any = [];
     this.modalService.open(content, { windowClass: "big-modal" });
     setTimeout(() => {
       // var table = new Tabulator("#example-table", {
@@ -240,40 +274,104 @@ export class TransactionListComponent implements OnInit {
 
       var tanggal = mod.getTanggal();
 
-      $("#pdf-download").click(function () {
-        const doc = new jsPDF({
-          title: "Example Report"
-        });
-        var header = function (data) {
-          doc.setFontSize(18);
-          doc.setTextColor(40);
-          doc.setFontStyle('normal');
-          doc.text("Credit Card Recurring List", data.settings.margin.left, 20);
-          doc.setFontStyle('bold');
-          doc.text("EMPIRE FIT CLUB", data.settings.margin.left, 30);
-          doc.setFontSize(8);
-          doc.text("EDC:" + mod.edc.bank_name, data.settings.margin.left, 40);
-          doc.text("MID:" + mod.edc.mid, data.settings.margin.left, 45);
-          doc.text("TID:" + mod.edc.tid, data.settings.margin.left, 50);
-        };
-        doc.autoTable({ html: '#example-table', didDrawPage: header, margin: { top: 60 } });
-        doc.save('EFC-Credit-Card-Recurring-List-' + tanggal + '.pdf');
-      });
-
       // $("#xls-download").click(function(){
       //   table.download("xlsx", "data.xlsx", {sheetName:"My Data"});
       // });
 
-      var table = $("#example-table").tableExport({
-        exportButtons: true,
-        formats: ["xlsx", "csv"],
-        bootstrap: false,
-        position: 'bottom',
-        filename: 'EFC-Credit-Card-Recurring-List-' + tanggal
-      });
+      // var table = $("#example-table").tableExport({
+      //   exportButtons: true,
+      //   formats: ["xlsx", "csv"],
+      //   bootstrap: false,
+      //   position: 'bottom',
+      //   filename: 'EFC-Credit-Card-Recurring-List-' + tanggal
+      // });
 
-      $('.button-default').delay(100).addClass('btn btn-primary mr-2');
-      $('#pdf-download').delay(100).appendTo('.tableexport-caption');
+      setTimeout(() => {
+        var firstdate = this.userForm.controls["first_date"].value;
+        var seconddate = this.userForm.controls["second_date"].value;
+
+        if (firstdate || seconddate) {
+          this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
+            var res = data['data'];
+            $.each(res, function (i, item) {
+              var newPrintThis = [
+                item.credit_card_number,
+                item.credit_card_name,
+                item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+                item.credit_card_bank_name,
+                "-",
+                item.recuring_payment,
+                "-",
+              ];
+              itemprints.push(newPrintThis);
+            });
+
+            mod.printTable = $("#example-table").DataTable({
+              dom: 'Bfrtip',
+              buttons: {
+                dom: {
+                  button: {
+                    className: 'btn '
+                  }
+                },
+                buttons: [
+                  { extend: 'excel', className: 'btn-warning' },
+                  { extend: 'csv', className: 'btn-warning' }
+                ]
+              },
+              columns: [
+                { title: 'CC Number' },
+                { title: 'Card Name' },
+                { title: 'EXP Date' },
+                { title: 'Bank Name' },
+                { title: 'Description' },
+                { title: 'Amount' },
+                { title: 'Formula' },
+              ],
+              data: itemprints,
+            });
+            // console.log(res);
+          });
+        } else {
+          $("#example-table").DataTable({
+            dom: 'Bfrtip',
+            buttons: {
+              dom: {
+                button: {
+                  className: 'btn '
+                }
+              },
+              buttons: [
+                { extend: 'excel', className: 'btn-warning' },
+                { extend: 'csv', className: 'btn-warning' }
+              ]
+            },
+          });
+        }
+
+        $("#pdf-download").click(function () {
+          const doc = new jsPDF({
+            title: "Example Report"
+          });
+          var header = function (data) {
+            doc.setFontSize(18);
+            doc.setTextColor(40);
+            doc.setFontStyle('normal');
+            doc.text("Credit Card Recurring List", data.settings.margin.left, 20);
+            doc.setFontStyle('bold');
+            doc.text("EMPIRE FIT CLUB", data.settings.margin.left, 30);
+            doc.setFontSize(8);
+            doc.text("EDC:" + mod.edc.bank_name, data.settings.margin.left, 40);
+            doc.text("MID:" + mod.edc.mid, data.settings.margin.left, 45);
+            doc.text("TID:" + mod.edc.tid, data.settings.margin.left, 50);
+          };
+          doc.autoTable({ html: '#example-table', didDrawPage: header, margin: { top: 60 } });
+          doc.save('EFC-Credit-Card-Recurring-List-' + tanggal + '.pdf');
+        });
+
+        $('.button-default').delay(100).addClass('btn btn-primary mr-2');
+        $('#pdf-download').delay(100).appendTo('.tableexport-caption');
+      }, 500);
     }, 100);
   }
 

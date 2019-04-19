@@ -11,11 +11,42 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <a href="#" [routerLink]="['member-partner-create']" class="btn btn-primary btn-rounded">
+        <a href="#" [routerLink]="['member-partner-create']" class="btn btn-primary">
           Create
         </a>
       </div>
     </div>
+    <hr>
+    <div class="col-md-8">
+      <form [formGroup]="filterForm" (ngSubmit)="searchHistory()">
+        <div class="row mb-2">
+          <div class="col-md-3">
+            <input id="fd" class="form-control" type="text" name="dp1" ngbDatepicker formControlName="date_first" #dp1="ngbDatepicker">
+          </div>
+          <div class="col-1">
+            <button class="btn btn-secondary" (click)="dp1.toggle()" type="button">
+              <i class="icon-regular i-Calendar-4"></i>
+            </button>
+          </div>
+          <div class="col-md-1 text-center">
+          </div>
+          <div class="col-md-3">
+            <input id="sd" class="form-control" type="text" name="dp2" ngbDatepicker formControlName="date_second" #dp2="ngbDatepicker">
+          </div>
+          <div class="col-1">
+            <button class="btn btn-secondary" (click)="dp2.toggle()" type="button">
+              <i class="icon-regular i-Calendar-4"></i>
+            </button>
+          </div>
+          <div class="col-md-1">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary" type="button" (click)="searchHistory()">Filter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <hr>
     <div class="col-md-12">
       <div class="card o-hidden">
         <div class="table table-responsive mt-4">

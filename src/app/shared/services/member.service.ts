@@ -111,4 +111,16 @@ export class MemberService {
       this.httpOptions
     );
   }
+
+  upgradeMembership(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/upgrade_membership/" + member_id,
+      data,
+      this.httpOptions
+    );
+  }
+
+  sendMail(member_id) {
+    return this.http.post(this.apiURL + "members/verified/" + member_id, this.httpOptions);
+  }
 }

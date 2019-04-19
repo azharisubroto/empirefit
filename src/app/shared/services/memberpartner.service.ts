@@ -36,12 +36,12 @@ export class MemberPartnerService {
   }
 
   getSingleMemberPartner(id) {
-    return this.http.get(this.apiURL + "/member_partners/"+id, this.httpOptions);
+    return this.http.get(this.apiURL + "/member_partners/" + id, this.httpOptions);
   }
 
   updateMemberPartner(id, data) {
     return this.http.put(
-      this.apiURL + "/member_partners/"+id,
+      this.apiURL + "/member_partners/" + id,
       data,
       this.httpOptions
     );
@@ -49,45 +49,53 @@ export class MemberPartnerService {
 
   memberPartnerCheckIn(id, data) {
     return this.http.put(
-      this.apiURL + "/member_partners/used/"+id,
+      this.apiURL + "/member_partners/used/" + id,
       data,
       this.httpOptions
     );
   }
 
-//   updateMember(id, data) {
-//     return this.http.put(
-//       this.apiURL + "/members/" + id,
-//       data,
-//       this.httpOptions
-//     );
-//   }
+  searchMemberPartner(data) {
+    return this.http.post(
+      this.apiURL + "/search_member_partner",
+      data,
+      this.httpOptions
+    );
+  }
 
-//   updateLiability(id, data) {
-//     return this.http.put(
-//       this.apiURL + "/update_liability/" + id,
-//       data,
-//       this.httpOptions
-//     );
-//   }
+  //   updateMember(id, data) {
+  //     return this.http.put(
+  //       this.apiURL + "/members/" + id,
+  //       data,
+  //       this.httpOptions
+  //     );
+  //   }
 
-//   updateIdentification(id, data) {
-//     return this.http.put(
-//       this.apiURL + "/identification_member/" + id,
-//       data,
-//       this.httpOptions
-//     );
-//   }
+  //   updateLiability(id, data) {
+  //     return this.http.put(
+  //       this.apiURL + "/update_liability/" + id,
+  //       data,
+  //       this.httpOptions
+  //     );
+  //   }
 
-//   createAutoDebet(member_id, data) {
-//     return this.http.put(
-//       this.apiURL + "/auto_debet/" + member_id,
-//       data,
-//       this.httpOptions
-//     );
-//   }
+  //   updateIdentification(id, data) {
+  //     return this.http.put(
+  //       this.apiURL + "/identification_member/" + id,
+  //       data,
+  //       this.httpOptions
+  //     );
+  //   }
 
-//   getSingleMember($id) {
-//     return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
-//   }
+  //   createAutoDebet(member_id, data) {
+  //     return this.http.put(
+  //       this.apiURL + "/auto_debet/" + member_id,
+  //       data,
+  //       this.httpOptions
+  //     );
+  //   }
+
+  //   getSingleMember($id) {
+  //     return this.http.get(this.apiURL + "/members/" + $id, this.httpOptions);
+  //   }
 }

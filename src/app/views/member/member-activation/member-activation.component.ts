@@ -299,11 +299,11 @@ export class MemberActivationComponent implements OnInit {
     }, 2000);
 
     // paymentcoy
-    $('.paymentcoy').on('change', function(){
+    $('.paymentcoy').on('change', function () {
       var _ini = $(this);
       console.log(_ini.val());
 
-      if( _ini.val() == 0 ) {
+      if (_ini.val() == 0) {
         $('.nav .nav-item:nth-child(4)').hide();
         $('#Autodebet').hide();
         mod.isautodebit = false;
@@ -339,7 +339,6 @@ export class MemberActivationComponent implements OnInit {
 
   // Price Non PT
   getPriceNonPt() {
-    $("#price").val(0);
     let data = this.membershipForm.value;
     data["member_type_id"] = this.membershipForm.controls[
       "member_type_id"
@@ -347,10 +346,17 @@ export class MemberActivationComponent implements OnInit {
     data["payment_id"] = this.membershipForm.controls["payment_id"].value;
 
     if (data["member_type_id"] === 3) {
-      $("#price").val(0);
+      this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+      });
     } else {
-      this.priceService.getPriceNonPt(data).subscribe((r: any) => {
-        $("#price").val(r["data"] ? r["data"].price : 0);
+      this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+        $("#price").val(0);
+        $("#price").val(data["data"] ? data["data"].price : 0);
+        var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+        $('.show-price').text(price);
+        $("#session").val(data["member_type"].session);
+        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
       });
     }
   }
@@ -364,7 +370,6 @@ export class MemberActivationComponent implements OnInit {
   }
 
   getSession(sesi) {
-    this.session_pt = true;
     $("#session").val(0);
     $("#session").val(sesi);
   }
@@ -399,21 +404,21 @@ export class MemberActivationComponent implements OnInit {
 
   onStep1Next(member_sign, staff_sign) {
     let _member_sign = member_sign.toDataURL(),
-        _staff_sign = staff_sign.toDataURL(),
-        formValue = this.liabilityForm.value;
-    
-    if( staff_sign.isEmpty() && !this.member.liability_signature && !this.member.liability_user_signature ) {
+      _staff_sign = staff_sign.toDataURL(),
+      formValue = this.liabilityForm.value;
+
+    if (staff_sign.isEmpty() && !this.member.liability_signature && !this.member.liability_user_signature) {
       setTimeout(() => {
         $('.prevaja').trigger('click');
       }, 30);
-      this.toastr.error("Please draw signature", "Now Saved", {
+      this.toastr.error("Please draw signature", "Not Saved", {
         progressBar: true
       });
     } else {
       if (this.member.liability_signature || this.member.liability_user_signature) {
         console.log("Signature exist");
       } else {
-  
+
         formValue["member_sign"] = _member_sign;
         formValue["staff_sign"] = _staff_sign;
         formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
@@ -432,7 +437,7 @@ export class MemberActivationComponent implements OnInit {
     let formValue = ({
       photo: this.photo,
     });
-    
+
     if (this.photo) {
       this.memberService.updateIdentification(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
         if (data["status"] == "200") {
@@ -442,7 +447,7 @@ export class MemberActivationComponent implements OnInit {
         }
       })
     } else {
-      if( ! this.member.photo ) {
+      if (!this.member.photo) {
         this.toastr.success("Please take photo", "Error!", {
           progressBar: true
         });
@@ -453,7 +458,7 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onStep3Next(e) {
-    if( this.isautodebit == false ) {
+    if (this.isautodebit == false) {
       setTimeout(() => {
         $('.nextaja').trigger('click');
       }, 50);
@@ -476,11 +481,7 @@ export class MemberActivationComponent implements OnInit {
       formValue["exp_month"] = exp_month;
       formValue["exp_year"] = exp_year;
       formValue["trace_number"] = this.membershipForm.controls["traceNumber"].value;
-      if (this.session_pt == true) {
-        formValue["session_remains"] = $("#session").val();
-      } else {
-        formValue["session_remains"] = "0"
-      }
+      formValue["session_remains"] = $("#session").val();
 
       formValue["price"] = $("#price").val();
 
@@ -564,8 +565,10 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onComplete(e) {
-    this.router.navigateByUrl(
-      "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
-    );
+    this.memberService.sendMail(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
+      this.router.navigateByUrl(
+        "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
+      );
+    });
   }
 }
