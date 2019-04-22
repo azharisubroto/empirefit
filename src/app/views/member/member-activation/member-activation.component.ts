@@ -23,6 +23,8 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { Observable, Subject } from "rxjs";
 import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
 
@@ -81,8 +83,8 @@ export class MemberActivationComponent implements OnInit {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
-    canvasWidth: 523,
-    canvasHeight: 300
+    canvasWidth: 1150,
+    canvasHeight: 550
     //onEnd: this.saveimg(),
     // canvasWeight: 250,
     // canvasHeight: 150
@@ -92,16 +94,16 @@ export class MemberActivationComponent implements OnInit {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
-    canvasWidth: 523,
-    canvasHeight: 300
+    canvasWidth: 1150,
+    canvasHeight: 550
   }
 
   public debitsign = {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
-    canvasWidth: 422,
-    canvasHeight: 300
+    canvasWidth: 1150,
+    canvasHeight: 550
   }
 
   public showWebcam = true;
@@ -138,7 +140,8 @@ export class MemberActivationComponent implements OnInit {
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
     private edcService: EdcService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -314,6 +317,10 @@ export class MemberActivationComponent implements OnInit {
         mod.isautodebit = true;
       }
     });
+  }
+
+  openLg(content) {
+    this.modalService.open(content, { windowClass: "big-modal" });
   }
 
   // Check Reg
