@@ -37,7 +37,7 @@
                 <div class="col-md-4 form-group mb-3">
                   <label for="schedule_id">Class Time & Name</label>
                   <select formControlName="schedule_id" class="form-control" id="schedule_list">
-                    <option value="">Select Schedule</option>
+                    <option value="0">Select Schedule</option>
                   </select>
                 </div>
                 <div class="col-md-2 mt-4 form-group mb-3">
@@ -64,7 +64,7 @@
                   <tbody>
                     <tr *ngFor="let class of classregistrations">
                       <td>{{ class.partner_name }}</td>
-                      <td>{{ class.schedule_date }}</td>
+                      <td>{{ class.date }}</td>
                       <td>{{ class.schedule_time }}</td>
                       <td>{{ class.exercise }}</td>
                       <td>{{ class.member_name }}</td>

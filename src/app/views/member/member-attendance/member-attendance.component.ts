@@ -77,6 +77,8 @@ export class MemberAttendanceComponent implements OnInit {
   recuring_payment;
   credit_cards;
   signature_base64;
+  liability_signature_base64;
+  liability_user_signature_base64;
 
   constructor(
     private fb: FormBuilder,
@@ -170,6 +172,8 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.id_card_number = data["data"].id_card_number;
         this.signature_base64 = data["data"].signature_download;
+        this.liability_signature_base64 = data["data"].liability_signature_base64;
+        this.liability_user_signature_base64 = data["data"].liability_user_signature_base64;
         this.recuring_date = this.member.recuring_date;
         this.recuring_payment = data["data"].auto_debits ? data["data"].auto_debits.recuring_payment : 0;
         this.full_recuring_date = data["data"].auto_debits ? data["data"].auto_debits.date : "-";
@@ -181,13 +185,19 @@ export class MemberAttendanceComponent implements OnInit {
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
 
-        if (date < sekarang) {
-          setTimeout(() => {
-            $("#btn-selectPackage").addClass('disabled');
-          }, 1100);
-          this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
-            this.status = data["status_member"];
-          });
+        if (this.status != "Unverified") {
+          if (date < sekarang) {
+            setTimeout(() => {
+              $("#btn-selectPackage").removeClass('disabled');
+            }, 1100);
+            this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
+              this.status = data["status_member"];
+            });
+          } else {
+            setTimeout(() => {
+              $("#btn-selectPackage").addClass('disabled');
+            }, 1100);
+          }
         }
 
         if (this.status_leave) {
@@ -261,6 +271,7 @@ export class MemberAttendanceComponent implements OnInit {
                 $("#btn-ptsession").addClass("disabled");
               }
             } else {
+              $("#btn-ptsession").addClass("disabled");
               this.personaltrainername = null;
             }
 
@@ -442,7 +453,7 @@ export class MemberAttendanceComponent implements OnInit {
       this.activatedRoute.snapshot.params["id"]
     ).subscribe((data: any) => {
       this.classhistory = data["data"];
-      // console.log(this.classhistory);
+      console.log(this.classhistory);
     });
 
     // Attendance History
@@ -470,6 +481,10 @@ export class MemberAttendanceComponent implements OnInit {
 
       if (date < sekarang) {
         setTimeout(() => {
+          $("#btn-selectPackage").removeClass('disabled');
+        }, 200);
+      } else {
+        setTimeout(() => {
           $("#btn-selectPackage").addClass('disabled');
         }, 200);
       }
@@ -492,6 +507,8 @@ export class MemberAttendanceComponent implements OnInit {
         return true;
       }
     };
+    // doc.addImage(this.liability_signature_base64, 'PNG', 15, 800, 211, 150);
+    // doc.addImage(this.liability_user_signature_base64, 'PNG', 15, 800, 211, 150);
     doc.fromHTML($('#downloadbio').get(0), 15, 25, {
       'pagesplit': true,
       'width': 550,

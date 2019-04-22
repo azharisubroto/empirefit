@@ -219,15 +219,17 @@ export class MemberUpgradePaymentComponent implements OnInit {
     ].value;
     data["payment_id"] = this.membershipForm.controls["payment_id"].value;
 
-    if (data["member_type_id"] === 3) {
+    if (data["member_type_id"] == 3) {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
         setTimeout(() => {
+          $("#isptselect").removeClass('d-none');
           $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
         }, 500);
       });
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
         setTimeout(() => {
+          $("#isptselect").addClass('d-none');
           $("#price").val(0);
           $("#price").val(data["data"] ? data["data"].price : 0);
           var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
@@ -239,12 +241,35 @@ export class MemberUpgradePaymentComponent implements OnInit {
     }
   }
 
+  // Autodebit price
+  getAutodebitPrice() {
+    let data = this.membershipForm.value;
+    data["member_type_id"] = this.membershipForm.controls[
+      "member_type_id"
+    ].value;
+    data["payment_id"] = this.membershipForm.controls["payment_id"].value;
+    data["auto_debet"] = this.membershipForm.controls["auto_debet"].value;
+    if (data["member_type_id"] != 3) {
+      if (data["payment_id"] == 1) {
+        this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+          console.log(data);
+          setTimeout(() => {
+            $("#price").val(0);
+            $("#price").val(data["data"] ? data["data"].price : 0);
+            var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            $('.show-price').text(price);
+          }, 500);
+        });
+      }
+    }
+  }
+
   // price pt
-  getPricePt(price) {
+  getPricePt(isprice) {
     setTimeout(() => {
       $("#price").val(0);
-      $("#price").val(price);
-      var price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      $("#price").val(isprice);
+      var price = isprice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
       $('.show-price').text(price);
     }, 500);
   }

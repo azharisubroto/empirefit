@@ -34,7 +34,7 @@
                         </div>
                       </div>
 
-                      <div class="row mb-3">
+                      <div class="row mb-3 d-none" id="isptselect">
                         <div class="col-md-12">
                           <h4 class="fancy-head"><span>Trainer</span></h4>
 
@@ -114,7 +114,7 @@
                         </div>
                         <div class="col-md-12 mb-3 form-group">
                           <label for="auto_debit">Auto Debit</label>
-                          <select formControlName="auto_debet" name="auto_debit" class="form-control">
+                          <select (change)="getAutodebitPrice()" formControlName="auto_debet" name="auto_debit" class="form-control">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                           </select>
@@ -206,7 +206,7 @@
         </div>
       </wizard-step>
 
-      <wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onComplete(debit_sign)">
+      <wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep2Next(debit_sign)">
         <div class="mt-0 mb-4">
           <p>I <strong>{{ membername }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong class="show-price"></strong>
             from my credit card in order to pay the monthly
