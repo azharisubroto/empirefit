@@ -23,8 +23,8 @@ import { timeout } from "rxjs/operators";
 export class MemberPartnerFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  user:any[];
-  userid:any;
+  user: any[];
+  userid: any;
   data;
   name;
   email;
@@ -38,7 +38,7 @@ export class MemberPartnerFormComponent implements OnInit {
   userForm: FormGroup;
   staffs;
   partners: any[];
-  
+
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
@@ -50,6 +50,7 @@ export class MemberPartnerFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.partnerdata = { make: "" };
     this.userForm = this.fb.group({
       name: ["", Validators.required],
       email: ["", Validators.required],
@@ -64,7 +65,7 @@ export class MemberPartnerFormComponent implements OnInit {
       created_by: ["", Validators.required],
     });
 
-    this.MemberPartnerService.getSingleMemberPartner(this.ActivatedRoute.snapshot.params["id"]).subscribe((data:any)=>{
+    this.MemberPartnerService.getSingleMemberPartner(this.ActivatedRoute.snapshot.params["id"]).subscribe((data: any) => {
       var res = data['data'];
       this.partnerdata = data['data'];
       console.log(res);
@@ -83,7 +84,7 @@ export class MemberPartnerFormComponent implements OnInit {
       });
     });
 
-    this.MemberPartnerService.getDropinCompanies().subscribe((data: any)=>{
+    this.MemberPartnerService.getDropinCompanies().subscribe((data: any) => {
       this.partners = data['data'];
       //console.log(this.partners);
     });
@@ -108,25 +109,25 @@ export class MemberPartnerFormComponent implements OnInit {
       class_date: tosend
     });
 
-    this.ClassesService.classesByDay(tosend).subscribe((data: any)=>{
+    this.ClassesService.classesByDay(tosend).subscribe((data: any) => {
       //console.log(data['data']);
       var res = data['data'];
       var items: any = [];
       $.each(res, function (i, item) {
         // //console.log(item);
-        var _cancelbtn = '<label class="d-block mb-3" for="class-'+item.id+'"><input id="class-'+item.id+'" type="radio" value="'+item.id+'" name="class_pick"> '+ item.time +' '+item.exercise +'</label>';
+        var _cancelbtn = '<label class="d-block mb-3" for="class-' + item.id + '"><input id="class-' + item.id + '" type="radio" value="' + item.id + '" name="class_pick"> ' + item.time + ' ' + item.exercise + '</label>';
         items.push(_cancelbtn);
       });
       $('.classes-list').html(items);
       setTimeout(() => {
-          $('[name="class_pick"]').on('change', function(e) {
-            ////console.log(e.type);
-            var rad = $(this).val();
-            //console.log(rad);
-            mod.userForm.patchValue({
-              class: rad
-            });
+        $('[name="class_pick"]').on('change', function (e) {
+          ////console.log(e.type);
+          var rad = $(this).val();
+          //console.log(rad);
+          mod.userForm.patchValue({
+            class: rad
           });
+        });
       }, 500);
     });
   }

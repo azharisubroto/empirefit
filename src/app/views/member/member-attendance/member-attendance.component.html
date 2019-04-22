@@ -175,7 +175,8 @@
               Session</a>
           </div>
           <div class="col-md-6 mb-3">
-            <button (click)="downloadbio()" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio &amp;
+            <button (click)="downloadbio(id_card_number)" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio
+              &amp;
               Liability (PDF)</button>
           </div>
         </div>
@@ -233,7 +234,7 @@
               Payment</a>
           </div>
           <div class="col-6">
-            <button type="button" (click)="downloadSigning()" class="btn btn-primary btn-lg btn-block py-3">Download
+            <button type="button" (click)="downloadSigning(id_card_number)" class="btn btn-primary btn-lg btn-block py-3">Download
               Signing Form</button>
           </div>
         </div>
@@ -287,7 +288,8 @@
 
         <div class="row mt-4">
           <div class="col-12">
-            <a id="btn-attendance" (click)="checkAttendance()" [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Attendance</a>
+            <a id="btn-attendance" (click)="checkAttendance()" [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Auto
+              Attendance</a>
           </div>
         </div>
         <div class="row mt-4">
@@ -457,9 +459,10 @@
     </ul>
     <p color="white">.</p>
 
-    <p><strong>Name on the Card:</strong> {{credit_cards.credit_card_name}}</p>
-    <p><strong>Card Number:</strong> {{credit_cards.credit_card_number}}</p>
-    <p><strong>Exp. Date:</strong> {{ credit_cards.credit_card_exp_month }}/{{ credit_cards.credit_card_exp_year }}</p>
+    <p><strong>Name on the Card:</strong> {{credit_cards ? credit_cards.card_name : "-"}}</p>
+    <p><strong>Card Number:</strong> {{credit_cards ? credit_cards.card_number : "-"}}</p>
+    <p><strong>Exp. Date:</strong> {{ credit_cards ? credit_cards.exp_month : "-"
+      }}/{{ credit_cards ? credit_cards.exp_year : "-" }}</p>
     <p><br><br><br></p>
     <p><strong>Date:</strong> {{todayDate}}</p>
     <p><strong>Signature:</strong></p>

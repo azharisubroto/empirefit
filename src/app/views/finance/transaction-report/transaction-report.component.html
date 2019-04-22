@@ -2,7 +2,7 @@
   <div class="breadcrumb">
     <h1>Finance</h1>
     <ul>
-      <li>Recurring Report</li>
+      <li>Transaction Report</li>
     </ul>
   </div>
 
@@ -15,9 +15,9 @@
         <div class="col-md-6 mb-3">
           <div class="card">
             <div class="card-body">
-              <div class="text-small">Total Recurring Payment</div>
-              <div class="form-control totrec">
-                IDR {{total_recuring_payment | number:0}}
+              <div class="text-small">Total Revenue</div>
+              <div class="form-control totrev">
+                IDR {{total_revenue | number:0}}
               </div>
             </div>
           </div>
@@ -25,9 +25,9 @@
         <div class="col-md-6 mb-3">
           <div class="card">
             <div class="card-body">
-              <div class="text-small">Total Unpaid</div>
-              <div class="form-control totun">
-                IDR {{total_unpaid | number:0}}
+              <div class="text-small">Total Transaction</div>
+              <div class="form-control tottran">
+                {{total_transaction ? total_transaction : 0}}
               </div>
             </div>
           </div>
@@ -42,14 +42,9 @@
           <div class="col-md-2">
             <div class="text-small">Branch</div>
             <select class="form-control" formControlName="branch_id">
+              <option value="ALL">All</option>
               <option value="1">Jakarta</option>
               <option value="2">Bali</option>
-            </select>
-          </div>
-          <div class="col-md-2">
-            <div class="text-small">EDC Machine</div>
-            <select class="form-control" formControlName="edc_id">
-              <option *ngFor="let edc of edcs" value="{{edc.id}}">{{edc.bank_name}}</option>
             </select>
           </div>
           <div class="col-md-4">
@@ -80,10 +75,12 @@
             </div>
           </div>
           <div class="col-md-3">
-            <div class="text-small mb-3">Finance Status</div>
-            <input type="radio" checked value="1" formControlName="progress"> Done
-            <input class="ml-2" type="radio" checked value="0" formControlName="progress"> Undone
-            <input class="ml-2" type="radio" checked value="ALL" formControlName="progress"> All
+            <div class="text-small">Trx Type</div>
+            <select class="form-control" formControlName="payment_type">
+              <option value="ALL">All</option>
+              <option value="1">Autodebit</option>
+              <option value="0">Non-Autodebit</option>
+            </select>
           </div>
           <div class="col-md-1">
             <div class="text-small">&nbsp;</div>
@@ -97,55 +94,37 @@
   <div class="row" id="pdfsample">
     <div class="col-md-12">
       <div class="card o-hidden">
-        <div class="table mt-4">
+        <div class="table table-responsive mt-4">
           <div class="row">
             <div class="col-md-12">
               <div class="container">
                 <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
                   <thead class="text-center tocpy">
                     <tr>
-                      <th>Date</th>
-                      <th>Member</th>
-                      <th>Name on Card</th>
-                      <th>CC Number</th>
-                      <th>EXP Date</th>
-                      <th>Recurring Date</th>
-                      <th>Recurring Payment</th>
-                      <th>Unpaid (IDR)</th>
-                      <th>Finance Status</th>
-                      <th>Finance Notes</th>
-                      <th>Bank Approval Code</th>
-                      <th>Bank Notes</th>
-                      <th>Bank Withdrawal</th>
-                      <th>FO Status</th>
-                      <th>FO Payment</th>
-                      <th width="30%">Action</th>
+                      <th>IDTRX</th>
+                      <th>Trace Number</th>
+                      <th>Trx Date</th>
+                      <th>Trx Type</th>
+                      <th>Member Type</th>
+                      <th>Session</th>
+                      <th>PT Name</th>
+                      <th>Member Name</th>
+                      <th>Verified By</th>
+                      <th>Amount (IDR)</th>
                     </tr>
                   </thead>
                   <tbody class="text-center partners">
-                    <tr *ngFor="let item of finance">
-                      <td>{{ item.date }}</td>
+                    <tr *ngFor="let item of transactions">
+                      <td>{{ item.idtrx }}</td>
+                      <td>{{ item.trace_number }}</td>
+                      <td>{{ item.period }}</td>
+                      <td>{{ item.payment_type === "Autodebit" ? "Autodebit" : "Non-Autodebit" }}</td>
+                      <td>{{ item.member_type }}</td>
+                      <td>{{ item.total_session }}</td>
+                      <td>{{ item.personal_trainer_name }}</td>
                       <td>{{ item.member_name }}</td>
-                      <td>{{ item.credit_card_name }}</td>
-                      <td>{{ item.credit_card_number }}</td>
-                      <td>{{ item.credit_card_exp_month }} - {{ item.credit_card_exp_year }}</td>
-                      <td>{{ item.recuring_date }}</td>
-                      <td>{{ item.recuring_payment | number:0 }}</td>
-                      <td>{{ item.unpaid | number:0 }}</td>
-                      <td>{{ item.finance_status }}</td>
-                      <td>{{ !! item.finance_notes ? item.finance_notes : 'n/a' }}</td>
-                      <td>{{ !! item.bank_approval_code ? item.bank_approval_code : 'n/a' }}</td>
-                      <td>{{ !! item.bank_notes ? item.bank_notes : 'n/a' }}</td>
-                      <td>{{ !! item.bank_withdrawal ? item.bank_withdrawal : 'n/a' }}</td>
-                      <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
-                      <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
-                      <td>
-                        <button class="btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
-                        <a routerLink="recurring-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i class="i-Pen-4"></i></a>
-                        <button class="btn btn-sm btn-warning mr-2" (click)="memberpdf(item.id, item.signature_base)">
-                          <i class="i-Download"></i>
-                        </button>
-                      </td>
+                      <td>{{ item.authorized }}</td>
+                      <td>{{ item.idr | number:0 }}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -155,12 +134,12 @@
         </div>
       </div>
 
-      <button class="btn btn-primary btn-lg mt-4" (click)="open(toprint)">Download Preview</button>
+      <!-- <button class="btn btn-primary btn-lg mt-4" (click)="open(toprint)">Download Preview</button> -->
     </div>
   </div>
 </div>
 
-<div class="d-none">
+<!-- <div class="d-none">
   <div *ngFor="let item of finance" id="pdf-{{item.id}}">
     <p align="center" style="font-size: 20pt;text-align:center;margin-bottom:10pt"><strong>Empire Fit Club recurring
         automattic payment</strong></p>
@@ -239,4 +218,4 @@
 
     <button id="pdf-download" class="btn btn-primary">PDF Download</button>
   </div>
-</ng-template>
+</ng-template> -->

@@ -148,14 +148,14 @@
 
 					<div class="row mt-5">
 						<div class="form-group col-md-6 mb-3">
-							<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
+							<label for="firstName" class="d-block mb-2 text-medium"><strong>Member Signature</strong></label>
 							<button (click)="openLg(signaturesatu)" class="btn btn-primary">Put Signature</button>
 							<ng-template #signaturesatu let-modal let-c="close" let-d="dismiss">
 								<div class="modal-header">
-								  <h4 class="modal-title"><strong><span class="text-capitalize">Member Signature</span></strong></h4>
-								  <button type="button" class="close" aria-label="Close" (click)="c('close')">
-									<span aria-hidden="true">&times;</span>
-								  </button>
+									<h4 class="modal-title"><strong><span class="text-capitalize">Member Signature</span></strong></h4>
+									<button type="button" class="close" aria-label="Close" (click)="c('close')">
+										<span aria-hidden="true">&times;</span>
+									</button>
 								</div>
 								<div class="modal-body">
 									<signature-pad [options]="signaturePadMember" id="member" #member_sign></signature-pad>
@@ -167,16 +167,16 @@
 							</ng-template>
 						</div>
 						<div class="form-group col-md-6 mb-3">
-							<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
-							
+							<label for="lastName" class="d-block mb-2 text-medium"><strong>Staff Signature</strong></label>
+
 
 							<button (click)="openLg(signaturedua)" class="btn btn-primary">Put Signature</button>
 							<ng-template #signaturedua let-modal let-c="close" let-d="dismiss">
 								<div class="modal-header">
-								  <h4 class="modal-title"><strong><span class="text-capitalize">Staff Signature</span></strong></h4>
-								  <button type="button" class="close" aria-label="Close" (click)="c('close')">
-									<span aria-hidden="true">&times;</span>
-								  </button>
+									<h4 class="modal-title"><strong><span class="text-capitalize">Staff Signature</span></strong></h4>
+									<button type="button" class="close" aria-label="Close" (click)="c('close')">
+										<span aria-hidden="true">&times;</span>
+									</button>
 								</div>
 								<div class="modal-body">
 									<signature-pad [options]="signaturePadStaff" id="staff" #staff_sign></signature-pad>
@@ -292,7 +292,7 @@
 												</div>
 											</div>
 
-											<div class="row mb-3">
+											<div class="row mb-3 d-none" id="isptselect">
 												<div class="col-md-12">
 													<h4 class="fancy-head"><span>Trainer</span></h4>
 
@@ -372,7 +372,7 @@
 												</div>
 												<div class="col-md-12 mb-3 form-group">
 													<label for="auto_debit">Auto Debit</label>
-													<select formControlName="auto_debet" name="auto_debit" class="form-control">
+													<select (change)="getAutodebitPrice()" formControlName="auto_debet" name="auto_debit" class="form-control">
 														<option value="1">Yes</option>
 														<option value="0">No</option>
 													</select>
@@ -482,10 +482,10 @@
 							<button (click)="openLg(signaturetiga)" class="btn btn-primary">Put Signature</button>
 							<ng-template #signaturetiga let-modal let-c="close" let-d="dismiss">
 								<div class="modal-header">
-								  <h4 class="modal-title"><strong><span class="text-capitalize">Member Signature</span></strong></h4>
-								  <button type="button" class="close" aria-label="Close" (click)="c('close')">
-									<span aria-hidden="true">&times;</span>
-								  </button>
+									<h4 class="modal-title"><strong><span class="text-capitalize">Member Signature</span></strong></h4>
+									<button type="button" class="close" aria-label="Close" (click)="c('close')">
+										<span aria-hidden="true">&times;</span>
+									</button>
 								</div>
 								<div class="modal-body">
 									<signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>

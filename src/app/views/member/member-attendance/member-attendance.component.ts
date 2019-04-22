@@ -77,6 +77,8 @@ export class MemberAttendanceComponent implements OnInit {
   recuring_payment;
   credit_cards;
   signature_base64;
+  liability_signature_base64;
+  liability_user_signature_base64;
 
   constructor(
     private fb: FormBuilder,
@@ -136,7 +138,7 @@ export class MemberAttendanceComponent implements OnInit {
         // console.log(data["data"].first_time[0].classtime)
 
         this.member = data["data"];
-        this.credit_cards = data["data"].credit_cards;
+        this.credit_cards = data["data"].credit_cards ? data["data"].credit_cards : null;
         this.leaves = data["data"].leaves;
 
         if (this.member.state == "Leave") {
@@ -170,6 +172,8 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.id_card_number = data["data"].id_card_number;
         this.signature_base64 = data["data"].signature_download;
+        this.liability_signature_base64 = data["data"].liability_signature_base64;
+        this.liability_user_signature_base64 = data["data"].liability_user_signature_base64;
         this.recuring_date = this.member.recuring_date;
         this.recuring_payment = data["data"].auto_debits ? data["data"].auto_debits.recuring_payment : 0;
         this.full_recuring_date = data["data"].auto_debits ? data["data"].auto_debits.date : "-";
@@ -181,13 +185,19 @@ export class MemberAttendanceComponent implements OnInit {
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
 
-        if (date < sekarang) {
-          setTimeout(() => {
-            $("#btn-selectPackage").addClass('disabled');
-          }, 1100);
-          this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
-            this.status = data["status_member"];
-          });
+        if (this.status != "Unverified") {
+          if (date < sekarang) {
+            setTimeout(() => {
+              $("#btn-selectPackage").removeClass('disabled');
+            }, 1100);
+            this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
+              this.status = data["status_member"];
+            });
+          } else {
+            setTimeout(() => {
+              $("#btn-selectPackage").addClass('disabled');
+            }, 1100);
+          }
         }
 
         if (this.status_leave) {
@@ -208,34 +218,32 @@ export class MemberAttendanceComponent implements OnInit {
             $("#btn-attendance").addClass("disabled");
 
             $("#btn-attendance").addClass("disabled");
-            $("#btn-history").addClass("disabled");
             $("#btn-autoreg").addClass("disabled");
 
-            $("#btn-classhis").addClass("disabled");
             $("#btn-ptsession").addClass("disabled");
             $("#btn-membership").addClass("disabled");
             $("#btn-membership-leave").addClass("disabled");
-            $("#btn-membership-history").addClass("disabled");
             $("#btn-payment-update").addClass('disabled');
-            $("#excel-bio").attr('disabled', 'disabled');
-            $("#pdf-bio").attr('disabled', 'disabled');
+            $("#pdf-bio").removeAttr("disabled");
           } else {
             if (data["data"].member_type_id == null) {
-              $("#btn-manualreg").attr("disabled", "disabled");
-              $("#btn-manualattendance").attr("disabled", "disabled");
-
               $("#btn-attendance").addClass("disabled");
 
               $("#btn-attendance").addClass("disabled");
               $("#btn-history").addClass("disabled");
               $("#btn-autoreg").addClass("disabled");
 
-              $("#btn-classhis").addClass("disabled");
+              $("#btn-manualreg").attr("disabled", "disabled");
+              $("#btn-manualattendance").attr("disabled", "disabled");
+              $("#pdf-bio").attr("disabled", "disabled");
+              $("#btn-classhis").attr("disabled", "disabled");
+              $("#btn-membership-leave").attr("disabled", "disabled");
+              $("#btn-membership-leave-history").attr("disabled", "disabled");
+
               $("#btn-ptsession").addClass("disabled");
               $("#btn-membership-history").addClass("disabled");
-              $("#btn-membership-leave").addClass("disabled");
+
               $("#btn-payment-update").addClass('disabled');
-              $("#btn-membership-leave-history").addClass("disabled");
             }
 
             // 10 Pass Membership
@@ -247,10 +255,8 @@ export class MemberAttendanceComponent implements OnInit {
                 $("#btn-attendance").addClass("disabled");
 
                 $("#btn-attendance").addClass("disabled");
-                $("#btn-history").addClass("disabled");
                 $("#btn-autoreg").addClass("disabled");
 
-                $("#btn-classhis").addClass("disabled");
                 $("#btn-ptsession").addClass("disabled");
               }
             }
@@ -265,31 +271,32 @@ export class MemberAttendanceComponent implements OnInit {
                 $("#btn-ptsession").addClass("disabled");
               }
             } else {
+              $("#btn-ptsession").addClass("disabled");
               this.personaltrainername = null;
             }
 
             if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {
               if (data["data"].auto_debet == 1) {
                 if (this.status_leave) {
-                  $("#btn-membership-leave").removeClass("disabled");
-                  $("#btn-membership-leave-history").removeClass("disabled")
+                  $("#btn-membership-leave").removeAttr("disabled");
+                  $("#btn-membership-leave-history").removeAttr("disabled")
                 } else {
-                  $("#btn-membership-leave").addClass("disabled");
-                  $("#btn-membership-leave-history").addClass("disabled");
+                  $("#btn-membership-leave").attr("disabled", "disabled");
+                  $("#btn-membership-leave-history").attr("disabled", "disabled");
                 }
               } else {
-                $("#btn-membership-leave").addClass("disabled");
-                $("#btn-membership-leave-history").addClass("disabled");
+                $("#btn-membership-leave").attr("disabled", "disabled");
+                $("#btn-membership-leave-history").attr("disabled", "disabled");
               }
               $("#btn-ptsession").addClass("disabled");
             }
 
             if (data["data"].auto_debet == 1) {
-              $("#btn-membership-leave").removeClass("disabled");
-              $("#btn-membership-leave-history").removeClass("disabled")
+              $("#btn-membership-leave").removeAttr("disabled");
+              $("#btn-membership-leave-history").removeAttr("disabled")
             } else {
-              $("#btn-membership-leave").addClass("disabled");
-              $("#btn-membership-leave-history").addClass("disabled");
+              $("#btn-membership-leave").attr("disabled", "disabled");
+              $("#btn-membership-leave-history").attr("disabled", "disabled");
             }
 
             if (this.status === "Expired" || this.status === "Inactive" || this.status === "Unpaid") {
@@ -446,7 +453,7 @@ export class MemberAttendanceComponent implements OnInit {
       this.activatedRoute.snapshot.params["id"]
     ).subscribe((data: any) => {
       this.classhistory = data["data"];
-      // console.log(this.classhistory);
+      console.log(this.classhistory);
     });
 
     // Attendance History
@@ -454,7 +461,7 @@ export class MemberAttendanceComponent implements OnInit {
       .attendanceHistory(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
-        // console.log(this.gymhistory);
+        console.log(this.gymhistory);
       });
   }
 
@@ -474,6 +481,10 @@ export class MemberAttendanceComponent implements OnInit {
 
       if (date < sekarang) {
         setTimeout(() => {
+          $("#btn-selectPackage").removeClass('disabled');
+        }, 200);
+      } else {
+        setTimeout(() => {
           $("#btn-selectPackage").addClass('disabled');
         }, 200);
       }
@@ -487,7 +498,7 @@ export class MemberAttendanceComponent implements OnInit {
     }, 200)
   }
 
-  downloadbio() {
+  downloadbio(id_card_number) {
     var doc = new jsPDF('p', 'pt', 'letter');
 
     // We'll make our own renderer to skip this editor
@@ -496,6 +507,8 @@ export class MemberAttendanceComponent implements OnInit {
         return true;
       }
     };
+    // doc.addImage(this.liability_signature_base64, 'PNG', 15, 800, 211, 150);
+    // doc.addImage(this.liability_user_signature_base64, 'PNG', 15, 800, 211, 150);
     doc.fromHTML($('#downloadbio').get(0), 15, 25, {
       'pagesplit': true,
       'width': 550,
@@ -508,11 +521,11 @@ export class MemberAttendanceComponent implements OnInit {
       },
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('bio-liability_' + this.id_card_number + '.pdf');
+      doc.save('bio-liability_' + id_card_number + '.pdf');
     });
   }
 
-  downloadSigning() {
+  downloadSigning(id_card_number) {
     var doc = new jsPDF('p', 'pt', 'letter');
 
     // We'll make our own renderer to skip this editor
@@ -528,7 +541,7 @@ export class MemberAttendanceComponent implements OnInit {
       'useCORS': false,
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('signing_form_' + this.id_card_number + '.pdf');
+      doc.save('signing_form_' + id_card_number + '.pdf');
     });
 
   }
@@ -560,11 +573,16 @@ export class MemberAttendanceComponent implements OnInit {
             if (data["status"] == "200") {
               $(".first_time").text(data["data"].time);
               this.loading = false;
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
               $(".modal-header .close").trigger("click");
             } else {
               this.loading = false;
+              this.toastr.error(data["message"], "Not Success", {
+                progressBar: true
+              });
               $(".modal-header .close").trigger("click");
-              alert(data["message"]);
             }
           });
       } else {

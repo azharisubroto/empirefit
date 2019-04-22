@@ -82,6 +82,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
   payment_type;
   current_payment;
   autodebit;
+  isautodebit: boolean;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
 
@@ -191,6 +192,23 @@ export class MemberUpgradePaymentComponent implements OnInit {
     this.edcService.getEdcs().subscribe((data: any) => {
       this.edcs = data["data"];
     });
+
+    var mod = this;
+
+    $('select[name="auto_debit"]').on('change', function () {
+      var _ini = $(this);
+      console.log(_ini.val());
+
+      if (_ini.val() == 0) {
+        //$('.nav .nav-item:nth-child(4)').hide();
+        //$('#Autodebet').hide();
+        mod.isautodebit = false;
+      } else {
+        //$('.nav .nav-item:nth-child(4)').show();
+        //$('#Autodebet').show();
+        mod.isautodebit = true;
+      }
+    });
   }
 
   // Price Non PT
@@ -201,24 +219,59 @@ export class MemberUpgradePaymentComponent implements OnInit {
     ].value;
     data["payment_id"] = this.membershipForm.controls["payment_id"].value;
 
-    if (data["member_type_id"] === 3) {
+    if (data["member_type_id"] == 3) {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#isptselect").removeClass('d-none');
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#price").val(0);
-        $("#price").val(data["data"] ? data["data"].price : 0);
-        $("#session").val(data["member_type"].session);
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#isptselect").addClass('d-none');
+          $("#price").val(0);
+          $("#price").val(data["data"] ? data["data"].price : 0);
+          var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+          $('.show-price').text(price);
+          $("#session").val(data["member_type"].session);
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     }
   }
 
+  // Autodebit price
+  getAutodebitPrice() {
+    let data = this.membershipForm.value;
+    data["member_type_id"] = this.membershipForm.controls[
+      "member_type_id"
+    ].value;
+    data["payment_id"] = this.membershipForm.controls["payment_id"].value;
+    data["auto_debet"] = this.membershipForm.controls["auto_debet"].value;
+    if (data["member_type_id"] != 3) {
+      if (data["payment_id"] == 1) {
+        this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+          console.log(data);
+          setTimeout(() => {
+            $("#price").val(0);
+            $("#price").val(data["data"] ? data["data"].price : 0);
+            var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            $('.show-price').text(price);
+          }, 500);
+        });
+      }
+    }
+  }
+
   // price pt
-  getPricePt(price) {
-    $("#price").val(0);
-    $("#price").val(price);
+  getPricePt(isprice) {
+    setTimeout(() => {
+      $("#price").val(0);
+      $("#price").val(isprice);
+      var price = isprice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      $('.show-price').text(price);
+    }, 500);
   }
 
   getSession(sesi) {
@@ -265,6 +318,11 @@ export class MemberUpgradePaymentComponent implements OnInit {
         progressBar: true
       });
     } else {
+      if (this.isautodebit == false) {
+        setTimeout(() => {
+          $('.nextaja').trigger('click');
+        }, 50);
+      }
       this.memberService
         .upgradeMembership(this.activatedRoute.snapshot.params["id"], formValue)
         .subscribe((data: any) => {

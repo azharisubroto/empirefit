@@ -31,14 +31,14 @@
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center">
+                  <tbody>
                     <tr *ngFor="let permission of permissions">
                       <td>{{ permission.name }}</td>
                       <td>{{ permission.display_name }}</td>
                       <td>{{ permission.description }}</td>
-                      <td>
-                        <a href="#" [routerLink]="['permission-edit/', permission.id]" class="btn btn-sm btn-warning mr-2" title="Edit"
-                          triggers="mouseenter:mouseleave">
+                      <td class="text-right">
+                        <a href="#" [routerLink]="['permission-edit/', permission.id]" class="btn btn-sm btn-warning mr-2"
+                          title="Edit" triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>
                         </a>
                         <button class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, permission.id)">

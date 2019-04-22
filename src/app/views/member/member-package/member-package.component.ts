@@ -75,6 +75,7 @@ export class MemberPackageComponent implements OnInit {
   credit_cards;
   autodebits;
   edcs;
+  is_autodebit: Boolean;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
 
@@ -172,6 +173,23 @@ export class MemberPackageComponent implements OnInit {
     this.edcService.getEdcs().subscribe((data: any) => {
       this.edcs = data["data"];
     });
+
+    var mod = this;
+
+    $('select[name="auto_debit"]').on('change', function () {
+      var _ini = $(this);
+      console.log(_ini.val());
+
+      if (_ini.val() == 0) {
+        //$('.nav .nav-item:nth-child(4)').hide();
+        //$('#Autodebet').hide();
+        mod.is_autodebit = false;
+      } else {
+        //$('.nav .nav-item:nth-child(4)').show();
+        //$('#Autodebet').show();
+        mod.is_autodebit = true;
+      }
+    });
   }
 
   openLg(content) {
@@ -188,22 +206,32 @@ export class MemberPackageComponent implements OnInit {
 
     if (data["member_type_id"] === 3) {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#price").val(0);
-        $("#price").val(data["data"] ? data["data"].price : 0);
-        $("#session").val(data["member_type"].session);
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#price").val(0);
+          $("#price").val(data["data"] ? data["data"].price : 0);
+          var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+          $('.show-price').text(price);
+          $("#session").val(data["member_type"].session);
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     }
   }
 
   // price pt
   getPricePt(price) {
-    $("#price").val(0);
-    $("#price").val(price);
+    setTimeout(() => {
+      $("#price").val(0);
+      $("#price").val(price);
+      var price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      $('.show-price').text(price);
+    }, 500);
   }
 
   getSession(sesi) {
@@ -247,6 +275,11 @@ export class MemberPackageComponent implements OnInit {
         progressBar: true
       });
     } else {
+      if (this.is_autodebit == false) {
+        setTimeout(() => {
+          $('.nextaja').trigger('click');
+        }, 50);
+      }
       this.memberService
         .updateMembership(this.activatedRoute.snapshot.params["id"], formValue)
         .subscribe((data: any) => {
@@ -283,26 +316,34 @@ export class MemberPackageComponent implements OnInit {
   }
 
   onStep2Next(debit_sign) {
-    let field_autodebits = this.membershipForm.controls["auto_debet"].value;
-    let edc_id = this.membershipForm.controls["edc_id"].value;
-    let _price = $("#price").val();
-    let formValue = this.membershipForm.value;
-    let _debit_sign = debit_sign.toDataURL();
-    formValue["signature"] = _debit_sign;
-    formValue["edc_id"] = edc_id;
-    formValue["price"] = _price;
-    formValue["credit_card_id"] = $("#card_id_text").val();
-    this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-      if (data["status"] == "200") {
-        this.toastr.success(data["message"], "Saved", {
-          progressBar: true
-        });
-      } else {
-        this.toastr.error(data["message"], "Not Saved", {
-          progressBar: true
-        });
-      }
-    });
+    if (debit_sign.isEmpty()) {
+      setTimeout(() => {
+        $('.prevaja').trigger('click');
+      }, 30);
+      this.toastr.error("Please draw signature", "Not Saved", {
+        progressBar: true
+      });
+    } else {
+      let edc_id = this.membershipForm.controls["edc_id"].value;
+      let _price = $("#price").val();
+      let formValue = this.membershipForm.value;
+      let _debit_sign = debit_sign.toDataURL();
+      formValue["signature"] = _debit_sign;
+      formValue["edc_id"] = edc_id;
+      formValue["price"] = _price;
+      formValue["credit_card_id"] = $("#card_id_text").val();
+      this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.toastr.success(data["message"], "Saved", {
+            progressBar: true
+          });
+        } else {
+          this.toastr.error(data["message"], "Not Saved", {
+            progressBar: true
+          });
+        }
+      });
+    }
   }
 
   onComplete(e) {

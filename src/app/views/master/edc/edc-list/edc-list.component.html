@@ -34,11 +34,11 @@
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let edc of edcs">
-                      <td>{{ edc.branch_name }}</td>
+                      <td class="text-left">{{ edc.branch_name }}</td>
                       <td>{{ edc.bank_name }}</td>
                       <td>{{ edc.mid }}</td>
                       <td>{{ edc.tid }}</td>
-                      <td>
+                      <td class="text-right">
                         <a href="#" [routerLink]="['edc-edit/', edc.id]" class="btn btn-sm btn-warning mr-2" title="Edit"
                           triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>

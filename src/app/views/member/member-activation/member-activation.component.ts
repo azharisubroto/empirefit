@@ -76,6 +76,7 @@ export class MemberActivationComponent implements OnInit {
   autodebits;
   edcs;
   isautodebit;
+  isptselect: boolean;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadMember = {
@@ -351,29 +352,61 @@ export class MemberActivationComponent implements OnInit {
       "member_type_id"
     ].value;
     data["payment_id"] = this.membershipForm.controls["payment_id"].value;
+    data["auto_debet"] = this.membershipForm.controls["auto_debet"].value;
 
-    if (data["member_type_id"] === 3) {
+    if (data["member_type_id"] == 3) {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#isptselect").removeClass('d-none');
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#price").val(0);
-        $("#price").val(data["data"] ? data["data"].price : 0);
-        var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-        $('.show-price').text(price);
-        $("#session").val(data["member_type"].session);
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#isptselect").addClass('d-none');
+          $("#price").val(0);
+          $("#price").val(data["data"] ? data["data"].price : 0);
+          var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+          $('.show-price').text(price);
+          $("#session").val(data["member_type"].session);
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     }
   }
 
+  // Autodebit price
+  getAutodebitPrice() {
+    let data = this.membershipForm.value;
+    data["member_type_id"] = this.membershipForm.controls[
+      "member_type_id"
+    ].value;
+    data["payment_id"] = this.membershipForm.controls["payment_id"].value;
+    data["auto_debet"] = this.membershipForm.controls["auto_debet"].value;
+    if (data["member_type_id"] != 3) {
+      if (data["payment_id"] == 1) {
+        this.priceService.getPriceNonPt(data).subscribe((data: any) => {
+          console.log(data);
+          setTimeout(() => {
+            $("#price").val(0);
+            $("#price").val(data["data"] ? data["data"].price : 0);
+            var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+            $('.show-price').text(price);
+          }, 500);
+        });
+      }
+    }
+  }
+
   // price pt
-  getPricePt(price) {
-    $("#price").val(0);
-    $("#price").val(price);
-    var price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-    $('.show-price').text(price);
+  getPricePt(isprice) {
+    setTimeout(() => {
+      $("#price").val(0);
+      $("#price").val(isprice);
+      var price = isprice.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      $('.show-price').text(price);
+    }, 500);
   }
 
   getSession(sesi) {
@@ -573,9 +606,20 @@ export class MemberActivationComponent implements OnInit {
   }
   onComplete(e) {
     this.memberService.sendMail(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
-      this.router.navigateByUrl(
-        "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
-      );
+      if (data["status"] == "200") {
+        this.toastr.success(data["message"], "Saved", {
+          progressBar: true
+        });
+        setTimeout(() => {
+          this.router.navigateByUrl(
+            "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
+          );
+        }, 500);
+      } else {
+        this.toastr.error(data["message"], "Not Saved", {
+          progressBar: true
+        });
+      }
     });
   }
 }

@@ -74,7 +74,7 @@ export class ScheduleListComponent implements OnInit {
     this.searchForm = this.fb.group({
       branch_id: ["1", Validators.required],
       date: ["", Validators.required],
-      schedule_id: ["1", Validators.required],
+      schedule_id: ["0", Validators.required],
     });
   }
 
@@ -114,10 +114,8 @@ export class ScheduleListComponent implements OnInit {
   }
 
   submit() {
-    if (this.searchForm.invalid) {
-      this.toastr.error("Please enter date", "Filter Failed", {
-        progressBar: true
-      });
+    if (this.searchForm.invalid || this.searchForm.controls["schedule_id"].value == 0) {
+      alert("Please complete search form");
     } else {
       var mod = this;
       this.table.destroy();
@@ -127,7 +125,7 @@ export class ScheduleListComponent implements OnInit {
         $.each(res, function (i, item) {
           var newthis = [
             item.partner_name,
-            item.schedule_date,
+            item.date,
             item.schedule_time,
             item.exercise,
             item.member_name,

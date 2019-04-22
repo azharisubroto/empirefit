@@ -11,11 +11,7 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <a
-          href="#"
-          [routerLink]="['pricing-pt-create']"
-          class="btn btn-primary btn-rounded"
-        >
+        <a href="#" [routerLink]="['pricing-pt-create']" class="btn btn-primary btn-rounded">
           Create
         </a>
       </div>
@@ -32,35 +28,27 @@
                       <th>Name</th>
                       <th>Quota</th>
                       <th>Remains</th>
-                      <th>Price</th>
+                      <th>Price (IDR)</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center">
+                  <tbody>
                     <tr *ngFor="let personaltrainer of personaltrainers">
                       <td>{{ personaltrainer.name }}</td>
-                      <td>{{ personaltrainer.quota }}</td>
-                      <td>{{ personaltrainer.remains }}</td>
-                      <td>Rp. {{ personaltrainer.price }}</td>
-                      <td>{{ personaltrainer.state }}</td>
-                      <td>
-                        <a
-                          href="#"
-                          [routerLink]="[
+                      <td class="text-center">{{ personaltrainer.quota }}</td>
+                      <td class="text-center">{{ personaltrainer.remains }}</td>
+                      <td class="text-right">{{ personaltrainer.price | number:0 }}</td>
+                      <td class="text-center">{{ personaltrainer.state }}</td>
+                      <td class="text-right">
+                        <a href="#" [routerLink]="[
                             'pricing-pt-edit/',
                             personaltrainer.id
                           ]"
-                          class="btn btn-sm btn-warning mr-2"
-                          title="Edit"
-                          triggers="mouseenter:mouseleave"
-                        >
+                          class="btn btn-sm btn-warning mr-2" title="Edit" triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>
                         </a>
-                        <button
-                          class="btn btn-sm btn-danger"
-                          (click)="confirm(modalConfirm, personaltrainer.id)"
-                        >
+                        <button class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, personaltrainer.id)">
                           <i class="i-Close-Window"></i>
                         </button>
 
@@ -70,49 +58,28 @@
                             <h4 class="modal-title" id="modal-title">
                               Personal Trainer deletion
                             </h4>
-                            <button
-                              type="button"
-                              triggers="mouseenter:mouseleave"
-                              title="Show"
-                              class="close"
-                              aria-label="Close button"
-                              aria-describedby="modal-title"
-                              (click)="modal.dismiss('Cross click')"
-                            >
+                            <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
+                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
                             <p>
-                              <strong
-                                >Are you sure you want to delete
-                                <span class="text-primary"
-                                  >"{{ personaltrainer.name }}"</span
-                                >
+                              <strong>Are you sure you want to delete
+                                <span class="text-primary">"{{ personaltrainer.name }}"</span>
                               </strong>
                             </p>
                             <p>
                               All information associated to this role will be
                               permanently deleted.
-                              <span class="text-danger"
-                                >This operation can not be undone.</span
-                              >
+                              <span class="text-danger">This operation can not be undone.</span>
                             </p>
                           </div>
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-outline-secondary btn-rounded"
-                              (click)="modal.dismiss('cancel')"
-                            >
+                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
                               Cancel
                             </button>
-                            <button
-                              type="button"
-                              ngbAutofocus
-                              class="btn btn-danger btn-rounded"
-                              (click)="modal.close('Ok')"
-                            >
+                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
                               Ok
                             </button>
                           </div>
