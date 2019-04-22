@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="col-md-5">
-        <button (click)="openLg(signaturetiga)" class="btn btn-primary">Put Signature</button>
+        <button (click)="openLg(signaturetiga)" type="button" class="btn btn-primary">Put Signature</button>
         <button class="btn btn-success d-none ml-3 isSuccessAutodebitSign" disabled>Success</button>
         <ng-template #signaturetiga let-modal let-c="close" let-d="dismiss">
           <div class="modal-header">
@@ -90,8 +90,8 @@
             <signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>
             <input formControlName="debit_sign" type="hidden" id="debit-sign" value="">
             <div class="text-left">
-              <button class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
-              <button class="btn btn-primary py-2 px-5 mr-3" (click)="memberautodebitsign(debit_sign)">Submit</button>
+              <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
+              <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="memberautodebitsign(debit_sign)">Submit</button>
             </div>
           </div>
         </ng-template>

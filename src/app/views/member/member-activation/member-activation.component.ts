@@ -535,7 +535,7 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onStep3Next(e) {
-    if (this.isautodebit == false) {
+    if (this.membershipForm.controls["auto_debet"].value == "0") {
       setTimeout(() => {
         $('.nextaja').trigger('click');
       }, 50);
@@ -609,8 +609,8 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onStep4Next() {
-    $('.prevaja').hide();
-    $('.nav .nav-item').toggleClass('enabled disabled');
+    // $('.prevaja').hide();
+    // $('.nav .nav-item').toggleClass('enabled disabled');
 
     if (this.cc_signature) {
       console.log("Signature exist");
