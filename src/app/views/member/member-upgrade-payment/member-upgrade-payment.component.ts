@@ -25,6 +25,7 @@ import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-member-upgrade-payment',
@@ -109,7 +110,8 @@ export class MemberUpgradePaymentComponent implements OnInit {
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
     private edcService: EdcService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -284,6 +286,22 @@ export class MemberUpgradePaymentComponent implements OnInit {
     this.personal_trainer_id = id;
   }
 
+  openLg(content) {
+    this.modalService.open(content, { windowClass: "big-modal" });
+  }
+
+  memberautodebitsign(debit_sign) {
+    if (debit_sign.isEmpty()) {
+      alert("Please Draw Signature");
+    } else {
+      $("#debit-sign").val(debit_sign.toDataURL());
+      setTimeout(() => {
+        $(".isSuccessAutodebitSign").removeClass("d-none");
+      }, 200);
+      $(".modal-header .close").trigger("click");
+    }
+  }
+
   onStep1Next() {
     let formValue = this.membershipForm.value;
     let exp_month = this.membershipForm.controls["exp_month"].value;
@@ -358,39 +376,30 @@ export class MemberUpgradePaymentComponent implements OnInit {
     }
   }
 
-  onStep2Next(debit_sign) {
-    if (debit_sign.isEmpty()) {
-      setTimeout(() => {
-        $('.prevaja').trigger('click');
-      }, 30);
-      this.toastr.error("Please draw signature", "Not Saved", {
-        progressBar: true
-      });
-    } else {
-      let edc_id = this.membershipForm.controls["edc_id"].value;
-      let _price = $("#price").val();
-      let formValue = this.membershipForm.value;
-      let _debit_sign = debit_sign.toDataURL();
-      formValue["signature"] = _debit_sign;
-      formValue["edc_id"] = edc_id;
-      formValue["price"] = _price;
-      formValue["credit_card_id"] = $("#card_id_text").val();
+  onStep2Next() {
+    let edc_id = this.membershipForm.controls["edc_id"].value;
+    let _price = $("#price").val();
+    let formValue = this.membershipForm.value;
+    let _debit_sign = $("#debit-sign").val();
+    formValue["signature"] = _debit_sign;
+    formValue["edc_id"] = edc_id;
+    formValue["price"] = _price;
+    formValue["credit_card_id"] = $("#card_id_text").val();
 
-      this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-        if (data["status"] == "200") {
-          this.toastr.success(data["message"], "Saved", {
-            progressBar: true
-          });
-        } else {
-          setTimeout(() => {
-            $('.prevaja').trigger('click');
-          }, 30);
-          this.toastr.error(data["message"], "Not Saved", {
-            progressBar: true
-          });
-        }
-      });
-    }
+    this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+      if (data["status"] == "200") {
+        this.toastr.success(data["message"], "Saved", {
+          progressBar: true
+        });
+      } else {
+        setTimeout(() => {
+          $('.prevaja').trigger('click');
+        }, 30);
+        this.toastr.error(data["message"], "Not Saved", {
+          progressBar: true
+        });
+      }
+    });
   }
 
   onComplete(e) {

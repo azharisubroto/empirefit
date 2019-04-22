@@ -159,7 +159,8 @@ export class MemberActivationComponent implements OnInit {
     this.liabilityForm = this.fb.group({
       user_id: ["", Validators.required],
       member_sign: ["", Validators.required],
-      staff_sign: ["", Validators.required]
+      staff_sign: ["", Validators.required],
+      debit_sign: ["", Validators.required],
     });
 
     // membershipFormBuilder
@@ -205,14 +206,18 @@ export class MemberActivationComponent implements OnInit {
 
         if (this.member.liability_signature) {
           this.is_membersign_exists = true;
+          $("#btn-putsignature").attr("disabled", "disabled");
         } else {
           this.is_membersign_exists = false;
+          $("#btn-putsignature").removeAttr("disabled");
         }
 
         if (this.member.liability_user_signature) {
+          $("#btn-putsignaturestaff").attr("disabled", "disabled");
           this.is_staffsign_exists = true;
         } else {
           this.is_staffsign_exists = false;
+          $("#btn-putsignaturestaff").removeAttr("disabled");
         }
 
         this.membershipForm.setValue({
@@ -442,35 +447,67 @@ export class MemberActivationComponent implements OnInit {
     return this.nextWebcam.asObservable();
   }
 
-  onStep1Next(member_sign, staff_sign) {
-    let _member_sign = member_sign.toDataURL(),
-      _staff_sign = staff_sign.toDataURL(),
-      formValue = this.liabilityForm.value;
-
-    if (staff_sign.isEmpty() && !this.member.liability_signature && !this.member.liability_user_signature) {
-      setTimeout(() => {
-        $('.prevaja').trigger('click');
-      }, 30);
-      this.toastr.error("Please draw signature", "Not Saved", {
-        progressBar: true
-      });
+  memberliabilitysign(member_sign) {
+    if (member_sign.isEmpty()) {
+      alert("Please Draw Signature");
     } else {
-      if (this.member.liability_signature || this.member.liability_user_signature) {
-        console.log("Signature exist");
-      } else {
+      $("#member-sign").val(member_sign.toDataURL());
+      this.liabilityForm.patchValue({
+        member_sign: member_sign.toDataURL()
+      });
+      setTimeout(() => {
+        $(".isSuccessLiabilityMemberSign").removeClass("d-none");
+      }, 200);
+      $(".modal-header .close").trigger("click");
+    }
+  }
 
-        formValue["member_sign"] = _member_sign;
-        formValue["staff_sign"] = _staff_sign;
-        formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
-        console.log(formValue);
-        this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-          if (data["status"] == "200") {
-            this.toastr.success(data["message"], "Saved", {
-              progressBar: true
-            });
-          }
-        });
-      }
+  staffliabilitysign(staff_sign) {
+    if (staff_sign.isEmpty()) {
+      alert("Please Draw Signature");
+    } else {
+      $("#staff-sign").val(staff_sign.toDataURL());
+      this.liabilityForm.patchValue({
+        staff_sign: staff_sign.toDataURL()
+      });
+      setTimeout(() => {
+        $(".isSuccessLiabilityStaffSign").removeClass("d-none");
+      }, 200);
+      $(".modal-header .close").trigger("click");
+      console.log(this.liabilityForm.value);
+    }
+  }
+
+  memberautodebitsign(debit_sign) {
+    if (debit_sign.isEmpty()) {
+      alert("Please Draw Signature");
+    } else {
+      $("#debit-sign").val(debit_sign.toDataURL());
+      this.liabilityForm.patchValue({
+        debit_sign: debit_sign.toDataURL()
+      });
+      setTimeout(() => {
+        $(".isSuccessAutodebitSign").removeClass("d-none");
+      }, 200);
+      $(".modal-header .close").trigger("click");
+    }
+  }
+
+  onStep1Next() {
+    let formValue = this.liabilityForm.value;
+
+    if (this.member.liability_signature || this.member.liability_user_signature) {
+      console.log("Signature exist");
+    } else {
+      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
+      console.log(formValue);
+      this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+        if (data["status"] == "200") {
+          this.toastr.success(data["message"], "Saved", {
+            progressBar: true
+          });
+        }
+      });
     }
   }
   onStep2Next(e) {
@@ -571,7 +608,7 @@ export class MemberActivationComponent implements OnInit {
       }
     }
   }
-  onStep4Next(debit_sign) {
+  onStep4Next() {
     $('.prevaja').hide();
     $('.nav .nav-item').toggleClass('enabled disabled');
 
@@ -582,8 +619,7 @@ export class MemberActivationComponent implements OnInit {
       let edc_id = this.membershipForm.controls["edc_id"].value;
       let _price = $("#price").val();
       let formValue = this.liabilityForm.value;
-      let _debit_sign = debit_sign.toDataURL();
-      formValue["signature"] = _debit_sign;
+      formValue["signature"] = this.liabilityForm.controls["debit_sign"].value;
       formValue["edc_id"] = edc_id;
       formValue["price"] = _price;
       formValue["credit_card_id"] = $("#card_id_text").val();

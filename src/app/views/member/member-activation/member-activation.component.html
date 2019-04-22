@@ -11,7 +11,7 @@
 	<div class="col-md-12">
 
 		<form-wizard>
-			<wizard-step [title]="'Agreement'" (onNext)="onStep1Next(member_sign, staff_sign)">
+			<wizard-step [title]="'Agreement'" (onNext)="onStep1Next()">
 				<h4 class="text-medium text-bold">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
 
 				<p class="text-plain my-3">THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT,
@@ -149,7 +149,8 @@
 					<div class="row mt-5">
 						<div class="form-group col-md-6 mb-3">
 							<label for="firstName" class="d-block mb-2 text-medium"><strong>Member Signature</strong></label>
-							<button (click)="openLg(signaturesatu)" class="btn btn-primary">Put Signature</button>
+							<button (click)="openLg(signaturesatu)" id="btn-putsignature" class="btn btn-primary">Put Signature</button>
+							<button class="btn btn-success d-none ml-3 isSuccessLiabilityMemberSign" disabled>Success</button>
 							<ng-template #signaturesatu let-modal let-c="close" let-d="dismiss">
 								<div class="modal-header">
 									<h4 class="modal-title"><strong><span class="text-capitalize">Member Signature</span></strong></h4>
@@ -162,6 +163,7 @@
 									<input type="hidden" formControlName="member_sign" id="member-sign" value="">
 									<div class="text-left">
 										<button class="btn btn-primary py-2 px-5 mr-3" (click)="member_sign.clear()">Clear</button>
+										<button class="btn btn-primary py-2 px-5 mr-3" (click)="memberliabilitysign(member_sign)">Submit</button>
 									</div>
 								</div>
 							</ng-template>
@@ -170,7 +172,8 @@
 							<label for="lastName" class="d-block mb-2 text-medium"><strong>Staff Signature</strong></label>
 
 
-							<button (click)="openLg(signaturedua)" class="btn btn-primary">Put Signature</button>
+							<button (click)="openLg(signaturedua)" id="btn-putsignaturestaff" class="btn btn-primary">Put Signature</button>
+							<button class="btn btn-success d-none ml-3 isSuccessLiabilityStaffSign" disabled>Success</button>
 							<ng-template #signaturedua let-modal let-c="close" let-d="dismiss">
 								<div class="modal-header">
 									<h4 class="modal-title"><strong><span class="text-capitalize">Staff Signature</span></strong></h4>
@@ -183,6 +186,7 @@
 									<input type="hidden" formControlName="staff_sign" id="staff-sign" value="">
 									<div class="text-left">
 										<button class="btn btn-primary py-2 px-5 mr-3" (click)="staff_sign.clear()">Clear</button>
+										<button class="btn btn-primary py-2 px-5 mr-3" (click)="staffliabilitysign(staff_sign)">Submit</button>
 									</div>
 								</div>
 							</ng-template>
@@ -414,7 +418,7 @@
 				</div>
 			</wizard-step>
 
-			<wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep4Next(debit_sign)">
+			<wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep4Next()">
 				<div class="mt-0 mb-4">
 					<p>I <strong>{{ member.name }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong class="show-price"></strong>
 						from my credit card in order to pay the monthly
@@ -480,6 +484,7 @@
 						</div>
 						<div class="col-md-5">
 							<button (click)="openLg(signaturetiga)" class="btn btn-primary">Put Signature</button>
+							<button class="btn btn-success d-none ml-3 isSuccessAutodebitSign" disabled>Success</button>
 							<ng-template #signaturetiga let-modal let-c="close" let-d="dismiss">
 								<div class="modal-header">
 									<h4 class="modal-title"><strong><span class="text-capitalize">Member Signature</span></strong></h4>
@@ -492,6 +497,7 @@
 									<input type="hidden" id="debit-sign" value="">
 									<div class="text-left">
 										<button class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
+										<button class="btn btn-primary py-2 px-5 mr-3" (click)="memberautodebitsign(debit_sign)">Submit</button>
 									</div>
 								</div>
 							</ng-template>

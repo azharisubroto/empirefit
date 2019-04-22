@@ -16,7 +16,7 @@
     <li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
   </ul>
 
-  <form [formGroup]="autodebitForm" (ngSubmit)="submit(debit_sign)">
+  <form [formGroup]="autodebitForm" (ngSubmit)="submit()">
     <div class="row">
       <div class="col-md-7 mb-4 mb-md-0">
         <div class="px-4 py-3 border border-light rounded align-items-center">
@@ -77,11 +77,24 @@
         </div>
       </div>
       <div class="col-md-5">
-        <signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>
-        <input type="hidden" id="debit-sign" value="">
-        <div class="text-left">
-          <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
-        </div>
+        <button (click)="openLg(signaturetiga)" class="btn btn-primary">Put Signature</button>
+        <button class="btn btn-success d-none ml-3 isSuccessAutodebitSign" disabled>Success</button>
+        <ng-template #signaturetiga let-modal let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <h4 class="modal-title"><strong><span class="text-capitalize">Autodebit Signature</span></strong></h4>
+            <button type="button" class="close" aria-label="Close" (click)="c('close')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>
+            <input formControlName="debit_sign" type="hidden" id="debit-sign" value="">
+            <div class="text-left">
+              <button class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
+              <button class="btn btn-primary py-2 px-5 mr-3" (click)="memberautodebitsign(debit_sign)">Submit</button>
+            </div>
+          </div>
+        </ng-template>
       </div>
     </div>
     <hr>

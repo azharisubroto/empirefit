@@ -25,6 +25,7 @@ import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-member-change-cc',
@@ -67,7 +68,8 @@ export class MemberChangeCcComponent implements OnInit {
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
     private edcService: EdcService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -76,7 +78,8 @@ export class MemberChangeCcComponent implements OnInit {
       cc_card: ["", Validators.required],
       cc_month: ["", Validators.required],
       cc_year: ["", Validators.required],
-      bank_id: ["1", Validators.required]
+      bank_id: ["1", Validators.required],
+      debit_sign: ["", Validators.required],
     });
 
     this.memberService.getSingleMember(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
@@ -92,6 +95,7 @@ export class MemberChangeCcComponent implements OnInit {
         cc_month: this.autodebits.credit_card_exp_month,
         cc_year: this.autodebits.credit_card_exp_year,
         bank_id: this.creditcards.bank_id,
+        debit_sign: "",
       });
     });
 
@@ -100,11 +104,28 @@ export class MemberChangeCcComponent implements OnInit {
     })
   }
 
-  submit(debit_sign) {
+  openLg(content) {
+    this.modalService.open(content, { windowClass: "big-modal" });
+  }
+
+  memberautodebitsign(debit_sign) {
+    if (debit_sign.isEmpty()) {
+      alert("Please Draw Signature");
+    } else {
+      $("#debit-sign").val(debit_sign.toDataURL());
+      this.autodebitForm.patchValue({
+        debit_sign: debit_sign.toDataURL()
+      });
+      setTimeout(() => {
+        $(".isSuccessAutodebitSign").removeClass("d-none");
+      }, 200);
+      $(".modal-header .close").trigger("click");
+    }
+  }
+
+  submit() {
     this.loading = true;
-    let formValue = this.autodebitForm.value,
-      datadebit_sign = debit_sign.toDataURL();
-    formValue["signature"] = datadebit_sign;
+    let formValue = this.autodebitForm.value;
 
     this.memberService.updateCC(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
       if (data["status"] == "200") {
