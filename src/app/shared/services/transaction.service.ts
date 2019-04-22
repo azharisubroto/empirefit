@@ -28,4 +28,8 @@ export class TransactionService {
     showTransaction(id) {
         return this.http.get(this.apiURL + "/transactions/" + id, this.httpOptions);
     }
+
+    searchRecurring(data) {
+        return this.http.post(this.apiURL + "/search_transaction", data, this.httpOptions)
+    }
 }

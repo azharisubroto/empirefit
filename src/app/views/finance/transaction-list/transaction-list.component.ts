@@ -182,6 +182,10 @@ export class TransactionListComponent implements OnInit {
       var itemprints: any = [];
       this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
         var res = data['data'];
+        setTimeout(() => {
+          $(".totrec").text("IDR" + data["total_recuring"]);
+          $(".totun").text("IDR" + data["total_unpaid"]);
+        }, 200);
         $.each(res, function (i, item) {
           var newthis = [
             item.date,

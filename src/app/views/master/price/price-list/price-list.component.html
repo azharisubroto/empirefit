@@ -11,11 +11,7 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <a
-          href="#"
-          [routerLink]="['price-create']"
-          class="btn btn-primary btn-rounded"
-        >
+        <a href="#" [routerLink]="['price-create']" class="btn btn-primary btn-rounded">
           Create
         </a>
       </div>
@@ -32,32 +28,24 @@
                       <th>Payment Type</th>
                       <th>Member Type</th>
                       <th>recuring</th>
-                      <th>Price</th>
+                      <th>Price (IDR)</th>
                       <th>Period</th>
                       <th>Action</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center">
+                  <tbody>
                     <tr *ngFor="let price of prices">
                       <td>{{ price.payment_type_name }}</td>
                       <td>{{ price.member_type_name }}</td>
-                      <td>{{ price.recuring }}</td>
-                      <td>Rp. {{ price.price }}</td>
-                      <td>{{ price.start_date }} - {{ price.end_date }}</td>
-                      <td>
-                        <a
-                          href="#"
-                          [routerLink]="['price-edit/', price.id]"
-                          class="btn btn-sm btn-warning mr-2"
-                          title="Edit"
-                          triggers="mouseenter:mouseleave"
-                        >
+                      <td class="text-center">{{ price.recuring }}</td>
+                      <td class="text-right">{{ price.price | number:0 }}</td>
+                      <td class="text-center">{{ price.start_date }} - {{ price.end_date }}</td>
+                      <td class="text-right">
+                        <a href="#" [routerLink]="['price-edit/', price.id]" class="btn btn-sm btn-warning mr-2" title="Edit"
+                          triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>
                         </a>
-                        <button
-                          class="btn btn-sm btn-danger"
-                          (click)="confirm(modalConfirm, price.id)"
-                        >
+                        <button class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, price.id)">
                           <i class="i-Close-Window"></i>
                         </button>
 
@@ -67,46 +55,27 @@
                             <h4 class="modal-title" id="modal-title">
                               Price deletion
                             </h4>
-                            <button
-                              type="button"
-                              triggers="mouseenter:mouseleave"
-                              title="Show"
-                              class="close"
-                              aria-label="Close button"
-                              aria-describedby="modal-title"
-                              (click)="modal.dismiss('Cross click')"
-                            >
+                            <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
+                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
                             <p>
-                              <strong
-                                >Are you sure you want to delete this price?
+                              <strong>Are you sure you want to delete this price?
                               </strong>
                             </p>
                             <p>
                               All information associated to this price will be
                               permanently deleted.
-                              <span class="text-danger"
-                                >This operation can not be undone.</span
-                              >
+                              <span class="text-danger">This operation can not be undone.</span>
                             </p>
                           </div>
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-outline-secondary btn-rounded"
-                              (click)="modal.dismiss('cancel')"
-                            >
+                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
                               Cancel
                             </button>
-                            <button
-                              type="button"
-                              ngbAutofocus
-                              class="btn btn-danger btn-rounded"
-                              (click)="modal.close('Ok')"
-                            >
+                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
                               Ok
                             </button>
                           </div>

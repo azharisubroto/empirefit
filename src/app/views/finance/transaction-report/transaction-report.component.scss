@@ -2,4 +2,9 @@ table.dataTable thead .sorting,
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc {
   background: none;
+  text-align: center;
+}
+
+th, td {
+  white-space: nowrap;
 }

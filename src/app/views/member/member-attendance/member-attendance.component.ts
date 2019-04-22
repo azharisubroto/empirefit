@@ -136,7 +136,7 @@ export class MemberAttendanceComponent implements OnInit {
         // console.log(data["data"].first_time[0].classtime)
 
         this.member = data["data"];
-        this.credit_cards = data["data"].credit_cards;
+        this.credit_cards = data["data"].credit_cards ? data["data"].credit_cards : null;
         this.leaves = data["data"].leaves;
 
         if (this.member.state == "Leave") {
