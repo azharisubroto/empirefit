@@ -153,6 +153,8 @@ export class TransactionReportComponent implements OnInit {
 
         $.each(res, function (i, item) {
           var newthis = [
+            item.idtrx,
+            item.trace_number,
             item.period,
             item.payment_type === "Autodebit" ? "Autodebit" : "Non-Autodebit",
             item.member_type,
@@ -180,6 +182,8 @@ export class TransactionReportComponent implements OnInit {
             ]
           },
           columns: [
+            { title: 'IDTRX' },
+            { title: 'Trace Number' },
             { title: 'Trx Date' },
             { title: 'Trx Type' },
             { title: 'Member Type' },

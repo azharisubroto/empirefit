@@ -347,26 +347,32 @@ export class MemberActivationComponent implements OnInit {
 
     if (data["member_type_id"] === 3) {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     } else {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
-        $("#price").val(0);
-        $("#price").val(data["data"] ? data["data"].price : 0);
-        var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-        $('.show-price').text(price);
-        $("#session").val(data["member_type"].session);
-        $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        setTimeout(() => {
+          $("#price").val(0);
+          $("#price").val(data["data"] ? data["data"].price : 0);
+          var price = $("#price").val().toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+          $('.show-price').text(price);
+          $("#session").val(data["member_type"].session);
+          $("#expiry_in").val(data["member_type"].duration + " " + data["member_type"].period);
+        }, 500);
       });
     }
   }
 
   // price pt
   getPricePt(price) {
-    $("#price").val(0);
-    $("#price").val(price);
-    var price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
-    $('.show-price').text(price);
+    setTimeout(() => {
+      $("#price").val(0);
+      $("#price").val(price);
+      var price = price.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+      $('.show-price').text(price);
+    }, 500);
   }
 
   getSession(sesi) {

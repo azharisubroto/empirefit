@@ -101,6 +101,8 @@
                 <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
                   <thead class="text-center tocpy">
                     <tr>
+                      <th>IDTRX</th>
+                      <th>Trace Number</th>
                       <th>Trx Date</th>
                       <th>Trx Type</th>
                       <th>Member Type</th>
@@ -113,6 +115,8 @@
                   </thead>
                   <tbody class="text-center partners">
                     <tr *ngFor="let item of transactions">
+                      <td>{{ item.idtrx }}</td>
+                      <td>{{ item.trace_number }}</td>
                       <td>{{ item.date }}</td>
                       <td>{{ item.payment_type }}</td>
                       <td>{{ item.member_type }}</td>
