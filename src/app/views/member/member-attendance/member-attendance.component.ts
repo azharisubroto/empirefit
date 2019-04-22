@@ -208,34 +208,32 @@ export class MemberAttendanceComponent implements OnInit {
             $("#btn-attendance").addClass("disabled");
 
             $("#btn-attendance").addClass("disabled");
-            $("#btn-history").addClass("disabled");
             $("#btn-autoreg").addClass("disabled");
 
-            $("#btn-classhis").addClass("disabled");
             $("#btn-ptsession").addClass("disabled");
             $("#btn-membership").addClass("disabled");
             $("#btn-membership-leave").addClass("disabled");
-            $("#btn-membership-history").addClass("disabled");
             $("#btn-payment-update").addClass('disabled');
-            $("#excel-bio").attr('disabled', 'disabled');
-            $("#pdf-bio").attr('disabled', 'disabled');
+            $("#pdf-bio").removeAttr("disabled");
           } else {
             if (data["data"].member_type_id == null) {
-              $("#btn-manualreg").attr("disabled", "disabled");
-              $("#btn-manualattendance").attr("disabled", "disabled");
-
               $("#btn-attendance").addClass("disabled");
 
               $("#btn-attendance").addClass("disabled");
               $("#btn-history").addClass("disabled");
               $("#btn-autoreg").addClass("disabled");
 
-              $("#btn-classhis").addClass("disabled");
+              $("#btn-manualreg").attr("disabled", "disabled");
+              $("#btn-manualattendance").attr("disabled", "disabled");
+              $("#pdf-bio").attr("disabled", "disabled");
+              $("#btn-classhis").attr("disabled", "disabled");
+              $("#btn-membership-leave").attr("disabled", "disabled");
+              $("#btn-membership-leave-history").attr("disabled", "disabled");
+
               $("#btn-ptsession").addClass("disabled");
               $("#btn-membership-history").addClass("disabled");
-              $("#btn-membership-leave").addClass("disabled");
+
               $("#btn-payment-update").addClass('disabled');
-              $("#btn-membership-leave-history").addClass("disabled");
             }
 
             // 10 Pass Membership
@@ -247,10 +245,8 @@ export class MemberAttendanceComponent implements OnInit {
                 $("#btn-attendance").addClass("disabled");
 
                 $("#btn-attendance").addClass("disabled");
-                $("#btn-history").addClass("disabled");
                 $("#btn-autoreg").addClass("disabled");
 
-                $("#btn-classhis").addClass("disabled");
                 $("#btn-ptsession").addClass("disabled");
               }
             }
@@ -271,25 +267,25 @@ export class MemberAttendanceComponent implements OnInit {
             if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {
               if (data["data"].auto_debet == 1) {
                 if (this.status_leave) {
-                  $("#btn-membership-leave").removeClass("disabled");
-                  $("#btn-membership-leave-history").removeClass("disabled")
+                  $("#btn-membership-leave").removeAttr("disabled");
+                  $("#btn-membership-leave-history").removeAttr("disabled")
                 } else {
-                  $("#btn-membership-leave").addClass("disabled");
-                  $("#btn-membership-leave-history").addClass("disabled");
+                  $("#btn-membership-leave").attr("disabled", "disabled");
+                  $("#btn-membership-leave-history").attr("disabled", "disabled");
                 }
               } else {
-                $("#btn-membership-leave").addClass("disabled");
-                $("#btn-membership-leave-history").addClass("disabled");
+                $("#btn-membership-leave").attr("disabled", "disabled");
+                $("#btn-membership-leave-history").attr("disabled", "disabled");
               }
               $("#btn-ptsession").addClass("disabled");
             }
 
             if (data["data"].auto_debet == 1) {
-              $("#btn-membership-leave").removeClass("disabled");
-              $("#btn-membership-leave-history").removeClass("disabled")
+              $("#btn-membership-leave").removeAttr("disabled");
+              $("#btn-membership-leave-history").removeAttr("disabled")
             } else {
-              $("#btn-membership-leave").addClass("disabled");
-              $("#btn-membership-leave-history").addClass("disabled");
+              $("#btn-membership-leave").attr("disabled", "disabled");
+              $("#btn-membership-leave-history").attr("disabled", "disabled");
             }
 
             if (this.status === "Expired" || this.status === "Inactive" || this.status === "Unpaid") {
