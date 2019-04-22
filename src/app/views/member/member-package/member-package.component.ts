@@ -20,6 +20,7 @@ import { PriceService } from "src/app/shared/services/price.service";
 import { EdcService } from "src/app/shared/services/edc.service";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Observable, Subject } from "rxjs";
 import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
@@ -81,8 +82,8 @@ export class MemberPackageComponent implements OnInit {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
-    canvasWidth: 422,
-    canvasHeight: 300
+    canvasWidth: 1150,
+    canvasHeight: 550
   }
 
   constructor(
@@ -100,7 +101,8 @@ export class MemberPackageComponent implements OnInit {
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
     private edcService: EdcService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -170,6 +172,10 @@ export class MemberPackageComponent implements OnInit {
     this.edcService.getEdcs().subscribe((data: any) => {
       this.edcs = data["data"];
     });
+  }
+
+  openLg(content) {
+    this.modalService.open(content, { windowClass: "big-modal" });
   }
 
   // Price Non PT
