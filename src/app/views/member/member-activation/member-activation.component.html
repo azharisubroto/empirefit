@@ -148,7 +148,7 @@
 
 					<div class="row mt-5">
 						<div class="form-group col-md-6 mb-3">
-							<label for="firstName" class="d-block mb-2 text-medium"><strong>Signature 1</strong></label>
+							<label for="firstName" class="d-block mb-2 text-medium"><strong>Member Signature</strong></label>
 							<signature-pad [options]="signaturePadMember" id="member" #member_sign></signature-pad>
 							<input type="hidden" formControlName="member_sign" id="member-sign" value="">
 							<div class="text-left">
@@ -156,7 +156,7 @@
 							</div>
 						</div>
 						<div class="form-group col-md-6 mb-3">
-							<label for="lastName" class="d-block mb-2 text-medium"><strong>Signature 2</strong></label>
+							<label for="lastName" class="d-block mb-2 text-medium"><strong>Staff Signature</strong></label>
 							<signature-pad [options]="signaturePadStaff" id="staff" #staff_sign></signature-pad>
 							<input type="hidden" formControlName="staff_sign" id="staff-sign" value="">
 							<div class="text-left">

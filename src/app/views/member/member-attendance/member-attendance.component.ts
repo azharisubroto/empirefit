@@ -454,7 +454,7 @@ export class MemberAttendanceComponent implements OnInit {
       .attendanceHistory(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
-        // console.log(this.gymhistory);
+        console.log(this.gymhistory);
       });
   }
 
@@ -487,7 +487,7 @@ export class MemberAttendanceComponent implements OnInit {
     }, 200)
   }
 
-  downloadbio() {
+  downloadbio(id_card_number) {
     var doc = new jsPDF('p', 'pt', 'letter');
 
     // We'll make our own renderer to skip this editor
@@ -508,11 +508,11 @@ export class MemberAttendanceComponent implements OnInit {
       },
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('bio-liability_' + this.id_card_number + '.pdf');
+      doc.save('bio-liability_' + id_card_number + '.pdf');
     });
   }
 
-  downloadSigning() {
+  downloadSigning(id_card_number) {
     var doc = new jsPDF('p', 'pt', 'letter');
 
     // We'll make our own renderer to skip this editor
@@ -528,7 +528,7 @@ export class MemberAttendanceComponent implements OnInit {
       'useCORS': false,
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('signing_form_' + this.id_card_number + '.pdf');
+      doc.save('signing_form_' + id_card_number + '.pdf');
     });
 
   }
@@ -560,11 +560,16 @@ export class MemberAttendanceComponent implements OnInit {
             if (data["status"] == "200") {
               $(".first_time").text(data["data"].time);
               this.loading = false;
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
               $(".modal-header .close").trigger("click");
             } else {
               this.loading = false;
+              this.toastr.error(data["message"], "Not Success", {
+                progressBar: true
+              });
               $(".modal-header .close").trigger("click");
-              alert(data["message"]);
             }
           });
       } else {

@@ -155,6 +155,9 @@ export class StaffRegistrationComponent implements OnInit {
 
   onStep1Next(e) {
     if (this.staffRegistrationForm.invalid) {
+      setTimeout(() => {
+        $('.prevaja').trigger('click');
+      }, 50);
       this.toastr.error("Please complete the data", "Not Saved!", {
         progressBar: true
       });

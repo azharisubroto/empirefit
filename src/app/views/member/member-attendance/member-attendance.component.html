@@ -175,7 +175,8 @@
               Session</a>
           </div>
           <div class="col-md-6 mb-3">
-            <button (click)="downloadbio()" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio &amp;
+            <button (click)="downloadbio(id_card_number)" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio
+              &amp;
               Liability (PDF)</button>
           </div>
         </div>
@@ -233,7 +234,7 @@
               Payment</a>
           </div>
           <div class="col-6">
-            <button type="button" (click)="downloadSigning()" class="btn btn-primary btn-lg btn-block py-3">Download
+            <button type="button" (click)="downloadSigning(id_card_number)" class="btn btn-primary btn-lg btn-block py-3">Download
               Signing Form</button>
           </div>
         </div>

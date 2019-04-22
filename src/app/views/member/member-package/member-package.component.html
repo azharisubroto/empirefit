@@ -78,7 +78,7 @@
                           <label for="card">Type</label>
                           <select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id"
                             class="form-control">
-                            <option *ngFor="let pa of paymenttype" [value]="pa.id">
+                            <option class="pm" *ngFor="let pa of paymenttype" [value]="pa.id">
                               {{pa.payment_type_name}}
                             </option>
                           </select>

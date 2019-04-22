@@ -572,9 +572,20 @@ export class MemberActivationComponent implements OnInit {
   }
   onComplete(e) {
     this.memberService.sendMail(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
-      this.router.navigateByUrl(
-        "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
-      );
+      if (data["status"] == "200") {
+        this.toastr.success(data["message"], "Saved", {
+          progressBar: true
+        });
+        setTimeout(() => {
+          this.router.navigateByUrl(
+            "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
+          );
+        }, 500);
+      } else {
+        this.toastr.error(data["message"], "Not Saved", {
+          progressBar: true
+        });
+      }
     });
   }
 }
