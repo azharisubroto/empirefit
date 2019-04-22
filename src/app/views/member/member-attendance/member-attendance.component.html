@@ -175,7 +175,8 @@
               Session</a>
           </div>
           <div class="col-md-6 mb-3">
-            <button (click)="downloadbio()" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio &amp; Liability (PDF)</button>
+            <button (click)="downloadbio()" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio &amp;
+              Liability (PDF)</button>
           </div>
         </div>
       </div>
@@ -232,7 +233,8 @@
               Payment</a>
           </div>
           <div class="col-6">
-            <a href="#" class="btn btn-primary btn-lg btn-block py-3">Download Signing Form</a>
+            <button type="button" (click)="downloadSigning()" class="btn btn-primary btn-lg btn-block py-3">Download
+              Signing Form</button>
           </div>
         </div>
       </div>
@@ -373,64 +375,95 @@
 
   <h3 class="my-4"><strong>IV. Photography and/or Video Release</strong></h3>
   <p>Photography and/or Video Release of Participant involved in any activities offered by EMPIRE FIT CLUB may be
-      photographed or videotaped during training. The undersigned hereby consents to the use of these photographs
-      and/or videos without compensation, on the EMPIRE FIT CLUB website or in any editorial, promotional or
-      marketing material produced and/or published by EMPIRE FIT CLUB.</p>
-  
+    photographed or videotaped during training. The undersigned hereby consents to the use of these photographs
+    and/or videos without compensation, on the EMPIRE FIT CLUB website or in any editorial, promotional or
+    marketing material produced and/or published by EMPIRE FIT CLUB.</p>
+
   <h3 class="my-4"><strong>V. Waiver and Release of Liability</strong></h3>
 
-    <p><strong>(i)</strong> Express Assumption of Risk: I, the undersigned, am aware that there are significant
-      risks involved in all aspects of physical training. These risks include, but are not limited to: falls,
-      muscle strains, muscle pulls, muscle tears, broken bones, shin splints, heat prostration, injuries to knees;
-      , injuries to back, injuries to foot, heart attacks, or any other illness or soreness that I may incur which
-      can result in serious injury or death; injury or death due to negligence on the part of myself, my training
-      partner, or other people around me; injury or death due to improper use or failure of equipment; strains and
-      sprains. I am aware that any of these above mentioned risks may result in serious injury or death to myself
-      and or my partner(s). I willingly assume full responsibility for the risks that I am exposing myself to and
-      accept full responsibility for any injury or death that may result from participation in any activity or
-      class while at, or under direction of EMPIRE FIT CLUB. I acknowledge that I have no physical impairments,
-      injuries , or illnesses that will endanger me or others.</p>
+  <p><strong>(i)</strong> Express Assumption of Risk: I, the undersigned, am aware that there are significant
+    risks involved in all aspects of physical training. These risks include, but are not limited to: falls,
+    muscle strains, muscle pulls, muscle tears, broken bones, shin splints, heat prostration, injuries to knees;
+    , injuries to back, injuries to foot, heart attacks, or any other illness or soreness that I may incur which
+    can result in serious injury or death; injury or death due to negligence on the part of myself, my training
+    partner, or other people around me; injury or death due to improper use or failure of equipment; strains and
+    sprains. I am aware that any of these above mentioned risks may result in serious injury or death to myself
+    and or my partner(s). I willingly assume full responsibility for the risks that I am exposing myself to and
+    accept full responsibility for any injury or death that may result from participation in any activity or
+    class while at, or under direction of EMPIRE FIT CLUB. I acknowledge that I have no physical impairments,
+    injuries , or illnesses that will endanger me or others.</p>
 
-    <p><strong>(ii)</strong> Release: In consideration of the above mentioned risks and hazards and in
-      consideration of the fact that I am willingly and voluntarily participating in the activities offered by
-      EMPIRE FIT CLUB, I, the undersigned hereby release EMPIRE FIT CLUB, their directors, coaches, officers,
-      employees, agents, from any and all liability, claims, demands, actions or rights of action, which are
-      related to, arise out of, or are in any way connected with my participation in this activity, including those
-      allegedly attributed to the negligent acts or omissions of the above mentioned parties . This agreement shall
-      be binding upon me, my spouse, my children, my guardians, my successors, representatives, heirs, executors,
-      assigns, or transferees (collectively, the "Releasors"). I accept full and complete responsibility for the
-      safety of myself, any guests, observers or other individuals who I have invited to the venue of EMPIRE FIT
-      CLUB, and property, and I assume the risk of damage, theft, loss or injury caused by others to me, my guests
-      and property.
-      If any portion of this agreement is held invalid, I agree that the remainder of the agreement shall remain in
-      full legal force and effect. If I am signing on behalf of a minor child, I also give full permission for any
-      person connected with EMPIRE FIT CLUB to administer first aid deemed necessary, and in case of serious
-      illness or injury, I give permission to call for medical and or surgical care for the child and to transport
-      the child to a medical facility deemed necessary for the wellbeing of the child </p>
+  <p><strong>(ii)</strong> Release: In consideration of the above mentioned risks and hazards and in
+    consideration of the fact that I am willingly and voluntarily participating in the activities offered by
+    EMPIRE FIT CLUB, I, the undersigned hereby release EMPIRE FIT CLUB, their directors, coaches, officers,
+    employees, agents, from any and all liability, claims, demands, actions or rights of action, which are
+    related to, arise out of, or are in any way connected with my participation in this activity, including those
+    allegedly attributed to the negligent acts or omissions of the above mentioned parties . This agreement shall
+    be binding upon me, my spouse, my children, my guardians, my successors, representatives, heirs, executors,
+    assigns, or transferees (collectively, the "Releasors"). I accept full and complete responsibility for the
+    safety of myself, any guests, observers or other individuals who I have invited to the venue of EMPIRE FIT
+    CLUB, and property, and I assume the risk of damage, theft, loss or injury caused by others to me, my guests
+    and property.
+    If any portion of this agreement is held invalid, I agree that the remainder of the agreement shall remain in
+    full legal force and effect. If I am signing on behalf of a minor child, I also give full permission for any
+    person connected with EMPIRE FIT CLUB to administer first aid deemed necessary, and in case of serious
+    illness or injury, I give permission to call for medical and or surgical care for the child and to transport
+    the child to a medical facility deemed necessary for the wellbeing of the child </p>
 
-    <p><strong>(iii)</strong> Indemnification: On behalf of the Releasers, the Participant recognizes that there
-      is risk involved in the types of activities offered by EMPIRE FIT CLUB. Therefore the Participant accepts
-      financial responsibility for any injury that the Participant may cause either to him/herself or to any other
-      participant due to his/her negligence. Should the above mentioned parties, or anyone acting on their behalf,
-      be required to incur attorney's fees and costs to enforce this agreement, I agree to reimburse them for such
-      fees and costs. I further agree to indemnify and hold harmless EMPIRE FIT CLUB, their directors, coaches,
-      officers, employees, agents from liability for the injury or death of any person(s) and damage to property
-      that may result from my negligent or intentional act or omission while participating in <br>
-      _____ activities offered by EMPIRE FIT CLUB, at the main building or aboard. This includes but is not limited
-      to parks, recreational areas, playgrounds, areas adjacent to main building, and/or any area selected for
-      training by EMPIRE FIT CLUB.
+  <p><strong>(iii)</strong> Indemnification: On behalf of the Releasers, the Participant recognizes that there
+    is risk involved in the types of activities offered by EMPIRE FIT CLUB. Therefore the Participant accepts
+    financial responsibility for any injury that the Participant may cause either to him/herself or to any other
+    participant due to his/her negligence. Should the above mentioned parties, or anyone acting on their behalf,
+    be required to incur attorney's fees and costs to enforce this agreement, I agree to reimburse them for such
+    fees and costs. I further agree to indemnify and hold harmless EMPIRE FIT CLUB, their directors, coaches,
+    officers, employees, agents from liability for the injury or death of any person(s) and damage to property
+    that may result from my negligent or intentional act or omission while participating in <br>
+    _____ activities offered by EMPIRE FIT CLUB, at the main building or aboard. This includes but is not limited
+    to parks, recreational areas, playgrounds, areas adjacent to main building, and/or any area selected for
+    training by EMPIRE FIT CLUB.
 
-      I Have read and understood the foregoing assumption of risk, and release of liability and I understand that
-      by signing it obligates me to indemnify the parties named for any liability for injury or death of any person
-      and damage to property caused by my negligent or intentional act or omission. I understand that by signing
-      this form I am waiving valuable legal rights.</p>
+    I Have read and understood the foregoing assumption of risk, and release of liability and I understand that
+    by signing it obligates me to indemnify the parties named for any liability for injury or death of any person
+    and damage to property caused by my negligent or intentional act or omission. I understand that by signing
+    this form I am waiving valuable legal rights.</p>
 
-    <p><strong>(iv)</strong> Promise Not To Bring Suit: I hereby agree and covenant not to, and shall cause the
-      Releasors not to, bring a claim against, sue, demand compensation from or attach the property or assets of
-      EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents, for any loss or damage
-      arising or resulting from my participation in EMPIRE FIT CLUB or my travel to or from or presence at the
-      venue, 2nd forever release and discharge EMPIRE FIT CLUB or any of their directors, coaches, officers,
-      employees, agents them from liability under such claims.</p>
+  <p><strong>(iv)</strong> Promise Not To Bring Suit: I hereby agree and covenant not to, and shall cause the
+    Releasors not to, bring a claim against, sue, demand compensation from or attach the property or assets of
+    EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents, for any loss or damage
+    arising or resulting from my participation in EMPIRE FIT CLUB or my travel to or from or presence at the
+    venue, 2nd forever release and discharge EMPIRE FIT CLUB or any of their directors, coaches, officers,
+    employees, agents them from liability under such claims.</p>
+</div>
+
+<div class="d-none">
+  <div id="downloadsigningform">
+    <p align="center" style="font-size: 20pt;text-align:center;margin-bottom:10pt"><strong>Empire Fit Club recurring
+        automattic payment</strong></p>
+    <p>I <strong>{{member.name}}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong>{{recuring_payment
+        | number:0}}</strong>
+      from my credit card in order to pay the monthly subscriptions.I understand that this
+      payment process is a reoccurringpayment process and the agreed amount of money will be automatically deducted
+      unless I instructed them other wise.</p>
+
+    <p><strong>Terms &amp; Condition.</strong></p>
+
+    <ul>
+      <li>Within the 2 months of initial sign up the members are not encouraged to stop the monthly subscription.</li>
+      <li><br>(stopping within two months will result on IDR 200.000 process fee)<br></li>
+      <li>Members are allowed to cancel the automatic payment anytime after the initial 2 months after the sign up</li>
+      <li>The Member are allowed to freeze the account for the minimum of 15 days and maximum of 3 months</li>
+      <li>To freeze or stop the membership, the member will have to notify 2 weeks prior.</li>
+      <li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
+    </ul>
+    <p color="white">.</p>
+
+    <p><strong>Name on the Card:</strong> {{credit_cards.credit_card_name}}</p>
+    <p><strong>Card Number:</strong> {{credit_cards.credit_card_number}}</p>
+    <p><strong>Exp. Date:</strong> {{ credit_cards.credit_card_exp_month }}/{{ credit_cards.credit_card_exp_year }}</p>
+    <p><br><br><br></p>
+    <p><strong>Date:</strong> {{todayDate}}</p>
+    <p><strong>Signature:</strong></p>
+  </div>
 </div>
 
 <ng-template #manualAttendance let-modal let-c="close" let-d="dismiss">

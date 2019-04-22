@@ -74,6 +74,9 @@ export class MemberAttendanceComponent implements OnInit {
   status_unpaid: boolean = false;
   finance_notes;
   healthquestions;
+  recuring_payment;
+  credit_cards;
+  signature_base64;
 
   constructor(
     private fb: FormBuilder,
@@ -95,6 +98,7 @@ export class MemberAttendanceComponent implements OnInit {
   ngOnInit() {
     var mod = this;
     this.member = { make: "" };
+    this.credit_cards = { make: "" };
     this.expirydate = { make: "" };
     this.user = { make: "" };
     this.firstTime = { make: "" };
@@ -132,6 +136,7 @@ export class MemberAttendanceComponent implements OnInit {
         // console.log(data["data"].first_time[0].classtime)
 
         this.member = data["data"];
+        this.credit_cards = data["data"].credit_cards;
         this.leaves = data["data"].leaves;
 
         if (this.member.state == "Leave") {
@@ -164,10 +169,14 @@ export class MemberAttendanceComponent implements OnInit {
         //console.log(this.member['id']);
 
         this.id_card_number = data["data"].id_card_number;
+        this.signature_base64 = data["data"].signature_download;
         this.recuring_date = this.member.recuring_date;
+        this.recuring_payment = data["data"].auto_debits ? data["data"].auto_debits.recuring_payment : 0;
         this.full_recuring_date = data["data"].auto_debits ? data["data"].auto_debits.date : "-";
         this.payment_unpaid = data["data"].auto_debits ? data["data"].auto_debits.unpaid : "0";
         this.finance_notes = data["data"].auto_debits ? data["data"].auto_debits.finance_notes : "0";
+
+        console.log(this.recuring_payment);
 
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
@@ -421,10 +430,10 @@ export class MemberAttendanceComponent implements OnInit {
 
     //health questions
     this.healthQuestionService
-    .getByMember(this.activatedRoute.snapshot.params["id"])
-    .subscribe((data: any) => {
-      this.healthquestions = data["data"];
-    });
+      .getByMember(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.healthquestions = data["data"];
+      });
 
     this.scheduleService
       .showClassRegistration(this.member.member_type_id)
@@ -499,8 +508,29 @@ export class MemberAttendanceComponent implements OnInit {
       },
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('bio-liability' + '.pdf');
+      doc.save('bio-liability_' + this.id_card_number + '.pdf');
     });
+  }
+
+  downloadSigning() {
+    var doc = new jsPDF('p', 'pt', 'letter');
+
+    // We'll make our own renderer to skip this editor
+    var specialElementHandlers = {
+      '#editor': function (element, renderer) {
+        return true;
+      }
+    };
+    doc.addImage(this.signature_base64, 'PNG', 15, 450, 211, 150);
+    doc.fromHTML($('#downloadsigningform').get(0), 15, 25, {
+      'pagesplit': true,
+      'width': 550,
+      'useCORS': false,
+      'elementHandlers': specialElementHandlers
+    }, function (dispose) {
+      doc.save('signing_form_' + this.id_card_number + '.pdf');
+    });
+
   }
 
   openLg(content) {
