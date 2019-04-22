@@ -299,7 +299,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-membership-leave-history").attr("disabled", "disabled");
             }
 
-            if (this.status === "Expired" || this.status === "Inactive" || this.status === "Unpaid") {
+            if (this.status == "Expired" || this.status == "Inactive" || this.status == "Unpaid") {
               $("#btn-manualreg").attr("disabled", "disabled");
               $("#btn-manualattendance").attr("disabled", "disabled");
 
@@ -342,13 +342,13 @@ export class MemberAttendanceComponent implements OnInit {
             var todayName = days[n];
             $('.class-loading').remove();
             $.each(obj, function (i, item) {
-              if (item.day === todayName) {
+              if (item.day == todayName) {
                 // console.log('jam ' + mod.getClock());
                 // console.log('jam item ' + item.time_schedule);
                 // Print Jadwal
                 if (mod.hasmatch(item.log, "member_id", member.id)) {
                   var logarray = item.log;
-                  var _index = logarray.findIndex(x => x.member_id === member.id),
+                  var _index = logarray.findIndex(x => x.member_id == member.id),
                     _iscanceled = item.log[_index].canceled,
                     _logid = item.log[_index]["id"];
 
@@ -661,7 +661,7 @@ export class MemberAttendanceComponent implements OnInit {
 
   hasmatch(array, key, value) {
     var matches = array.filter(function (element) {
-      return element[key] === value;
+      return element[key] == value;
     });
 
     return matches.length > 0;
@@ -708,7 +708,7 @@ export class MemberAttendanceComponent implements OnInit {
         this.fingerService
           .checkAttendance(this.activatedRoute.snapshot.params["id"])
           .subscribe((data: any) => {
-            if (data["status"] === "200") {
+            if (data["status"] == "200") {
               subscribe.unsubscribe();
               setTimeout(() => {
                 $("#code-first_time").text(data["date"]);
@@ -743,7 +743,7 @@ export class MemberAttendanceComponent implements OnInit {
         this.fingerService
           .checkAutoRegClass(this.activatedRoute.snapshot.params["id"], formValue)
           .subscribe((data: any) => {
-            if (data["status"] === "200") {
+            if (data["status"] == "200") {
 
               subscribe.unsubscribe();
               this.toastr.success(data["message"], "Success", {

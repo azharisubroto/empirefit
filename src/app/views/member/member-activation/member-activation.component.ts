@@ -75,7 +75,7 @@ export class MemberActivationComponent implements OnInit {
   credit_cards;
   autodebits;
   edcs;
-  isautodebit;
+  isautodebit: boolean;
   isptselect: boolean;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
@@ -336,7 +336,7 @@ export class MemberActivationComponent implements OnInit {
           .checkMemberRegistration(this.member.finger_code)
           .subscribe((data: any) => {
             console.log(this.member.finger_code);
-            if (data["status"] === "200") {
+            if (data["status"] == "200") {
               subscribe.unsubscribe();
               this.toastr.success(data["message"], "Saved", {
                 progressBar: true
@@ -562,7 +562,7 @@ export class MemberActivationComponent implements OnInit {
 
       formValue["price"] = $("#price").val();
 
-      if (this.membershipForm.controls["auto_debet"].value === "0") {
+      if (this.membershipForm.controls["auto_debet"].value == "0") {
         formValue["auto_debet"] = false;
       } else {
         formValue["auto_debet"] = true;
@@ -586,14 +586,14 @@ export class MemberActivationComponent implements OnInit {
                 progressBar: true
               });
 
-              if (data["auto_debet"] === true) {
+              if (data["auto_debet"] == true) {
                 setTimeout(() => {
-                  $("#card_name_text").text(data["data"][0].card_name ? data["data"][0].card_name : null);
-                  $("#card_number_text").text(data["data"][0].card_number ? data["data"][0].card_number : null);
-                  $("#card_month_text").text(data["data"][0].exp_month ? data["data"][0].exp_month : null);
-                  $("#card_year_text").text(data["data"][0].exp_year ? data["data"][0].exp_year : null);
-                  $("#card_date_text").text(data["data"][0].created_at ? data["data"][0].created_at : null);
-                  $("#card_id_text").val(data["data"][0].id ? data["data"][0].id : null);
+                  $("#card_name_text").text(data["data"][0] ? data["data"][0].card_name : null);
+                  $("#card_number_text").text(data["data"][0] ? data["data"][0].card_number : null);
+                  $("#card_month_text").text(data["data"][0] ? data["data"][0].exp_month : null);
+                  $("#card_year_text").text(data["data"][0] ? data["data"][0].exp_year : null);
+                  $("#card_date_text").text(data["data"][0] ? data["data"][0].created_at : null);
+                  $("#card_id_text").val(data["data"][0] ? data["data"][0].id : null);
                 }, 500)
               }
             } else {
@@ -641,7 +641,10 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onComplete(e) {
-    this.memberService.sendMail(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
+    let formValue: ({
+      test: ""
+    });
+    this.memberService.sendMail(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
       if (data["status"] == "200") {
         this.toastr.success(data["message"], "Saved", {
           progressBar: true

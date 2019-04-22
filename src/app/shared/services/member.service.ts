@@ -120,7 +120,7 @@ export class MemberService {
     );
   }
 
-  sendMail(member_id) {
-    return this.http.post(this.apiURL + "members/verified/" + member_id, this.httpOptions);
+  sendMail(member_id, data) {
+    return this.http.post(this.apiURL + "/members/verified/" + member_id, data, this.httpOptions);
   }
 }
