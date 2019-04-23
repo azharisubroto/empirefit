@@ -41,6 +41,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
   step2Form: FormGroup;
   loading: boolean;
   radioGroup: FormGroup;
+  debitGroup: FormGroup;
   liabilityForm: FormGroup;
   membershipForm: FormGroup;
   public member: any;
@@ -128,6 +129,11 @@ export class MemberUpgradePaymentComponent implements OnInit {
       session_remains: [],
       edc_id: [],
       traceNumber: [],
+      debit_sign: [""],
+    });
+
+    this.debitGroup = this.fb.group({
+      debit_sign: [""],
     });
 
     this.memberService.getSingleMember(this.activatedRoute.snapshot.params['id']).subscribe((data: any) => {
@@ -294,8 +300,11 @@ export class MemberUpgradePaymentComponent implements OnInit {
     if (debit_sign.isEmpty()) {
       alert("Please Draw Signature");
     } else {
-      $("#debit-sign").val(debit_sign.toDataURL());
+      this.debitGroup.patchValue({
+        debit_sign: debit_sign.toDataURL()
+      });
       setTimeout(() => {
+        $("#debit-sign").val(debit_sign.toDataURL());
         $(".isSuccessAutodebitSign").removeClass("d-none");
       }, 200);
       $(".modal-header .close").trigger("click");
@@ -345,7 +354,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
         .upgradeMembership(this.activatedRoute.snapshot.params["id"], formValue)
         .subscribe((data: any) => {
           console.log(data);
-          if (data["status"] == 200) {
+          if (data["status"] === "200") {
             this.toastr.success(data["message"], "Saved", {
               progressBar: true
             });
@@ -381,7 +390,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
       let edc_id = this.membershipForm.controls["edc_id"].value;
       let _price = $("#price").val();
       let formValue = this.membershipForm.value;
-      let _debit_sign = $("#debit-sign").val();
+      let _debit_sign = this.debitGroup.controls["debit_sign"].value;
       formValue["signature"] = _debit_sign;
       formValue["edc_id"] = edc_id;
       formValue["price"] = _price;

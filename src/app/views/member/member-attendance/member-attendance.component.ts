@@ -187,16 +187,9 @@ export class MemberAttendanceComponent implements OnInit {
 
         if (this.status != "Unverified") {
           if (date < sekarang) {
-            setTimeout(() => {
-              $("#btn-selectPackage").removeClass('disabled');
-            }, 1100);
             this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
               this.status = data["status_member"];
             });
-          } else {
-            setTimeout(() => {
-              $("#btn-selectPackage").addClass('disabled');
-            }, 1100);
           }
         }
 
@@ -479,7 +472,7 @@ export class MemberAttendanceComponent implements OnInit {
         date = this.member.expairy_date,
         sekarang = new Date(today);
 
-      if (date < sekarang) {
+      if (this.member.state == "Expired") {
         setTimeout(() => {
           $("#btn-selectPackage").removeClass('disabled');
         }, 200);
