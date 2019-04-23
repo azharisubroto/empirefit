@@ -4,3 +4,44 @@ table.dataTable thead .sorting_desc {
   background: none;
   text-align: center;
 }
+
+.tablecard {
+  position:relative;
+  z-index: 0;
+}
+
+.tablecard:after {
+  content:"Loading Data...";
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  z-index:11;
+  text-align:center;
+  display:none;
+}
+
+.tablecard:before {
+  content:"";
+  position:absolute;
+  z-index: 10;
+  background:#fff;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: auto;
+  height: auto;
+  display:none;
+}
+
+.tablecard.isloading:before,
+.tablecard.isloading:after {
+  display:block;
+}

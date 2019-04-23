@@ -40,8 +40,8 @@ export class MemberChangeCcComponent implements OnInit {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
-    canvasWidth: 422,
-    canvasHeight: 300
+    canvasWidth: 1150,
+    canvasHeight: 550
   }
 
   member;

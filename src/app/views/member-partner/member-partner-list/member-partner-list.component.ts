@@ -152,6 +152,7 @@ export class MemberPartnerComponent implements OnInit {
           this.toastr.success(data["message"], "Success", {
             progressBar: false
           });
+          location.reload();
           //console.log(data['message']);
         } else {
           this.toastr.error(data["message"], "Error", {
@@ -194,6 +195,7 @@ export class MemberPartnerComponent implements OnInit {
   }
 
   searchHistory() {
+    var mod = this;
     let first_date = this.filterForm.controls["date_first"].value;
     let second_date = this.filterForm.controls["date_second"].value;
     let formValues = ({
@@ -207,91 +209,103 @@ export class MemberPartnerComponent implements OnInit {
       });
     } else {
       var mod = this;
-      // console.log(this.table.destroy)
-      // this.table.destroy();
-      // var items: any = [];
-      // this.MemberPartnerService.searchMemberPartner(formValues).subscribe((data: any) => {
-      //   var res = data['data'];
-      //   $.each(res, function (i, item) {
-      //     var newthis = [
-      //       item.company,
-      //       item.class_date,
-      //       item.class_time,
-      //       item.name,
-      //       item.phone,
-      //       item.status === '1' ? 'Used' : 'n/a'
-      //     ];
-      //     items.push(newthis);
-      //   });
-      //   setTimeout(() => {
-      //     mod.table = $('#mytable').DataTable({
-      //       dom: 'Bfrtip',
-      //       buttons: {
-      //         dom: {
-      //           button: {
-      //             className: 'btn '
-      //           }
-      //         },
-      //         buttons: [
-      //           { extend: 'excel', className: 'btn-warning' },
-      //           { extend: 'csv', className: 'btn-warning' }
-      //         ]
-      //       },
-      //       columns: [
-      //         { title: 'Partner' },
-      //         { title: 'Class Date' },
-      //         { title: 'Class Time' },
-      //         { title: 'Name' },
-      //         { title: 'Phone Number' },
-      //         { title: 'Status' },
-      //       ],
-      //       data: items,
-      //       "initComplete": function () {
-      //         $('.partners').find('tr').each(function () {
-      //           var ini = $(this),
-      //             absenbutton = ini.find('.absenbutton'),
-      //             classtime = absenbutton.data('classtime'),
-      //             classdate = absenbutton.data('classdate'),
-      //             datenow = mod.getTanggal(),
-      //             datenow2 = datenow.replace(/\//g, '-'),
-      //             classtime2 = classtime.replace(/\:/g, ''),
+      //console.log(this.table.destroy)
+      $('.tablecard').addClass('isloading');
+      this.table.destroy();
+      var items: any = [];
+      this.MemberPartnerService.searchMemberPartner(formValues).subscribe((data: any) => {
+        var res = data['data'];
+        //return console.log(res);
 
-      //             sekarang = new Date(datenow2),
-      //             jadwal = new Date(classdate),
+        $.each(res, function (i, item) {
+          var rowbutton = '<button class="btn btn-success absenbutton" data-id="' + item.id + '" data-name="' + item.name + '" data-email="' + item.email + '" data-phone="' + item.phone + '" data-reference="' + item.booking_referance + '" data-emaildatetime="' + item.email_date_time + '" data-company="' + item.company + '" data-class="' + item.class_id + '" data-classdate="' + item.class_date + '" data-classtime="' + item.class_time + '" data-branch="' + item.branch + '" data-status="' + item.status + '" data-createdby="' + mod.user.id + '"><i class="i-Clock-Forward"></i></button><a href="member-partner-edit/' + item.id + '" class="btn btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave"> <i class="i-Pen-5"></i></a>';
+          var newthis = [
+            item.company,
+            item.class_date,
+            item.class_time,
+            item.exercise,
+            item.name,
+            item.phone,
+            item.status === '1' ? 'Used' : 'n/a',
+            rowbutton
+          ];
+          items.push(newthis);
+        });
+        setTimeout(() => {
+          mod.table = $('#mytable').DataTable({
+            dom: 'Bfrtip',
+            buttons: {
+              dom: {
+                button: {
+                  className: 'btn '
+                }
+              },
+              buttons: [
+                { extend: 'excel', className: 'btn-warning' },
+                { extend: 'csv', className: 'btn-warning' }
+              ]
+            },
+            columns: [
+              { title: 'Partner' },
+              { title: 'Class Date' },
+              { title: 'Class Time' },
+              { title: 'Class Name' },
+              { title: 'Name' },
+              { title: 'Phone Number' },
+              { title: 'Status' },
+              { title: 'Action' },
+            ],
+            data: items,
+            initComplete: function () {
+              $('.partners').find('tr').each(function () {
+                var ini = $(this),
+                  absenbutton = ini.find('.absenbutton'),
+                  classtime = absenbutton.data('classtime'),
+                  classdate = absenbutton.data('classdate'),
+                  datenow = mod.getTanggal(),
+                  datenow2 = datenow.replace(/\//g, '-'),
+                  classtime2 = classtime.replace(/\:/g, ''),
 
-      //             status = absenbutton.data('status');
-      //           // console.log('sekarang: ' + sekarang);
-      //           // console.log('class Date: ' + jadwal);
-      //           if (status == '1') {
-      //             mod.status = 'Used';
-      //             absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
-      //             ini.addClass('bg-warning').css('color', '#fff');
-      //           }
-      //           // Belom dipake
-      //           else if (status = '0') {
-      //             // kalo tanggal jadwal lebih dari sekarang
-      //             if (jadwal > sekarang) {
-      //               ini.find('.inistatus').html('Available');
-      //             }
-      //             else {
-      //               if (classtime2 > mod.getClock()) {
-      //                 ini.find('.inistatus').html('Active');
-      //               } else if (classtime2 < mod.getClock()) {
-      //                 ini.addClass('bg-danger').css('color', '#fff');
-      //                 ini.find('.inistatus').html('Expired');
-      //                 absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
-      //               }
-      //             }
-      //           }
-      //         });
-      //       }
-      //     });
-      //     setTimeout(() => {
-      //       $(".total-attendance").text(data["total_attendance"]);
-      //       console.log(data);
-      //     }, 500);
-      //   }, 500)
-      // });
+                  sekarang = new Date(datenow2),
+                  jadwal = new Date(classdate),
+
+                  status = absenbutton.data('status');
+                // console.log('sekarang: ' + sekarang);
+                // console.log('class Date: ' + jadwal);
+                if (status == '1') {
+                  mod.status = 'Used';
+                  absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                  ini.addClass('bg-warning').css('color', '#fff');
+                }
+                // Belom dipake
+                else if (status = '0') {
+                  // kalo tanggal jadwal lebih dari sekarang
+                  if (jadwal > sekarang) {
+                    ini.find('.inistatus').html('Available');
+                  }
+                  else {
+                    if (classtime2 > mod.getClock()) {
+                      ini.find('.inistatus').html('Active');
+                    } else if (classtime2 < mod.getClock()) {
+                      ini.addClass('bg-danger').css('color', '#fff');
+                      ini.find('.inistatus').html('Expired');
+                      absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                    }
+                  }
+                }
+              });
+              $('.absenbutton').on('click', function (e) {
+                mod.absencoy(e);
+              });
+              $('.tablecard').removeClass('isloading');
+            }
+          });
+          setTimeout(() => {
+            $(".total-attendance").text(data["total_attendance"]);
+            console.log(data);
+          }, 50);
+        }, 500)
+      });
     }
   }
 }

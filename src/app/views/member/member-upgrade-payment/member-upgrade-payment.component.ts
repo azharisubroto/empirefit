@@ -91,8 +91,8 @@ export class MemberUpgradePaymentComponent implements OnInit {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
-    canvasWidth: 422,
-    canvasHeight: 300
+    canvasWidth: 1150,
+    canvasHeight: 550
   }
 
   constructor(
@@ -345,7 +345,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
         .upgradeMembership(this.activatedRoute.snapshot.params["id"], formValue)
         .subscribe((data: any) => {
           console.log(data);
-          if (data["status"] == "200") {
+          if (data["status"] == 200) {
             this.toastr.success(data["message"], "Saved", {
               progressBar: true
             });
