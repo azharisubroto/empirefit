@@ -52,7 +52,7 @@ export class TransactionFormComponent implements OnInit {
       var res = data['data'];
       this.finance = res;
       this.edc = data['edc'];
-      console.log(this.finance);
+      // console.log(this.finance);
       this.userForm.setValue({
         finance_status: this.finance.finance_status,
         finance_notes: this.finance.finance_notes,

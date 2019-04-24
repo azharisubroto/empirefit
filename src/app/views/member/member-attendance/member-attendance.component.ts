@@ -178,9 +178,10 @@ export class MemberAttendanceComponent implements OnInit {
         this.recuring_payment = data["data"].auto_debits ? data["data"].auto_debits.recuring_payment : 0;
         this.full_recuring_date = data["data"].auto_debits ? data["data"].auto_debits.date : "-";
         this.payment_unpaid = data["data"].auto_debits ? data["data"].auto_debits.unpaid : "0";
+        // console.log(this.payment_unpaid)
         this.finance_notes = data["data"].auto_debits ? data["data"].auto_debits.finance_notes : "0";
 
-        console.log(this.recuring_payment);
+        // console.log(this.recuring_payment);
 
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
@@ -433,6 +434,14 @@ export class MemberAttendanceComponent implements OnInit {
       .getByMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.healthquestions = data["data"];
+
+        $.each(this.healthquestions, function (i, item) {
+          if (item.reason) {
+            setTimeout(() => {
+              $("#reason-" + item.id + "").text(item.reason);
+            }, 500);
+          }
+        })
       });
 
     this.scheduleService
@@ -446,7 +455,7 @@ export class MemberAttendanceComponent implements OnInit {
       this.activatedRoute.snapshot.params["id"]
     ).subscribe((data: any) => {
       this.classhistory = data["data"];
-      console.log(this.classhistory);
+      // console.log(this.classhistory);
     });
 
     // Attendance History
@@ -454,7 +463,7 @@ export class MemberAttendanceComponent implements OnInit {
       .attendanceHistory(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
-        console.log(this.gymhistory);
+        // console.log(this.gymhistory);
       });
   }
 

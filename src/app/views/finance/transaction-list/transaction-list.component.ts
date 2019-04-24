@@ -140,7 +140,7 @@ export class TransactionListComponent implements OnInit {
     var month = event['month'];
     var day = event['day'];
     var tosend = year + '-' + this.pad(month) + '-' + this.pad(day);
-    console.log($target + ' is: ' + tosend);
+    // console.log($target + ' is: ' + tosend);
     //$('.classes-list').html('Loading...');
     if ($target == 'first_date') {
       this.userForm.patchValue({

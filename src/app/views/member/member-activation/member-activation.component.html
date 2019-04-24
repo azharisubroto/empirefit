@@ -54,7 +54,11 @@
 									<li>
 										<strong>{{healthquestion.question}}</strong>
 										<div class="answer" id="{{healthquestion.id}}" data-id="healthquestion.id" class="text-medium">{{ !!
-											healthquestion.answer === false ? "No" : "Yes" }}</div>
+											healthquestion.answer === false ? "No" : "Yes" }}
+											<strong id="reason-{{healthquestion.id}}">
+												{{healthquestion.reason }}
+											</strong>
+										</div>
 									</li>
 								</ul>
 							</ng-template>
