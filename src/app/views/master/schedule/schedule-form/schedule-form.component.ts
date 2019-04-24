@@ -48,12 +48,13 @@ export class ScheduleFormComponent implements OnInit {
     private staffService: StaffService,
     private memberTypeService: MemberTypeService,
     private branchService: BranchService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.scheduleForm = this.fb.group({
       day: ["", Validators.required],
       time: ["", Validators.required],
+      delay_time: ["", Validators.required],
       exercise: ["", Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required],
@@ -84,7 +85,7 @@ export class ScheduleFormComponent implements OnInit {
 
     this.scheduleService
       .showCoach(this.activatedRoute.snapshot.params["id"])
-      .subscribe((data: any) => {});
+      .subscribe((data: any) => { });
 
     this.scheduleService
       .showSchedule(this.activatedRoute.snapshot.params["id"])
@@ -92,6 +93,7 @@ export class ScheduleFormComponent implements OnInit {
         this.scheduleForm.setValue({
           day: data["data"].day,
           time: data["data"].time,
+          delay_time: data["data"].delay_time,
           exercise: data["data"].exercise,
           start_date: data["data"].start_date,
           end_date: data["data"].end_date,
@@ -123,12 +125,12 @@ export class ScheduleFormComponent implements OnInit {
     let dataStaff = [];
     let dataMt = [];
 
-    $.each($("input[name='staff']:checked"), function() {
+    $.each($("input[name='staff']:checked"), function () {
       dataStaff.push($(this).val());
     });
     $(".staff-final").val(dataStaff);
 
-    $.each($("input[name='member_type']:checked"), function() {
+    $.each($("input[name='member_type']:checked"), function () {
       dataMt.push($(this).val());
     });
     $(".member_type-final").val(dataMt);
@@ -137,6 +139,7 @@ export class ScheduleFormComponent implements OnInit {
     let end_date = this.scheduleForm.controls["end_date"].value;
     let day = this.scheduleForm.controls["day"].value;
     let time = this.scheduleForm.controls["time"].value;
+    let delay_time = this.scheduleForm.controls["delay_time"].value;
     let exercise = this.scheduleForm.controls["exercise"].value;
     let branch_id = this.scheduleForm.controls["branch_id"].value;
     let formValues = this.scheduleForm.value;
@@ -145,6 +148,7 @@ export class ScheduleFormComponent implements OnInit {
     formValues["end_date"] = end_date;
     formValues["day"] = day;
     formValues["time"] = time;
+    formValues["delay_time"] = delay_time;
     formValues["exercise"] = exercise;
     formValues["branch_id"] = branch_id;
     formValues["staff"] = dataStaff;

@@ -27,6 +27,7 @@
                     <tr>
                       <th>Day</th>
                       <th>Time</th>
+                      <th>Delay Time</th>
                       <th>Exercise</th>
                       <th>Period</th>
                       <th>Status</th>
@@ -38,6 +39,7 @@
                     <tr *ngFor="let schedule of schedules">
                       <td class="text-left">{{ schedule.day }}</td>
                       <td>{{ schedule.time }}</td>
+                      <td>{{ schedule.delay_time }}</td>
                       <td class="text-left">{{ schedule.exercise }}</td>
                       <td>
                         {{ schedule.start_date }} - {{ schedule.end_date }}

@@ -56,6 +56,7 @@
                       <th>Partner Name</th>
                       <th>Class Date</th>
                       <th>Class Time</th>
+                      <!-- <th>Delay Time</th> -->
                       <th>Class Name</th>
                       <th>Name</th>
                       <th>Phone Number</th>
@@ -64,11 +65,12 @@
                   <tbody>
                     <tr *ngFor="let class of classregistrations">
                       <td>{{ class.partner_name }}</td>
-                      <td>{{ class.date }}</td>
-                      <td>{{ class.schedule_time }}</td>
+                      <td class="text-center">{{ class.date }}</td>
+                      <td class="text-center">{{ class.schedule_time }}</td>
+                      <!-- <td class="text-center">{{ class.delay_time }}</td> -->
                       <td>{{ class.exercise }}</td>
                       <td>{{ class.member_name }}</td>
-                      <td>{{ class.phone }}</td>
+                      <td class="text-center">{{ class.phone }}</td>
                     </tr>
                   </tbody>
                 </table>

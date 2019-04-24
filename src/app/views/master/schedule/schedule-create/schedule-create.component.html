@@ -34,7 +34,7 @@
               </select>
             </div>
 
-            <div class="col-md-12 form-group mb-3">
+            <div class="col-md-6 form-group mb-3">
               <label for="time">Time</label>
               <input type="text" class="form-control " id="time" placeholder="Enter time : 00:00:00" formControlName="time" />
               <i *ngIf="
@@ -42,7 +42,13 @@
                   scheduleForm.get('time').touched
                 "
                 class="i-Information text-danger">
-                Please enter time : 00:00:00</i>
+                Please enter time : 00:00</i>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="time">Delay Time</label>
+              <input type="text" class="form-control " id="delay_time" placeholder="Enter time : 00:00" formControlName="delay_time" />
+              <i *ngIf="!scheduleForm.get('delay_time').valid && scheduleForm.get('delay_time').touched" class="i-Information text-danger">
+                Please enter delay time : 00:00</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">

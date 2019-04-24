@@ -16,70 +16,47 @@
           <div class="row">
             <div class="col-md-12 form-group mb-3">
               <label for="exercise">Exercise</label>
-              <input
-                type="text"
-                class="form-control "
-                id="exercise"
-                placeholder="Enter exercise"
-                formControlName="exercise"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="exercise" placeholder="Enter exercise" formControlName="exercise" />
+              <i *ngIf="
                   !scheduleForm.get('exercise').valid &&
                   scheduleForm.get('exercise').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter exercise</i
-              >
+                class="i-Information text-danger">
+                Please enter exercise</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="day">Day</label>
-              <select
-                name="day"
-                id="day"
-                class="form-control "
-                formControlName="day"
-              >
+              <select name="day" id="day" class="form-control " formControlName="day">
                 <option *ngFor="let item of days" [ngValue]="item">{{
                   item
-                }}</option>
+                  }}</option>
               </select>
             </div>
 
-            <div class="col-md-12 form-group mb-3">
+            <div class="col-md-6 form-group mb-3">
               <label for="time">Time</label>
-              <input
-                type="text"
-                class="form-control "
-                id="time"
-                placeholder="Enter time : 00:00"
-                formControlName="time"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="time" placeholder="Enter time : 00:00" formControlName="time" />
+              <i *ngIf="
                   !scheduleForm.get('time').valid &&
                   scheduleForm.get('time').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter time : 00:00</i
-              >
+                class="i-Information text-danger">
+                Please enter time : 00:00</i>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="time">Delay Time</label>
+              <input type="text" class="form-control " id="delay_time" placeholder="Enter time : 00:00" formControlName="delay_time" />
+              <i *ngIf="!scheduleForm.get('delay_time').valid && scheduleForm.get('delay_time').touched" class="i-Information text-danger">
+                Please enter delay time : 00:00</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="periode">Periode</label>
               <div class="row">
                 <div class="col-md-5">
-                  <input
-                    type="text"
-                    id="start_date"
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="start_date"
-                    formControlName="start_date"
-                  />
+                  <input type="text" id="start_date" class="form-control" placeholder="yyyy-mm-dd" name="start_date"
+                    formControlName="start_date" />
                   <!-- <div class="input-group-append">
                     <button
                       class="btn btn-secondary"
@@ -94,14 +71,8 @@
                   -
                 </div>
                 <div class="col-md-5">
-                  <input
-                    type="text"
-                    id="end_date"
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="end_date"
-                    formControlName="end_date"
-                  />
+                  <input type="text" id="end_date" class="form-control" placeholder="yyyy-mm-dd" name="end_date"
+                    formControlName="end_date" />
                   <!-- <div class="input-group-append">
                     <button
                       class="btn btn-secondary"
@@ -117,15 +88,10 @@
 
             <div class="col-md-12 form-group mb-3">
               <label for="branch_id">Branch</label>
-              <select
-                name="branch_id"
-                id="branch_id"
-                class="form-control "
-                formControlName="branch_id"
-              >
+              <select name="branch_id" id="branch_id" class="form-control " formControlName="branch_id">
                 <option *ngFor="let item of branches" [ngValue]="item.id">{{
                   item.branch_name
-                }}</option>
+                  }}</option>
               </select>
             </div>
 
@@ -137,9 +103,9 @@
                 </div>
                 <div class="col-md-6 mt-3" *ngFor="let staff of staffs">
                   <label class="checkbox checkbox-secondary">
-                  <input type="checkbox" name="staff" value="{{ staff.id }}" />
-                  <span class="ml-3">{{ staff.name }}</span>
-                  <span class="checkmark"></span>
+                    <input type="checkbox" name="staff" value="{{ staff.id }}" />
+                    <span class="ml-3">{{ staff.name }}</span>
+                    <span class="checkmark"></span>
                   </label>
                 </div>
                 <input type="hidden" class="staff-final" value="" />
@@ -149,18 +115,11 @@
                 <div class="col-md-12">
                   <h4 class="fancy-head"><span>Member Type :</span></h4>
                 </div>
-                <div
-                  class="col-md-6 mt-3"
-                  *ngFor="let member_type of member_types"
-                >
-                <label class="checkbox checkbox-secondary">
-                  <input
-                    type="checkbox"
-                    name="member_type"
-                    value="{{ member_type.id }}"
-                  />
-                  <span class="ml-3">{{ member_type.member_type_name }}</span>
-                  <span class="checkmark"></span>
+                <div class="col-md-6 mt-3" *ngFor="let member_type of member_types">
+                  <label class="checkbox checkbox-secondary">
+                    <input type="checkbox" name="member_type" value="{{ member_type.id }}" />
+                    <span class="ml-3">{{ member_type.member_type_name }}</span>
+                    <span class="checkmark"></span>
                   </label>
                 </div>
                 <input type="hidden" class="member_type-final" value="" />
@@ -169,11 +128,7 @@
             </div>
 
             <div class="col-md-12">
-              <btn-loading
-                btnClass="btn-primary btn-rounded"
-                [loading]="loading"
-                >Save</btn-loading
-              >
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
             </div>
           </div>
         </form>
