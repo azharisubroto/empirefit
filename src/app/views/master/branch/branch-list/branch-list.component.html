@@ -11,11 +11,7 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <a
-          href="#"
-          [routerLink]="['branch-create']"
-          class="btn btn-primary btn-rounded"
-        >
+        <a href="#" [routerLink]="['branch-create']" class="btn btn-primary btn-rounded">
           Create
         </a>
       </div>
@@ -30,26 +26,26 @@
                   <thead class="text-center">
                     <tr>
                       <th>Branch Name</th>
+                      <th>Branch Code</th>
+                      <th>Address</th>
+                      <th>Email</th>
+                      <th>Phone</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody class="text-center">
                     <tr *ngFor="let branch of branches">
                       <td>{{ branch.branch_name }}</td>
+                      <td>{{ branch.branch_code }}</td>
+                      <td>{{ branch.address }}</td>
+                      <td>{{ branch.email }}</td>
+                      <td>{{ branch.phone }}</td>
                       <td>
-                        <a
-                          href="#"
-                          [routerLink]="['branch-edit/', branch.id]"
-                          class="btn btn-sm btn-warning mr-2"
-                          title="Edit"
-                          triggers="mouseenter:mouseleave"
-                        >
+                        <a href="#" [routerLink]="['branch-edit/', branch.id]" class="btn btn-sm btn-warning mr-2"
+                          title="Edit" triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>
                         </a>
-                        <button
-                          class="btn btn-sm btn-danger"
-                          (click)="confirm(modalConfirm, branch.id)"
-                        >
+                        <button class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, branch.id)">
                           <i class="i-Close-Window"></i>
                         </button>
 
@@ -59,49 +55,28 @@
                             <h4 class="modal-title" id="modal-title">
                               Dropin Company deletion
                             </h4>
-                            <button
-                              type="button"
-                              triggers="mouseenter:mouseleave"
-                              title="Show"
-                              class="close"
-                              aria-label="Close button"
-                              aria-describedby="modal-title"
-                              (click)="modal.dismiss('Cross click')"
-                            >
+                            <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
+                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
                           <div class="modal-body">
                             <p>
-                              <strong
-                                >Are you sure you want to delete
-                                <span class="text-primary"
-                                  >"{{ branch.branch_name }}"</span
-                                >
+                              <strong>Are you sure you want to delete
+                                <span class="text-primary">"{{ branch.branch_name }}"</span>
                               </strong>
                             </p>
                             <p>
                               All information associated to this branch will be
                               permanently deleted.
-                              <span class="text-danger"
-                                >This operation can not be undone.</span
-                              >
+                              <span class="text-danger">This operation can not be undone.</span>
                             </p>
                           </div>
                           <div class="modal-footer">
-                            <button
-                              type="button"
-                              class="btn btn-outline-secondary btn-rounded"
-                              (click)="modal.dismiss('cancel')"
-                            >
+                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
                               Cancel
                             </button>
-                            <button
-                              type="button"
-                              ngbAutofocus
-                              class="btn btn-danger btn-rounded"
-                              (click)="modal.close('Ok')"
-                            >
+                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
                               Ok
                             </button>
                           </div>

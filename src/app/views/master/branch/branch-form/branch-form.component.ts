@@ -27,18 +27,26 @@ export class BranchFormComponent implements OnInit {
     private router: Router,
     private branchService: BranchService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.branchForm = this.fb.group({
-      branch_name: ["", Validators.required]
+      branch_name: ["", Validators.required],
+      branch_code: [""],
+      address: ["", Validators.required],
+      email: ["", Validators.required],
+      phone: ["", Validators.required],
     });
 
     this.branchService
       .showBranch(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.branchForm.setValue({
-          branch_name: data["data"].branch_name
+          branch_name: data["data"].branch_name,
+          branch_code: data["data"].branch_code,
+          address: data["data"].address,
+          email: data["data"].email,
+          phone: data["data"].phone,
         });
       });
   }

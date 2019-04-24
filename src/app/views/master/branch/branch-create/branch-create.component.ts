@@ -27,11 +27,15 @@ export class BranchCreateComponent implements OnInit {
     private router: Router,
     private branchService: BranchService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.branchForm = this.fb.group({
-      branch_name: ["", Validators.required]
+      branch_name: ["", Validators.required],
+      branch_code: ["", Validators.required],
+      address: ["", Validators.required],
+      email: ["", Validators.required],
+      phone: ["", Validators.required],
     });
   }
 
