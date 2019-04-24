@@ -27,7 +27,7 @@ export class BenefitCreateComponent implements OnInit {
     private router: Router,
     private benefitService: BenefitService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.benefitForm = this.fb.group({
@@ -50,7 +50,7 @@ export class BenefitCreateComponent implements OnInit {
               this.toastr.success(res["message"], "Success!", {
                 progressBar: true
               });
-              this.router.navigateByUrl("master/benefit-type");
+              this.router.navigateByUrl("master/benefit");
             } else {
               this.toastr.error(res["message"], "Error!", {
                 progressBar: true

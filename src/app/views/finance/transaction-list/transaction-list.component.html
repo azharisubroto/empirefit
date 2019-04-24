@@ -141,7 +141,8 @@
                       <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
                       <td>
                         <button class="btn btn-sm btn-warning mr-2" (click)="update(item.id)"><i class="i-Check"></i></button>
-                        <a routerLink="recurring-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i class="i-Pen-4"></i></a>
+                        <a routerLink="/finance/recurring-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i
+                            class="i-Pen-4"></i></a>
                         <button class="btn btn-sm btn-warning mr-2" (click)="memberpdf(item.id, item.signature_base)">
                           <i class="i-Download"></i>
                         </button>

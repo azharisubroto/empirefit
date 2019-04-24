@@ -15,7 +15,7 @@
         <div class="col-12 mb-3">
           <div class="fancy-head"><span>BIODATA</span></div>
         </div>
-        
+
         <div class="col-md-6 mb-3">
           <div class="mb-3">
             <label>Member Name</label>
@@ -42,10 +42,11 @@
           </div>
           <div class="mb-3">
             <label>Exp. Date</label>
-            <input type="text" class="form-control" value="{{finance.credit_card_exp_month}} / {{finance.credit_card_exp_year}}" readonly />
+            <input type="text" class="form-control" value="{{finance.credit_card_exp_month}} / {{finance.credit_card_exp_year}}"
+              readonly />
           </div>
         </div>
-        
+
       </div>
 
       <div class="row">
@@ -56,26 +57,27 @@
             <label>Recurring Date</label>
             <input type="text" class="form-control" [attr.value]="finance.recuring_date" readonly />
           </div>
-      
+
           <div class="mb-3">
             <label>Recurring Payment (Rp)</label>
-            <input type="text" class="form-control" [attr.value]="finance.recuring_payment" readonly />
+            <input type="text" class="form-control" [attr.value]="finance.recuring_payment | number:0" readonly />
           </div>
-      
+
           <div class="mb-3">
             <label>Recurring Unpaid (Rp)</label>
-            <input type="text" class="form-control" [attr.value]="finance.unpaid" readonly />
+            <input type="text" class="form-control" [attr.value]="finance.unpaid | number:0" readonly />
           </div>
 
           <div class="fancy-head mb-3 mt-5"><span>FRONT OFFICE</span></div>
 
           <div class="mb-3">
             <label>Front office status</label>
-            <input type="text" class="form-control" [attr.value]="!!finance.fo_status ? finance.fo_status : 'n/a'" readonly />
+            <input type="text" class="form-control" [attr.value]="!!finance.fo_status ? finance.fo_status : 'n/a'"
+              readonly />
           </div>
           <div class="mb-3">
             <label>Payment</label>
-            <input type="text" class="form-control" [attr.value]="!!finance.fo_payment ? finance.fo_payment : 'n/a'" readonly />
+            <input type="text" class="form-control" [attr.value]="finance.fo_payment | number:0" readonly />
           </div>
         </div>
 
@@ -85,7 +87,7 @@
 
             <div class="mb-3">
               <label class="text-capitalize">finance status</label>
-              <select class="form-control"  formControlName="finance_status">
+              <select class="form-control" formControlName="finance_status">
                 <option value="DONE">Done</option>
                 <option value="UNDONE">Undone</option>
               </select>

@@ -269,6 +269,7 @@ export class MemberActivationComponent implements OnInit {
       .getByMember(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.healthquestions = data["data"];
+        console.log(data);
       });
 
     // get member type

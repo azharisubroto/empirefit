@@ -41,11 +41,11 @@ export class TransactionFormComponent implements OnInit {
   ngOnInit() {
     var mod = this;
     this.userForm = this.fb.group({
-      finance_status: ["", Validators.required],
-      finance_notes: ["", Validators.required],
-      bank_notes: ["", Validators.required],
-      bank_withdrawal: ["", Validators.required],
-      bank_approval_code: ["", Validators.required],
+      finance_status: [""],
+      finance_notes: [""],
+      bank_notes: [""],
+      bank_withdrawal: [""],
+      bank_approval_code: [""],
     });
 
     this.FinanceService.getSingleRecuring(this.activatedRoute.snapshot.params["id"]).subscribe((data: any[]) => {
@@ -57,7 +57,7 @@ export class TransactionFormComponent implements OnInit {
         finance_status: this.finance.finance_status,
         finance_notes: this.finance.finance_notes,
         bank_notes: this.finance.bank_notes,
-        bank_withdrawal: this.finance.bank_notes,
+        bank_withdrawal: this.finance.bank_withdrawal,
         bank_approval_code: this.finance.bank_approval_code
       });
     });
@@ -73,6 +73,7 @@ export class TransactionFormComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     } else {
+      // return console.log(this.userForm.value)
       this.FinanceService.updateRecuringManual(this.activatedRoute.snapshot.params["id"], this.userForm.value).subscribe((res: any) => {
         setTimeout(() => {
           if (res["status"] === "200") {
