@@ -23,23 +23,36 @@
 							<ng-template ngbPanelContent>
 								<ul class="list no-list-style">
 									<li><strong>Name:</strong>
-										<div class="text-medium">{{member.name}}</div>
+										<div class="text-medium">{{member.name ? member.name : "-"}}</div>
 									</li>
 
-									<li><strong>Address:</strong>
-										<div class="text-medium">{{member.address}}</div>
+									<li><strong>Home Address:</strong>
+										<div class="text-medium">{{member.address ? member.address : "-"}}</div>
+									</li>
+
+									<li><strong>Home Address Area:</strong>
+										<div class="text-medium">{{member.home_address_area ? member.home_address_area : "-"}}</div>
+									</li>
+
+									<li><strong>Work Address:</strong>
+										<div class="text-medium">{{member.work_address ? member.work_address : "-"}}</div>
+									</li>
+
+									<li><strong>Work Address Area:</strong>
+										<div class="text-medium">{{member.work_address_area ? member.work_address_area : "-"}}</div>
 									</li>
 
 									<li><strong>Date of Birth:</strong>
-										<div class="text-medium">{{member.date_of_birth}}</div>
+										<div class="text-medium">{{member.date_of_birth ? member.date_of_birth : "-"}}</div>
 									</li>
 
 									<li><strong>Contact Number:</strong>
-										<div class="text-medium">{{member.phone}}</div>
+										<div class="text-medium">{{member.phone ? member.phone : "-"}}</div>
 									</li>
 
 									<li><strong>In an emergency, I would like EMPIRE FIT CLUB to Call:</strong>
-										<div class="text-medium">{{ member.phone }}</div>
+										<div class="text-medium">{{ member.emergency_contact_name ? member.emergency_contact_name : "-" }}</div><br>
+										<div class="text-medium">{{ member.emergency ? member.emergency : "-" }}</div>
 									</li>
 
 									<li><strong>Email:</strong>
@@ -54,10 +67,8 @@
 									<li>
 										<strong>{{healthquestion.question}}</strong>
 										<div class="answer" id="{{healthquestion.id}}" data-id="healthquestion.id" class="text-medium">{{ !!
-											healthquestion.answer === false ? "No" : "Yes" }}
-											<strong id="reason-{{healthquestion.id}}">
-												{{healthquestion.reason }}
-											</strong>
+											healthquestion.answer === false ? "No" : "Yes" }}<strong id="reason_{{healthquestion.id}}">{{healthquestion.reason
+												? ", "+healthquestion.reason : "" }}</strong>
 										</div>
 									</li>
 								</ul>

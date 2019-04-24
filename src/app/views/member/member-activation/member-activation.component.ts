@@ -270,14 +270,6 @@ export class MemberActivationComponent implements OnInit {
       .subscribe((data: any) => {
         this.healthquestions = data["data"];
         // console.log(data);
-
-        $.each(this.healthquestions, function (i, item) {
-          if (item.reason) {
-            setTimeout(() => {
-              $("#reason-" + item.id + "").text(item.reason);
-            }, 500);
-          }
-        });
       });
 
     // get member type
