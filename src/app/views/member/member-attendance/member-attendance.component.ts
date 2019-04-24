@@ -337,7 +337,7 @@ export class MemberAttendanceComponent implements OnInit {
             $.each(obj, function (i, item) {
               if (item.day == todayName) {
                 // console.log('jam ' + mod.getClock());
-                // console.log('jam item ' + item.time_schedule);
+                // console.log('jam item ' + item.delay_time);
                 // Print Jadwal
                 if (mod.hasmatch(item.log, "member_id", member.id)) {
                   var logarray = item.log;
@@ -346,7 +346,7 @@ export class MemberAttendanceComponent implements OnInit {
                     _logid = item.log[_index]["id"];
 
                   // if late 
-                  if (item.time_schedule < mod.getClock()) {
+                  if (item.delay_time < mod.getClock()) {
                     if (_iscanceled == 1) {
                       var _checked = "checked";
                       var _disabled = "disabled";
@@ -388,7 +388,7 @@ export class MemberAttendanceComponent implements OnInit {
                     _logid = null,
                     _disabled = "disabled";
 
-                  if (item.time_schedule < mod.getClock()) {
+                  if (item.delay_time < mod.getClock()) {
                     var _class = "notavailble",
                       _checked = "",
                       _cancelbtn = "",
@@ -540,6 +540,22 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   openLg(content) {
+    // Class History
+    this.ClassesService.classCheck(
+      this.activatedRoute.snapshot.params["id"]
+    ).subscribe((data: any) => {
+      this.classhistory = data["data"];
+      // console.log(this.classhistory);
+    });
+
+    // Attendance History
+    this.attendanceService
+      .attendanceHistory(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
+        // console.log(this.gymhistory);
+      });
+
     this.modalService.open(content, { windowClass: "big-modal" });
     setTimeout(() => {
       this.chRef.detectChanges();
