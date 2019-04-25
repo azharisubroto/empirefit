@@ -15,29 +15,25 @@
         <form [formGroup]="priceForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
+              <label for="branch_id">Branch</label>
+              <select name="branch_id" id="branch_id" class="form-control" formControlName="branch_id">
+                <option *ngFor="let item of branch" [ngValue]="branch.id">{{branch.branch_name}}</option>
+              </select>
+              <i *ngIf="!priceForm.get('branch_id').valid && priceForm.get('branch_id').touched" class="i-Information text-danger">
+                Please choose Branch</i>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
               <label for="payment_type_id">Payment Type</label>
-              <select
-                name="payment_type_id"
-                id="payment_type_id"
-                class="form-control "
-                formControlName="payment_type_id"
-              >
-                <option
-                  [ngValue]="paymenttype.id"
-                  *ngFor="let paymenttype of paymenttypes"
-                  >{{ paymenttype.payment_type_name }}</option
-                >
+              <select name="payment_type_id" id="payment_type_id" class="form-control " formControlName="payment_type_id">
+                <option [ngValue]="paymenttype.id" *ngFor="let paymenttype of paymenttypes">{{
+                  paymenttype.payment_type_name }}</option>
               </select>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="recuring">Recuring</label>
-              <select
-                name="recuring"
-                id="recuring"
-                class="form-control "
-                formControlName="recuring"
-              >
+              <select name="recuring" id="recuring" class="form-control " formControlName="recuring">
                 <option value="1">YES</option>
                 <option value="0">NO</option>
               </select>
@@ -45,59 +41,31 @@
 
             <div class="col-md-6 form-group mb-3">
               <label for="member_type_id">Member Type</label>
-              <select
-                name="member_type_id"
-                id="member_type_id"
-                class="form-control "
-                formControlName="member_type_id"
-              >
-                <option
-                  [ngValue]="membertype.id"
-                  *ngFor="let membertype of membertypes"
-                  >{{ membertype.member_type_name }}</option
-                >
+              <select name="member_type_id" id="member_type_id" class="form-control " formControlName="member_type_id">
+                <option [ngValue]="membertype.id" *ngFor="let membertype of membertypes">{{ membertype.member_type_name
+                  }}</option>
               </select>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="price">Price</label>
-              <input
-                type="text"
-                class="form-control "
-                id="price"
-                placeholder="Enter price"
-                formControlName="price"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="price" placeholder="Enter price" formControlName="price" />
+              <i *ngIf="
                   !priceForm.get('price').valid &&
                   priceForm.get('price').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter price</i
-              >
+                class="i-Information text-danger">
+                Please enter price</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="periode">Periode</label>
               <div class="row">
                 <div class="col-md-5">
-                  <input
-                    id="start_date"
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="start_date"
-                    ngbDatepicker
-                    #start_date="ngbDatepicker"
-                    formControlName="start_date"
-                  />
+                  <input id="start_date" class="form-control" placeholder="yyyy-mm-dd" name="start_date" ngbDatepicker
+                    #start_date="ngbDatepicker" formControlName="start_date" />
                   <div class="input-group-append">
-                    <button
-                      class="btn btn-secondary"
-                      (click)="start_date.toggle()"
-                      type="button"
-                    >
+                    <button class="btn btn-secondary" (click)="start_date.toggle()" type="button">
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
                   </div>
@@ -106,21 +74,10 @@
                   -
                 </div>
                 <div class="col-md-5">
-                  <input
-                    id="end_date"
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="end_date"
-                    ngbDatepicker
-                    #end_date="ngbDatepicker"
-                    formControlName="end_date"
-                  />
+                  <input id="end_date" class="form-control" placeholder="yyyy-mm-dd" name="end_date" ngbDatepicker
+                    #end_date="ngbDatepicker" formControlName="end_date" />
                   <div class="input-group-append">
-                    <button
-                      class="btn btn-secondary"
-                      (click)="end_date.toggle()"
-                      type="button"
-                    >
+                    <button class="btn btn-secondary" (click)="end_date.toggle()" type="button">
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
                   </div>
@@ -129,11 +86,7 @@
             </div>
 
             <div class="col-md-12">
-              <btn-loading
-                btnClass="btn-primary btn-rounded"
-                [loading]="loading"
-                >Save</btn-loading
-              >
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
             </div>
           </div>
         </form>

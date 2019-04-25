@@ -27,6 +27,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: "app-member-activation",
@@ -77,6 +78,7 @@ export class MemberActivationComponent implements OnInit {
   edcs;
   isautodebit: boolean;
   isptselect: boolean;
+  branch;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadMember = {
@@ -139,6 +141,7 @@ export class MemberActivationComponent implements OnInit {
     private PersonalTrainer: PersonaltrainerService,
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
+    private branchService: BranchService,
     private edcService: EdcService,
     private sanitizer: DomSanitizer,
     private modalService: NgbModal,
@@ -167,6 +170,7 @@ export class MemberActivationComponent implements OnInit {
     this.membershipForm = this.fb.group({
       member_type_id: ["1", Validators.required],
       payment_id: ["1", Validators.required],
+      // branch_id: ["1", Validators.required],
       bank_id: [null],
       card_number: [null],
       exp_month: [null],
@@ -275,6 +279,11 @@ export class MemberActivationComponent implements OnInit {
     // get member type
     this.MemberTypeService.getMemberTypes().subscribe((data: any) => {
       this.type = data["data"];
+    });
+
+    // get branch
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branch = data["data"];
     });
 
     // get paymenet type
@@ -548,6 +557,7 @@ export class MemberActivationComponent implements OnInit {
       let exp_month = this.membershipForm.controls["exp_month"].value;
       let exp_year = this.membershipForm.controls["exp_year"].value;
       formValue["payment_id"] = this.membershipForm.controls["payment_id"].value;
+      // formValue["branch_id"] = this.membershipForm.controls["branch_id"].value;
       formValue["member_type_id"] = this.membershipForm.controls[
         "member_type_id"
       ].value;

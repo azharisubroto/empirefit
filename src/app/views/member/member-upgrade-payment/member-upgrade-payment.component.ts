@@ -26,6 +26,7 @@ import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: 'app-member-upgrade-payment',
@@ -84,6 +85,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
   payment_type;
   current_payment;
   autodebit;
+  branch;
   isautodebit: boolean;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
@@ -110,6 +112,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
     private PersonalTrainer: PersonaltrainerService,
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
+    private BranchService: BranchService,
     private edcService: EdcService,
     private sanitizer: DomSanitizer,
     private modalService: NgbModal,
@@ -128,6 +131,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
       auto_debet: ["0"],
       session_remains: [],
       edc_id: [],
+      // branch_id: [],
       traceNumber: [],
       debit_sign: [""],
     });
@@ -175,7 +179,11 @@ export class MemberUpgradePaymentComponent implements OnInit {
       //   traceNumber: data["data"].traceNumber ? data["data"].traceNumber : null,
       //   edc_id: data["data"].edc_id ? data["data"].edc_id.edc_id : null,
       // });
-    })
+    });
+
+    this.BranchService.getBranches().subscribe((data: any) => {
+      this.branch = data["data"];
+    });
 
     this.personal_trainer_id = null;
 
@@ -321,6 +329,7 @@ export class MemberUpgradePaymentComponent implements OnInit {
     ].value;
     formValue["personal_trainer_id"] = this.personal_trainer_id;
     formValue["bank_id"] = this.membershipForm.controls["bank_id"].value;
+    // formValue["branch_id"] = this.membershipForm.controls["branch_id"].value;
     formValue["card_number"] = this.membershipForm.controls[
       "card_number"
     ].value;

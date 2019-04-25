@@ -30,6 +30,7 @@
                       <th>recuring</th>
                       <th>Price (IDR)</th>
                       <th>Period</th>
+                      <th>Branch</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -40,6 +41,7 @@
                       <td class="text-center">{{ price.recuring }}</td>
                       <td class="text-right">{{ price.price | number:0 }}</td>
                       <td class="text-center">{{ price.start_date }} - {{ price.end_date }}</td>
+                      <td class="text-center">{{ price.branch_name ? price.branch_name : "-" }}</td>
                       <td class="text-right">
                         <a href="#" [routerLink]="['price-edit/', price.id]" class="btn btn-sm btn-warning mr-2" title="Edit"
                           triggers="mouseenter:mouseleave">

@@ -10,6 +10,7 @@ import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: "app-basic-form",
@@ -26,6 +27,7 @@ export class PersonalTrainerFormComponent implements OnInit {
   quota;
   remains;
   member_types;
+  branch;
   ptForm: FormGroup;
 
   constructor(
@@ -34,14 +36,16 @@ export class PersonalTrainerFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private personalTrainerService: PersonaltrainerService,
-    private memberTypeService: MemberTypeService
-  ) {}
+    private memberTypeService: MemberTypeService,
+    private branchService: BranchService
+  ) { }
 
   ngOnInit() {
     this.ptForm = this.fb.group({
       id: [""],
       name: [],
       quota: [1, Validators.required],
+      branch_id: [1, Validators.required],
       remains: [0, Validators.required],
       price: [0, Validators.required],
       session: [10, Validators.required]
@@ -57,9 +61,14 @@ export class PersonalTrainerFormComponent implements OnInit {
           quota: data["data"].quota,
           remains: data["data"].remains,
           price: data["data"].price,
-          session: data["data"].session
+          session: data["data"].session,
+          branch_id: data["data"].branch_id
         });
       });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branch = data["data"];
+    });
 
     this.memberTypeService.memberTypePt().subscribe((data: any) => {
       this.member_types = data["data"];

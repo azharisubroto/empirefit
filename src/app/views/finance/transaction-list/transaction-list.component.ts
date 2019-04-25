@@ -271,6 +271,21 @@ export class TransactionListComponent implements OnInit {
     this.printTable.destroy();
     var itemprints: any = [];
     this.modalService.open(content, { windowClass: "big-modal" });
+    var firstdate = this.userForm.controls["first_date"].value;
+    var seconddate = this.userForm.controls["second_date"].value;
+
+    var $curdate = this.getTanggal()
+    var $first_date = '-' + $curdate;
+    var $second_date = '-' + $curdate;
+    if (firstdate) {
+      $first_date = '-' + firstdate;
+    }
+    if (seconddate) {
+      $second_date = '-' + seconddate;
+    }
+    var $filedate = $first_date + $second_date;
+    var $filename = 'EFC-RECURRING' + $filedate + "-EDC-" + mod.edc.bank_name + "-MID-" + mod.edc.mid + "-TID-" + mod.edc.tid;
+
     setTimeout(() => {
       // var table = new Tabulator("#example-table", {
       //   layout:"fitColumns",
@@ -291,9 +306,6 @@ export class TransactionListComponent implements OnInit {
       // });
 
       setTimeout(() => {
-        var firstdate = this.userForm.controls["first_date"].value;
-        var seconddate = this.userForm.controls["second_date"].value;
-
         if (firstdate || seconddate) {
           this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
             var res = data['data'];
@@ -319,8 +331,8 @@ export class TransactionListComponent implements OnInit {
                   }
                 },
                 buttons: [
-                  { extend: 'excel', className: 'btn-warning' },
-                  { extend: 'csv', className: 'btn-warning' }
+                  { extend: 'excel', className: 'btn-warning', title: $filename },
+                  { extend: 'csv', className: 'btn-warning', title: $filename }
                 ]
               },
               columns: [
@@ -346,8 +358,8 @@ export class TransactionListComponent implements OnInit {
                 }
               },
               buttons: [
-                { extend: 'excel', className: 'btn-warning' },
-                { extend: 'csv', className: 'btn-warning' }
+                { extend: 'excel', className: 'btn-warning', title: $filename },
+                { extend: 'csv', className: 'btn-warning', title: $filename }
               ]
             },
           });
@@ -357,6 +369,7 @@ export class TransactionListComponent implements OnInit {
           const doc = new jsPDF({
             title: "Example Report"
           });
+
           var header = function (data) {
             doc.setFontSize(18);
             doc.setTextColor(40);
@@ -370,7 +383,7 @@ export class TransactionListComponent implements OnInit {
             doc.text("TID:" + mod.edc.tid, data.settings.margin.left, 50);
           };
           doc.autoTable({ html: '#example-table', didDrawPage: header, margin: { top: 60 } });
-          doc.save('EFC-Credit-Card-Recurring-List-' + tanggal + '.pdf');
+          doc.save($filename + '.pdf');
         });
 
         $('.button-default').delay(100).addClass('btn btn-primary mr-2');

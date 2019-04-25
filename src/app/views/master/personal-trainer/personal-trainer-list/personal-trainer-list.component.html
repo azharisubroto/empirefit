@@ -30,6 +30,7 @@
                       <th>Remains</th>
                       <th>Price (IDR)</th>
                       <th>Status</th>
+                      <th>Branch</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -40,6 +41,7 @@
                       <td class="text-center">{{ personaltrainer.remains }}</td>
                       <td class="text-right">{{ personaltrainer.price | number:0 }}</td>
                       <td class="text-center">{{ personaltrainer.state }}</td>
+                      <td class="text-center">{{ personaltrainer.branch_name ? personaltrainer.branch_name : "-" }}</td>
                       <td class="text-right">
                         <a href="#" [routerLink]="[
                             'pricing-pt-edit/',

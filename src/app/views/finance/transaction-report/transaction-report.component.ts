@@ -74,6 +74,9 @@ export class TransactionReportComponent implements OnInit {
 
     this.TransactionService.getTransactions().subscribe((data: any[]) => {
       var res = data['data'];
+      var $curdate = this.getTanggal()
+      var $filename = 'EFC-TRANSACTION' + "-" + $curdate;
+
       this.total_revenue = data["total_revenue"];
       this.total_transaction = data["total_transaction"];
       this.transactions = res;
@@ -90,8 +93,8 @@ export class TransactionReportComponent implements OnInit {
               }
             },
             buttons: [
-              { extend: 'excel', className: 'btn-warning' },
-              { extend: 'csv', className: 'btn-warning' }
+              { extend: 'excel', className: 'btn-warning', title: $filename },
+              { extend: 'csv', className: 'btn-warning', title: $filename }
             ]
           }
           //dom: '<"toolbar">frtip'
@@ -167,6 +170,18 @@ export class TransactionReportComponent implements OnInit {
           items.push(newthis);
         });
 
+        var $curdate = this.getTanggal()
+        var $first_date = '-' + $curdate;
+        var $second_date = '-' + $curdate;
+        if (this.userForm.controls["first_date"].value) {
+          $first_date = '-' + this.userForm.controls["first_date"].value;
+        }
+        if (this.userForm.controls["second_date"].value) {
+          $second_date = '-' + this.userForm.controls["second_date"].value;
+        }
+        var $filedate = $first_date + $second_date;
+        var $filename = 'EFC-TRANSACTION' + $filedate;
+
         mod.table = $('#mytable').DataTable({
           // scrollX: true,
           dom: 'Bfrtip',
@@ -177,8 +192,8 @@ export class TransactionReportComponent implements OnInit {
               }
             },
             buttons: [
-              { extend: 'excel', className: 'btn-warning' },
-              { extend: 'csv', className: 'btn-warning' }
+              { extend: 'excel', className: 'btn-warning', title: $filename },
+              { extend: 'csv', className: 'btn-warning', title: $filename }
             ]
           },
           columns: [

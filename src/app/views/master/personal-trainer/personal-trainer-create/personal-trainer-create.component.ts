@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { StaffService } from "src/app/shared/services/staff.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: "app-basic-form",
@@ -29,6 +30,7 @@ export class PersonalTrainerCreateComponent implements OnInit {
   ptForm: FormGroup;
   staffs;
   member_types;
+  branch;
 
   constructor(
     private fb: FormBuilder,
@@ -36,16 +38,22 @@ export class PersonalTrainerCreateComponent implements OnInit {
     private router: Router,
     private personalTrainerService: PersonaltrainerService,
     private staffService: StaffService,
+    private branchService: BranchService,
     private memberTypeService: MemberTypeService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.ptForm = this.fb.group({
       id: [""],
       staff_id: [Validators.required],
       quota: [1, Validators.required],
+      branch_id: [1, Validators.required],
       price: [0, Validators.required],
       session: [10, Validators.required]
+    });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branch = data["data"];
     });
 
     this.memberTypeService.memberTypePt().subscribe((data: any) => {

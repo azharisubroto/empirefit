@@ -12,6 +12,7 @@ import { PriceService } from "src/app/shared/services/price.service";
 import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { PaymentTypeService } from "src/app/shared/services/payment-type.service";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: "app-basic-form",
@@ -26,6 +27,7 @@ export class PriceCreateComponent implements OnInit {
   membertypes;
   packages;
   paymenttypes;
+  branch;
   priceForm: FormGroup;
 
   constructor(
@@ -36,8 +38,9 @@ export class PriceCreateComponent implements OnInit {
     private paymentTypeService: PaymentTypeService,
     private priceService: PriceService,
     private memberTypeService: MemberTypeService,
+    private branchService: BranchService,
     private parserFormatter: NgbDateParserFormatter
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.priceForm = this.fb.group({
@@ -45,8 +48,13 @@ export class PriceCreateComponent implements OnInit {
       member_type_id: [1, Validators.required],
       price: ["", Validators.required],
       recuring: [0, Validators.required],
+      branch_id: [1, Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required]
+    });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branch = data["data"];
     });
 
     this.memberTypeService.getMemberTypes().subscribe((data: any) => {
@@ -71,6 +79,7 @@ export class PriceCreateComponent implements OnInit {
     formValues["member_type_id"] = member_type_id;
     formValues["payment_type_id"] = payment_type_id;
     formValues["price"] = price;
+    formValues["branch_id"] = this.priceForm.controls["branch_id"].value;
     formValues["recuring"] = recuring;
     if (this.priceForm.invalid) {
       this.loading = false;

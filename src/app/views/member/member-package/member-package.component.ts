@@ -26,6 +26,7 @@ import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: 'app-member-package',
@@ -76,6 +77,7 @@ export class MemberPackageComponent implements OnInit {
   credit_cards;
   autodebits;
   edcs;
+  branch;
   is_autodebit: Boolean;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
@@ -102,6 +104,7 @@ export class MemberPackageComponent implements OnInit {
     private PersonalTrainer: PersonaltrainerService,
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
+    private BranchService: BranchService,
     private edcService: EdcService,
     private sanitizer: DomSanitizer,
     private modalService: NgbModal,
@@ -112,6 +115,7 @@ export class MemberPackageComponent implements OnInit {
     this.membershipForm = this.fb.group({
       member_type_id: [Validators.required],
       payment_id: ["1", Validators.required],
+      // branch_id: ["1", Validators.required],
       bank_id: [],
       card_number: [null],
       card_name: [null],
@@ -154,6 +158,10 @@ export class MemberPackageComponent implements OnInit {
       //   edc_id: data["data"].edc_id ? data["data"].edc_id.edc_id : null,
       // });
     })
+
+    this.BranchService.getBranches().subscribe((data: any) => {
+      this.branch = data["data"];
+    });
 
     this.personal_trainer_id = null;
 
@@ -298,6 +306,7 @@ export class MemberPackageComponent implements OnInit {
     ].value;
     formValue["personal_trainer_id"] = this.personal_trainer_id;
     formValue["bank_id"] = this.membershipForm.controls["bank_id"].value;
+    // formValue["branch_id"] = this.membershipForm.controls["branch_id"].value;
     formValue["card_number"] = this.membershipForm.controls[
       "card_number"
     ].value;

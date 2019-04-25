@@ -515,7 +515,7 @@ export class MemberAttendanceComponent implements OnInit {
       },
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('bio-liability_' + id_card_number + '.pdf');
+      doc.save('EFC_bio-liability_' + id_card_number + '.pdf');
     });
   }
 
@@ -535,7 +535,7 @@ export class MemberAttendanceComponent implements OnInit {
       'useCORS': false,
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('signing_form_' + id_card_number + '.pdf');
+      doc.save('EFC_signing_form_' + id_card_number + '.pdf');
     });
 
   }
