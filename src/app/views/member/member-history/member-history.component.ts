@@ -75,4 +75,10 @@ export class MemberHistoryComponent implements OnInit {
       }, 200);
     });
   }
+
+  back() {
+    this.router.navigateByUrl(
+      "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
+    );
+  }
 }

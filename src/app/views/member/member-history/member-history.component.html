@@ -9,6 +9,13 @@
   <div class="separator-breadcrumb border-top"></div>
 
   <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <button type="button" (click)="back()" class="btn btn-primary btn-rounded">
+          Back
+        </button>
+      </div>
+    </div>
     <div class="col-md-12">
       <div class="card o-hidden">
         <div class="table table-responsive mt-4">
@@ -24,6 +31,7 @@
                       <th>Date</th>
                       <th>Member Type</th>
                       <th>Total Session</th>
+                      <th>Session Remains</th>
                       <th>PT Name</th>
                       <th>Price</th>
                       <th>Autodebit</th>
@@ -37,7 +45,8 @@
                       <td class="text-center">{{ transaction.payment_type }}</td>
                       <td class="text-center">{{ transaction.period }}</td>
                       <td>{{ transaction.member_type }}</td>
-                      <td class="text-center">{{ transaction.total_session ? transaction.total_session : "Unlimited" }}</td>
+                      <td class="text-center">{{ transaction.total_session ? transaction.total_session : "-" }}</td>
+                      <td class="text-center">{{ transaction.session_remains ? transaction.session_remains : "-" }}</td>
                       <td>{{ transaction.personal_trainer_name ? transaction.personal_trainer_name : "-" }}</td>
                       <td class="text-right">Rp. {{ transaction.idr | number:0 }}</td>
                       <td class="text-center">{{ transaction.autodebit === 1 ? "Yes" : "No" }}</td>
