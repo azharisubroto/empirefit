@@ -30,6 +30,8 @@
               <label for="branch_code">Branch Code</label>
               <input type="text" class="form-control " id="branch_code" placeholder="Enter branch name "
                 formControlName="branch_code" />
+              <i *ngIf="!branchForm.get('branch_code').valid && branchForm.get('branch_code').touched" class="i-Information text-danger">
+                Please enter branch code</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
