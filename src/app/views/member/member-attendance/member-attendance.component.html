@@ -39,9 +39,9 @@
               </div>
               <div class="col-md-6">
                 <div class="mb-4">
-                  <span class="text-muted mb-0">Club</span>
+                  <span class="text-muted mb-0">Club / Member ID</span>
                   <div class="text-medium text-primary mt-1">
-                    {{ member.branch_name }}
+                    {{ member.branch_name }} / {{ member.member_code ? member.member_code : "-" }}
                   </div>
                 </div>
                 <div>
