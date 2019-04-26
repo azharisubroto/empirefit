@@ -81,43 +81,45 @@ export class MemberPartnerComponent implements OnInit {
             ]
           },
           "initComplete": function () {
-            $('.partners').find('tr').each(function () {
-              var ini = $(this),
-                absenbutton = ini.find('.absenbutton'),
-                classtime = absenbutton.data('classtime'),
-                classdate = absenbutton.data('classdate'),
-                datenow = mod.getTanggal(),
-                datenow2 = datenow.replace(/\//g, '-'),
-                classtime2 = classtime.replace(/\:/g, ''),
+            if ($('.partners').find('tr').length > 1) {
+              $('.partners').find('tr').each(function () {
+                var ini = $(this),
+                  absenbutton = ini.find('.absenbutton'),
+                  classtime = absenbutton.data('classtime'),
+                  classdate = absenbutton.data('classdate'),
+                  datenow = mod.getTanggal(),
+                  datenow2 = datenow.replace(/\//g, '-'),
+                  classtime2 = classtime.replace(/\:/g, ''),
 
-                sekarang = new Date(datenow2),
-                jadwal = new Date(classdate),
+                  sekarang = new Date(datenow2),
+                  jadwal = new Date(classdate),
 
-                status = absenbutton.data('status');
-              // console.log('sekarang: ' + sekarang);
-              // console.log('class Date: ' + jadwal);
-              if (status == '1') {
-                mod.status = 'Used';
-                absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
-                ini.addClass('bg-warning').css('color', '#fff');
-              }
-              // Belom dipake
-              else if (status = '0') {
-                // kalo tanggal jadwal lebih dari sekarang
-                if (jadwal > sekarang) {
-                  ini.find('.inistatus').html('Available');
+                  status = absenbutton.data('status');
+                // console.log('sekarang: ' + sekarang);
+                // console.log('class Date: ' + jadwal);
+                if (status == '1') {
+                  mod.status = 'Used';
+                  absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                  ini.addClass('bg-warning').css('color', '#fff');
                 }
-                else {
-                  if (classtime2 > mod.getClock()) {
-                    ini.find('.inistatus').html('Active');
-                  } else if (classtime2 < mod.getClock()) {
-                    ini.addClass('bg-danger').css('color', '#fff');
-                    ini.find('.inistatus').html('Expired');
-                    absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                // Belom dipake
+                else if (status = '0') {
+                  // kalo tanggal jadwal lebih dari sekarang
+                  if (jadwal > sekarang) {
+                    ini.find('.inistatus').html('Available');
+                  }
+                  else {
+                    if (classtime2 > mod.getClock()) {
+                      ini.find('.inistatus').html('Active');
+                    } else if (classtime2 < mod.getClock()) {
+                      ini.addClass('bg-danger').css('color', '#fff');
+                      ini.find('.inistatus').html('Expired');
+                      absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                    }
                   }
                 }
-              }
-            });
+              });
+            }
           }
         });
       }, 200);
@@ -208,10 +210,9 @@ export class MemberPartnerComponent implements OnInit {
         progressBar: true
       });
     } else {
-      var mod = this;
       //console.log(this.table.destroy)
       $('.tablecard').addClass('isloading');
-      this.table.destroy();
+      mod.table.destroy();
       var items: any = [];
       this.MemberPartnerService.searchMemberPartner(formValues).subscribe((data: any) => {
         var res = data['data'];
@@ -257,47 +258,51 @@ export class MemberPartnerComponent implements OnInit {
             ],
             data: items,
             initComplete: function () {
-              $('.partners').find('tr').each(function () {
-                var ini = $(this),
-                  absenbutton = ini.find('.absenbutton'),
-                  classtime = absenbutton.data('classtime'),
-                  classdate = absenbutton.data('classdate'),
-                  datenow = mod.getTanggal(),
-                  datenow2 = datenow.replace(/\//g, '-'),
-                  classtime2 = classtime.replace(/\:/g, ''),
+              if ($('.partners').find('tr').length > 1) {
+                $('.partners').find('tr').each(function () {
+                  var ini = $(this),
+                    absenbutton = ini.find('.absenbutton'),
+                    classtime = absenbutton.data('classtime'),
+                    classdate = absenbutton.data('classdate'),
+                    datenow = mod.getTanggal(),
+                    datenow2 = datenow.replace(/\//g, '-'),
+                    classtime2 = classtime.replace(/\:/g, ''),
 
-                  sekarang = new Date(datenow2),
-                  jadwal = new Date(classdate),
+                    sekarang = new Date(datenow2),
+                    jadwal = new Date(classdate),
 
-                  status = absenbutton.data('status');
-                // console.log('sekarang: ' + sekarang);
-                // console.log('class Date: ' + jadwal);
-                if (status == '1') {
-                  mod.status = 'Used';
-                  absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
-                  ini.addClass('bg-warning').css('color', '#fff');
-                }
-                // Belom dipake
-                else if (status = '0') {
-                  // kalo tanggal jadwal lebih dari sekarang
-                  if (jadwal > sekarang) {
-                    ini.find('.inistatus').html('Available');
+                    status = absenbutton.data('status');
+                  // console.log('sekarang: ' + sekarang);
+                  // console.log('class Date: ' + jadwal);
+                  if (status == '1') {
+                    mod.status = 'Used';
+                    absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                    ini.addClass('bg-warning').css('color', '#fff');
                   }
-                  else {
-                    if (classtime2 > mod.getClock()) {
-                      ini.find('.inistatus').html('Active');
-                    } else if (classtime2 < mod.getClock()) {
-                      ini.addClass('bg-danger').css('color', '#fff');
-                      ini.find('.inistatus').html('Expired');
-                      absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                  // Belom dipake
+                  else if (status = '0') {
+                    // kalo tanggal jadwal lebih dari sekarang
+                    if (jadwal > sekarang) {
+                      ini.find('.inistatus').html('Available');
+                    }
+                    else {
+                      if (classtime2 > mod.getClock()) {
+                        ini.find('.inistatus').html('Active');
+                      } else if (classtime2 < mod.getClock()) {
+                        ini.addClass('bg-danger').css('color', '#fff');
+                        ini.find('.inistatus').html('Expired');
+                        absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                      }
                     }
                   }
-                }
-              });
-              $('.absenbutton').on('click', function (e) {
-                mod.absencoy(e);
-              });
-              $('.tablecard').removeClass('isloading');
+                });
+                $('.absenbutton').on('click', function (e) {
+                  mod.absencoy(e);
+                });
+                $('.tablecard').removeClass('isloading');
+              } else {
+                $('.tablecard').removeClass('isloading');
+              }
             }
           });
           setTimeout(() => {

@@ -237,7 +237,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-ptsession").addClass("disabled");
               $("#btn-membership-history").addClass("disabled");
 
-              $("#btn-payment-update").addClass('disabled');
+              $("#btn-payment-update").removeClass('disabled');
             }
 
             // 10 Pass Membership
@@ -303,7 +303,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-autoreg").addClass("disabled");
 
               $("#btn-ptsession").addClass("disabled");
-              $("#btn-payment-update").addClass('disabled');
+              $("#btn-payment-update").removeClass('disabled');
             }
           }
         }, 200)

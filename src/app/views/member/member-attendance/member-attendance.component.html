@@ -64,23 +64,24 @@
               <div class="row">
                 <div class="col-12">
                   <div class="container">
-                    <div class="row border border-light rounded">
+                    <div class="row bg-danger border border-light rounded">
                       <div class="col-12 mb-3">
-                        <div class="fancy-head text-danger"><span>Membership Inactive</span></div>
+                        <div class="fancy-head bg-danger text-white"><span class="bg-danger text-white">Membership
+                            Inactive</span></div>
                       </div>
                       <div class="col-md-6 mb-3">
                         <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-                          <span class="text-muted mb-0">Reason</span>
-                          <div class="text-medium text-primary mt-1">
-                            {{ !! status ? status : "Unverified" }}
+                          <span class="text-white mb-0">Reason</span>
+                          <div class="text-white mt-1">
+                            <strong class="text-white">{{ !! status ? status : "Unverified" }}</strong>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6 mb-3">
                         <div class="px-4 py-3 border border-light rounded align-items-center">
-                          <span class="text-muted mb-0">Active Date</span>
-                          <div class="text-medium text-primary mt-1">
-                            {{ !! member.active_date ? member.active_date : "-" }}
+                          <span class="text-white mb-0">Active Date</span>
+                          <div class="text-white mt-1">
+                            <strong class="text-white">{{ !! member.active_date ? member.active_date : "-" }}</strong>
                           </div>
                         </div>
                       </div>
@@ -98,23 +99,24 @@
               <div class="row">
                 <div class="col-12">
                   <div class="container">
-                    <div class="row border border-light rounded">
+                    <div class="row bg-danger border border-light rounded">
                       <div class="col-12 mb-3">
-                        <div class="fancy-head text-danger"><span>Membership Inactive</span></div>
+                        <div class="fancy-head bg-danger text-white"><span class="text-white bg-danger">Membership
+                            Inactive</span></div>
                       </div>
                       <div class="col-md-6 mb-3">
                         <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-                          <span class="text-muted mb-0">Reason</span>
-                          <div class="text-medium text-primary mt-1">
+                          <span class="text-white mb-0">Reason</span>
+                          <div class="text-white mt-1">
                             PAYMENT UNPAID IDR {{ payment_unpaid | number:0 }}
                           </div>
                         </div>
                       </div>
                       <div class="col-md-6 mb-3">
                         <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-                          <span class="text-muted mb-0">Finance Notes</span>
-                          <div class="text-medium text-primary mt-1">
-                            {{ finance_notes ? finance_notes : "-" }}
+                          <span class="text-white mb-0">Finance Notes</span>
+                          <div class="text-white mt-1">
+                            <strong class="text-white">{{ finance_notes ? finance_notes : "-" }}</strong>
                           </div>
                         </div>
                       </div>

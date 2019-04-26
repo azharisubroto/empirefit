@@ -34,22 +34,22 @@
 
             <div class="col-md-6 form-group mb-3">
               <label for="address">Address</label>
-              <input autofocus type="text" class="form-control " id="address" placeholder="Enter Address "
-                formControlName="address" />
+              <textarea rows="5" type="text" class="form-control " id="address" placeholder="Enter Address "
+                formControlName="address"></textarea>
               <i *ngIf="!branchForm.get('address').valid && branchForm.get('address').touched" class="i-Information text-danger">
                 Please enter branch name</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="email">Email</label>
-              <input autofocus type="text" class="form-control " id="email" placeholder="Enter email " formControlName="email" />
+              <input type="text" class="form-control " id="email" placeholder="Enter email " formControlName="email" />
               <i *ngIf="!branchForm.get('email').valid && branchForm.get('email').touched" class="i-Information text-danger">
                 Please enter email</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="phone">Phone</label>
-              <input autofocus type="text" class="form-control " id="phone" placeholder="Enter phone " formControlName="phone" />
+              <input type="text" class="form-control " id="phone" placeholder="Enter phone " formControlName="phone" />
               <i *ngIf="!branchForm.get('phone').valid && branchForm.get('phone').touched" class="i-Information text-danger">
                 Please enter phone</i>
             </div>

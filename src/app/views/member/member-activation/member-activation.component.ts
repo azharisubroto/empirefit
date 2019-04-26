@@ -521,6 +521,7 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onStep2Next(e) {
+    console.log("clicked")
     let formValue = ({
       photo: this.photo,
     });
@@ -620,8 +621,8 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onStep4Next() {
-    // $('.prevaja').hide();
-    // $('.nav .nav-item').toggleClass('enabled disabled');
+    $('.prevaja').hide();
+    $('.nav .nav-item').toggleClass('enabled disabled');
 
     if (this.cc_signature) {
       console.log("Signature exist");
