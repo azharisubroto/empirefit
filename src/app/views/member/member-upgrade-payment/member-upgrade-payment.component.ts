@@ -94,8 +94,8 @@ export class MemberUpgradePaymentComponent implements OnInit {
     "minWidth": 1,
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
-    canvasWidth: 1150,
-    canvasHeight: 550
+    canvasWidth: 1250,
+    canvasHeight: 650
   }
 
   constructor(
