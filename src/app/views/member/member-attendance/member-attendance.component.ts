@@ -27,6 +27,7 @@ import { saveAs } from 'file-saver';
 import 'xlsx';
 import 'jspdf-autotable';
 import 'tableexport';
+import 'html2canvas';
 import html2canvas from 'html2canvas';
 //import { setTimeout } from "timers";
 import { timeout } from "rxjs/operators";
@@ -493,30 +494,65 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   downloadbio(id_card_number) {
-    var doc = new jsPDF('p', 'pt', 'letter');
-
-    // We'll make our own renderer to skip this editor
-    var specialElementHandlers = {
-      '#editor': function (element, renderer) {
-        return true;
+    var mod = this;
+    var HTML_Width = $("#downloadbio").width();
+    var HTML_Height = $("#downloadbio").height();
+    var top_left_margin = 40;
+    var PDF_Width = HTML_Width+(top_left_margin*2);
+    var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var canvas_image_width = HTML_Width;
+    var canvas_image_height = HTML_Height;
+    
+    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
+    
+    
+    html2canvas( $("#downloadbio")[0],{
+      useCORS: true,
+      allowTaint:false,
+      scale: 3,
+    }).then(function(canvas) {
+      canvas.getContext('2d');
+      
+      //console.log(canvas.height+"  "+canvas.width);
+      
+      
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
+      var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
+          pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
+      
+      
+      for (var i = 1; i <= totalPDFPages; i++) { 
+        pdf.addPage(PDF_Width, PDF_Height);
+        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
       }
-    };
-    // doc.addImage(this.liability_signature_base64, 'PNG', 15, 800, 211, 150);
-    // doc.addImage(this.liability_user_signature_base64, 'PNG', 15, 800, 211, 150);
-    doc.fromHTML($('#downloadbio').get(0), 15, 25, {
-      'pagesplit': true,
-      'width': 550,
-      'useCORS': false,
-      'margins': {
-        top: 40,
-        bottom: 60,
-        left: 40,
-        width: 522
-      },
-      'elementHandlers': specialElementHandlers
-    }, function (dispose) {
-      doc.save('EFC_bio-liability_' + id_card_number + '.pdf');
+ 
+      pdf.save("EFC-Bio-liability-"+mod.member.id+".pdf");
     });
+    
+    // var doc = new jsPDF('p', 'pt', 'letter');
+
+    // // We'll make our own renderer to skip this editor
+    // var specialElementHandlers = {
+    //   '#editor': function (element, renderer) {
+    //     return true;
+    //   }
+    // };
+    // // doc.addImage(this.liability_signature_base64, 'PNG', 15, 800, 211, 150);
+    // // doc.addImage(this.liability_user_signature_base64, 'PNG', 15, 800, 211, 150);
+    // doc.fromHTML($('#downloadbio').get(0), 15, 25, {
+    //   'pagesplit': true,
+    //   'width': 550,
+    //   'useCORS': false,
+    //   'margins': {
+    //     top: 40,
+    //     bottom: 60,
+    //     left: 40,
+    //     width: 522
+    //   },
+    //   'elementHandlers': specialElementHandlers
+    // }, function (dispose) {
+    //   doc.save('EFC_bio-liability_' + id_card_number + '.pdf');
+    // });
   }
 
   downloadSigning(id_card_number) {
