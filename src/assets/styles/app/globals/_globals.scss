@@ -301,10 +301,6 @@ body#registration {
   color: inherit!important;
 }
 
-.big-modal.modal.show .modal-dialog {
-  max-width: 1200px!important;
-}  
-
 .notavailble {
   opacity: .5!important;
   text-decoration: line-through
@@ -318,3 +314,14 @@ body#registration {
 // .table-responsive::-webkit-scrollbar-thumb {
 //   background: transparent;
 // }
+
+.big-modal {
+  .modal-dialog {
+    width: 100%;
+    max-width: initial;
+    margin: 0;
+  }
+  .modal-header {
+    display:none;
+  }
+}
