@@ -227,7 +227,7 @@ export class MemberPartnerComponent implements OnInit {
             item.exercise,
             item.name,
             item.phone,
-            item.status === '1' ? 'Used' : 'n/a',
+            item.status === '1' ? "Used" : "Expired",
             rowbutton
           ];
           items.push(newthis);
@@ -280,7 +280,7 @@ export class MemberPartnerComponent implements OnInit {
                     ini.addClass('bg-warning').css('color', '#fff');
                   }
                   // Belom dipake
-                  else if (status = '0') {
+                  else if (status == '0') {
                     // kalo tanggal jadwal lebih dari sekarang
                     if (jadwal > sekarang) {
                       ini.find('.inistatus').html('Available');

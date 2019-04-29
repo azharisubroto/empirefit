@@ -55,4 +55,8 @@ export class ScheduleService {
   getByDay(date) {
     return this.http.get(this.apiURL + "/schedules/day/" + date, this.httpOptions);
   }
+
+  byDay(date) {
+    return this.http.get(this.apiURL + "/schedules/getbyday/" + date, this.httpOptions);
+  }
 }

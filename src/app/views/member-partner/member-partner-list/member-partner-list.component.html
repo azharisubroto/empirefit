@@ -79,7 +79,7 @@
                       <td>{{ item.name }}</td>
                       <td>{{ item.phone }}</td>
                       <!-- <td>{{ item.email }}</td> -->
-                      <td class="inistatus">{{ item.status === '1' ? 'Used' : 'n/a' }}</td>
+                      <td class="inistatus">{{ item.status === '1' ? 'Used' : 'Active' }}</td>
                       <!-- <td>{{ !! item.updated_by != NULL ? item.updated_by : 'n/a' }}</td> -->
                       <td>
                         <button (click)="absencoy($event)" class="btn btn-success absenbutton" [attr.data-id]="item.id"
