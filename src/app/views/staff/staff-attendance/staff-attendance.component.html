@@ -92,12 +92,20 @@
           <thead class="text-center tocpy">
             <tr>
               <th>Date Time</th>
+              <th>Type</th>
+              <th>Class Schedule</th>
+              <th>Class Name</th>
+              <th>Auto</th>
               <th>Verified By</th>
             </tr>
           </thead>
           <tbody class="text-center">
             <tr class="text-center" *ngFor="let attendance of attendanceHistory">
               <td>{{attendance.date_time}}</td>
+              <td>{{attendance.state}}</td>
+              <td>{{attendance.time_schedule ? attendance.time_schedule : "-"}}</td>
+              <td>{{attendance.class_name ? attendance.class_name : "-"}}</td>
+              <td>{{attendance.auto}}</td>
               <td>{{attendance.verified_by}}</td>
             </tr>
           </tbody>
