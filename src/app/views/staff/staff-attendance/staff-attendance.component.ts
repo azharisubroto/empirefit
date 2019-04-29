@@ -139,6 +139,7 @@ export class StaffAttendanceComponent implements OnInit {
   checkAttendance() {
     let formValue = ({
       'user_id': this.user.id,
+      'schedule_id': this.userForm.controls["schedule_id"].value
     });
 
     const source = interval(3000),
@@ -171,6 +172,7 @@ export class StaffAttendanceComponent implements OnInit {
   checkAttendanceOut() {
     let formValue = ({
       'user_id': this.user.id,
+      'schedule_id': this.userForm.controls["schedule_id"].value
     });
 
     const source = interval(3000),
