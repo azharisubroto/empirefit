@@ -21,7 +21,7 @@ import * as $ from "jquery";
 // import JSZip from "jszip";
 // import 'datatables.net-bs4';
 // import 'datatables.net-dt';
-import 'datatables.net-buttons'; 
+import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
 import 'datatables.net-buttons/js/buttons.html5.js';
 //import { setTimeout } from "timers";
@@ -45,6 +45,8 @@ export class StaffAttendanceComponent implements OnInit {
   attendanceHistory;
   finspot;
   finger;
+  finspotOut;
+  fingerOut;
   total_attendance;
   user;
   table;
@@ -52,6 +54,7 @@ export class StaffAttendanceComponent implements OnInit {
   userForm: FormGroup;
   filterForm: FormGroup;
   loading: boolean;
+  iscoach: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -99,9 +102,19 @@ export class StaffAttendanceComponent implements OnInit {
         });
       }, 200);
 
+      if (this.staff.position[0].position_name == "Coach") {
+        this.iscoach = true;
+      } else {
+        this.iscoach = false;
+      }
+
       // Auto Attendance
       this.finspot = data["url_attendance"];
       this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+
+      // Auto Attendance Out
+      this.finspotOut = data["url_attendance_out"];
+      this.fingerOut = this.sanitizer.bypassSecurityTrustUrl(this.finspotOut);
     });
 
     this.filterForm = this.fb.group({
@@ -154,6 +167,38 @@ export class StaffAttendanceComponent implements OnInit {
       });
   }
 
+  // Check Auto Atendance Out
+  checkAttendanceOut() {
+    let formValue = ({
+      'user_id': this.user.id,
+    });
+
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkStaffAttendanceOut(this.activatedRoute.snapshot.params["id"], formValue)
+          .subscribe((data: any) => {
+            if (data["status"] === "200") {
+              subscribe.unsubscribe();
+              setTimeout(() => {
+                $(".first-time").text(data["date"]);
+              });
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
+            } else {
+              subscribe.unsubscribe();
+              setTimeout(() => {
+                $(".first-time").text("n/a");
+              });
+              this.toastr.error(data["message"], "Error", {
+                progressBar: true
+              });
+            }
+          });
+      });
+  }
+
   // Check Attendance
   attendanceCheck() {
     this.UserService.userCheckPassword(
@@ -169,6 +214,45 @@ export class StaffAttendanceComponent implements OnInit {
       if (pass != null && pass["status"] == 200) {
         this.staffService
           .staffManualAttendance(formValue)
+          .subscribe((data: any) => {
+            if (data["status"] == "200") {
+              $("#first_time").text(data["first_name"]);
+              this.loading = false;
+              this.toastr.success(data["message"], "Success", {
+                progressBar: true
+              });
+              $(".modal-header .close").trigger("click");
+              setTimeout(() => {
+                location.reload();
+              }, 3000)
+            } else {
+              this.loading = false;
+              $(".modal-header .close").trigger("click");
+              alert(data["message"]);
+            }
+          });
+      } else {
+        alert("Your password is incorrect");
+        this.loading = false;
+      }
+    });
+  }
+
+  // Check Attendance Out
+  attendanceOutCheck() {
+    this.UserService.userCheckPassword(
+      this.user.staff_id,
+      this.userForm.value
+    ).subscribe((data: any) => {
+      var pass = data;
+      let formValue = this.userForm.value;
+      formValue["user_id"] = this.user.id;
+      // console.log(this.user.id);
+      formValue["staff_id"] = this.activatedRoute.snapshot.params["id"];
+      this.loading = true;
+      if (pass != null && pass["status"] == 200) {
+        this.staffService
+          .staffManualAttendanceOut(formValue)
           .subscribe((data: any) => {
             if (data["status"] == "200") {
               $("#first_time").text(data["first_name"]);

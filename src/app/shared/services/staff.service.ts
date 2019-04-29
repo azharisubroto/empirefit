@@ -61,6 +61,14 @@ export class StaffService {
     );
   }
 
+  staffManualAttendanceOut(data) {
+    return this.http.post(
+      this.apiURL + "/attendance_out",
+      data,
+      this.httpOptions
+    );
+  }
+
   searchAttendance(id, data) {
     return this.http.post(this.apiURL + "/search_staff_attendance/" + id, data, this.httpOptions);
   }

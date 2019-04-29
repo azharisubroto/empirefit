@@ -55,52 +55,6 @@
           </div>
         </div>
 
-        <div class="row">
-          <div class="col-12 mb-3">
-            <div class="fancy-head"><span>Today's Attendance</span></div>
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-              <span class="text-muted mb-0">Date</span>
-              <div class="text-medium text-primary mt-1">
-                {{ date }}
-              </div>
-            </div>
-            <div class="px-4 py-3 border border-light rounded align-items-center">
-              <span class="text-muted mb-0">Branch</span>
-              <div class="text-medium text-primary mt-1">
-                {{ branch_name }}
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-              <span class="text-muted mb-0">First Time</span>
-              <div id="first_time" class="text-medium text-primary mt-1 first-time">
-                {{ !! first_time ? first_time : "-" }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row mt-2">
-          <div class="col-md-6 mb-3">
-            <a id="btn-attendance" (click)="checkAttendance()" [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Attendance</a>
-          </div>
-          <div class="col-md-6 mb-3">
-            <button (click)="open(mt_attendance)" id="btn-mt-attendance" class="btn btn-primary btn-lg btn-block py-3">Manual
-              Attendance</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6 mb-4 mb-md-0">
-    <!-- PAYMENT -->
-    <div class="card mb-4">
-      <div class="card-body">
         <div class="fancy-head mb-3">
           <span>Attendance History</span>
         </div>
@@ -157,9 +111,76 @@
     </div>
   </div>
 
+  <div class="col-md-6 mb-4 mb-md-0">
+    <!-- PAYMENT -->
+    <div class="card mb-4">
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-12 mb-3">
+            <div class="fancy-head"><span>Today's Attendance</span></div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+              <span class="text-muted mb-0">Date</span>
+              <div class="text-medium text-primary mt-1">
+                {{ date }}
+              </div>
+            </div>
+            <div class="px-4 py-3 border border-light rounded align-items-center">
+              <span class="text-muted mb-0">Branch</span>
+              <div class="text-medium text-primary mt-1">
+                {{ branch_name }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+              <span class="text-muted mb-0">First Time</span>
+              <div id="first_time" class="text-medium text-primary mt-1 first-time">
+                {{ !! first_time ? first_time : "-" }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" *ngIf="iscoach">
+          <div class="card-body">
+            <div class="fancy-head mb-3">
+              <span>Today's Class</span>
+            </div>
+            <div class="mt-4 jadwal">
+              <div class="class-loading">Loading Data...</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-md-6 mb-3">
+            <a id="btn-attendance" (click)="checkAttendance()" [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Auto
+              Clock In</a>
+          </div>
+          <div class="col-md-6 mb-3">
+            <a id="btn-attendance" (click)="checkAttendanceOut()" [href]="fingerOut" class="btn btn-primary btn-lg btn-block py-3">Auto
+              Clock Out</a>
+          </div>
+          <div class="col-md-6 mb-3">
+            <button (click)="open(mt_attendanceOut)" id="btn-mt-attendance" class="btn btn-primary btn-lg btn-block py-3">Manual
+              Clock In</button>
+          </div>
+          <div class="col-md-6 mb-3">
+            <button (click)="open(mt_attendanceOut)" id="btn-mt-attendance" class="btn btn-primary btn-lg btn-block py-3">Manual
+              Clock Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <ng-template #mt_attendance let-modal let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Manual Attendance</h4>
+      <h4 class="modal-title" id="modal-basic-title">Manual Clock In</h4>
       <button type="button" class="close" aria-label="Close" (click)="c('Close')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -176,6 +197,37 @@
         </div>
         <div class="form-group">
           <form [formGroup]="userForm" (ngSubmit)="attendanceCheck()">
+            <label class="text-muted mb-0">Your Password</label>
+            <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
+            <input type="hidden" name="schedule_id" formControlName="schedule_id" placeholder="..." class="form-control mb-3" />
+            <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
+            <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">Proceed</btn-loading>
+          </form>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+  <!-- Attendance Out -->
+  <ng-template #mt_attendanceOut let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Manual Clock Out</h4>
+      <button type="button" class="close" aria-label="Close" (click)="c('Close')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <div class="px-4 py-3 border border-light rounded align-items-center">
+            <span class="text-muted mb-0">Front Officer</span>
+            <div class="text-medium text-primary mt-1">
+              {{ !!user.name ? user.name : user.role }}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <form [formGroup]="userForm" (ngSubmit)="attendanceOutCheck()">
             <label class="text-muted mb-0">Your Password</label>
             <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
             <input type="hidden" name="schedule_id" formControlName="schedule_id" placeholder="..." class="form-control mb-3" />
