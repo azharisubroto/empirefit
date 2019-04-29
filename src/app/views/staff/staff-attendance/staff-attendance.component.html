@@ -158,8 +158,12 @@
             <div class="fancy-head mb-3">
               <span>Today's Class</span>
             </div>
-            <div class="mt-4 jadwal">
-              <div class="class-loading">Loading Data...</div>
+            <div class="mt-4 jadwal" *ngFor="let itm of classes">
+              <label class="checkbox checkbox-success">
+                <input id="{{itm.id}}" name="schedulepick" type="checkbox" [value]="itm.id">
+                <span class="{{itm.id}}">{{ itm.time }} - {{ itm.exercise }}</span>
+                <span class="checkmark"></span>
+              </label>
             </div>
           </div>
         </div>

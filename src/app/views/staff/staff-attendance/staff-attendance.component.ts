@@ -77,6 +77,36 @@ export class StaffAttendanceComponent implements OnInit {
 
   ngOnInit() {
     var mod = this;
+    var days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+    var d = new Date();
+    var n = d.getDay();
+    var t = d.getTime();
+    var todayName = days[n];
+
+    this.scheduleService.getByDay(todayName).subscribe((data: any) => {
+      this.classes = data["data"];
+
+      setTimeout(() => {
+        $.each(this.classes, function (i, item) {
+          if (item.delay_time < mod.getClock()) {
+            $("#" + item.id + "").attr("disabled", "disabled");
+            $("." + item.id + "").css("text-decoration", "line-through");
+            $("." + item.id + "").css("opacity", "0.6");
+            $("#" + item.id + "").parent().removeClass("checkbox-success");
+            $("#" + item.id + "").parent().addClass("checkbox-dark");
+          }
+        })
+      }, 200);
+    });
+
     this.staffService.showStaff(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
       this.staff = data["data"];
       this.name = this.staff.name;
@@ -115,42 +145,13 @@ export class StaffAttendanceComponent implements OnInit {
         this.iscoach = false;
       }
 
-      var days = [
-        "Sunday",
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ];
-      var d = new Date();
-      var n = d.getDay();
-      var t = d.getTime();
-      var todayName = days[n];
+      setTimeout(() => {
+        $.each(this.attendanceHistory, function (i, item) {
+          $("#" + item.schedule_id + "").attr("checked", "checked");
+          $("#" + item.schedule_id + "").attr("disabled", "disabled");
+        })
+      }, 500);
 
-      this.scheduleService.getByDay(todayName).subscribe((data: any) => {
-        this.classes = data["data"];
-        var obj = this.classes;
-        $('.class-loading').remove();
-        $.each(obj, function (i, item) {
-          console.log(item.delay_time < mod.getClock())
-          if (item.delay_time < mod.getClock()) {
-            this._disabled = "disabled";
-          } else {
-            this._disabled = "";
-          }
-
-          var markup =
-            `<label class="checkbox ` + this._checkbox_class + `">
-                <input name="schedulepick" type="checkbox" ` + " " + this._disabled + " " + this._checked + ` value="` + item.schedule_id + `">
-                <span>` + item.time + "-" + item.exercise + `</span>
-                <span class="checkmark"></span>
-              </label>`;
-          // Apend
-          $(".jadwal").append(markup);
-        });
-      });
 
       // Auto Attendance
       this.finspot = data["url_attendance"];
@@ -160,20 +161,6 @@ export class StaffAttendanceComponent implements OnInit {
       this.finspotOut = data["url_attendance_out"];
       this.fingerOut = this.sanitizer.bypassSecurityTrustUrl(this.finspotOut);
     });
-
-    var days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
-    var d = new Date();
-    var n = d.getDay();
-    var t = d.getTime();
-    var todayName = days[n];
 
     this.filterForm = this.fb.group({
       date_first: [Validators.required],
@@ -209,9 +196,13 @@ export class StaffAttendanceComponent implements OnInit {
 
   // Check Auto Atendance
   checkAttendance() {
+    let dataSchedule = [];
+    $.each($("input[name='schedulepick']:checked"), function () {
+      dataSchedule.push($(this).val());
+    });
     let formValue = ({
       'user_id': this.user.id,
-      'schedule_id': $("input[name=schedulepick]").val() === "undefined" ? null : $("input[name=schedulepick]").val()
+      'schedule_id': dataSchedule,
     });
 
     const source = interval(3000),
@@ -242,9 +233,13 @@ export class StaffAttendanceComponent implements OnInit {
 
   // Check Auto Atendance Out
   checkAttendanceOut() {
+    let dataSchedule = [];
+    $.each($("input[name='schedulepick']:checked"), function () {
+      dataSchedule.push($(this).val());
+    });
     let formValue = ({
       'user_id': this.user.id,
-      'schedule_id': $("input[name=schedulepick]").val() === "undefined" ? null : $("input[name=schedulepick]").val(),
+      'schedule_id': dataSchedule,
     });
 
     const source = interval(3000),
@@ -281,8 +276,12 @@ export class StaffAttendanceComponent implements OnInit {
     ).subscribe((data: any) => {
       var pass = data;
       let formValue = this.userForm.value;
+      let dataSchedule = [];
+      $.each($("input[name='schedulepick']:checked"), function () {
+        dataSchedule.push($(this).val());
+      });
       formValue["user_id"] = this.user.id;
-      formValue["schedule_id"] = $("input[name=schedulepick]").val() === "undefined" ? null : $("input[name=schedulepick]").val();
+      formValue["schedule_id"] = dataSchedule;
       // console.log(this.user.id);
       formValue["staff_id"] = this.activatedRoute.snapshot.params["id"];
 
@@ -323,8 +322,12 @@ export class StaffAttendanceComponent implements OnInit {
     ).subscribe((data: any) => {
       var pass = data;
       let formValue = this.userForm.value;
+      let dataSchedule = [];
+      $.each($("input[name='schedulepick']:checked"), function () {
+        dataSchedule.push($(this).val());
+      });
       formValue["user_id"] = this.user.id;
-      formValue["schedule_id"] = $("input[name=schedulepick]").val() === "undefined" ? null : $("input[name=schedulepick]").val();
+      formValue["schedule_id"] = dataSchedule;
       // console.log(this.user.id);
       formValue["staff_id"] = this.activatedRoute.snapshot.params["id"];
       this.loading = true;

@@ -22,12 +22,6 @@ table.dataTable thead .sorting_desc {
   }
 }
 
-.btn.delete_class,
-.jadwal .btn.btn-danger,
-.checkbox input[disabled] ~ .btn.btn-danger.delete_class, .radio input[disabled] ~ * {
-  color: #fff!important;
-}
-
 .notavailble {
   opacity: .6;
 }
