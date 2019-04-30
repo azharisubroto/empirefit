@@ -90,7 +90,7 @@ export class NavigationService {
         },
         {
           icon: "i-Library",
-          name: "Transaction Report",
+          name: "Class Report",
           state: "/class-participants/class-report",
           type: "link",
           perm: "6",

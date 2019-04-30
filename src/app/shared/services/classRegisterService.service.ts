@@ -47,4 +47,12 @@ export class ClassRegisterService {
       this.httpOptions
     );
   }
+
+  viewClass(data) {
+    return this.http.post(
+      this.apiURL + "/view_class",
+      data,
+      this.httpOptions
+    );
+  }
 }

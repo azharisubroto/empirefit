@@ -59,9 +59,10 @@
                       <td>{{ class.date }}</td>
                       <td class="text-center">{{ class.schedule_time }}</td>
                       <td>{{ class.exercise }}</td>
-                      <td>{{ class.total_participants }}</td>
+                      <td class="text-center">{{ class.total_participants }}</td>
                       <td class="text-center">
-                        <button class="btn btn-dark" id="{{ class.id }}">View</button>
+                        <button (click)="openLg(viewdata, class.schedule_id, class.date, class.branch_id)" class="btn btn-dark view-btn"
+                          id="{{ class.id }}">View</button>
                       </td>
                     </tr>
                   </tbody>
@@ -73,4 +74,35 @@
       </div>
     </div>
   </div>
+
+  <ng-template #viewdata let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title"><strong><span class="text-capitalize"></span></strong> Class History</h4>
+      <button type="button" class="close" aria-label="Close" (click)="c('close')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="table-responsive-sm">
+        <table class="table table-striped" id="viewtable">
+          <thead>
+            <tr>
+              <th scope="col">Member ID</th>
+              <th scope="col">Dropin Partner</th>
+              <th scope="col">Member Name</th>
+              <th scope="col">Scan Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let res of classhistory">
+              <td>{{ res.member_id }}</td>
+              <td>{{ res.partner_name }}</td>
+              <td>{{ res.member_name }}</td>
+              <td>{{ res.checkin_time }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-template>
 </div>

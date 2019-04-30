@@ -33,6 +33,7 @@ export class ScheduleReportComponent implements OnInit {
   searchForm: FormGroup;
   schedules;
   table;
+  classhistory;
 
   constructor(
     private fb: FormBuilder,
@@ -112,7 +113,7 @@ export class ScheduleReportComponent implements OnInit {
             item.schedule_time,
             item.exercise,
             item.total_participants,
-            '<button class="btn btn-dark" id="' + item.id + '">View</button>',
+            '<button class="btn btn-dark view-btn" data-branch="' + item.branch_id + '" data-date="' + item.date + '" data-view="' + item.schedule_id + '" id="' + item.id + '">View</button>',
           ];
           items.push(newthis);
         });
@@ -137,8 +138,53 @@ export class ScheduleReportComponent implements OnInit {
             { title: 'Action' },
           ],
           data: items,
+          initComplete: function () {
+            $('.view-btn').on('click', function (e) {
+              e.preventDefault();
+              var id = $(this).data('view'),
+                dateview = $(this).data('date'),
+                content = 'viewdata',
+                branch = $(this).data('branch'); //dapet id
+              mod.openLg(content, id, dateview, branch);
+            });
+          }
         });
       })
     }
+  }
+
+  openLg(content, id, dateview, branch) {
+    // Class History
+    let formValue = ({
+      schedule_id: id,
+      branch_id: branch,
+      date: dateview,
+    });
+
+    this.classRegistrationService.viewClass(formValue).subscribe((data: any) => {
+      this.classhistory = data["data"];
+      // console.log(this.classhistory);
+    });
+
+    this.modalService.open(content, { windowClass: "small-modal" });
+    setTimeout(() => {
+      this.chRef.detectChanges();
+      setTimeout(() => {
+        this.table = $("#viewtable").DataTable({
+          dom: 'Bfrtip',
+          buttons: {
+            dom: {
+              button: {
+                className: 'btn '
+              }
+            },
+            buttons: [
+              { extend: 'excel', className: 'btn-warning' },
+              { extend: 'csv', className: 'btn-warning' }
+            ]
+          }
+        });
+      }, 200);
+    }, 1000);
   }
 }
