@@ -34,6 +34,7 @@ export class ScheduleReportComponent implements OnInit {
   schedules;
   table;
   classhistory;
+  viewtabledata;
 
   constructor(
     private fb: FormBuilder,
@@ -51,6 +52,7 @@ export class ScheduleReportComponent implements OnInit {
       this.classregistrations = data["data"];
       this.chRef.detectChanges();
       setTimeout(() => {
+        this.viewtabledata = $("#viewtable").DataTable()
         this.table = $("#mytable").DataTable({
           dom: 'Bfrtip',
           buttons: {
@@ -155,36 +157,20 @@ export class ScheduleReportComponent implements OnInit {
 
   openLg(content, id, dateview, branch) {
     // Class History
+    // return console.log(id);
     let formValue = ({
       schedule_id: id,
       branch_id: branch,
       date: dateview,
     });
 
+    // return console.log(formValue);
+    // this.viewtabledata.destroy();
+    var items: any = [];
     this.classRegistrationService.viewClass(formValue).subscribe((data: any) => {
       this.classhistory = data["data"];
       // console.log(this.classhistory);
+      this.modalService.open(content, { windowClass: "small-modal" });
     });
-
-    this.modalService.open(content, { windowClass: "small-modal" });
-    setTimeout(() => {
-      this.chRef.detectChanges();
-      setTimeout(() => {
-        this.table = $("#viewtable").DataTable({
-          dom: 'Bfrtip',
-          buttons: {
-            dom: {
-              button: {
-                className: 'btn '
-              }
-            },
-            buttons: [
-              { extend: 'excel', className: 'btn-warning' },
-              { extend: 'csv', className: 'btn-warning' }
-            ]
-          }
-        });
-      }, 200);
-    }, 1000);
   }
 }

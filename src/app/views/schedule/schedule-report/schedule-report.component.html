@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <ng-template #viewdata let-modal let-c="close" let-d="dismiss">
+  <ng-template id="viewdatacontent" #viewdata let-modal let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h4 class="modal-title"><strong><span class="text-capitalize"></span></strong> Class History</h4>
       <button type="button" class="close" aria-label="Close" (click)="c('close')">
@@ -95,7 +95,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let res of classhistory">
-              <td>{{ res.member_id }}</td>
+              <td>{{ res.member_code }}</td>
               <td>{{ res.partner_name }}</td>
               <td>{{ res.member_name }}</td>
               <td>{{ res.checkin_time }}</td>
