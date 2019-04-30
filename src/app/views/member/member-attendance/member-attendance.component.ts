@@ -507,14 +507,10 @@ export class MemberAttendanceComponent implements OnInit {
     
     
     html2canvas( $("#downloadbio")[0],{
-      useCORS: true,
       allowTaint:false,
-      scale: 3,
+      scale: 4,
     }).then(function(canvas) {
-      canvas.getContext('2d');
-      
-      //console.log(canvas.height+"  "+canvas.width);
-      
+      canvas.getContext('2d');      
       
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
       var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
