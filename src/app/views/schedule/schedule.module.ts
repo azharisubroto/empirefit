@@ -7,6 +7,7 @@ import { ScheduleRoutingModule } from "./schedule-routing.module";
 import { ScheduleListComponent } from "./schedule-list/schedule-list.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ScheduleReportComponent } from './schedule-report/schedule-report.component';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     NgbModule,
     ScheduleRoutingModule
   ],
-  declarations: [ScheduleListComponent]
+  declarations: [ScheduleListComponent, ScheduleReportComponent]
 })
 export class ScheduleModule {}

@@ -39,4 +39,12 @@ export class ClassRegisterService {
       this.httpOptions
     );
   }
+
+  search(data) {
+    return this.http.post(
+      this.apiURL + "/search_class",
+      data,
+      this.httpOptions
+    );
+  }
 }
