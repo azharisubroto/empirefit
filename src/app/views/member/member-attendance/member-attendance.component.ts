@@ -507,8 +507,8 @@ export class MemberAttendanceComponent implements OnInit {
     
     
     html2canvas( $("#downloadbio")[0],{
-      allowTaint:false,
-      scale: 4,
+      allowTaint:true,
+      scale: 1,
     }).then(function(canvas) {
       canvas.getContext('2d');      
       
