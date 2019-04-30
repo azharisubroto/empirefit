@@ -1,11 +1,16 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { ScheduleListComponent } from "./schedule-list/schedule-list.component";
+import { ScheduleReportComponent } from "./schedule-report/schedule-report.component";
 
 const routes: Routes = [
   {
-    path: "",
+    path: "class-list",
     component: ScheduleListComponent
+  },
+  {
+    path: "class-report",
+    component: ScheduleReportComponent
   }
 ];
 
@@ -13,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ScheduleRoutingModule {}
+export class ScheduleRoutingModule { }
