@@ -38,6 +38,7 @@ export class MemberPartnerFormComponent implements OnInit {
   userForm: FormGroup;
   staffs;
   partners: any[];
+  tanggal:any;
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +51,7 @@ export class MemberPartnerFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    var mod = this;
     this.partnerdata = { make: "" };
     this.userForm = this.fb.group({
       name: ["", Validators.required],
@@ -64,6 +66,8 @@ export class MemberPartnerFormComponent implements OnInit {
       status: ["", Validators.required],
       created_by: ["", Validators.required],
     });
+    
+    this.getTodayDate();
 
     this.MemberPartnerService.getSingleMemberPartner(this.ActivatedRoute.snapshot.params["id"]).subscribe((data: any) => {
       var res = data['data'];
@@ -93,6 +97,28 @@ export class MemberPartnerFormComponent implements OnInit {
       this.user = data["data"];
       var users = data["data"];
       this.userid = users['id'];
+    });
+
+    this.ClassesService.classesByDay(mod.getTodayDate()).subscribe((data: any) => {
+      //console.log(data['data']);
+      var res = data['data'];
+      var items: any = [];
+      $.each(res, function (i, item) {
+        // //console.log(item);
+        var _cancelbtn = '<label class="d-block mb-3" for="class-' + item.id + '"><input id="class-' + item.id + '" type="radio" value="' + item.id + '" name="class_pick"> ' + item.time + ' ' + item.exercise + '</label>';
+        items.push(_cancelbtn);
+      });
+      $('.classes-list').html(items);
+      setTimeout(() => {
+        $('[name="class_pick"]').on('change', function (e) {
+          ////console.log(e.type);
+          var rad = $(this).val();
+          //console.log(rad);
+          mod.userForm.patchValue({
+            class: rad
+          });
+        });
+      }, 500);
     });
   }
 
@@ -130,6 +156,17 @@ export class MemberPartnerFormComponent implements OnInit {
         });
       }, 500);
     });
+  }
+
+  getTodayDate() {
+    var today = new Date();
+    var dd = today.getDate();
+
+    var mm = today.getMonth()+1; 
+    var yyyy = today.getFullYear();
+    
+
+    this.tanggal = yyyy+'-'+this.pad(mm)+'-'+this.pad(dd);
   }
 
   pad(d) {
