@@ -105,6 +105,37 @@ export class TransactionReportComponent implements OnInit {
       console.log(data);
     });
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var newtoday = yyyy + '-' + mm + '-' + dd;
+
+    var filterdate = newtoday;
+    var splitdate = filterdate.split('-');
+    var year = splitdate[0],
+      month = splitdate[1],
+      day = splitdate[2];
+
+    this.userForm.setValue({
+      branch_id: "ALL",
+      first_date: {
+        day: day,
+        month: month,
+        year: year
+      },
+      second_date: {
+        day: day,
+        month: month,
+        year: year
+      },
+      payment_type: "ALL"
+    });
+
+    $(".defaultfd").val(newtoday);
+    $(".defaultsd").val(newtoday);
+
     // Get single User
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];

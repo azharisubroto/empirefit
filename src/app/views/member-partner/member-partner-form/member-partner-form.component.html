@@ -1,7 +1,7 @@
 <div class="breadcrumb">
   <h1>Member Partner</h1>
   <ul>
-    <li>Create</li>
+    <li>Update</li>
   </ul>
 </div>
 
@@ -57,13 +57,15 @@
 
               <div class="mb-3">
                 <label for="currentclass">Current Class</label>
-                <input value="{{ partnerdata.exercise }}" readonly class="form-control" type="text">
+                <input value="{{partnerdata.class_time}} - {{ partnerdata.exercise }}" readonly class="form-control"
+                  type="text">
               </div>
 
               <div class="mb-3">
                 <label for="emaildate">Class Date</label>
                 <div class="input-group">
-                  <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #cp="ngbDatepicker" (dateSelect)="changeDate($event)">
+                  <input class="form-control class_datedate" placeholder="yyyy-mm-dd" ngbDatepicker #cp="ngbDatepicker"
+                    (dateSelect)="changeDate($event)">
                   <input type="hidden" class="actualdate" formControlName="class_date">
                   <div class="input-group-append">
                     <button class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
@@ -82,7 +84,7 @@
               <div class="mb-3">
                 <label for="email">Status</label>
                 <div class="clearfix"></div>
-                <input type="text" class="form-control" readonly value="{{ partnerdata.status === 1 ? 'Used' : 'Available' }}">
+                <input type="text" class="form-control" readonly value="{{ partnerdata.status === '1' ? 'Used' : 'Available' }}">
               </div>
               <div class="mb-3">
                 <label for="email">Verified by</label>

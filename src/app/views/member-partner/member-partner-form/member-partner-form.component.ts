@@ -50,6 +50,7 @@ export class MemberPartnerFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    var mod = this;
     this.partnerdata = { make: "" };
     this.userForm = this.fb.group({
       name: ["", Validators.required],
@@ -67,7 +68,21 @@ export class MemberPartnerFormComponent implements OnInit {
 
     this.MemberPartnerService.getSingleMemberPartner(this.ActivatedRoute.snapshot.params["id"]).subscribe((data: any) => {
       var res = data['data'];
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      var yyyy = today.getFullYear();
+
+      var newtoday = yyyy + '-' + mm + '-' + dd;
+
       this.partnerdata = data['data'];
+      var classdate = newtoday;
+      var splitdate = classdate.split('-');
+      var year = splitdate[0],
+        month = splitdate[1],
+        day = splitdate[2];
+
+      console.log(splitdate[0]);
       console.log(res);
       this.userForm.setValue({
         name: res.name,
@@ -77,12 +92,42 @@ export class MemberPartnerFormComponent implements OnInit {
         email_date_time: res.email_date_time,
         company: res.company_id,
         class: res.class_id,
-        class_date: res.class_date,
+        class_date: {
+          day: parseInt(day),
+          month: parseInt(month),
+          year: parseInt(year)
+        },
         branch: 1,
         status: res.status,
         created_by: res.created_by
       });
+
+      $(".class_datedate").val(classdate);
+
+      this.ClassesService.classesByDay(classdate).subscribe((data: any) => {
+        //console.log(data['data']);
+        var res = data['data'];
+        var items: any = [];
+        $.each(res, function (i, item) {
+          // //console.log(item);
+          var _cancelbtn = '<label class="d-block mb-3" for="class-' + item.id + '"><input id="class-' + item.id + '" type="radio" value="' + item.id + '" name="class_pick"> ' + item.time + ' ' + item.exercise + '</label>';
+          items.push(_cancelbtn);
+        });
+        $('.classes-list').html(items);
+        setTimeout(() => {
+          $('[name="class_pick"]').on('change', function (e) {
+            ////console.log(e.type);
+            var rad = $(this).val();
+            //console.log(rad);
+            mod.userForm.patchValue({
+              class: rad
+            });
+          });
+        }, 500);
+      });
     });
+
+    // var newdatedate = newdate.split('-');
 
     this.MemberPartnerService.getDropinCompanies().subscribe((data: any) => {
       this.partners = data['data'];

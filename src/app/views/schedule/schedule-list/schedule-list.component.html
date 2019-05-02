@@ -24,7 +24,7 @@
                 <div class="col-md-4 form-group mb-3">
                   <label for="date">Class Date</label>
                   <div class="input-group">
-                    <input class="form-control" placeholder="yyyy-mm-dd" ngbDatepicker #date="ngbDatepicker"
+                    <input class="form-control defaultclassdate" placeholder="yyyy-mm-dd" ngbDatepicker #date="ngbDatepicker"
                       (dateSelect)="changeDate($event, 'date')">
                     <input type="hidden" class="first_actualdate" formControlName="date">
                     <div class="input-group-append">
@@ -37,7 +37,6 @@
                 <div class="col-md-4 form-group mb-3">
                   <label for="schedule_id">Class Time & Name</label>
                   <select formControlName="schedule_id" class="form-control" id="schedule_list">
-                    <option value="0">Select Schedule</option>
                   </select>
                 </div>
                 <div class="col-md-2 mt-4 form-group mb-3">

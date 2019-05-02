@@ -132,6 +132,39 @@ export class MemberPartnerComponent implements OnInit {
       date_second: [Validators.required],
     });
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var newtoday = yyyy + '-' + mm + '-' + dd;
+
+    var filterdate = newtoday;
+    var splitdate = filterdate.split('-');
+    var year = splitdate[0],
+      month = splitdate[1],
+      day = splitdate[2];
+
+    this.filterForm.setValue({
+      date_first: {
+        day: day,
+        month: month,
+        year: year
+      },
+      date_second: {
+        day: day,
+        month: month,
+        year: year
+      },
+    });
+
+    console.log(this.filterForm.value)
+
+    setTimeout(() => {
+      $("#fd").val(newtoday);
+      $("#sd").val(newtoday);
+    }, 1000);
+
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
       //console.log(this.user);
@@ -219,7 +252,7 @@ export class MemberPartnerComponent implements OnInit {
         //return console.log(res);
 
         $.each(res, function (i, item) {
-          var rowbutton = '<button class="btn btn-success absenbutton" data-id="' + item.id + '" data-name="' + item.name + '" data-email="' + item.email + '" data-phone="' + item.phone + '" data-reference="' + item.booking_referance + '" data-emaildatetime="' + item.email_date_time + '" data-company="' + item.company + '" data-class="' + item.class_id + '" data-classdate="' + item.class_date + '" data-classtime="' + item.class_time + '" data-branch="' + item.branch + '" data-status="' + item.status + '" data-createdby="' + mod.user.id + '"><i class="i-Clock-Forward"></i></button><a href="member-partner-edit/' + item.id + '" class="btn btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave"> <i class="i-Pen-5"></i></a>';
+          var rowbutton = '<button class="btn btn-success absenbutton" data-id="' + item.id + '" data-name="' + item.name + '" data-email="' + item.email + '" data-phone="' + item.phone + '" data-reference="' + item.booking_referance + '" data-emaildatetime="' + item.email_date_time + '" data-company="' + item.company + '" data-class="' + item.class_id + '" data-classdate="' + item.class_date + '" data-classtime="' + item.class_time + '" data-branch="' + item.branch + '" data-status="' + item.status + '" data-createdby="' + mod.user.id + '"><i class="i-Clock-Forward"></i></button><a href="member-partner/member-partner-edit/' + item.id + '" class="btn btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave"> <i class="i-Pen-5"></i></a>';
           var newthis = [
             item.company,
             item.class_date,

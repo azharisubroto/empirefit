@@ -76,6 +76,42 @@ export class ScheduleListComponent implements OnInit {
       date: ["", Validators.required],
       schedule_id: ["0", Validators.required],
     });
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var newtoday = yyyy + '-' + mm + '-' + dd;
+
+    var filterdate = newtoday;
+    var splitdate = filterdate.split('-');
+    var year = splitdate[0],
+      month = splitdate[1],
+      day = splitdate[2];
+
+    this.searchForm.setValue({
+      branch_id: 1,
+      date: {
+        day: day,
+        month: month,
+        year: year
+      },
+      schedule_id: 1
+    });
+
+    $(".defaultclassdate").val(newtoday);
+    this.scheduleService.getByDay(newtoday).subscribe((data: any) => {
+      this.schedules = data["data"];
+
+      setTimeout(() => {
+        $.each(this.schedules, function (i, list) {
+          $("#schedule_list").append(
+            "<option value=" + list.id + ">" + list.time + " - " + list.exercise + "</option>"
+          )
+        })
+      }, 500);
+    });
   }
 
   changeDate(event: any, $target) {
@@ -94,10 +130,6 @@ export class ScheduleListComponent implements OnInit {
 
     this.scheduleService.getByDay(tosend).subscribe((data: any) => {
       this.schedules = data["data"];
-
-      $("#schedule_list").html(
-        "<option value=''>Select Schedule</option>"
-      )
 
       setTimeout(() => {
         $.each(this.schedules, function (i, list) {

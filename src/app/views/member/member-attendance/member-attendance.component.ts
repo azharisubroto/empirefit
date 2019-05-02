@@ -498,33 +498,33 @@ export class MemberAttendanceComponent implements OnInit {
     var HTML_Width = $("#downloadbio").width();
     var HTML_Height = $("#downloadbio").height();
     var top_left_margin = 40;
-    var PDF_Width = HTML_Width+(top_left_margin*2);
-    var PDF_Height = (PDF_Width*1.5)+(top_left_margin*2);
+    var PDF_Width = HTML_Width + (top_left_margin * 2);
+    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
     var canvas_image_width = HTML_Width;
     var canvas_image_height = HTML_Height;
-    
-    var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
-    
-    
-    html2canvas( $("#downloadbio")[0],{
-      allowTaint:true,
+
+    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+
+    html2canvas($("#downloadbio")[0], {
+      allowTaint: true,
       scale: 1,
-    }).then(function(canvas) {
-      canvas.getContext('2d');      
-      
+    }).then(function (canvas) {
+      canvas.getContext('2d');
+
       var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
-          pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin,canvas_image_width,canvas_image_height);
-      
-      
-      for (var i = 1; i <= totalPDFPages; i++) { 
+      var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+
+
+      for (var i = 1; i <= totalPDFPages; i++) {
         pdf.addPage(PDF_Width, PDF_Height);
-        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
+        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
       }
- 
-      pdf.save("EFC-Bio-liability-"+mod.member.id+".pdf");
+
+      pdf.save("EFC-BIOLIA-" + mod.member.member_code + "-" + mod.member.name + ".pdf");
     });
-    
+
     // var doc = new jsPDF('p', 'pt', 'letter');
 
     // // We'll make our own renderer to skip this editor
