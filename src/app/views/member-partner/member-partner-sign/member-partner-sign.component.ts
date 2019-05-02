@@ -200,6 +200,7 @@ export class MemberPartnerSignComponent implements OnInit {
         this.toastr.success(data["message"], "Saved", {
           progressBar: true
         });
+        this.location.back();
       }
     });
   }
