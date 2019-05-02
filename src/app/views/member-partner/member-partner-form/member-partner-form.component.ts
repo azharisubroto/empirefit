@@ -38,6 +38,7 @@ export class MemberPartnerFormComponent implements OnInit {
   userForm: FormGroup;
   staffs;
   partners: any[];
+  signed;
 
   constructor(
     private fb: FormBuilder,
@@ -76,6 +77,8 @@ export class MemberPartnerFormComponent implements OnInit {
       var newtoday = yyyy + '-' + mm + '-' + dd;
 
       this.partnerdata = data['data'];
+      console.log(this.partnerdata.signed);
+      this.signed = this.partnerdata.signed == 1 ? 'Signed' : 'Unsigned';
       var classdate = newtoday;
       var splitdate = classdate.split('-');
       var year = splitdate[0],
@@ -179,6 +182,16 @@ export class MemberPartnerFormComponent implements OnInit {
 
   pad(d) {
     return (d < 10) ? '0' + d.toString() : d.toString();
+  }
+
+  checkSign(phone) {
+    this.MemberPartnerService.checkSign(phone).subscribe((data: any) => {
+      if (data["status"] == '200') {
+        this.router.navigateByUrl("/member-partner/signed-form/" + data['member_id']);
+      } else {
+        this.router.navigateByUrl("/member-partner/not-found-sign");
+      }
+    })
   }
 
   submit() {

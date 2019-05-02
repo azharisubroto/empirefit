@@ -1,0 +1,261 @@
+<h4 class="text-medium text-bold">ASSUMPTION OF RISK; WAIVER; and LIABILITY RELEASE (the "Agreement'')</h4>
+
+<p class="text-plain my-3">THIS IS A LIABILITY RELEASE BY AFFIRMATIVELY AGREEING TO IT BY SIGNING THE AGREEMENT,
+  YOU ARE WAIVING CERTAIN LEGAL RIGHTS AND ARE COMPLETELY RELEASING POTENTIAL CLAIMS. PLEASE READ IT CAREFULLY.</p>
+
+<form #basicForm="ngForm" [formGroup]="liabilityForm">
+  <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+    <ngb-panel title="I. Personal Data of the Participant">
+      <ng-template ngbPanelContent>
+        <div class="row">
+          <div class="form-group col-md-6 mb-4">
+            <label class="d-block mb-2">Name</label>
+            <div class="text-medium">{{member.name ? member.name : "-"}}</div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="d-block mb-2">Date of Birth</label>
+            <div class="text-medium">{{member.date_of_birth ? member.date_of_birth : "-"}}</div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="d-block mb-2">ID Card (KTP/SIM/Passport)</label>
+            <div class="text-medium">{{member.id_card_number ? member.id_card_number : "-"}}</div>
+          </div>
+          <div class="form-group col-md-6 mb-4">
+            <label class="d-block mb-2">Contact Number</label>
+            <div class="text-medium">{{member.phone ? member.phone : "-"}}</div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="d-block mb-2">Email address</label>
+            <div class="text-medium">{{member.email ? member.email : "-"}}</div>
+          </div>
+          <div class="form-group col-md-6">
+            <label class="d-block mb-2">Occupation</label>
+            <div class="text-medium">{{member.occupation ? member.occupation : "-"}}</div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="II. PARTICIPANT ADDRESS">
+      <ng-template ngbPanelContent>
+        <div class="row">
+          <div class="form-group col-md-6 mb-4">
+            <label>Home Address</label>
+            <div class="text-medium">
+              {{ member.address ? member.address : "no data" }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 mb-4">
+            <label>Home Address Area</label>
+            <div class="text-medium">
+              {{ member.home_address_area ? member.home_address_area : "no data" }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 mb-4">
+            <label>Work Address</label>
+            <div class="text-medium">
+              {{ member.work_address ? member.work_address : "no data" }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 mb-4">
+            <label>Work Address Area</label>
+            <div class="text-medium">
+              {{ member.work_address_area ? member.work_address_area : "no data" }}
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="III. PARTICIPANT EMERGENCY CONTACT">
+      <ng-template ngbPanelContent>
+        <div class="row">
+          <div class="form-group col-md-6 mb-4">
+            <label>Emergency Contact Name</label>
+            <div class="text-medium">
+              {{ member.emergency_contact_name ? member.emergency_contact_name : "no data" }}
+            </div>
+          </div>
+          <div class="form-group col-md-6 mb-4">
+            <label>Home Address Area</label>
+            <div class="text-medium">
+              {{ member.emergency ? member.emergency : "no data" }}
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="IV. Health Questions">
+      <ng-template ngbPanelContent>
+        <ul class="list" style="list-style:none;" *ngFor="let healthquestion of healthquestions">
+          <li>
+            <div class="row">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <strong>{{healthquestion.question}}</strong>
+              </div>
+              <div class="col-md-6 text-right">
+                <div class="answer" id="{{healthquestion.id}}" data-id="healthquestion.id" class="text-medium">
+                  {{ !! healthquestion.answer === false ? "No" : "Yes" }}<strong id="reason_{{healthquestion.id}}">{{healthquestion.reason
+                    ? ", "+healthquestion.reason : "" }}</strong>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="V. Reviewer Notes:">
+      <ng-template ngbPanelContent>
+        {{member.notes}}
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="VI. Photography and/or Video Release">
+      <ng-template ngbPanelContent>
+        Photography and/or Video Release of Participant involved in any activities offered by EMPIRE FIT CLUB may be
+        photographed or videotaped during training. The undersigned hereby consents to the use of these photographs
+        and/or videos without compensation, on the EMPIRE FIT CLUB website or in any editorial, promotional or
+        marketing material produced and/or published by EMPIRE FIT CLUB.
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="VII. Waiver and Release of Liability">
+      <ng-template ngbPanelContent>
+        <ul style="list-style:none" class="p-0 m-0 p-list">
+          <li><strong>(i)</strong> Express Assumption of Risk: I, the undersigned, am aware that there are significant
+            risks involved in all aspects of physical training. These risks include, but are not limited to: falls,
+            muscle strains, muscle pulls, muscle tears, broken bones, shin splints, heat prostration, injuries to
+            knees;
+            , injuries to back, injuries to foot, heart attacks, or any other illness or soreness that I may incur
+            which
+            can result in serious injury or death; injury or death due to negligence on the part of myself, my training
+            partner, or other people around me; injury or death due to improper use or failure of equipment; strains
+            and
+            sprains. I am aware that any of these above mentioned risks may result in serious injury or death to myself
+            and or my partner(s). I willingly assume full responsibility for the risks that I am exposing myself to and
+            accept full responsibility for any injury or death that may result from participation in any activity or
+            class while at, or under direction of EMPIRE FIT CLUB. I acknowledge that I have no physical impairments,
+            injuries , or illnesses that will endanger me or others.</li>
+
+          <li><strong>(ii)</strong> Release: In consideration of the above mentioned risks and hazards and in
+            consideration of the fact that I am willingly and voluntarily participating in the activities offered by
+            EMPIRE FIT CLUB, I, the undersigned hereby release EMPIRE FIT CLUB, their directors, coaches, officers,
+            employees, agents, from any and all liability, claims, demands, actions or rights of action, which are
+            related to, arise out of, or are in any way connected with my participation in this activity, including
+            those
+            allegedly attributed to the negligent acts or omissions of the above mentioned parties . This agreement
+            shall
+            be binding upon me, my spouse, my children, my guardians, my successors, representatives, heirs, executors,
+            assigns, or transferees (collectively, the "Releasors"). I accept full and complete responsibility for the
+            safety of myself, any guests, observers or other individuals who I have invited to the venue of EMPIRE FIT
+            CLUB, and property, and I assume the risk of damage, theft, loss or injury caused by others to me, my
+            guests
+            and property <br><br>
+
+            If any portion of this agreement is held invalid, I agree that the remainder of the agreement shall remain
+            in
+            full legal force and effect. If I am signing on behalf of a minor child, I also give full permission for
+            any
+            person connected with EMPIRE FIT CLUB to administer first aid deemed necessary, and in case of serious
+            illness or injury, I give permission to call for medical and or surgical care for the child and to
+            transport
+            the child to a medical facility deemed necessary for the wellbeing of the child </li>
+
+          <li><strong>(iii)</strong> Indemnification: On behalf of the Releasers, the Participant recognizes that there
+            is risk involved in the types of activities offered by EMPIRE FIT CLUB. Therefore the Participant accepts
+            financial responsibility for any injury that the Participant may cause either to him/herself or to any
+            other
+            participant due to his/her negligence. Should the above mentioned parties, or anyone acting on their
+            behalf,
+            be required to incur attorney's fees and costs to enforce this agreement, I agree to reimburse them for
+            such
+            fees and costs. I further agree to indemnify and hold harmless EMPIRE FIT CLUB, their directors, coaches,
+            officers, employees, agents from liability for the injury or death of any person(s) and damage to property
+            that may result from my negligent or intentional act or omission while participating in <br>
+            _____ activities offered by EMPIRE FIT CLUB, at the main building or aboard. This includes but is not
+            limited
+            to parks, recreational areas, playgrounds, areas adjacent to main building, and/or any area selected for
+            training by EMPIRE FIT CLUB. <br><br>
+
+            I Have read and understood the foregoing assumption of risk, and release of liability and I understand that
+            by signing it obligates me to indemnify the parties named for any liability for injury or death of any
+            person
+            and damage to property caused by my negligent or intentional act or omission. I understand that by signing
+            this form I am waiving valuable legal rights.</li>
+
+          <li><strong>(iv)</strong> Promise Not To Bring Suit: I hereby agree and covenant not to, and shall cause the
+            Releasors not to, bring a claim against, sue, demand compensation from or attach the property or assets of
+            EMPIRE FIT CLUB or any of their directors, coaches, officers, employees, agents, for any loss or damage
+            arising or resulting from my participation in EMPIRE FIT CLUB or my travel to or from or presence at the
+            venue, 2nd forever release and discharge EMPIRE FIT CLUB or any of their directors, coaches, officers,
+            employees, agents them from liability under such claims.</li>
+        </ul>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel title="Signature">
+      <ng-template ngbPanelContent>
+        <div class="row">
+          <div class="col-md-6">
+            <img src="{{member.liability_signature}}" alt="">
+          </div>
+          <div class="col-md-6">
+            <img src="{{member.liability_user_signature}}" alt="">
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
+
+  </ngb-accordion>
+
+  <div class="row mt-5">
+    <div class="form-group col-md-6 mb-3">
+      <label for="firstName" class="d-block mb-2 text-medium"><strong>Member Signature</strong></label>
+      <button (click)="openLg(signaturesatu)" id="btn-putsignature" class="btn btn-primary">Put Signature</button>
+      <button class="btn btn-success d-none ml-3 isSuccessLiabilityMemberSign" disabled>Success</button>
+      <ng-template #signaturesatu let-modal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title"><strong><span class="text-capitalize">Member Signature</span></strong></h4>
+          <button type="button" class="close" aria-label="Close" (click)="c('close')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <signature-pad [options]="signaturePadMember" id="member" #member_sign></signature-pad>
+          <input type="hidden" formControlName="member_sign" id="member-sign" value="">
+          <div class="text-left">
+            <button class="btn btn-primary py-2 px-5 mr-3" (click)="member_sign.clear()">Clear</button>
+            <button class="btn btn-primary py-2 px-5 mr-3" (click)="memberliabilitysign(member_sign)">Submit</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+    <div class="form-group col-md-6 mb-3">
+      <label for="lastName" class="d-block mb-2 text-medium"><strong>Staff Signature</strong></label>
+
+
+      <button (click)="openLg(signaturedua)" id="btn-putsignaturestaff" class="btn btn-primary">Put Signature</button>
+      <button class="btn btn-success d-none ml-3 isSuccessLiabilityStaffSign" disabled>Success</button>
+      <ng-template #signaturedua let-modal let-c="close" let-d="dismiss">
+        <div class="modal-header">
+          <h4 class="modal-title"><strong><span class="text-capitalize">Staff Signature</span></strong></h4>
+          <button type="button" class="close" aria-label="Close" (click)="c('close')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <signature-pad [options]="signaturePadStaff" id="staff" #staff_sign></signature-pad>
+          <input type="hidden" formControlName="staff_sign" id="staff-sign" value="">
+          <div class="text-left">
+            <button class="btn btn-primary py-2 px-5 mr-3" (click)="staff_sign.clear()">Clear</button>
+            <button class="btn btn-primary py-2 px-5 mr-3" (click)="staffliabilitysign(staff_sign)">Submit</button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</form>
+<hr>
+<div class="row">
+  <div class="col-md-6">
+    <button class="btn btn-primary" (click)="back()" type="button">Back</button>
+  </div>
+  <div class="col-md-6 text-right">
+    <button class="btn btn-primary" (click)="done()" type="button">Done</button>
+  </div>
+</div>
