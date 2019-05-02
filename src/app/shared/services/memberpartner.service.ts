@@ -63,6 +63,13 @@ export class MemberPartnerService {
     );
   }
 
+  checkSign(phone) {
+    return this.http.get(
+      this.apiURL + "/mp_check_sign/" + phone,
+      this.httpOptions
+    );
+  }
+
   //   updateMember(id, data) {
   //     return this.http.put(
   //       this.apiURL + "/members/" + id,
