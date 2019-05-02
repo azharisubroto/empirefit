@@ -70,6 +70,12 @@ export class MemberPartnerService {
     );
   }
 
+  updateLiability(phone, data) {
+    return this.http.put(
+      this.apiURL + "/member_partner/update_liability/" + phone, data, this.httpOptions
+    );
+  }
+
   //   updateMember(id, data) {
   //     return this.http.put(
   //       this.apiURL + "/members/" + id,

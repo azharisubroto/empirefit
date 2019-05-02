@@ -29,6 +29,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
 import { BranchService } from "src/app/shared/services/branch.service";
+import { MemberPartnerService } from "src/app/shared/services/memberpartner.service";
 
 @Component({
   selector: 'app-member-partner-sign',
@@ -117,6 +118,7 @@ export class MemberPartnerSignComponent implements OnInit {
     private healthQuestionService: HealthQuestionsService,
     private priceService: PriceService,
     private branchService: BranchService,
+    private MemberPartnerService: MemberPartnerService,
     private edcService: EdcService,
     private sanitizer: DomSanitizer,
     private modalService: NgbModal,
@@ -200,7 +202,10 @@ export class MemberPartnerSignComponent implements OnInit {
         this.toastr.success(data["message"], "Saved", {
           progressBar: true
         });
-        this.location.back();
+
+        this.MemberPartnerService.updateLiability(this.member.phone, this.member.phone).subscribe((data: any) => {
+          this.location.back();
+        });
       }
     });
   }

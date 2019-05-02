@@ -65,6 +65,7 @@
                       <!-- <th>Booking Reference</th> -->
                       <th>Name</th>
                       <th>Phone Number</th>
+                      <th>Sign</th>
                       <!-- <th>Email</th> -->
                       <th>Status</th>
                       <!-- <th>Verified By</th> -->
@@ -80,7 +81,7 @@
                       <!-- <td>{{ item.booking_referance }}</td> -->
                       <td>{{ item.name }}</td>
                       <td>{{ item.phone }}</td>
-                      <!-- <td>{{ item.email }}</td> -->
+                      <td>{{ item.signed == 1 ? 'Signed' : 'Unsigned' }}</td>
                       <td class="inistatus">{{ item.status === '1' ? 'Used' : 'Active' }}</td>
                       <!-- <td>{{ !! item.updated_by != NULL ? item.updated_by : 'n/a' }}</td> -->
                       <td>
