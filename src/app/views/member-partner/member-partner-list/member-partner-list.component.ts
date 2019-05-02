@@ -114,7 +114,7 @@ export class MemberPartnerComponent implements OnInit {
                     } else if (classtime2 < mod.getClock()) {
                       ini.addClass('bg-danger').css('color', '#fff');
                       ini.find('.inistatus').html('Expired');
-                      absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                      absenbutton.addClass('expired disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
                     }
                   }
                 }
@@ -173,6 +173,11 @@ export class MemberPartnerComponent implements OnInit {
 
   absencoy(e) {
     var tag = $(e.currentTarget);
+
+    if( tag.hasClass('expired') ) {
+      return false;
+    }
+    
     // alert(tag.data('email'));
 
     var data = {
@@ -324,7 +329,7 @@ export class MemberPartnerComponent implements OnInit {
                       } else if (classtime2 < mod.getClock()) {
                         ini.addClass('bg-danger').css('color', '#fff');
                         ini.find('.inistatus').html('Expired');
-                        absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                        absenbutton.addClass('disabled btn-disabled expired').removeClass('btn-secondary').attr('disabled', 'disabled');
                       }
                     }
                   }
