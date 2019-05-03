@@ -536,12 +536,9 @@ export class MemberActivationComponent implements OnInit {
       })
     } else {
       if (!this.member.photo) {
-        this.toastr.success("Please take photo", "Error!", {
+        this.toastr.success("Skiped", "Photo", {
           progressBar: true
         });
-        setTimeout(() => {
-          $('.prevaja').trigger('click');
-        }, 50);
       }
     }
   }
