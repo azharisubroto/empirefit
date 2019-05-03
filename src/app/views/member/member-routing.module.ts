@@ -11,6 +11,8 @@ import { MemberPackageComponent } from "./member-package/member-package.componen
 import { MemberAutodebitComponent } from "./member-autodebit/member-autodebit.component";
 import { MemberChangeCcComponent } from "./member-change-cc/member-change-cc.component";
 import { MemberHistoryComponent } from "./member-history/member-history.component";
+import { FnbTransactionComponent } from "./fnb-transaction/fnb-transaction.component";
+import { FnbPayComponent } from "./fnb-pay/fnb-pay.component";
 import { MemberUpgradePaymentComponent } from "./member-upgrade-payment/member-upgrade-payment.component";
 
 const routes: Routes = [
@@ -61,7 +63,15 @@ const routes: Routes = [
   {
     path: "member/upgrade-membership/:id",
     component: MemberUpgradePaymentComponent
-  }
+  },
+  {
+    path: "member/fnb-transaction/:id",
+    component: FnbTransactionComponent
+  },
+  {
+    path: "member/fnb-transaction/pay/:id",
+    component: FnbPayComponent
+  },
 ];
 
 @NgModule({

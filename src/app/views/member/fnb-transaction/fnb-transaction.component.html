@@ -1,0 +1,114 @@
+<div class="breadcrumb">
+  <h1>F&B</h1>
+  <ul>
+    <li>{{member.name}}</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="col-md-12">
+  <div class="fancy-head"><span>Form Transaction</span></div>
+  <form [formGroup]="fnbForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="text-small">Items</div>
+        <input required id="item" class="form-control" type="text" formControlName="item">
+      </div>
+      <div class="col-md-2">
+        <div class="text-small">Price</div>
+        <input required id="idr" class="form-control" type="text" formControlName="idr">
+      </div>
+      <div class="col-md-2">
+        <btn-loading [loading]="loading" btnClass="btn-primary btn-lg btn-block mt-3">Pay
+          Later</btn-loading>
+      </div>
+      <div class="col-md-2">
+        <button type="button" (click)="cancel()" class="btn btn-warning btn-lg btn-block mt-3">Cancel</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+</div>
+
+<div class="container">
+  <div class="row" id="pdfsample">
+    <div class="col-md-12">
+      <div class="card o-hidden">
+        <div class="table mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
+                  <thead class="text-center">
+                    <tr>
+                      <td>Trx Datetime</td>
+                      <td>Paid Datetime</td>
+                      <td>Items</td>
+                      <td>Price</td>
+                      <td>Trx Verification</td>
+                      <td>Paid</td>
+                      <td>Type</td>
+                      <td>Trace Code</td>
+                      <td>Paid Verification</td>
+                      <td>Action</td>
+                    </tr>
+                  </thead>
+                  <tbody class="partners">
+                    <tr *ngFor="let res of fnball">
+                      <td class="text-center">{{ res.trx_date }}</td>
+                      <td class="text-center">{{ res.paid_date ? res.paid_date : '-' }}</td>
+                      <td class="text-center">{{ res.item }}</td>
+                      <td class="text-right">{{ res.idr ? res.idr : '0' }}</td>
+                      <td class="text-center">{{ res.trx_verification }}</td>
+                      <td class="text-center">{{ res.paid === '0' ? 'No' : 'Yes' }}</td>
+                      <td class="text-center">{{ res.type ? res.type : '-' }}</td>
+                      <td class="text-center">{{ res.trace_number ? res.trace_number : '-' }}</td>
+                      <td class="text-center">{{ res.paid_verification ? res.paid_verification : '-' }}</td>
+                      <td class="text-center">
+                        <button class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, res.id)">
+                          <i class="i-Close-Window"> Delete</i>
+                        </button>
+
+                        <!-- Delete Modal -->
+                        <ng-template #modalConfirm let-modal>
+                          <div class="modal-header">
+                            <h4 class="modal-title" id="modal-title">
+                              F&B deletion
+                            </h4>
+                            <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
+                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              <strong>Are you sure you want to delete this transaction ?</strong>
+                            </p>
+                            <p>
+                              All information associated to this transaction will be
+                              permanently deleted.
+                              <span class="text-danger">This operation can not be undone.</span>
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
+                              Cancel
+                            </button>
+                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
+                              Ok
+                            </button>
+                          </div>
+                        </ng-template>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

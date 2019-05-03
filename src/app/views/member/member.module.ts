@@ -24,6 +24,8 @@ import { MemberAutodebitComponent } from './member-autodebit/member-autodebit.co
 import { MemberChangeCcComponent } from './member-change-cc/member-change-cc.component';
 import { MemberUpgradePaymentComponent } from './member-upgrade-payment/member-upgrade-payment.component';
 import { MemberHistoryComponent } from './member-history/member-history.component';
+import { FnbTransactionComponent } from './fnb-transaction/fnb-transaction.component';
+import { FnbPayComponent } from './fnb-pay/fnb-pay.component';
 
 @NgModule({
   imports: [
@@ -52,7 +54,9 @@ import { MemberHistoryComponent } from './member-history/member-history.componen
     MemberAutodebitComponent,
     MemberChangeCcComponent,
     MemberUpgradePaymentComponent,
-    MemberHistoryComponent
+    MemberHistoryComponent,
+    FnbTransactionComponent,
+    FnbPayComponent
   ]
 })
 export class MemberModule {}
