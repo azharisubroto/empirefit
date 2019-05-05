@@ -26,7 +26,7 @@ export class FinanceService {
     }
 
     searchRecuring(data) {
-        return this.http.post(this.apiURL + "/recuring_search/", data, this.httpOptions);
+        return this.http.post(this.apiURL + "/recuring_search", data, this.httpOptions);
     }
 
     updateRecuring(recuring_id, data) {

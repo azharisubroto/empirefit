@@ -120,16 +120,8 @@ export class TransactionReportComponent implements OnInit {
 
     this.userForm.setValue({
       branch_id: "ALL",
-      first_date: {
-        day: day,
-        month: month,
-        year: year
-      },
-      second_date: {
-        day: day,
-        month: month,
-        year: year
-      },
+      first_date: newtoday,
+      second_date: newtoday,
       payment_type: "ALL"
     });
 
@@ -170,6 +162,7 @@ export class TransactionReportComponent implements OnInit {
   }
 
   submit() {
+    // return console.log(this.userForm.value)
     if (this.userForm.controls["first_date"].value == "" || this.userForm.controls["second_date"].value == "") {
       alert("Please insert date");
     } else {

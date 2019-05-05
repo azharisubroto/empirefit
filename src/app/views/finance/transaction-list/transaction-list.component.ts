@@ -12,6 +12,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrService } from "ngx-toastr";
 import { UserService } from "src/app/shared/services/user.service";
 import { EdcService } from "src/app/shared/services/edc.service";
+import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 import * as $ from "jquery";
 // import "datatables.net";
 // import "datatables.net-bs4";
@@ -55,6 +56,7 @@ export class TransactionListComponent implements OnInit {
     private chRef: ChangeDetectorRef,
     private modalService: NgbModal,
     private toastr: ToastrService,
+    private parserFormatter: NgbDateParserFormatter,
     private UserService: UserService,
     private fb: FormBuilder,
     private EdcService: EdcService,
@@ -87,7 +89,7 @@ export class TransactionListComponent implements OnInit {
         //$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
       }, 200);
       //console.log([...res]);
-      console.log(data);
+      // console.log(data);
     });
 
     var today = new Date();
@@ -131,7 +133,7 @@ export class TransactionListComponent implements OnInit {
     // get edc
     this.EdcService.getEdcs().subscribe((data: any) => {
       this.edcs = data['data'];
-      console.log(this.edcs);
+      // console.log(this.edcs);
     });
   }
 
@@ -166,7 +168,7 @@ export class TransactionListComponent implements OnInit {
 
   }
 
-  changeDate(event: any, $target) {
+  changeDate(event, $target) {
     var mod = this;
     var year = event['year'];
     var month = event['month'];
@@ -176,16 +178,25 @@ export class TransactionListComponent implements OnInit {
     //$('.classes-list').html('Loading...');
     if ($target == 'first_date') {
       this.userForm.patchValue({
-        first_date: tosend
+        first_date: {
+          year: year,
+          month: month,
+          day: day
+        }
       });
     }
 
     if ($target == 'second_date') {
       this.userForm.patchValue({
-        second_date: tosend
+        second_date: {
+          year: year,
+          month: month,
+          day: day
+        }
       });
     }
 
+    // console.log(this.userForm.controls['first_date'].value)
   }
 
   pad(d) {
@@ -204,6 +215,13 @@ export class TransactionListComponent implements OnInit {
   }
 
   submit() {
+    let first_date = this.userForm.controls["first_date"].value;
+    let second_date = this.userForm.controls["second_date"].value;
+    let formValue = this.userForm.value;
+
+    formValue['first_date'] = this.parserFormatter.format(first_date);
+    formValue['second_date'] = this.parserFormatter.format(second_date);
+    console.log(formValue)
     if (this.userForm.controls["first_date"].value == "" || this.userForm.controls["second_date"].value == "") {
       alert("Please insert date");
     } else {
@@ -212,8 +230,9 @@ export class TransactionListComponent implements OnInit {
       this.table.destroy();
       var items: any = [];
       var itemprints: any = [];
-      this.FinanceService.searchRecuring(this.userForm.value).subscribe((data: any[]) => {
+      this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
         var res = data['data'];
+        console.log(res)
         setTimeout(() => {
           $(".totrec").text("IDR " + data["recuring_payment"]);
           $(".totun").text("IDR " + data["unpaid"]);
