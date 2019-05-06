@@ -39,6 +39,8 @@ export class ScheduleViewComponent implements OnInit {
   exercise;
   time;
   branch_id;
+  today;
+  totalparticipants;
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +56,13 @@ export class ScheduleViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var newtoday = yyyy + '-' + mm + '-' + dd;
+
     let formData = ({
       schedule_id: this.activatedRoute.snapshot.params['schedule_id'],
       branch_id: this.activatedRoute.snapshot.params['branch_id'],
@@ -62,12 +71,15 @@ export class ScheduleViewComponent implements OnInit {
 
     this.scheduleService.showSchedule(this.activatedRoute.snapshot.params['schedule_id']).subscribe((data: any) => {
       this.exercise = data['data'].exercise;
+      this.today = newtoday;
       this.time = data['data'].day + ' - ' + data['data'].time;
       this.branch_id = data["data"].branch_name ? data["data"].branch_name : ' - ';
     })
 
     this.classRegistrationService.viewClass(formData).subscribe((data: any) => {
       this.classhistory = data["data"];
+
+      this.totalparticipants = data["data"][0].total_participants;
 
       this.chRef.detectChanges();
       $("#mytable").DataTable({
