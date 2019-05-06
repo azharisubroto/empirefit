@@ -254,7 +254,7 @@ export class TransactionListComponent implements OnInit {
             !!item.bank_withdrawal ? item.bank_withdrawal : 'n/a',
             !!item.fo_status ? item.fo_status : 'n/a',
             !!item.fo_payment ? item.fo_payment : 'n/a',
-            '<button class="btn btn btn-sm btn-warning mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Check"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button class="btn btn-sm mr-2 btn-warning"><i class="i-Download"></i></button>'
+            '<a href="#" class="ajax-update-btn" data-update="' + item.id + '"><img style="width: 30px; height: auto; margin-right: 7px; margin-bottom: 6px;" src="/assets/images/checked.png"></a><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning" style="margin-bottom: 6px;"><i class="i-Pen-4"></i></a><button class="btn btn-sm mr-2 btn-warning"><i class="i-Download"></i></button>'
           ];
           var newPrintThis = [
             item.credit_card_number,
