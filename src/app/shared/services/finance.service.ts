@@ -44,4 +44,8 @@ export class FinanceService {
     downloadExcel(data) {
         return this.http.post(this.apiURL + "/recuring_download_excel", data, this.httpOptions);
     }
+
+    refund(recuring_id) {
+        return this.http.get(this.apiURL + "/recuring_refund/" + recuring_id, this.httpOptions);
+    }
 }
