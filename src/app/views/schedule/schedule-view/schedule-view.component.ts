@@ -100,7 +100,9 @@ export class ScheduleViewComponent implements OnInit {
   }
 
   back() {
-    this.location.back();
+    this.router.navigateByUrl(
+      "class-participants"
+    );
   }
 
 }

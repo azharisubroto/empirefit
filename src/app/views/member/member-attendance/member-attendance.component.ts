@@ -14,7 +14,7 @@ import { ScheduleService } from "src/app/shared/services/schedule.service";
 import { FingerService } from "src/app/shared/services/finger.service";
 import { PersonaltrainerService } from "src/app/shared/services/personaltrainer.service";
 import { HealthQuestionsService } from "src/app/shared/services/health-questions.service";
-import { ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ClassesService } from "src/app/shared/services/classes.service";
@@ -95,6 +95,7 @@ export class MemberAttendanceComponent implements OnInit {
     private personalTrainerService: PersonaltrainerService,
     private sanitizer: DomSanitizer,
     private chRef: ChangeDetectorRef,
+    private router: Router,
     private healthQuestionService: HealthQuestionsService,
   ) { }
 
@@ -661,35 +662,51 @@ export class MemberAttendanceComponent implements OnInit {
 
         this.ClassesService.classCheckIn(this.absen.value).subscribe(
           (data: any) => {
-            var res = data["data"];
+            var res = data;
+            // return console.log(res.schedule_id)
             // console.log(data["message"]);
             // console.log(data["data"]);
-            let obj = data["data"].schedule_id;
+            // let obj = res.schedule_id;
 
-            $.each(obj, function (i, item) {
-              // console.log(item);
-              var _cancelbtn =
-                '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" style="color:#fff!important" data-logid="' +
-                item +
-                '">Cancel</button>';
-              $('[name="schedulepick"][value="' + item + '"]').prop("disabled", true).parents('.checkbox').removeClass('notyet').find(".checkmark").after(_cancelbtn);
-            });
+            // $.each(obj, function (i, item) {
+            //   console.log(item);
+            //   var _cancelbtn =
+            //     '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" style="color:#fff!important" data-logid="' +
+            //     item +
+            //     '">Cancel</button>';
+            //   $('[name="schedulepick"][value="' + item + '"]').prop("disabled", true).parents('.checkbox').removeClass('notyet').find(".checkmark").after(_cancelbtn);
+            // });
 
-            setTimeout(() => {
-              if ($('[name="schedulepick"]').is(':checked')) {
-                $('[name="schedulepick"]:checked').each(function () {
-                  let _ini = $(this);
-                  let _parent = _ini.parents('.checkbox');
-                  let _delBtn = _parent.find('.delete_class');
-                  let _newlogID = _parent.data('logstring');
-                  // console.log(_newlogID);
-                  _delBtn.attr('data-logid', _newlogID);
-                });
-              }
-            }, 500);
+            // setTimeout(() => {
+            //   if ($('[name="schedulepick"]').is(':checked')) {
+            //     $('[name="schedulepick"]:checked').each(function () {
+            //       let _ini = $(this);
+            //       let _parent = _ini.parents('.checkbox');
+            //       let _delBtn = _parent.find('.delete_class');
+            //       let _newlogID = _parent.data('logstring');
+            //       // console.log(_newlogID);
+            //       _delBtn.attr('data-logid', _newlogID);
+            //     });
+            //   }
+            // }, 500);
 
             this.loading = false;
-            this.cancelClass();
+
+            if (res.status == '200') {
+              this.toastr.success('ClassRegistration Success', "Success", {
+                progressBar: true
+              });
+
+              setTimeout(() => {
+                location.reload();
+              }, 1000);
+
+            } else {
+              this.toastr.error('ClassRegistration Failed', "Error!", {
+                progressBar: true
+              });
+            }
+            // this.cancelClass();
           }
         );
 
@@ -715,6 +732,7 @@ export class MemberAttendanceComponent implements OnInit {
     var mod = this;
     let formValue = this.userForm.value;
     formValue["user_id"] = mod.user.id;
+    formValue["member_id"] = this.activatedRoute.snapshot.params['id'];
 
     //console.log(formValue);
     $(".delete_class").on("click", function (e) {
@@ -787,40 +805,44 @@ export class MemberAttendanceComponent implements OnInit {
           .subscribe((data: any) => {
             if (data["status"] == "200") {
 
+              this.loading = false;
+
               subscribe.unsubscribe();
               this.toastr.success(data["message"], "Success", {
                 progressBar: true
               });
 
-              var res = data["data"];
-              // console.log(data["message"]);
-              // console.log(data["data"]);
-              let obj = data["schedule_id"];
-
-              $.each(obj, function (i, item) {
-                // console.log(item);
-                var _cancelbtn =
-                  '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" style="color:#fff!important" data-logid="' +
-                  item +
-                  '">Cancel</button>';
-                $('[name="schedulepick"][value="' + item + '"]').prop("disabled", true).parents('.checkbox').removeClass('notyet').find(".checkmark").after(_cancelbtn);
-              });
-
               setTimeout(() => {
-                if ($('[name="schedulepick"]').is(':checked')) {
-                  $('[name="schedulepick"]:checked').each(function () {
-                    let _ini = $(this);
-                    let _parent = _ini.parents('.checkbox');
-                    let _delBtn = _parent.find('.delete_class');
-                    let _newlogID = _parent.data('logstring');
-                    // console.log(_newlogID);
-                    _delBtn.attr('data-logid', _newlogID);
-                  });
-                }
-              }, 500);
+                location.reload();
+              }, 1000);
 
-              this.loading = false;
-              this.cancelClass();
+              // var res = data["data"];
+              // // console.log(data["message"]);
+              // // console.log(data["data"]);
+              // let obj = data["schedule_id"];
+
+              // $.each(obj, function (i, item) {
+              //   // console.log(item);
+              //   var _cancelbtn =
+              //     '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" style="color:#fff!important" data-logid="' +
+              //     item +
+              //     '">Cancel</button>';
+              //   $('[name="schedulepick"][value="' + item + '"]').prop("disabled", true).parents('.checkbox').removeClass('notyet').find(".checkmark").after(_cancelbtn);
+              // });
+
+              // setTimeout(() => {
+              //   if ($('[name="schedulepick"]').is(':checked')) {
+              //     $('[name="schedulepick"]:checked').each(function () {
+              //       let _ini = $(this);
+              //       let _parent = _ini.parents('.checkbox');
+              //       let _delBtn = _parent.find('.delete_class');
+              //       let _newlogID = _parent.data('logstring');
+              //       // console.log(_newlogID);
+              //       _delBtn.attr('data-logid', _newlogID);
+              //     });
+              //   }
+              // }, 500);
+              // this.cancelClass();
 
             } else {
               subscribe.unsubscribe();

@@ -218,6 +218,9 @@ export class StaffAttendanceComponent implements OnInit {
               this.toastr.success(data["message"], "Success", {
                 progressBar: true
               });
+              setTimeout(() => {
+                location.reload();
+              }, 1000)
             } else {
               subscribe.unsubscribe();
               setTimeout(() => {
@@ -255,6 +258,9 @@ export class StaffAttendanceComponent implements OnInit {
               this.toastr.success(data["message"], "Success", {
                 progressBar: true
               });
+              setTimeout(() => {
+                location.reload();
+              }, 1000);
             } else {
               subscribe.unsubscribe();
               setTimeout(() => {
@@ -300,7 +306,7 @@ export class StaffAttendanceComponent implements OnInit {
               $(".modal-header .close").trigger("click");
               setTimeout(() => {
                 location.reload();
-              }, 3000)
+              }, 1000)
             } else {
               this.loading = false;
               $(".modal-header .close").trigger("click");
@@ -344,7 +350,7 @@ export class StaffAttendanceComponent implements OnInit {
               $(".modal-header .close").trigger("click");
               setTimeout(() => {
                 location.reload();
-              }, 3000)
+              }, 1000)
             } else {
               this.loading = false;
               $(".modal-header .close").trigger("click");

@@ -96,7 +96,7 @@ export class TransactionListComponent implements OnInit {
             $(".ajax-update-btn").removeAttr('disabled');
             $(".refund-btn").attr('disabled', 'disabled');
           }
-        }, 500)
+        }, 500);
 
         //$("div.toolbar").html('<b>Custom tool bar! Text/images etc.</b>');
       }, 200);
@@ -267,7 +267,7 @@ export class TransactionListComponent implements OnInit {
               !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
               !!item.fo_status ? item.fo_status : 'n/a',
               !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning" style="margin-bottom: 6px;"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token"></i></button>'
+              '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token-"></i></button>'
             ];
             var newPrintThis = [
               item.credit_card_number,
@@ -350,17 +350,6 @@ export class TransactionListComponent implements OnInit {
           });
           // console.log(res);
         });
-
-        setTimeout(() => {
-          if (data["data"].progress == '1') {
-            $(".ajax-update-btn").attr('disabled', 'disabled');
-            $(".refund-btn").removeAttr('disabled');
-            console.log(true);
-          } else {
-            $(".ajax-update-btn").removeAttr('disabled');
-            $(".refund-btn").attr('disabled', 'disabled');
-          }
-        }, 1000);
       });
     } else {
       console.log(false);
@@ -415,7 +404,7 @@ export class TransactionListComponent implements OnInit {
             !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
             !!item.fo_status ? item.fo_status : 'n/a',
             !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-            '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning" style="margin-bottom: 6px;"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token"></i></button>'
+            '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token-"></i></button>'
           ];
           var newPrintThis = [
             item.credit_card_number,
@@ -498,17 +487,6 @@ export class TransactionListComponent implements OnInit {
         });
         // console.log(res);
       });
-
-      setTimeout(() => {
-        if (data["data"].progress == '1') {
-          $(".ajax-update-btn").attr('disabled', 'disabled');
-          $(".refund-btn").removeAttr('disabled');
-          console.log(true);
-        } else {
-          $(".ajax-update-btn").removeAttr('disabled');
-          $(".refund-btn").attr('disabled', 'disabled');
-        }
-      }, 1000);
     });
   }
 
@@ -552,7 +530,7 @@ export class TransactionListComponent implements OnInit {
             !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
             !!item.fo_status ? item.fo_status : 'n/a',
             !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-            '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning" style="margin-bottom: 6px;"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token"></i></button>'
+            '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token-"></i></button>'
           ];
           var newPrintThis = [
             item.credit_card_number,
@@ -634,17 +612,6 @@ export class TransactionListComponent implements OnInit {
           data: itemprints,
         });
         // console.log(res);
-
-        setTimeout(() => {
-          if (data["data"].progress == '1') {
-            $(".ajax-update-btn").attr('disabled', 'disabled');
-            $(".refund-btn").removeAttr('disabled');
-            console.log(true);
-          } else {
-            $(".ajax-update-btn").removeAttr('disabled');
-            $(".refund-btn").attr('disabled', 'disabled');
-          }
-        }, 1000);
 
       });
     }
@@ -823,7 +790,7 @@ export class TransactionListComponent implements OnInit {
               !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
               !!item.fo_status ? item.fo_status : 'n/a',
               !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning" style="margin-bottom: 6px;"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token"></i></button>'
+              '<button class="btn btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning btn-download-sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning refund-btn"><i class="i-Token-"></i></button>'
             ];
             var newPrintThis = [
               item.credit_card_number,
@@ -905,17 +872,6 @@ export class TransactionListComponent implements OnInit {
             data: itemprints,
           });
           // console.log(res);
-
-          setTimeout(() => {
-            if (data["data"].progress == '1') {
-              $(".ajax-update-btn").addClass('disabled');
-              $(".refund-btn").removeAttr('disabled');
-              console.log(true);
-            } else {
-              $(".ajax-update-btn").removeClass('disabled');
-              $(".refund-btn").attr('disabled', 'disabled');
-            }
-          }, 1000);
         });
       });
     } else {

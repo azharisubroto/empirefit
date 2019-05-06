@@ -88,7 +88,7 @@ export class FnbPayComponent implements OnInit {
     });
 
     this.fnbForm = this.fb.group({
-      type: ["3", Validators.required],
+      type: ["Cash", Validators.required],
       trace_number: [""]
     });
 
@@ -102,9 +102,9 @@ export class FnbPayComponent implements OnInit {
 
   submit() {
     // return console.log(this.fnbForm.value)
-    if (this.fnbForm.invalid) {
+    if (this.fnbForm.controls['type'].value != 'Cash' && this.fnbForm.controls['trace_number'].invalid) {
       this.loading = false;
-      alert('Please choice payment type')
+      alert('Please input trace number');
     } else {
       this.loading = true;
       this.fnbService.update(this.activatedRoute.snapshot.params["id"], this.fnbForm.value).subscribe((res: any) => {

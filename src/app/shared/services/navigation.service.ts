@@ -75,27 +75,27 @@ export class NavigationService {
     },
     {
       name: "Class Participants",
-      type: "dropDown",
+      type: "link",
       tooltip: "Class Participants",
       icon: "i-Calendar",
       state: "/class-participants",
       perm: "5",
-      sub: [
-        {
-          icon: "i-Library",
-          name: "Class list",
-          state: "/class-participants/class-list",
-          type: "link",
-          perm: "6",
-        },
-        {
-          icon: "i-Library",
-          name: "Class Report",
-          state: "/class-participants/class-report",
-          type: "link",
-          perm: "6",
-        }
-      ]
+      // sub: [
+      // {
+      //   icon: "i-Library",
+      //   name: "Class list",
+      //   state: "/class-participants/class-list",
+      //   type: "link",
+      //   perm: "6",
+      // },
+      // {
+      //   icon: "i-Library",
+      //   name: "Class Report",
+      //   state: "/class-participants/class-report",
+      //   type: "link",
+      //   perm: "6",
+      // }
+      // ]
     },
     {
       name: "Finance",

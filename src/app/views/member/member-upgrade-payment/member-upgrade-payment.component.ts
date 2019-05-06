@@ -320,6 +320,11 @@ export class MemberUpgradePaymentComponent implements OnInit {
   }
 
   onStep1Next() {
+    if (this.membershipForm.controls["auto_debet"].value == "0") {
+      setTimeout(() => {
+        $('.nextaja').trigger('click');
+      }, 50);
+    }
     let formValue = this.membershipForm.value;
     let exp_month = this.membershipForm.controls["exp_month"].value;
     let exp_year = this.membershipForm.controls["exp_year"].value;
@@ -377,10 +382,6 @@ export class MemberUpgradePaymentComponent implements OnInit {
                 $("#card_date_text").text(data["data"][0].created_at ? data["data"][0].created_at : null);
                 $("#card_id_text").val(data["data"][0].id ? data["data"][0].id : null);
               }, 500)
-            } else {
-              setTimeout(() => {
-                $('.nextaja').trigger('click');
-              }, 50);
             }
           } else {
             setTimeout(() => {

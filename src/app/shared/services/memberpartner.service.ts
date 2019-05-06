@@ -29,7 +29,7 @@ export class MemberPartnerService {
 
   createMemberPartner(data) {
     return this.http.post(
-      this.apiURL + "/member_partners/",
+      this.apiURL + "/member_partners",
       data,
       this.httpOptions
     );
