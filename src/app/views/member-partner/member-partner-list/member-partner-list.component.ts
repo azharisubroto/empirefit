@@ -173,28 +173,33 @@ export class MemberPartnerComponent implements OnInit {
 
   absencoy(e) {
     var tag = $(e.currentTarget);
-    // alert(tag.data('email'));
 
-    var data = {
-      status: 1,
-      updated_by: this.user.id
-    };
+    if( tag.hasClass('disabled') ) {
+      //alert('gakbisa'); return false;
+    } else {
+      // alert(tag.data('email'));
 
-    if (tag.data('status') != 1) {
-      this.MemberPartnerService.memberPartnerCheckIn(tag.data('id'), data).subscribe((data: any) => {
-        var response = data;
-        if (data["status"] === "200") {
-          this.toastr.success(data["message"], "Success", {
-            progressBar: false
-          });
-          location.reload();
-          //console.log(data['message']);
-        } else {
-          this.toastr.error(data["message"], "Error", {
-            progressBar: false
-          });
-        }
-      });
+      var data = {
+        status: 1,
+        updated_by: this.user.id
+      };
+
+      if (tag.data('status') != 1) {
+        this.MemberPartnerService.memberPartnerCheckIn(tag.data('id'), data).subscribe((data: any) => {
+          var response = data;
+          if (data["status"] === "200") {
+            this.toastr.success(data["message"], "Success", {
+              progressBar: false
+            });
+            location.reload();
+            //console.log(data['message']);
+          } else {
+            this.toastr.error(data["message"], "Error", {
+              progressBar: false
+            });
+          }
+        });
+      }
     }
   }
 
