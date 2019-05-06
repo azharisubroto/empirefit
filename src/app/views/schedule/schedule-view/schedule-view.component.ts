@@ -8,6 +8,7 @@ import {
   FormControl,
   Validators
 } from "@angular/forms";
+import { Location } from '@angular/common';
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -48,7 +49,8 @@ export class ScheduleViewComponent implements OnInit {
     private router: Router,
     private chRef: ChangeDetectorRef,
     private modalService: NgbModal,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private location: Location
   ) { }
 
   ngOnInit() {
@@ -83,6 +85,10 @@ export class ScheduleViewComponent implements OnInit {
         }
       });
     });
+  }
+
+  back() {
+    this.location.back();
   }
 
 }
