@@ -74,10 +74,25 @@ export class ScheduleReportComponent implements OnInit {
       this.branches = data["data"];
     });
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    var newtoday = yyyy + '-' + mm + '-' + dd;
+
+    var filterdate = newtoday;
+    var splitdate = filterdate.split('-');
+    var year = splitdate[0],
+      month = splitdate[1],
+      day = splitdate[2];
+
     this.searchForm = this.fb.group({
       branch_id: ["1", Validators.required],
-      date: ["", Validators.required],
+      date: [newtoday, Validators.required],
     });
+
+    $(".class-date").val(newtoday);
   }
 
   changeDate(event: any, $target) {
@@ -115,7 +130,7 @@ export class ScheduleReportComponent implements OnInit {
             item.schedule_time,
             item.exercise,
             item.total_participants,
-            '<button class="btn btn-dark view-btn" data-branch="' + item.branch_id + '" data-date="' + item.date + '" data-view="' + item.schedule_id + '" id="' + item.id + '">View</button>',
+            '<a href="/class-participants/class-view/' + item.schedule_id + '/' + item.date + '/' + item.branch_id + '" class="btn btn-primary view-btn" data-branch="' + item.branch_id + '" data-date="' + item.date + '" data-view="' + item.schedule_id + '" id="' + item.id + '">View</a>',
           ];
           items.push(newthis);
         });
@@ -140,16 +155,6 @@ export class ScheduleReportComponent implements OnInit {
             { title: 'Action' },
           ],
           data: items,
-          initComplete: function () {
-            $('.view-btn').on('click', function (e) {
-              e.preventDefault();
-              var id = $(this).data('view'),
-                dateview = $(this).data('date'),
-                content = 'viewdata',
-                branch = $(this).data('branch'); //dapet id
-              mod.openLg(content, id, dateview, branch);
-            });
-          }
         });
       })
     }

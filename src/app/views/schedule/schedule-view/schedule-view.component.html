@@ -1,0 +1,43 @@
+<div class="">
+  <div class="breadcrumb">
+    <h1>Class History</h1>
+    <ul>
+      <li>( {{ time }} ) - {{ exercise }} - {{ branch_id }}</li>
+    </ul>
+  </div>
+
+  <div class="separator-breadcrumb border-top"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card o-hidden">
+        <div class="table table-responsive mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
+                  <thead>
+                    <tr>
+                      <th scope="col">Member ID</th>
+                      <th scope="col">Dropin Partner</th>
+                      <th scope="col">Member Name</th>
+                      <th scope="col">Scan Time</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center">
+                    <tr *ngFor="let res of classhistory">
+                      <td>{{ res.member_code ? res.member_code : 'Member Partner' }}</td>
+                      <td>{{ res.partner_name }}</td>
+                      <td>{{ res.member_name }}</td>
+                      <td>{{ res.checkin_time }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
