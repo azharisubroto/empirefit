@@ -245,12 +245,12 @@ export class MemberActivationComponent implements OnInit {
         })
 
         setTimeout(() => {
-          if (data["data"].state == "Active") {
-            $("#finger-status").text("Success");
-            $("#btn-scan").addClass("disabled");
-          } else {
+          if (data["data"].finger_status == "0") {
             $("#finger-status").text("Unverified");
             $("#btn-scan").removeClass("disabled");
+          } else {
+            $("#finger-status").text("Success");
+            $("#btn-scan").addClass("disabled");
           }
 
           // if (data["data"].member_type_id != 3) {
@@ -509,15 +509,22 @@ export class MemberActivationComponent implements OnInit {
     if (this.member.liability_signature || this.member.liability_user_signature) {
       console.log("Signature exist");
     } else {
-      formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
-      console.log(formValue);
-      this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-        if (data["status"] == "200") {
-          this.toastr.success(data["message"], "Saved", {
-            progressBar: true
-          });
-        }
-      });
+      if (this.liabilityForm.invalid) {
+        alert("Please Draw Signature");
+        setTimeout(() => {
+          $('.prevaja').trigger('click');
+        }, 50);
+      } else {
+        formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
+        console.log(formValue);
+        this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+          if (data["status"] == "200") {
+            this.toastr.success(data["message"], "Saved", {
+              progressBar: true
+            });
+          }
+        });
+      }
     }
   }
   onStep2Next(e) {

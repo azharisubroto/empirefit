@@ -17,6 +17,10 @@ export class FinanceService {
         })
     };
 
+    getAll() {
+        return this.http.get(this.apiURL + "/recuring_all", this.httpOptions);
+    }
+
     getRecurings() {
         return this.http.get(this.apiURL + "/recurings", this.httpOptions);
     }
