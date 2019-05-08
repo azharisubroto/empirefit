@@ -196,6 +196,7 @@ export class MemberPartnerSignComponent implements OnInit {
     let formValue = this.liabilityForm.value;
 
     formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
+    formValue["email"] = this.member.email;
     console.log(formValue);
     this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
       if (data["status"] == "200") {
@@ -203,7 +204,7 @@ export class MemberPartnerSignComponent implements OnInit {
           progressBar: true
         });
 
-        this.MemberPartnerService.updateLiability(this.member.phone, this.member.phone).subscribe((data: any) => {
+        this.MemberPartnerService.updateLiability(this.member.phone, formValue).subscribe((data: any) => {
           this.location.back();
         });
       }

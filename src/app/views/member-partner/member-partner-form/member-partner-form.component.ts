@@ -185,7 +185,10 @@ export class MemberPartnerFormComponent implements OnInit {
   }
 
   checkSign(phone) {
-    this.MemberPartnerService.checkSign(phone).subscribe((data: any) => {
+    let formdata = ({
+      email: this.userForm.controls['email'].value
+    });
+    this.MemberPartnerService.checkSign(phone, formdata).subscribe((data: any) => {
       if (data["status"] == '200') {
         this.router.navigateByUrl("/member-partner/signed-form/" + data['member_id']);
       } else {

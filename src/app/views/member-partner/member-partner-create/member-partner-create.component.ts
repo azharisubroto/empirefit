@@ -129,8 +129,6 @@ export class MemberPartnerCreateComponent implements OnInit {
 
   submit() {
     this.userForm.patchValue({
-      branch: 1,
-      status: 0,
       created_by: this.userid,
     });
     $('#saving').html('Saving...');

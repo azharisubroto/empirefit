@@ -63,9 +63,9 @@ export class MemberPartnerService {
     );
   }
 
-  checkSign(phone) {
-    return this.http.get(
-      this.apiURL + "/mp_check_sign/" + phone,
+  checkSign(phone, data) {
+    return this.http.put(
+      this.apiURL + "/mp_check_sign/" + phone, data,
       this.httpOptions
     );
   }
