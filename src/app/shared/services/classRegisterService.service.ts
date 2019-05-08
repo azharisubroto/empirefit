@@ -7,6 +7,7 @@ import { LocalStoreService } from "./local-store.service";
 })
 export class ClassRegisterService {
   readonly apiURL = "https://api.empirefit.club/api";
+  readonly localURL = "http://localhost/efc/api";
   // readonly apiURL = "http://localhost/efc/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) { }
@@ -14,6 +15,13 @@ export class ClassRegisterService {
   httpOptions = {
     headers: new HttpHeaders({
       Authorization: "Bearer " + this.store.getItem("access_token")
+    })
+  };
+
+  httpOptionstwo = {
+    headers: new HttpHeaders({
+      'Authorization': "Bearer " + this.store.getItem("access_token"),
+      'Content-Type': 'application/pdf'
     })
   };
 
@@ -51,6 +59,14 @@ export class ClassRegisterService {
   viewClass(data) {
     return this.http.post(
       this.apiURL + "/view_class",
+      data,
+      this.httpOptions
+    );
+  }
+
+  download(data) {
+    return this.http.post(
+      this.apiURL + "/download_class",
       data,
       this.httpOptions
     );

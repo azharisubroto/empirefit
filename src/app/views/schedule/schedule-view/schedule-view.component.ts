@@ -14,6 +14,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
 import * as $ from "jquery";
+import 'rxjs/Rx';
 // import "datatables.net";
 // import "datatables.net-bs4";
 import 'datatables.net-buttons';
@@ -82,20 +83,7 @@ export class ScheduleViewComponent implements OnInit {
       this.totalparticipants = data["data"][0].total_participants;
 
       this.chRef.detectChanges();
-      $("#mytable").DataTable({
-        dom: 'Bfrtip',
-        buttons: {
-          dom: {
-            button: {
-              className: 'btn '
-            }
-          },
-          buttons: [
-            { extend: 'excel', className: 'btn-warning' },
-            { extend: 'csv', className: 'btn-warning' }
-          ]
-        }
-      });
+      $("#mytable").DataTable();
     });
   }
 
@@ -103,6 +91,30 @@ export class ScheduleViewComponent implements OnInit {
     this.router.navigateByUrl(
       "class-participants"
     );
+  }
+
+  downloadFile(data) {
+    const blob = new Blob([data], { type: 'text/pdf' });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
+
+  downloadClass() {
+    let formValue = ({
+      schedule_id: this.activatedRoute.snapshot.params['schedule_id'],
+      branch_id: this.activatedRoute.snapshot.params['branch_id'],
+      date: this.activatedRoute.snapshot.params['date']
+    });
+
+    this.classRegistrationService.download(formValue).subscribe((data: any) => {
+      const linkSource = data['data'];
+      const downloadLink = document.createElement("a");
+      const fileName = data['filename'];
+
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
+    })
   }
 
 }

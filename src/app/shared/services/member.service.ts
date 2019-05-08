@@ -123,4 +123,8 @@ export class MemberService {
   sendMail(member_id, data) {
     return this.http.post(this.apiURL + "/members/verified/" + member_id, data, this.httpOptions);
   }
+
+  downloadBioLiability(member_id) {
+    return this.http.get(this.apiURL + "/download_bio_liability/" + member_id, this.httpOptions);
+  }
 }

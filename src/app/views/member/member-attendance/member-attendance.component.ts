@@ -19,6 +19,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ClassesService } from "src/app/shared/services/classes.service";
 import { interval } from "rxjs/observable/interval";
+import 'rxjs/Rx';
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
@@ -495,35 +496,45 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   downloadbio(id_card_number) {
-    var mod = this;
-    var HTML_Width = $("#downloadbio").width();
-    var HTML_Height = $("#downloadbio").height();
-    var top_left_margin = 40;
-    var PDF_Width = HTML_Width + (top_left_margin * 2);
-    var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
-    var canvas_image_width = HTML_Width;
-    var canvas_image_height = HTML_Height;
+    // var mod = this;
+    // var HTML_Width = $("#downloadbio").width();
+    // var HTML_Height = $("#downloadbio").height();
+    // var top_left_margin = 40;
+    // var PDF_Width = HTML_Width + (top_left_margin * 2);
+    // var PDF_Height = (PDF_Width * 1.5) + (top_left_margin * 2);
+    // var canvas_image_width = HTML_Width;
+    // var canvas_image_height = HTML_Height;
 
-    var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
-
-
-    html2canvas($("#downloadbio")[0], {
-      allowTaint: true,
-      scale: 1,
-    }).then(function (canvas) {
-      canvas.getContext('2d');
-
-      var imgData = canvas.toDataURL("image/jpeg", 1.0);
-      var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
-      pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+    // var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
 
 
-      for (var i = 1; i <= totalPDFPages; i++) {
-        pdf.addPage(PDF_Width, PDF_Height);
-        pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
-      }
+    // html2canvas($("#downloadbio")[0], {
+    //   allowTaint: true,
+    //   scale: 1,
+    // }).then(function (canvas) {
+    //   canvas.getContext('2d');
 
-      pdf.save("EFC-BIOLIA-" + mod.member.member_code + "-" + mod.member.name + ".pdf");
+    //   var imgData = canvas.toDataURL("image/jpeg", 1.0);
+    //   var pdf = new jsPDF('p', 'pt', [PDF_Width, PDF_Height]);
+    //   pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+
+
+    //   for (var i = 1; i <= totalPDFPages; i++) {
+    //     pdf.addPage(PDF_Width, PDF_Height);
+    //     pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+    //   }
+
+    //   pdf.save("EFC-BIOLIA-" + mod.member.member_code + "-" + mod.member.name + ".pdf");
+    // });
+
+    this.memberService.downloadBioLiability(this.activatedRoute.snapshot.params['id']).subscribe((data: any) => {
+      const linkSource = data['data'];
+      const downloadLink = document.createElement("a");
+      const fileName = data['filename'];
+
+      downloadLink.href = linkSource;
+      downloadLink.download = fileName;
+      downloadLink.click();
     });
 
     // var doc = new jsPDF('p', 'pt', 'letter');
