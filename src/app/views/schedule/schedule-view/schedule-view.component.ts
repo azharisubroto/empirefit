@@ -117,6 +117,8 @@ export class ScheduleViewComponent implements OnInit {
 
     var doc = new jsPDF('p', 'pt', 'letter');
 
+    let filename = 'EFC-CLASS-' + formValue['schedule_id'] + '-' + formValue['branch_id'] + '-' + formValue['date'];
+
     // We'll make our own renderer to skip this editor
     var specialElementHandlers = {
       '#editor': function (element, renderer) {
@@ -134,7 +136,7 @@ export class ScheduleViewComponent implements OnInit {
       'useCORS': false,
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('EFC_CLASS.pdf');
+      doc.save(filename + '.pdf');
     });
   }
 

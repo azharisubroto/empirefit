@@ -980,6 +980,19 @@ export class TransactionListComponent implements OnInit {
   }
 
   topdf() {
+    var mod = this;
+    let first_date = this.userForm.controls["first_date"].value;
+    let second_date = this.userForm.controls["second_date"].value;
+    let formValue = this.userForm.value;
+
+    formValue['first_date'] = this.parserFormatter.format(first_date);
+    formValue['second_date'] = this.parserFormatter.format(second_date);
+    // console.log(formValue)
+
+    var $filedate = formValue['first_date'] + "/" + formValue['second_date'];
+
+    var $filename = 'EFC-RECURRING-' + $filedate + "-EDC-" + mod.edc.bank_name + "-MID-" + mod.edc.mid + "-TID-" + mod.edc.tid;
+
     var doc = new jsPDF('p', 'pt', 'letter');
 
     // We'll make our own renderer to skip this editor
@@ -999,7 +1012,7 @@ export class TransactionListComponent implements OnInit {
       'useCORS': false,
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('EFC_CLASS.pdf');
+      doc.save($filename + '.pdf');
     });
   }
 
