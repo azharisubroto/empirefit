@@ -126,6 +126,6 @@ export class MemberService {
   }
 
   downloadBioLiability(member_id, data) {
-    return this.http.put(this.localurl + "/download_bio_liability/" + member_id, data, this.httpOptions);
+    return this.http.put(this.apiURL + "/download_bio_liability/" + member_id, data, this.httpOptions);
   }
 }

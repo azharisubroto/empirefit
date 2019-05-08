@@ -43,8 +43,7 @@
             <div class="text-small">Branch</div>
             <select class="form-control" formControlName="branch_id">
               <option value="ALL">All</option>
-              <option value="1">Jakarta</option>
-              <option value="2">Bali</option>
+              <option *ngFor="let brn of branches" value="{{brn.id}}">{{brn.branch_name}}</option>
             </select>
           </div>
           <div class="col-md-4">

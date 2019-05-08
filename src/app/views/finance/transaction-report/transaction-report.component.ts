@@ -13,6 +13,7 @@ import { ToastrService } from "ngx-toastr";
 import { UserService } from "src/app/shared/services/user.service";
 import { TransactionService } from "src/app/shared/services/transaction.service";
 import { EdcService } from "src/app/shared/services/edc.service";
+import { BranchService } from "src/app/shared/services/branch.service";
 import * as $ from "jquery";
 // import "datatables.net";
 // import "datatables.net-bs4";
@@ -43,6 +44,7 @@ export class TransactionReportComponent implements OnInit {
   thead;
   tbody;
   tanggal;
+  branches;
   total_revenue;
   total_transaction;
   printTable;
@@ -50,6 +52,7 @@ export class TransactionReportComponent implements OnInit {
 
   constructor(
     private FinanceService: FinanceService,
+    private branchService: BranchService,
     private TransactionService: TransactionService,
     private router: Router,
     private chRef: ChangeDetectorRef,
@@ -70,6 +73,10 @@ export class TransactionReportComponent implements OnInit {
       first_date: ["", Validators.required],
       second_date: ["", Validators.required],
       payment_type: ["ALL", Validators.required]
+    });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branches = data["data"];
     });
 
     this.TransactionService.getTransactions().subscribe((data: any[]) => {
