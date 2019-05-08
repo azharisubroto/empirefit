@@ -174,7 +174,7 @@ export class MemberPartnerComponent implements OnInit {
   absencoy(e) {
     var tag = $(e.currentTarget);
 
-    if( tag.hasClass('disabled') ) {
+    if (tag.hasClass('disabled')) {
       //alert('gakbisa'); return false;
     } else {
       // alert(tag.data('email'));
@@ -252,7 +252,7 @@ export class MemberPartnerComponent implements OnInit {
       //return console.log(res);
 
       $.each(res, function (i, item) {
-        var rowbutton = '<button class="btn btn-success absenbutton" data-id="' + item.id + '" data-name="' + item.name + '" data-email="' + item.email + '" data-phone="' + item.phone + '" data-reference="' + item.booking_referance + '" data-emaildatetime="' + item.email_date_time + '" data-company="' + item.company + '" data-class="' + item.class_id + '" data-classdate="' + item.class_date + '" data-classtime="' + item.class_time + '" data-branch="' + item.branch + '" data-status="' + item.status + '" data-createdby="' + mod.user.id + '"><i class="i-Clock-Forward"></i></button><a href="member-partner/member-partner-edit/' + item.id + '" class="btn btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave"> <i class="i-Pen-5"></i></a>';
+        var rowbutton = '<button class="btn btn-sm btn-success absenbutton" data-id="' + item.id + '" data-name="' + item.name + '" data-email="' + item.email + '" data-phone="' + item.phone + '" data-reference="' + item.booking_referance + '" data-emaildatetime="' + item.email_date_time + '" data-company="' + item.company + '" data-class="' + item.class_id + '" data-classdate="' + item.class_date + '" data-classtime="' + item.class_time + '" data-branch="' + item.branch + '" data-status="' + item.status + '" data-createdby="' + mod.user.id + '"><i class="i-Clock-Forward"></i></button><a href="member-partner/member-partner-edit/' + item.id + '" class="btn btn-sm btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave"> <i class="i-Pen-5"></i></a>';
         var newthis = [
           item.company,
           item.class_date,
@@ -293,7 +293,7 @@ export class MemberPartnerComponent implements OnInit {
           ],
           data: items,
           initComplete: function () {
-            if ($('.partners').find('tr').length > 1) {
+            if ($('.partners').find('tr')[0].hasAttribute('role')) {
               $('.partners').find('tr').each(function () {
                 var ini = $(this),
                   absenbutton = ini.find('.absenbutton'),
@@ -307,6 +307,7 @@ export class MemberPartnerComponent implements OnInit {
                   jadwal = new Date(classdate),
 
                   status = absenbutton.data('status');
+                ini.find('td:nth-child(8)').addClass('inistatus');
                 // console.log('sekarang: ' + sekarang);
                 // console.log('class Date: ' + jadwal);
                 if (status == '1') {

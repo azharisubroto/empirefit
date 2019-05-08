@@ -35,6 +35,7 @@ export class MemberPartnerCreateComponent implements OnInit {
   branches: any[];
   userForm: FormGroup;
   staffs;
+  branch;
   partners: any[];
 
   constructor(
@@ -72,6 +73,7 @@ export class MemberPartnerCreateComponent implements OnInit {
       this.user = data["data"];
       var users = data["data"];
       this.userid = users['id'];
+      this.branch = users['branch_id'];
     });
   }
 
@@ -130,25 +132,30 @@ export class MemberPartnerCreateComponent implements OnInit {
   submit() {
     this.userForm.patchValue({
       created_by: this.userid,
+      branch: this.branch,
+      status: 0
     });
+
+    // return console.log(this.userForm.value)
     $('#saving').html('Saving...');
     if (this.userForm.invalid) {
-      this.loading = false;
-      return;
+      $('#saving').html('Save');
+
+      alert('Please Complete the form')
     } else {
       this.MemberPartnerService.createMemberPartner(this.userForm.value).subscribe((res: any) => {
-        setTimeout(() => {
-          if (res["status"] === "200") {
-            this.toastr.success(res["message"], "Success!", {
-              progressBar: true
-            });
-            this.router.navigateByUrl("/member-partner");
-          } else {
-            this.toastr.error(res["message"], "Error!", {
-              progressBar: true
-            });
-          }
-        }, 3000);
+        if (res["status"] === "200") {
+          $('#saving').html('Save');
+          this.toastr.success(res["message"], "Success!", {
+            progressBar: true
+          });
+          this.router.navigateByUrl("/member-partner");
+        } else {
+          $('#saving').html('Save');
+          this.toastr.error(res["message"], "Error!", {
+            progressBar: true
+          });
+        }
       });
     }
   }

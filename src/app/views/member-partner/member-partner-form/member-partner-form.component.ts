@@ -200,17 +200,20 @@ export class MemberPartnerFormComponent implements OnInit {
   submit() {
     $('#saving').html('Saving...');
     if (this.userForm.invalid) {
-      this.loading = false;
-      return;
+      $('#saving').html('Save');
+
+      alert('Please Complete the form')
     } else {
       this.MemberPartnerService.updateMemberPartner(this.ActivatedRoute.snapshot.params["id"], this.userForm.value).subscribe((res: any) => {
         setTimeout(() => {
           if (res["status"] === "200") {
+            $('#saving').html('Save');
             this.toastr.success(res["message"], "Success!", {
               progressBar: true
             });
             this.router.navigateByUrl("/member-partner");
           } else {
+            $('#saving').html('Save');
             this.toastr.error(res["message"], "Error!", {
               progressBar: true
             });
