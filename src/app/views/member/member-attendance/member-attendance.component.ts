@@ -496,6 +496,7 @@ export class MemberAttendanceComponent implements OnInit {
   }
 
   downloadbio(id_card_number) {
+    $('#pdf-bio').html('downloading...');
     // var mod = this;
     // var HTML_Width = $("#downloadbio").width();
     // var HTML_Height = $("#downloadbio").height();
@@ -527,7 +528,12 @@ export class MemberAttendanceComponent implements OnInit {
     //   pdf.save("EFC-BIOLIA-" + mod.member.member_code + "-" + mod.member.name + ".pdf");
     // });
 
-    this.memberService.downloadBioLiability(this.activatedRoute.snapshot.params['id']).subscribe((data: any) => {
+    let tosend = ({
+      data: this.member,
+      health: this.healthquestions
+    })
+
+    this.memberService.downloadBioLiability(this.activatedRoute.snapshot.params['id'], tosend).subscribe((data: any) => {
       const linkSource = data['data'];
       const downloadLink = document.createElement("a");
       const fileName = data['filename'];
@@ -535,6 +541,7 @@ export class MemberAttendanceComponent implements OnInit {
       downloadLink.href = linkSource;
       downloadLink.download = fileName;
       downloadLink.click();
+      $('#pdf-bio').html('Bio & Liability (PDF)');
     });
 
     // var doc = new jsPDF('p', 'pt', 'letter');
