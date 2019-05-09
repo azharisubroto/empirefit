@@ -269,9 +269,9 @@
     </div>
 
     <!-- Today's Attendance -->
-    <!-- <div class="card mb-4">
+    <div class="card mb-4">
       <div class="card-body">
-        <div class="fancy-head mb-3">
+        <!-- <div class="fancy-head mb-3">
           <span>Today's Attendance</span>
         </div>
         <div class="row mb-4">
@@ -291,21 +291,24 @@
               </div>
             </div>
           </div>
+        </div> -->
+        <div class="fancy-head mb-3">
+          <span>Fingerprint Status</span>
         </div>
         <div class="row mb-4">
           <div class="col-md-6 mb-4 mb-md-0">
             <div class="px-4 py-3 border border-light rounded align-items-center">
-              <span class="text-muted mb-0">First Time</span>
+              <span class="text-muted mb-0">Fingerprint Name</span>
               <div class="text-medium text-primary mt-1 first_time">
-                <code id="code-first_time"></code>
+                <code>{{ device_name }}</code>
               </div>
             </div>
           </div>
           <div class="col-md-6 mb-4 mb-md-0">
             <div class="px-4 py-3 border border-light rounded align-items-center">
-              <span class="text-muted mb-0">Member Status</span>
+              <span class="text-muted mb-0">Customer Fingerprint</span>
               <div class="text-medium text-primary mt-1">
-                {{ status ? status : "Unverified" }}
+                {{ statusfinger == '0' ? 'Unavailable' : "Available" }}
               </div>
             </div>
           </div>
@@ -313,11 +316,11 @@
 
         <div class="row mt-4">
           <div class="col-12">
-            <a id="btn-attendance" (click)="checkAttendance()" [href]="finger" class="btn btn-primary btn-lg btn-block py-3">Auto
-              Attendance</a>
+            <a id="btn-fingerscan" (click)="checkFingerScan()" [href]="fingerscan" class="btn btn-primary btn-lg btn-block py-3">Finger
+              Scan</a>
           </div>
         </div>
-        <div class="row mt-4">
+        <!-- <div class="row mt-4">
           <div class="col-md-6 mb-3 mb-md-0">
             <button class="btn btn-primary btn-lg btn-block py-3" (click)="open(manualAttendance)" id="btn-manualattendance">
               Manual Attendance
@@ -327,9 +330,9 @@
             <a id="btn-history" class="btn btn-primary btn-lg btn-block py-3" (click)="openLg(attendancehistory)">Attendance
               History</a>
           </div>
-        </div>
+        </div> -->
       </div>
-    </div> -->
+    </div>
 
     <div class="card">
       <div class="card-body">

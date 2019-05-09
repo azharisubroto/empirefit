@@ -9,7 +9,7 @@ export class DeviceService {
   readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(private http: HttpClient, private store: LocalStoreService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -31,6 +31,10 @@ export class DeviceService {
 
   showDevice(id) {
     return this.http.get(this.apiURL + "/devices/" + id, this.httpOptions);
+  }
+
+  getByBranch(branch_id) {
+    return this.http.get(this.apiURL + "/devices_branch/" + branch_id, this.httpOptions);
   }
 
   updateDevice(id, data) {

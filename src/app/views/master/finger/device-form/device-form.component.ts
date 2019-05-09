@@ -9,6 +9,7 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DeviceService } from "src/app/shared/services/device.service";
+import { BranchService } from "src/app/shared/services/branch.service";
 
 @Component({
   selector: "app-basic-form",
@@ -18,6 +19,7 @@ import { DeviceService } from "src/app/shared/services/device.service";
 export class DeviceFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
+  branches: any = [];
   partner_name;
   deviceForm: FormGroup;
 
@@ -26,8 +28,9 @@ export class DeviceFormComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private deviceService: DeviceService,
+    private BranchService: BranchService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.deviceForm = this.fb.group({
@@ -35,20 +38,26 @@ export class DeviceFormComponent implements OnInit {
       device_name: ["", Validators.required],
       vc: ["", Validators.required],
       ac: ["", Validators.required],
-      vkey: ["", Validators.required]
+      vkey: ["", Validators.required],
+      branch_id: ["1", Validators.required],
     });
 
     this.deviceService
       .showDevice(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
         this.deviceForm.setValue({
-          sn: data["data"]["0"].sn,
-          device_name: data["data"]["0"].device_name,
-          vc: data["data"]["0"].vc,
-          ac: data["data"]["0"].ac,
-          vkey: data["data"]["0"].vkey
+          sn: data["data"].sn,
+          device_name: data["data"].device_name,
+          vc: data["data"].vc,
+          ac: data["data"].ac,
+          vkey: data["data"].vkey,
+          branch_id: data["data"].branch_id
         });
       });
+
+    this.BranchService.getBranches().subscribe((data: any) => {
+      this.branches = data["data"];
+    })
   }
 
   submit() {

@@ -31,6 +31,20 @@ export class MemberService {
     );
   }
 
+  checkFinger(member_id, vc) {
+    return this.http.get(
+      this.apiURL + "/members_check_finger_status/" + member_id + "/" + vc,
+      this.httpOptions
+    );
+  }
+
+  getUrlFingerReg(member_id, vc) {
+    return this.http.get(
+      this.apiURL + "/members_get_url_finger/" + member_id + "/" + vc,
+      this.httpOptions
+    );
+  }
+
   updateLiability(id, data) {
     return this.http.put(
       this.apiURL + "/update_liability/" + id,
