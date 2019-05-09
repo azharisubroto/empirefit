@@ -28,6 +28,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
 import { BranchService } from "src/app/shared/services/branch.service";
+import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
   selector: "app-member-activation",
@@ -79,6 +80,9 @@ export class MemberActivationComponent implements OnInit {
   isautodebit: boolean;
   isptselect: boolean;
   branch;
+  user;
+  statusfinger;
+  device_name;
 
   @ViewChild(SignaturePad) signaturePad: SignaturePad;
   public signaturePadMember = {
@@ -143,6 +147,7 @@ export class MemberActivationComponent implements OnInit {
     private priceService: PriceService,
     private branchService: BranchService,
     private edcService: EdcService,
+    private UserService: UserService,
     private sanitizer: DomSanitizer,
     private modalService: NgbModal,
   ) { }
@@ -261,11 +266,36 @@ export class MemberActivationComponent implements OnInit {
         }, 2000);
 
         this.id_card_number = data["data"].id_card_number;
+      });
 
-        this.finspot = data["url"];
+    // Get single User
+    this.UserService.getSingleUser().subscribe((data: any) => {
+      this.user = data["data"];
+      // console.log(this.user);
+      this.device_name = data["data"].device_name;
 
+      this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.statusfinger = data['status_finger'];
+        // console.log(this.statusfinger);
+        setTimeout(() => {
+          if (data['status_finger'] == '0') {
+            $("#btn-fingerscan").removeClass('disabled');
+            $("#btn-autoreg").addClass('disabled');
+            $("#btn-manualreg").attr('disabled', 'disabled');
+          } else {
+            $("#btn-fingerscan").addClass('disabled');
+            $("#btn-autoreg").removeClass('disabled');
+            $("#btn-manualreg").removeAttr('disabled');
+          }
+        }, 500);
+      });
+
+      this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.finspot = data["data"];
         this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
       });
+
+    });
 
     // health questions
 

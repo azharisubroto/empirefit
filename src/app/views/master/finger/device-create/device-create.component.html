@@ -26,7 +26,7 @@
 
             <div class="col-md-6 form-group mb-3">
               <label for="branch_id">Branch</label>
-              <select formControlName="branch_id">
+              <select class="form-control" formControlName="branch_id">
                 <option *ngFor="let item of branches" value="{{item.id}}">{{item.branch_name}}</option>
               </select>
             </div>
