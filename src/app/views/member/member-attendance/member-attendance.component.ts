@@ -53,8 +53,12 @@ export class MemberAttendanceComponent implements OnInit {
   public todayDate: any;
   finger;
   finspot;
+  finspotscan;
+  fingerscan;
   finger_class;
   finspot_class;
+  device_name;
+  statusfinger;
   present;
   id_card_number;
   classes;
@@ -78,6 +82,7 @@ export class MemberAttendanceComponent implements OnInit {
   healthquestions;
   recuring_payment;
   credit_cards;
+  device;
   signature_base64;
   liability_signature_base64;
   liability_user_signature_base64;
@@ -103,6 +108,7 @@ export class MemberAttendanceComponent implements OnInit {
   ngOnInit() {
     var mod = this;
     this.member = { make: "" };
+    this.device = { make: "" };
     this.credit_cards = { make: "" };
     this.expirydate = { make: "" };
     this.user = { make: "" };
@@ -141,6 +147,7 @@ export class MemberAttendanceComponent implements OnInit {
         // console.log(data["data"].first_time[0].classtime)
 
         this.member = data["data"];
+        this.device = data["data"].data_finger;
         this.credit_cards = data["data"].credit_cards ? data["data"].credit_cards : null;
         this.leaves = data["data"].leaves;
 
@@ -430,6 +437,26 @@ export class MemberAttendanceComponent implements OnInit {
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
       // console.log(this.user);
+      this.device_name = data["data"].device_name;
+    });
+
+    this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], this.user.vc).subscribe((data: any) => {
+      this.statusfinger = data['status_finger'];
+
+      setTimeout(() => {
+        if (data['status_finger'] == '0') {
+          $("#btn-fingerscan").addClass('disabled');
+          $("#btn-autoreg").addClass('disabled');
+        } else {
+          $("#btn-fingerscan").removeClass('disabled');
+          $("#btn-autoreg").removeClass('disabled');
+        }
+      }, 500);
+    });
+
+    this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.user.vc).subscribe((data: any) => {
+      this.finspotscan = data['data'];
+      this.fingerscan = this.sanitizer.bypassSecurityTrustUrl(this.finspotscan);
     });
 
     //health questions

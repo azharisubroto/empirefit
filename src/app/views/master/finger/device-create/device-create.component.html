@@ -16,112 +16,65 @@
           <div class="row">
             <div class="col-md-6 form-group mb-3">
               <label for="sn">SN</label>
-              <input
-                autofocus
-                type="text"
-                class="form-control "
-                id="sn"
-                placeholder="Enter SN "
-                formControlName="sn"
-              />
-              <i
-                *ngIf="
+              <input autofocus type="text" class="form-control " id="sn" placeholder="Enter SN " formControlName="sn" />
+              <i *ngIf="
                   !deviceForm.get('sn').valid && deviceForm.get('sn').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter Serial Number</i
-              >
+                class="i-Information text-danger">
+                Please enter Serial Number</i>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="branch_id">Branch</label>
+              <select formControlName="branch_id">
+                <option *ngFor="let item of branches" value="{{item.id}}">{{item.branch_name}}</option>
+              </select>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="device_name">Device Name</label>
-              <input
-                autofocus
-                type="text"
-                class="form-control "
-                id="device_name"
-                placeholder="Enter Device "
-                formControlName="device_name"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="device_name" placeholder="Enter Device " formControlName="device_name" />
+              <i *ngIf="
                   !deviceForm.get('device_name').valid &&
                   deviceForm.get('device_name').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter Device name</i
-              >
+                class="i-Information text-danger">
+                Please enter Device name</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="vc">VC</label>
-              <input
-                autofocus
-                type="text"
-                class="form-control "
-                id="vc"
-                placeholder="Enter VC "
-                formControlName="vc"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="vc" placeholder="Enter VC " formControlName="vc" />
+              <i *ngIf="
                   !deviceForm.get('vc').valid && deviceForm.get('vc').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter VC</i
-              >
+                class="i-Information text-danger">
+                Please enter VC</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="ac">AC</label>
-              <input
-                autofocus
-                type="text"
-                class="form-control "
-                id="ac"
-                placeholder="Enter AC "
-                formControlName="ac"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="ac" placeholder="Enter AC " formControlName="ac" />
+              <i *ngIf="
                   !deviceForm.get('ac').valid && deviceForm.get('ac').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter AC</i
-              >
+                class="i-Information text-danger">
+                Please enter AC</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="vkey">VKEY</label>
-              <input
-                autofocus
-                type="text"
-                class="form-control "
-                id="vkey"
-                placeholder="Enter VKEY "
-                formControlName="vkey"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="vkey" placeholder="Enter VKEY " formControlName="vkey" />
+              <i *ngIf="
                   !deviceForm.get('vkey').valid &&
                   deviceForm.get('vkey').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter VKEY</i
-              >
+                class="i-Information text-danger">
+                Please enter VKEY</i>
             </div>
 
             <div class="col-md-12">
-              <btn-loading
-                btnClass="btn-primary btn-rounded"
-                [loading]="loading"
-                >Save</btn-loading
-              >
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
             </div>
           </div>
         </form>
