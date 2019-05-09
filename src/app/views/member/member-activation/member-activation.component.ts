@@ -21,14 +21,14 @@ import { EdcService } from "src/app/shared/services/edc.service";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Observable, Subject } from "rxjs";
+import { BranchService } from "src/app/shared/services/branch.service";
+import { UserService } from "src/app/shared/services/user.service";
 import { interval } from "rxjs/observable/interval";
 import { WebcamImage, WebcamInitError, WebcamUtil } from "ngx-webcam";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 import * as $ from "jquery";
 import { timeout } from "rxjs/operators";
-import { BranchService } from "src/app/shared/services/branch.service";
-import { UserService } from "src/app/shared/services/user.service";
 
 @Component({
   selector: "app-member-activation",
@@ -52,6 +52,7 @@ export class MemberActivationComponent implements OnInit {
   banks: any;
   trainers: any;
   finger;
+  vc;
   finspot;
   id_card_number;
   healthquestions;
@@ -271,6 +272,7 @@ export class MemberActivationComponent implements OnInit {
     // Get single User
     this.UserService.getSingleUser().subscribe((data: any) => {
       this.user = data["data"];
+      this.vc = data["data"].vc;
       // console.log(this.user);
       this.device_name = data["data"].device_name;
 
@@ -373,7 +375,7 @@ export class MemberActivationComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkMemberRegistration(this.member.finger_code)
+          .checkMemberRegistration(this.member.finger_code, this.vc)
           .subscribe((data: any) => {
             console.log(this.member.finger_code);
             if (data["status"] == "200") {

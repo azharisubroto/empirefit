@@ -83,6 +83,7 @@ export class MemberAttendanceComponent implements OnInit {
   recuring_payment;
   credit_cards;
   device;
+  vc;
   signature_base64;
   liability_signature_base64;
   liability_user_signature_base64;
@@ -438,6 +439,7 @@ export class MemberAttendanceComponent implements OnInit {
       this.user = data["data"];
       // console.log(this.user);
       this.device_name = data["data"].device_name;
+      this.vc = data["data"].vc;
 
       this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
         this.statusfinger = data['status_finger'];
@@ -499,7 +501,7 @@ export class MemberAttendanceComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkMemberRegistration(this.member.finger_code)
+          .checkMemberRegistration(this.member.finger_code, this.vc)
           .subscribe((data: any) => {
             console.log(this.member.finger_code);
             if (data["status"] == "200") {

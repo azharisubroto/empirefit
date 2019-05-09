@@ -7,7 +7,7 @@ import { LocalStoreService } from "./local-store.service";
 })
 export class FingerService {
   readonly apiURL = "https://api.empirefit.club/api";
-  // readonly apiURL = "http://localhost/efc/api";
+  // readonly localURL = "http://45.118.132.77/efc/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) { }
 
@@ -19,12 +19,12 @@ export class FingerService {
 
   checkStaffRegistration(id) {
     return this.http.get(
-      this.apiURL + "/finger/staff_registration/check/" + id
+      this.apiURL + "/finger/staff_registrations/check/" + id
     );
   }
 
-  checkMemberRegistration(id) {
-    return this.http.get(this.apiURL + "/finger/registration/check/" + id);
+  checkMemberRegistration(id, vc) {
+    return this.http.get(this.apiURL + "/finger/registrations/check/" + id + "/" + vc);
   }
 
   classAttendance(id) {
