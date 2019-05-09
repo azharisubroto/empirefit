@@ -58,7 +58,8 @@ export class ScheduleFormComponent implements OnInit {
       exercise: ["", Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required],
-      branch_id: [1, Validators.required]
+      branch_id: [1, Validators.required],
+      tag: [0, Validators.required],
     });
 
     this.memberTypeService.getMemberTypes().subscribe((data: any) => {
@@ -97,7 +98,8 @@ export class ScheduleFormComponent implements OnInit {
           exercise: data["data"].exercise,
           start_date: data["data"].start_date,
           end_date: data["data"].end_date,
-          branch_id: data["data"].branch_id
+          branch_id: data["data"].branch_id,
+          tag: data["data"].tag,
         });
 
         setTimeout(() => {
@@ -142,6 +144,7 @@ export class ScheduleFormComponent implements OnInit {
     let delay_time = this.scheduleForm.controls["delay_time"].value;
     let exercise = this.scheduleForm.controls["exercise"].value;
     let branch_id = this.scheduleForm.controls["branch_id"].value;
+    let tag = this.scheduleForm.controls["tag"].value;
     let formValues = this.scheduleForm.value;
 
     formValues["start_date"] = start_date;
@@ -151,6 +154,7 @@ export class ScheduleFormComponent implements OnInit {
     formValues["delay_time"] = delay_time;
     formValues["exercise"] = exercise;
     formValues["branch_id"] = branch_id;
+    formValues["tag"] = tag;
     formValues["staff"] = dataStaff;
     formValues["member_types"] = dataMt;
 

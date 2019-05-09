@@ -86,12 +86,20 @@
               </div>
             </div>
 
-            <div class="col-md-12 form-group mb-3">
+            <div class="col-md-6 form-group mb-3">
               <label for="branch_id">Branch</label>
               <select name="branch_id" id="branch_id" class="form-control " formControlName="branch_id">
                 <option *ngFor="let item of branches" [ngValue]="item.id">{{
                   item.branch_name
                   }}</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="tag">Reduce Session</label>
+              <select name="tag" id="tag" class="form-control " formControlName="tag">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
               </select>
             </div>
 

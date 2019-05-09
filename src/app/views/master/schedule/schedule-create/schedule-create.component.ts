@@ -57,7 +57,8 @@ export class ScheduleCreateComponent implements OnInit {
       exercise: ["", Validators.required],
       start_date: ["", Validators.required],
       end_date: ["", Validators.required],
-      branch_id: [1, Validators.required]
+      branch_id: [1, Validators.required],
+      tag: [0, Validators.required],
     });
 
     this.staffService.getStaffCoach().subscribe((data: any) => {
@@ -104,6 +105,7 @@ export class ScheduleCreateComponent implements OnInit {
     let delay_time = this.scheduleForm.controls["delay_time"].value;
     let exercise = this.scheduleForm.controls["exercise"].value;
     let branch_id = this.scheduleForm.controls["branch_id"].value;
+    let tag = this.scheduleForm.controls["tag"].value;
     let formValues = this.scheduleForm.value;
 
     formValues["start_date"] = this.parserFormatter.format(start_date);
@@ -115,6 +117,7 @@ export class ScheduleCreateComponent implements OnInit {
     formValues["branch_id"] = branch_id;
     formValues["staff"] = dataStaff;
     formValues["member_types"] = dataMt;
+    formValues["tag"] = tag;
     if (this.scheduleForm.invalid) {
       this.loading = false;
       return;
