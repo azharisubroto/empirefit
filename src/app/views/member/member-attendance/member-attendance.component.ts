@@ -438,25 +438,30 @@ export class MemberAttendanceComponent implements OnInit {
       this.user = data["data"];
       // console.log(this.user);
       this.device_name = data["data"].device_name;
-    });
 
-    this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], this.user.vc).subscribe((data: any) => {
-      this.statusfinger = data['status_finger'];
+      this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.statusfinger = data['status_finger'];
 
-      setTimeout(() => {
-        if (data['status_finger'] == '0') {
-          $("#btn-fingerscan").addClass('disabled');
-          $("#btn-autoreg").addClass('disabled');
-        } else {
-          $("#btn-fingerscan").removeClass('disabled');
-          $("#btn-autoreg").removeClass('disabled');
-        }
-      }, 500);
-    });
+        // console.log(this.statusfinger);
 
-    this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.user.vc).subscribe((data: any) => {
-      this.finspotscan = data['data'];
-      this.fingerscan = this.sanitizer.bypassSecurityTrustUrl(this.finspotscan);
+        setTimeout(() => {
+          if (data['status_finger'] == '0') {
+            $("#btn-fingerscan").removeClass('disabled');
+            $("#btn-autoreg").addClass('disabled');
+            $("#btn-manualreg").attr('disabled', 'disabled');
+          } else {
+            $("#btn-fingerscan").addClass('disabled');
+            $("#btn-autoreg").removeClass('disabled');
+            $("#btn-manualreg").removeAttr('disabled');
+          }
+        }, 500);
+      });
+
+      this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.finspotscan = data['data'];
+        this.fingerscan = this.sanitizer.bypassSecurityTrustUrl(this.finspotscan);
+      });
+
     });
 
     //health questions
@@ -486,6 +491,29 @@ export class MemberAttendanceComponent implements OnInit {
       .subscribe((data: any) => {
         this.gymhistory = JSON.parse(JSON.stringify(data["data"]));
         // console.log(this.gymhistory);
+      });
+  }
+
+  // Check Finger Scan
+  checkFingerScan() {
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkMemberRegistration(this.member.finger_code)
+          .subscribe((data: any) => {
+            console.log(this.member.finger_code);
+            if (data["status"] == "200") {
+              subscribe.unsubscribe();
+              this.toastr.success(data["message"], "Saved", {
+                progressBar: true
+              });
+              setTimeout(() => {
+                location.reload();
+              }, 1000);
+            } else {
+              console.log("Checking finger . . .");
+            }
+          });
       });
   }
 

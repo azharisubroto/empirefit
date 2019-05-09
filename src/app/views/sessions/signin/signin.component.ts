@@ -63,10 +63,16 @@ export class SigninComponent implements OnInit {
 
     this.deviceService.getByBranch(1).subscribe((data: any) => {
       this.devices = data["data"];
+
+      this.signinForm.patchValue({
+        vc: data['data']["0"].vc
+      })
     });
   }
 
-  getDevice($branchid) {
+  getDevice() {
+    console.log('click')
+    let $branchid = $("#branch").val();
     this.deviceService.getByBranch($branchid).subscribe((data: any) => {
       this.devices = data["data"];
 
@@ -77,11 +83,12 @@ export class SigninComponent implements OnInit {
             "<option value=" + list.vc + ">" + list.device_name + "</option>"
           )
         })
-      }, 500);
+      }, 200);
     });
   }
 
   signin() {
+    // return console.log(this.signinForm.value);
     if (this.signinForm.invalid) {
       this.loading = false;
       return;
