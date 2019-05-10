@@ -219,7 +219,6 @@ export class MemberAttendanceComponent implements OnInit {
           if (this.status_leave) {
             $("#btn-manualreg").attr("disabled", "disabled");
             $("#btn-manualattendance").attr("disabled", "disabled");
-            $("#btn-fingerscan").addClass('disabled');
 
             $("#btn-attendance").addClass("disabled");
 
@@ -441,14 +440,16 @@ export class MemberAttendanceComponent implements OnInit {
         // console.log(this.statusfinger);
 
         setTimeout(() => {
-          if (data['status_finger'] == '0') {
-            $("#btn-fingerscan").removeClass('disabled');
-            $("#btn-autoreg").addClass('disabled');
-            $("#btn-manualreg").attr('disabled', 'disabled');
-          } else {
-            $("#btn-fingerscan").addClass('disabled');
-            $("#btn-autoreg").removeClass('disabled');
-            $("#btn-manualreg").removeAttr('disabled');
+          if (this.member.member_type_id) {
+            if (data['status_finger'] == '0') {
+              $("#btn-fingerscan").removeClass('disabled');
+              $("#btn-autoreg").addClass('disabled');
+              $("#btn-manualreg").attr('disabled', 'disabled');
+            } else {
+              $("#btn-fingerscan").addClass('disabled');
+              $("#btn-autoreg").removeClass('disabled');
+              $("#btn-manualreg").removeAttr('disabled');
+            }
           }
         }, 500);
       });
