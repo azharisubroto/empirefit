@@ -72,4 +72,18 @@ export class StaffService {
   searchAttendance(id, data) {
     return this.http.post(this.apiURL + "/search_staff_attendance/" + id, data, this.httpOptions);
   }
+
+  checkFinger(member_id, vc) {
+    return this.http.get(
+      this.apiURL + "/staff_check_finger_status/" + member_id + "/" + vc,
+      this.httpOptions
+    );
+  }
+
+  getUrlFingerReg(member_id, vc) {
+    return this.http.get(
+      this.apiURL + "/staff_get_url_finger/" + member_id + "/" + vc,
+      this.httpOptions
+    );
+  }
 }

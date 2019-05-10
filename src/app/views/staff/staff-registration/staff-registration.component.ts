@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { PositionService } from "src/app/shared/services/position.service";
 import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
+import { UserService } from "src/app/shared/services/user.service";
 import { BankService } from "src/app/shared/services/bank.service";
 import { FingerService } from "src/app/shared/services/finger.service";
 import { Router, ActivatedRoute } from "@angular/router";
@@ -32,6 +33,10 @@ export class StaffRegistrationComponent implements OnInit {
   finger;
   finspot;
   photo;
+  user;
+  vc;
+  statusfinger;
+  device_name;
 
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -59,6 +64,7 @@ export class StaffRegistrationComponent implements OnInit {
     private branchService: BranchService,
     private staffService: StaffService,
     private bankService: BankService,
+    private UserService: UserService,
     private fingerService: FingerService,
     private toastr: ToastrService,
     private parserFormatter: NgbDateParserFormatter,
@@ -106,6 +112,36 @@ export class StaffRegistrationComponent implements OnInit {
       }
     });
 
+    // Get single User
+    this.UserService.getSingleUser().subscribe((data: any) => {
+      this.user = data["data"];
+      this.vc = data["data"].vc;
+      // console.log(this.user);
+      this.device_name = data["data"].device_name;
+
+      this.staffService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.statusfinger = data['status_finger'];
+        // console.log(this.statusfinger);
+        setTimeout(() => {
+          if (data['status_finger'] == '0') {
+            $("#btn-fingerscan").removeClass('disabled');
+            $("#btn-autoreg").addClass('disabled');
+            $("#btn-manualreg").attr('disabled', 'disabled');
+          } else {
+            $("#btn-fingerscan").addClass('disabled');
+            $("#btn-autoreg").removeClass('disabled');
+            $("#btn-manualreg").removeAttr('disabled');
+          }
+        }, 500);
+      });
+
+      this.staffService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.finspot = data["data"];
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+      });
+
+    });
+
 
   }
 
@@ -137,7 +173,7 @@ export class StaffRegistrationComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkStaffRegistration(staff)
+          .checkStaffRegistration(staff, this.vc)
           .subscribe((data: any) => {
             console.log(data);
             if (data["status"] === "200") {

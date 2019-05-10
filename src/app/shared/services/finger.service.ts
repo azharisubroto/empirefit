@@ -17,9 +17,9 @@ export class FingerService {
     })
   };
 
-  checkStaffRegistration(id) {
+  checkStaffRegistration(id, vc) {
     return this.http.get(
-      this.apiURL + "/finger/staff_registrations/check/" + id
+      this.apiURL + "/finger/staff_registrations/check/" + id + "/" + vc
     );
   }
 

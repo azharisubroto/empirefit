@@ -60,6 +60,11 @@ export class StaffAttendanceComponent implements OnInit {
   _checkbox_class;
   _checked;
   classes;
+  finspotscan;
+  fingerscan;
+  statusfinger;
+  vc;
+  device_name;
 
   constructor(
     private fb: FormBuilder,
@@ -109,6 +114,7 @@ export class StaffAttendanceComponent implements OnInit {
 
     this.staffService.showStaff(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
       this.staff = data["data"];
+      this.vc = data["data"].vc;
       this.name = this.staff.name;
       this.photo = this.staff.photo;
       this.date_of_birth = this.staff.date_of_birth;
@@ -152,6 +158,42 @@ export class StaffAttendanceComponent implements OnInit {
         })
       }, 500);
 
+      // Get single User
+      this.UserService.getSingleUser().subscribe((data: any) => {
+          this.user = data["data"];
+          // console.log(this.user);
+          this.device_name = data["data"].device_name;
+          this.vc = data["data"].vc;
+
+          this.staffService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+            this.statusfinger = data['status_finger'];
+
+            // console.log(this.statusfinger);
+
+            setTimeout(() => {
+              if (data['status_finger'] == '0') {
+                $("#btn-fingerscan").removeClass('disabled');
+                $("#btn-attendance").addClass('disabled');
+                $("#btn-attendance-out").addClass('disabled');
+                $("#btn-mt-attendance").attr('disabled', 'disabled');
+                $("#btn-mt-attendance-out").attr('disabled', 'disabled');
+              } else {
+                $("#btn-fingerscan").addClass('disabled');
+                $("#btn-attendance").removeClass('disabled');
+                $("#btn-attendance-out").removeClass('disabled');
+                $("#btn-mt-attendance").removeAttr('disabled');
+                $("#btn-mt-attendance-out").removeAttr('disabled');
+              }
+            }, 500);
+          });
+
+        this.staffService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+          this.finspotscan = data['data'];
+          this.fingerscan = this.sanitizer.bypassSecurityTrustUrl(this.finspotscan);
+        });
+
+      });
+
 
       // Auto Attendance
       this.finspot = data["url_attendance"];
@@ -178,6 +220,29 @@ export class StaffAttendanceComponent implements OnInit {
       schedule_id: ["", Validators.required],
       user_id: ["", Validators.required]
     });
+  }
+
+  // Check Finger Scan
+  checkFingerScan() {
+    const source = interval(3000),
+      subscribe = source.subscribe(val => {
+        this.fingerService
+          .checkStaffRegistration(this.staff.finger_code, this.vc)
+          .subscribe((data: any) => {
+            console.log(this.staff.finger_code);
+            if (data["status"] == "200") {
+              subscribe.unsubscribe();
+              this.toastr.success(data["message"], "Saved", {
+                progressBar: true
+              });
+              setTimeout(() => {
+                location.reload();
+              }, 1000);
+            } else {
+              console.log("Checking finger . . .");
+            }
+          });
+      });
   }
 
   getClock() {

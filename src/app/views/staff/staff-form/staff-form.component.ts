@@ -5,6 +5,7 @@ import { BranchService } from "src/app/shared/services/branch.service";
 import { StaffService } from "src/app/shared/services/staff.service";
 import { BankService } from "src/app/shared/services/bank.service";
 import { FingerService } from "src/app/shared/services/finger.service";
+import { UserService } from "src/app/shared/services/user.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as $ from "jquery";
 import { ToastrService } from "ngx-toastr";
@@ -33,6 +34,10 @@ export class StaffFormComponent implements OnInit {
   finspot;
   id_card;
   photo;
+  user;
+  vc;
+  device_name;
+  statusfinger;
 
   public showWebcam = true;
   public allowCameraSwitch = true;
@@ -59,6 +64,7 @@ export class StaffFormComponent implements OnInit {
     private router: Router,
     private branchService: BranchService,
     private staffService: StaffService,
+    private UserService: UserService,
     private bankService: BankService,
     private fingerService: FingerService,
     private toastr: ToastrService,
@@ -146,6 +152,36 @@ export class StaffFormComponent implements OnInit {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
       }
     );
+
+    // Get single User
+    this.UserService.getSingleUser().subscribe((data: any) => {
+      this.user = data["data"];
+      this.vc = data["data"].vc;
+      // console.log(this.user);
+      this.device_name = data["data"].device_name;
+
+      this.staffService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.statusfinger = data['status_finger'];
+        // console.log(this.statusfinger);
+        setTimeout(() => {
+          if (data['status_finger'] == '0') {
+            $("#btn-fingerscan").removeClass('disabled');
+            $("#btn-autoreg").addClass('disabled');
+            $("#btn-manualreg").attr('disabled', 'disabled');
+          } else {
+            $("#btn-fingerscan").addClass('disabled');
+            $("#btn-autoreg").removeClass('disabled');
+            $("#btn-manualreg").removeAttr('disabled');
+          }
+        }, 500);
+      });
+
+      this.staffService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+        this.finspot = data["data"];
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+      });
+
+    });
   }
 
   public triggerSnapshot(): void {
@@ -175,7 +211,7 @@ export class StaffFormComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkStaffRegistration(this.staff.finger_code)
+          .checkStaffRegistration(this.staff.finger_code, this.vc)
           .subscribe((data: any) => {
             if (data["status"] === "200") {
               subscribe.unsubscribe();
