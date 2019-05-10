@@ -161,24 +161,6 @@ export class PtSessionComponent implements OnInit {
           this.device_name = cri["data"].device_name;
           this.vc = cri["data"].vc;
 
-          this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], cri["data"].vc).subscribe((sti: any) => {
-            this.statusfinger = sti['status_finger'];
-
-            // console.log(this.statusfinger);
-
-            setTimeout(() => {
-              if (sti['status_finger'] == '0') {
-                $("#btn-fingerscan").removeClass('disabled');
-                $("#btn-autoreg").addClass('disabled');
-                $("#btn-manualreg").attr('disabled', 'disabled');
-              } else {
-                $("#btn-fingerscan").addClass('disabled');
-                $("#btn-autoreg").removeClass('disabled');
-                $("#btn-manualreg").removeAttr('disabled');
-              }
-            }, 500);
-          });
-
           this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((ano: any) => {
             // Auto Scan
             this.finspot = ano["urlptattendance"];
@@ -191,18 +173,6 @@ export class PtSessionComponent implements OnInit {
             })
           });
 
-        });
-
-        this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((res: any) => {
-          // Auto Scan
-          this.finspot = res["urlptattendance"];
-          this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-
-          this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((respo: any) => {
-            // Auto Scan
-            this.finspot_staff = respo["finger_staff"];
-            this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
-          })
         });
 
       });
