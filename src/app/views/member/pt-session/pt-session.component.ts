@@ -62,6 +62,8 @@ export class PtSessionComponent implements OnInit {
   personal_trainer_member;
   trainhistory: any = [];
   datahistory = [];
+  device_name;
+  statusfinger;
   vc;
 
   constructor(
@@ -151,6 +153,45 @@ export class PtSessionComponent implements OnInit {
         console.log(this.member)
         this.todayDate = this.getTanggal();
         //console.log(this.member['id']);
+
+        // Get single User
+        this.UserService.getSingleUser().subscribe((data: any) => {
+          this.user = data["data"];
+          // console.log(this.user);
+          this.device_name = data["data"].device_name;
+          this.vc = data["data"].vc;
+
+          this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+            this.statusfinger = data['status_finger'];
+
+            // console.log(this.statusfinger);
+
+            setTimeout(() => {
+              if (data['status_finger'] == '0') {
+                $("#btn-fingerscan").removeClass('disabled');
+                $("#btn-autoreg").addClass('disabled');
+                $("#btn-manualreg").attr('disabled', 'disabled');
+              } else {
+                $("#btn-fingerscan").addClass('disabled');
+                $("#btn-autoreg").removeClass('disabled');
+                $("#btn-manualreg").removeAttr('disabled');
+              }
+            }, 500);
+          });
+
+          this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((res: any) => {
+            // Auto Scan
+            this.finspot = res["urlptattendance"];
+            this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+
+            this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((resp: any) => {
+              // Auto Scan
+              this.finspot_staff = resp["finger_staff"];
+              this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
+            })
+          });
+
+        });
 
         this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((res: any) => {
           this.vc = res["data"];
