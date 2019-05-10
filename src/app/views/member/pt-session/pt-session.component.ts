@@ -194,8 +194,6 @@ export class PtSessionComponent implements OnInit {
         });
 
         this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((res: any) => {
-          this.vc = res["data"];
-
           // Auto Scan
           this.finspot = res["urlptattendance"];
           this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
