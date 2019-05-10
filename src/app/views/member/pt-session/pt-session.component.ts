@@ -152,16 +152,16 @@ export class PtSessionComponent implements OnInit {
         this.todayDate = this.getTanggal();
         //console.log(this.member['id']);
 
-        this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
-          this.vc = data["data"].vc;
+        this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((res: any) => {
+          this.vc = res["data"].vc;
 
           // Auto Scan
-          this.finspot = data["urlptattendance"];
+          this.finspot = res["urlptattendance"];
           this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
 
-          this.personaltrainerService.fingerPt(this.member.id, data["data"].vc).subscribe((data: any) => {
+          this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((resp: any) => {
             // Auto Scan
-            this.finspot_staff = data["finger_staff"];
+            this.finspot_staff = resp["finger_staff"];
             this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
           })
         });
