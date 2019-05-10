@@ -155,19 +155,19 @@ export class PtSessionComponent implements OnInit {
         //console.log(this.member['id']);
 
         // Get single User
-        this.UserService.getSingleUser().subscribe((data: any) => {
-          this.user = data["data"];
+        this.UserService.getSingleUser().subscribe((cri: any) => {
+          this.user = cri["data"];
           // console.log(this.user);
-          this.device_name = data["data"].device_name;
-          this.vc = data["data"].vc;
+          this.device_name = cri["data"].device_name;
+          this.vc = cri["data"].vc;
 
-          this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
-            this.statusfinger = data['status_finger'];
+          this.memberService.checkFinger(this.activatedRoute.snapshot.params['id'], cri["data"].vc).subscribe((sti: any) => {
+            this.statusfinger = sti['status_finger'];
 
             // console.log(this.statusfinger);
 
             setTimeout(() => {
-              if (data['status_finger'] == '0') {
+              if (sti['status_finger'] == '0') {
                 $("#btn-fingerscan").removeClass('disabled');
                 $("#btn-autoreg").addClass('disabled');
                 $("#btn-manualreg").attr('disabled', 'disabled');
@@ -179,14 +179,14 @@ export class PtSessionComponent implements OnInit {
             }, 500);
           });
 
-          this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((res: any) => {
+          this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((ano: any) => {
             // Auto Scan
-            this.finspot = res["urlptattendance"];
+            this.finspot = ano["urlptattendance"];
             this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
 
-            this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((resp: any) => {
+            this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((ronaldo: any) => {
               // Auto Scan
-              this.finspot_staff = resp["finger_staff"];
+              this.finspot_staff = ronaldo["finger_staff"];
               this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
             })
           });
@@ -200,9 +200,9 @@ export class PtSessionComponent implements OnInit {
           this.finspot = res["urlptattendance"];
           this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
 
-          this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((resp: any) => {
+          this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((respo: any) => {
             // Auto Scan
-            this.finspot_staff = resp["finger_staff"];
+            this.finspot_staff = respo["finger_staff"];
             this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
           })
         });
