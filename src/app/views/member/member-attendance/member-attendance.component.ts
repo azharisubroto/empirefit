@@ -219,6 +219,7 @@ export class MemberAttendanceComponent implements OnInit {
           if (this.status_leave) {
             $("#btn-manualreg").attr("disabled", "disabled");
             $("#btn-manualattendance").attr("disabled", "disabled");
+            $("#btn-fingerscan").addClass('disabled');
 
             $("#btn-attendance").addClass("disabled");
 
@@ -233,6 +234,7 @@ export class MemberAttendanceComponent implements OnInit {
           } else {
             if (data["data"].member_type_id == null) {
               $("#btn-attendance").addClass("disabled");
+              $("#btn-fingerscan").addClass('disabled');
 
               $("#btn-attendance").addClass("disabled");
               $("#btn-history").addClass("disabled");

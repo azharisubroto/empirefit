@@ -62,6 +62,7 @@ export class PtSessionComponent implements OnInit {
   personal_trainer_member;
   trainhistory: any = [];
   datahistory = [];
+  vc;
 
   constructor(
     private fb: FormBuilder,
@@ -151,15 +152,19 @@ export class PtSessionComponent implements OnInit {
         this.todayDate = this.getTanggal();
         //console.log(this.member['id']);
 
-        // Auto Scan
-        this.finspot = data["urlptattendance"];
-        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+        this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+          this.vc = data["data"].vc;
 
-        this.personaltrainerService.personalTrainerMember(this.member.id).subscribe((data: any) => {
           // Auto Scan
-          this.finspot_staff = data["data"].staff_finger_code;
-          this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
-        })
+          this.finspot = data["urlptattendance"];
+          this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+
+          this.personaltrainerService.fingerPt(this.member.id, data["data"].vc).subscribe((data: any) => {
+            // Auto Scan
+            this.finspot_staff = data["finger_staff"];
+            this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
+          })
+        });
 
       });
 
@@ -274,7 +279,7 @@ export class PtSessionComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkPtAttendance(this.activatedRoute.snapshot.params["id"])
+          .checkPtAttendance(this.activatedRoute.snapshot.params["id"], this.vc)
           .subscribe((data: any) => {
             if (data["status"] == "200") {
               subscribe.unsubscribe();
@@ -301,7 +306,7 @@ export class PtSessionComponent implements OnInit {
     const source = interval(3000),
       subscribe = source.subscribe(val => {
         this.fingerService
-          .checkPtAttendance2(this.member.personal_trainer[0].personal_trainer_id)
+          .checkPtAttendance2(this.member.personal_trainer[0].personal_trainer_id, this.vc)
           .subscribe((data: any) => {
             if (data["status"] == "200") {
               subscribe.unsubscribe();

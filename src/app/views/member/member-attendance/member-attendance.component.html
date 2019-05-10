@@ -167,13 +167,13 @@
               History</button>
           </div>
           <div class="col-md-6 mb-3">
-            <a id="btn-ptsession" routerLink="/dashboard/member/pt-session/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">PT
-              Session</a>
-          </div>
-          <div class="col-md-6 mb-3">
             <button (click)="downloadbio(id_card_number)" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio
               &amp;
               Liability (PDF)</button>
+          </div>
+          <div class="col-md-6 mb-3">
+            <a id="btn-ptsession" routerLink="/dashboard/member/pt-session/{{ member.id }}" class="btn btn-primary btn-lg btn-block py-3">PT
+              Session</a>
           </div>
         </div>
       </div>
@@ -557,7 +557,7 @@
 <div class="d-none">
   <div id="downloadsigningform">
     <p align="center" style="font-size: 20pt;text-align:center;margin-bottom:10pt"><strong>Empire Fit Club recurring
-        automattic payment</strong></p>
+        automatic payment</strong></p>
     <p>I <strong>{{member.name}}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong>{{recuring_payment
         | number:0}}</strong>
       from my credit card in order to pay the monthly subscriptions.I understand that this

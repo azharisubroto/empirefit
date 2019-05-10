@@ -42,13 +42,13 @@ export class FingerService {
   }
 
   //  Pt Attendance
-  checkPtAttendance(member_id) {
-    return this.http.get(this.apiURL + "/finger/member_pt_attendance/check/" + member_id);
+  checkPtAttendance(member_id, vc) {
+    return this.http.get(this.apiURL + "/finger/member_pt_attendances/check/" + member_id + "/" + vc);
   }
 
   //  Pt Attendance
-  checkPtAttendance2(pt_id) {
-    return this.http.get(this.apiURL + "/finger/pt_attendance/check/" + pt_id);
+  checkPtAttendance2(pt_id, vc) {
+    return this.http.get(this.apiURL + "/finger/pt_attendances/check/" + pt_id + "/" + vc);
   }
 
   checkStaffAttendance(staff_id, data) {

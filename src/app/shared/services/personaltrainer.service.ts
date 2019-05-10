@@ -57,4 +57,11 @@ export class PersonaltrainerService {
       this.httpOptions
     );
   }
+
+  fingerPt(id, vc) {
+    return this.http.get(
+      this.apiURL + "/get_url_finger_pt/" + id + "/" + vc,
+      this.httpOptions
+    );
+  }
 }
