@@ -65,6 +65,7 @@ export class StaffAttendanceComponent implements OnInit {
   statusfinger;
   vc;
   device_name;
+  last_time;
 
   constructor(
     private fb: FormBuilder,
@@ -123,6 +124,7 @@ export class StaffAttendanceComponent implements OnInit {
       this.date = this.staff.date;
       this.branch_name = this.staff.branch_name;
       this.first_time = this.staff.attendance.first_time;
+      this.last_time = this.staff.attendance.last_time;
       this.attendanceHistory = data["data"].attendance.history;
       this.total_attendance = data["data"].total_attendance;
       console.log(this.total_attendance)
@@ -160,32 +162,32 @@ export class StaffAttendanceComponent implements OnInit {
 
       // Get single User
       this.UserService.getSingleUser().subscribe((data: any) => {
-          this.user = data["data"];
-          // console.log(this.user);
-          this.device_name = data["data"].device_name;
-          this.vc = data["data"].vc;
+        this.user = data["data"];
+        // console.log(this.user);
+        this.device_name = data["data"].device_name;
+        this.vc = data["data"].vc;
 
-          this.staffService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
-            this.statusfinger = data['status_finger'];
+        this.staffService.checkFinger(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+          this.statusfinger = data['status_finger'];
 
-            // console.log(this.statusfinger);
+          // console.log(this.statusfinger);
 
-            setTimeout(() => {
-              if (data['status_finger'] == '0') {
-                $("#btn-fingerscan").removeClass('disabled');
-                $("#btn-attendance").addClass('disabled');
-                $("#btn-attendance-out").addClass('disabled');
-                $("#btn-mt-attendance").attr('disabled', 'disabled');
-                $("#btn-mt-attendance-out").attr('disabled', 'disabled');
-              } else {
-                $("#btn-fingerscan").addClass('disabled');
-                $("#btn-attendance").removeClass('disabled');
-                $("#btn-attendance-out").removeClass('disabled');
-                $("#btn-mt-attendance").removeAttr('disabled');
-                $("#btn-mt-attendance-out").removeAttr('disabled');
-              }
-            }, 500);
-          });
+          setTimeout(() => {
+            if (data['status_finger'] == '0') {
+              $("#btn-fingerscan").removeClass('disabled');
+              $("#btn-attendance").addClass('disabled');
+              $("#btn-attendance-out").addClass('disabled');
+              $("#btn-mt-attendance").attr('disabled', 'disabled');
+              $("#btn-mt-attendance-out").attr('disabled', 'disabled');
+            } else {
+              $("#btn-fingerscan").addClass('disabled');
+              $("#btn-attendance").removeClass('disabled');
+              $("#btn-attendance-out").removeClass('disabled');
+              $("#btn-mt-attendance").removeAttr('disabled');
+              $("#btn-mt-attendance-out").removeAttr('disabled');
+            }
+          }, 500);
+        });
 
         this.staffService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
           this.finspotscan = data['data'];
@@ -318,7 +320,7 @@ export class StaffAttendanceComponent implements OnInit {
             if (data["status"] === "200") {
               subscribe.unsubscribe();
               setTimeout(() => {
-                $(".first-time").text(data["date"]);
+                $(".last-time").text(data["date"]);
               });
               this.toastr.success(data["message"], "Success", {
                 progressBar: true
@@ -329,7 +331,7 @@ export class StaffAttendanceComponent implements OnInit {
             } else {
               subscribe.unsubscribe();
               setTimeout(() => {
-                $(".first-time").text("n/a");
+                $(".last-time").text("-");
               });
               this.toastr.error(data["message"], "Error", {
                 progressBar: true
@@ -363,7 +365,7 @@ export class StaffAttendanceComponent implements OnInit {
           .staffManualAttendance(formValue)
           .subscribe((data: any) => {
             if (data["status"] == "200") {
-              $("#first_time").text(data["first_name"]);
+              $("#first_time").text(data["first_time"]);
               this.loading = false;
               this.toastr.success(data["message"], "Success", {
                 progressBar: true
@@ -407,7 +409,7 @@ export class StaffAttendanceComponent implements OnInit {
           .staffManualAttendanceOut(formValue)
           .subscribe((data: any) => {
             if (data["status"] == "200") {
-              $("#first_time").text(data["first_name"]);
+              $("#last_time").text(data["last_time"]);
               this.loading = false;
               this.toastr.success(data["message"], "Success", {
                 progressBar: true

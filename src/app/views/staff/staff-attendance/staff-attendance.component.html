@@ -122,6 +122,72 @@
   </div>
 
   <div class="col-md-6 mb-4 mb-md-0">
+    <!-- Today's Attendance -->
+    <div class="card mb-4">
+      <div class="card-body">
+        <!-- <div class="fancy-head mb-3">
+              <span>Today's Attendance</span>
+            </div>
+            <div class="row mb-4">
+              <div class="col-md-6 mb-4 mb-md-0">
+                <div class="px-4 py-3 border border-light rounded align-items-center">
+                  <span class="text-muted mb-0">Date</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ todayDate }}
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-4 mb-md-0">
+                <div class="px-4 py-3 border border-light rounded align-items-center">
+                  <span class="text-muted mb-0">Branch</span>
+                  <div class="text-medium text-primary mt-1">
+                    {{ member.branch_name }}
+                  </div>
+                </div>
+              </div>
+            </div> -->
+        <div class="fancy-head mb-3">
+          <span>Fingerprint Status</span>
+        </div>
+        <div class="row mb-4">
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div class="px-4 py-3 border border-light rounded align-items-center">
+              <span class="text-muted mb-0">Fingerprint Name</span>
+              <div class="text-medium text-primary mt-1">
+                {{ device_name }}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4 mb-md-0">
+            <div class="px-4 py-3 border border-light rounded align-items-center">
+              <span class="text-muted mb-0">Staff Fingerprint</span>
+              <div class="text-medium text-primary mt-1">
+                {{ statusfinger == '0' ? 'Unavailable' : "Available" }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-12">
+            <a id="btn-fingerscan" (click)="checkFingerScan()" [href]="fingerscan" class="btn btn-primary btn-lg btn-block py-3">Finger
+              Scan</a>
+          </div>
+        </div>
+        <!-- <div class="row mt-4">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <button class="btn btn-primary btn-lg btn-block py-3" (click)="open(manualAttendance)" id="btn-manualattendance">
+                  Manual Attendance
+                </button>
+              </div>
+              <div class="col-md-6">
+                <a id="btn-history" class="btn btn-primary btn-lg btn-block py-3" (click)="openLg(attendancehistory)">Attendance
+                  History</a>
+              </div>
+            </div> -->
+      </div>
+    </div>
+
     <!-- PAYMENT -->
     <div class="card mb-4">
       <div class="card-body">
@@ -133,91 +199,31 @@
 
           <div class="col-md-6 mb-3">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-              <span class="text-muted mb-0">Date</span>
-              <div class="text-medium text-primary mt-1">
-                {{ date }}
-              </div>
-            </div>
-            <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Branch</span>
               <div class="text-medium text-primary mt-1">
                 {{ branch_name }}
               </div>
             </div>
-          </div>
-          <div class="col-md-6 mb-3">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
-              <span class="text-muted mb-0">First Time</span>
+              <span class="text-muted mb-0">Clock In</span>
               <div id="first_time" class="text-medium text-primary mt-1 first-time">
                 {{ !! first_time ? first_time : "-" }}
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Today's Attendance -->
-        <div class="card mb-4">
-          <div class="card-body">
-            <!-- <div class="fancy-head mb-3">
-                  <span>Today's Attendance</span>
-                </div>
-                <div class="row mb-4">
-                  <div class="col-md-6 mb-4 mb-md-0">
-                    <div class="px-4 py-3 border border-light rounded align-items-center">
-                      <span class="text-muted mb-0">Date</span>
-                      <div class="text-medium text-primary mt-1">
-                        {{ todayDate }}
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-4 mb-md-0">
-                    <div class="px-4 py-3 border border-light rounded align-items-center">
-                      <span class="text-muted mb-0">Branch</span>
-                      <div class="text-medium text-primary mt-1">
-                        {{ member.branch_name }}
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-            <div class="fancy-head mb-3">
-              <span>Fingerprint Status</span>
-            </div>
-            <div class="row mb-4">
-              <div class="col-md-6 mb-4 mb-md-0">
-                <div class="px-4 py-3 border border-light rounded align-items-center">
-                  <span class="text-muted mb-0">Fingerprint Name</span>
-                  <div class="text-medium text-primary mt-1">
-                    {{ device_name }}
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6 mb-4 mb-md-0">
-                <div class="px-4 py-3 border border-light rounded align-items-center">
-                  <span class="text-muted mb-0">Staff Fingerprint</span>
-                  <div class="text-medium text-primary mt-1">
-                    {{ statusfinger == '0' ? 'Unavailable' : "Available" }}
-                  </div>
-                </div>
+          <div class="col-md-6 mb-3">
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+              <span class="text-muted mb-0">Date</span>
+              <div class="text-medium text-primary mt-1">
+                {{ date }}
               </div>
             </div>
-
-            <div class="row mt-4">
-              <div class="col-12">
-                <a id="btn-fingerscan" (click)="checkFingerScan()" [href]="fingerscan" class="btn btn-primary btn-lg btn-block py-3">Finger
-                  Scan</a>
+            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+              <span class="text-muted mb-0">Clock Out</span>
+              <div id="last_time" class="text-medium text-primary mt-1 last-time">
+                {{ !! last_time ? last_time : "-" }}
               </div>
             </div>
-            <!-- <div class="row mt-4">
-                  <div class="col-md-6 mb-3 mb-md-0">
-                    <button class="btn btn-primary btn-lg btn-block py-3" (click)="open(manualAttendance)" id="btn-manualattendance">
-                      Manual Attendance
-                    </button>
-                  </div>
-                  <div class="col-md-6">
-                    <a id="btn-history" class="btn btn-primary btn-lg btn-block py-3" (click)="openLg(attendancehistory)">Attendance
-                      History</a>
-                  </div>
-                </div> -->
           </div>
         </div>
 
