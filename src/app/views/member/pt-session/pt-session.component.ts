@@ -166,9 +166,9 @@ export class PtSessionComponent implements OnInit {
             this.finspot = ano["urlptattendance"];
             this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
 
-            this.personaltrainerService.fingerPt(this.member.id, this.vc).subscribe((ronaldo: any) => {
+            this.personaltrainerService.fingerPt(this.personal_trainer_member.staff_finger_code, this.vc).subscribe((ronaldo: any) => {
 
-              console.log(ronaldo);
+              // console.log(this.personal_trainer_member);
               // Auto Scan
               this.finspot_staff = ronaldo["finger_staff"];
               this.finger_staff = this.sanitizer.bypassSecurityTrustUrl(this.finspot_staff);
