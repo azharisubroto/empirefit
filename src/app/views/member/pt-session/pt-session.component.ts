@@ -153,7 +153,7 @@ export class PtSessionComponent implements OnInit {
         //console.log(this.member['id']);
 
         this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], this.vc).subscribe((res: any) => {
-          this.vc = res["data"].vc;
+          this.vc = res["data"];
 
           // Auto Scan
           this.finspot = res["urlptattendance"];
