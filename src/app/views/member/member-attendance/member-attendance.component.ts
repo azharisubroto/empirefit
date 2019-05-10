@@ -319,14 +319,6 @@ export class MemberAttendanceComponent implements OnInit {
           }
         }, 200)
 
-        // Auto Attendance
-        this.finspot = data["urlattendance"];
-        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-
-        // Auto RegistrationClass
-        this.finspot_class = data["urlregistrationclass"];
-        this.finger_class = this.sanitizer.bypassSecurityTrustUrl(this.finspot_class);
-
         this.ClassesService.getClasses(this.member.member_type_id).subscribe(
           (data: any) => {
             // console.log(data["data"])
@@ -460,8 +452,18 @@ export class MemberAttendanceComponent implements OnInit {
       });
 
       this.memberService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+
+        // Registration Finger
         this.finspotscan = data['data'];
         this.fingerscan = this.sanitizer.bypassSecurityTrustUrl(this.finspotscan);
+
+        // Auto Attendance
+        this.finspot = data["urlattendance"];
+        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+
+        // Auto RegistrationClass
+        this.finspot_class = data["urlregistrationclass"];
+        this.finger_class = this.sanitizer.bypassSecurityTrustUrl(this.finspot_class);
       });
 
     });

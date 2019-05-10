@@ -137,10 +137,6 @@ export class StaffFormComponent implements OnInit {
         }, 2000);
 
         this.id_card = data["data"].id_card;
-
-        this.finspot = data["url"];
-
-        this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
       });
 
     this.branchService.getBranches().subscribe((data: any) => {

@@ -237,6 +237,7 @@ export class StaffRegistrationComponent implements OnInit {
       formValues["address"] = address;
       formValues["positions"] = dataPositions;
       formValues["position_name"] = dataPositionName;
+      formValues["vc"] = this.vc;
 
       this.staffService.createStaff(formValues).subscribe((data: any) => {
         if (data["status"] === "200") {

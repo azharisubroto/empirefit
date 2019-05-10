@@ -190,20 +190,20 @@ export class StaffAttendanceComponent implements OnInit {
         });
 
         this.staffService.getUrlFingerReg(this.activatedRoute.snapshot.params['id'], data["data"].vc).subscribe((data: any) => {
+          // Registration Finger
           this.finspotscan = data['data'];
           this.fingerscan = this.sanitizer.bypassSecurityTrustUrl(this.finspotscan);
+
+          // Auto Attendance
+          this.finspot = data["url_attendance"];
+          this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
+
+          // Auto Attendance Out
+          this.finspotOut = data["url_attendance_out"];
+          this.fingerOut = this.sanitizer.bypassSecurityTrustUrl(this.finspotOut);
         });
 
       });
-
-
-      // Auto Attendance
-      this.finspot = data["url_attendance"];
-      this.finger = this.sanitizer.bypassSecurityTrustUrl(this.finspot);
-
-      // Auto Attendance Out
-      this.finspotOut = data["url_attendance_out"];
-      this.fingerOut = this.sanitizer.bypassSecurityTrustUrl(this.finspotOut);
     });
 
     this.filterForm = this.fb.group({

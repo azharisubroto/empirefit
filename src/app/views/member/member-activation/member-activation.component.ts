@@ -536,17 +536,19 @@ export class MemberActivationComponent implements OnInit {
   }
 
   onStep1Next() {
+    // return console.log(this.liabilityForm.value);
     let formValue = this.liabilityForm.value;
 
     if (this.member.liability_signature || this.member.liability_user_signature) {
       console.log("Signature exist");
     } else {
-      if (this.liabilityForm.invalid) {
+      if (formValue['member_sign'] == "" || formValue['staff_sign'] == "") {
         alert("Please Draw Signature");
         setTimeout(() => {
           $('.prevaja').trigger('click');
         }, 50);
       } else {
+        // return console.log(formValue);
         formValue["member_id"] = this.activatedRoute.snapshot.params["id"];
         console.log(formValue);
         this.memberService.updateLiability(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
