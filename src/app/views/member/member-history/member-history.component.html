@@ -47,7 +47,9 @@
                       <td>{{ transaction.member_type }}</td>
                       <td class="text-center">{{ transaction.total_session ? transaction.total_session : "-" }}</td>
                       <td class="text-center">{{ transaction.session_remains ? transaction.session_remains : "-" }}</td>
-                      <td>{{ transaction.personal_trainer_name ? transaction.personal_trainer_name : "-" }}</td>
+                      <td>
+                        {{ transaction.member_type === '(03) PERSONAL TRAINER' ? transaction.personal_trainer_name : "-" }}
+                      </td>
                       <td class="text-right">Rp. {{ transaction.idr | number:0 }}</td>
                       <td class="text-center">{{ transaction.autodebit === 1 ? "Yes" : "No" }}</td>
                       <td class="text-center">{{ transaction.authorized ? transaction.authorized : "-" }}</td>
