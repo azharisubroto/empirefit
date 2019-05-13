@@ -826,7 +826,7 @@ export class TransactionListComponent implements OnInit {
 
     var $filedate = formValue['first_date'] + "/" + formValue['second_date'];
 
-    var $filename = 'EFC-RECURRING' + $filedate + "-EDC-" + mod.edc.bank_name + "-MID-" + mod.edc.mid + "-TID-" + mod.edc.tid;
+    var $filename = 'EFC-RECURRING' + $filedate + "-EDC-" + this.edc.bank_name + "-MID-" + this.edc.mid + "-TID-" + this.edc.tid;
 
     var mod = this;
     var items: any = [];

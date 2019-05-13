@@ -24,7 +24,8 @@
               <select name="branch_id" id="branch_id" class="form-control" formControlName="branch_id">
                 <option *ngFor="let item of branch" [ngValue]="branch.id">{{branch.branch_name}}</option>
               </select>
-              <i *ngIf="!ptForm.get('branch_id').valid && ptForm.get('branch_id').touched" class="i-Information text-danger">
+              <i *ngIf="!ptForm.get('branch_id').valid && ptForm.get('branch_id').touched"
+                class="i-Information text-danger">
                 Please choose Branch</i>
             </div>
 
@@ -32,7 +33,6 @@
               <label for="session">Session</label>
               <select name="session" id="session" class="form-control" formControlName="session">
                 <option value="1">1</option>
-                <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="20">20</option>
                 <option value="30">30</option>
@@ -40,37 +40,36 @@
               </select>
               <i *ngIf="
                   !ptForm.get('session').valid && ptForm.get('session').touched
-                "
-                class="i-Information text-danger">
+                " class="i-Information text-danger">
                 Please choose session</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="quota">Quota</label>
-              <input type="text" class="form-control " id="quota" placeholder="Enter quota min 1" formControlName="quota" />
+              <input type="text" class="form-control " id="quota" placeholder="Enter quota min 1"
+                formControlName="quota" />
               <i *ngIf="
                   !ptForm.get('quota').valid && ptForm.get('quota').touched
-                "
-                class="i-Information text-danger">
+                " class="i-Information text-danger">
                 Please enter total quota</i>
             </div>
             <div class="col-md-6 form-group mb-3">
               <label for="remains">Remains</label>
-              <input type="text" class="form-control " id="remains" placeholder="Enter remains min 0" formControlName="remains" />
+              <input type="text" class="form-control " id="remains" placeholder="Enter remains min 0"
+                formControlName="remains" />
               <i *ngIf="
                   !ptForm.get('remains').valid && ptForm.get('remains').touched
-                "
-                class="i-Information text-danger">
+                " class="i-Information text-danger">
                 Please enter total remains min 0</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="price">Price</label>
-              <input type="text" class="form-control " id="price" placeholder="Enter price min 0" formControlName="price" />
+              <input type="text" class="form-control " id="price" placeholder="Enter price min 0"
+                formControlName="price" />
               <i *ngIf="
                   !ptForm.get('price').valid && ptForm.get('price').touched
-                "
-                class="i-Information text-danger">
+                " class="i-Information text-danger">
                 Please enter total price min 0</i>
             </div>
 
