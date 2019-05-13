@@ -445,10 +445,12 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-fingerscan").removeClass('disabled');
               $("#btn-autoreg").addClass('disabled');
               $("#btn-manualreg").attr('disabled', 'disabled');
+              $("#btn-ptsession").addClass("disabled");
             } else {
               $("#btn-fingerscan").addClass('disabled');
               $("#btn-autoreg").removeClass('disabled');
               $("#btn-manualreg").removeAttr('disabled');
+              $("#btn-ptsession").removeClass("disabled");
             }
           }
         }, 500);

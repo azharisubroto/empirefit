@@ -21,8 +21,8 @@
       <form [formGroup]="filterForm" (ngSubmit)="searchHistory()">
         <div class="row mb-2">
           <div class="col-md-3">
-            <input id="fd" class="form-control defaultstartdate" type="text" name="dp1" ngbDatepicker formControlName="date_first"
-              #dp1="ngbDatepicker">
+            <input id="fd" class="form-control defaultstartdate" type="text" name="dp1" ngbDatepicker
+              formControlName="date_first" #dp1="ngbDatepicker">
           </div>
           <div class="col-1">
             <button class="btn btn-secondary" (click)="dp1.toggle()" type="button">
@@ -32,8 +32,8 @@
           <div class="col-md-1 text-center">
           </div>
           <div class="col-md-3">
-            <input id="sd" class="form-control defaultseconddate" type="text" name="dp2" ngbDatepicker formControlName="date_second"
-              #dp2="ngbDatepicker">
+            <input id="sd" class="form-control defaultseconddate" type="text" name="dp2" ngbDatepicker
+              formControlName="date_second" #dp2="ngbDatepicker">
           </div>
           <div class="col-1">
             <button class="btn btn-secondary" (click)="dp2.toggle()" type="button">
@@ -85,12 +85,15 @@
                       <td class="inistatus">{{ item.status === '1' ? 'Used' : 'Active' }}</td>
                       <!-- <td>{{ !! item.updated_by != NULL ? item.updated_by : 'n/a' }}</td> -->
                       <td>
-                        <button (click)="absencoy($event)" class="btn btn-sm btn-success absenbutton" [attr.data-id]="item.id"
-                          [attr.data-name]="item.name" [attr.data-email]="item.email" [attr.data-phone]="item.phone"
-                          [attr.data-reference]="item.booking_referance" [attr.data-emaildatetime]="item.email_date_time"
-                          [attr.data-company]="item.company" [attr.data-class]="item.class_id" [attr.data-classdate]="item.class_date"
-                          [attr.data-classtime]="item.class_time" [attr.data-branch]="item.branch" [attr.data-status]="item.status"
-                          [attr.data-createdby]="user.id"><i class="i-Clock-Forward"></i></button>
+                        <button (click)="absencoy($event)" class="btn btn-sm btn-success absenbutton"
+                          [attr.data-id]="item.id" [attr.data-name]="item.name" [attr.data-email]="item.email"
+                          [attr.data-signed]="item.signed" [attr.data-phone]="item.phone"
+                          [attr.data-reference]="item.booking_referance"
+                          [attr.data-emaildatetime]="item.email_date_time" [attr.data-company]="item.company"
+                          [attr.data-class]="item.class_id" [attr.data-classdate]="item.class_date"
+                          [attr.data-classtime]="item.class_time" [attr.data-branch]="item.branch"
+                          [attr.data-status]="item.status" [attr.data-createdby]="user.id"><i
+                            class="i-Clock-Forward"></i></button>
                         <a href="#" [routerLink]="['member-partner-edit/', item.id]" class="btn btn-sm btn-success ml-2"
                           title="Edit" triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>

@@ -58,6 +58,7 @@ export class MemberHistoryComponent implements OnInit {
       this.transactions = this.member.transactions;
       this.chRef.detectChanges();
       setTimeout(() => {
+        let filename = 'EFC-HIS-' + this.membername;
         this.table = $("#mytable").DataTable({
           dom: 'Bfrtip',
           buttons: {
@@ -67,8 +68,8 @@ export class MemberHistoryComponent implements OnInit {
               }
             },
             buttons: [
-              { extend: 'excel', className: 'btn-warning' },
-              { extend: 'csv', className: 'btn-warning' }
+              { extend: 'excel', className: 'btn-warning', title: filename },
+              { extend: 'csv', className: 'btn-warning', title: filename }
             ]
           }
         });

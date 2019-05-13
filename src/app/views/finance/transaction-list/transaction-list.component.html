@@ -60,7 +60,8 @@
                     (dateSelect)="changeDate($event, 'first_date')">
                   <input type="hidden" class="first_actualdate" formControlName="first_date">
                   <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()" type="button">
+                    <button type="button" class="btn btn-secondary" style="height:41px;" (click)="cp.toggle()"
+                      type="button">
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
                   </div>
@@ -72,7 +73,8 @@
                     (dateSelect)="changeDate($event, 'second_date')">
                   <input type="hidden" class="first_actualdate" formControlName="second_date">
                   <div class="input-group-append">
-                    <button type="button" class="btn btn-secondary" style="height:41px;" (click)="sd.toggle()" type="button">
+                    <button type="button" class="btn btn-secondary" style="height:41px;" (click)="sd.toggle()"
+                      type="button">
                       <i class="icon-regular i-Calendar-4"></i>
                     </button>
                   </div>
@@ -141,14 +143,16 @@
                       <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
                       <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
                       <td>
-                        <button class="btn prog-{{item.progress}} btn-sm btn-warning mr-2 ajax-update-btn" (click)="dialogconfirm($event, item.id)"><i
-                            class="i-Yes"></i></button>
+                        <button class="btn prog-{{item.progress}} btn-sm btn-warning mr-2 ajax-update-btn"
+                          (click)="dialogconfirm($event, item.id)"><i class="i-Yes"></i></button>
                         <a routerLink="/finance/recurring-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i
                             class="i-Pen-4"></i></a>
-                        <button class="btn btn-sm btn-warning mr-2 download_sign" (click)="memberpdf(item.id, item.signature_base)">
+                        <button class="btn btn-sm btn-warning mr-2 download_sign"
+                          (click)="memberpdf(item.id, item.signature_base, item.member_name)">
                           <i class="i-Download"></i>
                         </button>
-                        <button class="btn ref-{{item.progress}} btn-sm btn-warning mr-2 refund-btn" (click)="refund(item.id)">
+                        <button class="btn ref-{{item.progress}} btn-sm btn-warning mr-2 refund-btn"
+                          (click)="refund(item.id)">
                           <i class="i-Token-"></i>
                         </button>
                       </td>
@@ -167,7 +171,7 @@
 </div>
 
 <div class="d-none">
-  <div *ngFor="let item of finance" id="pdf-{{item.id}}">
+  <div *ngFor="let item of financepdf" id="pdf-{{item.id}}">
     <p align="center" style="font-size: 20pt;text-align:center;margin-bottom:10pt"><strong>Empire Fit Club recurring
         automatic payment</strong></p>
     <p>I <strong>{{item.member_name}}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong>{{item.recuring_payment

@@ -126,6 +126,7 @@ export class StaffAttendanceComponent implements OnInit {
       this.first_time = this.staff.attendance.first_time;
       this.last_time = this.staff.attendance.last_time;
       this.attendanceHistory = data["data"].attendance.history;
+      this.attendanceHistory.sort(this.dynamicSort("id"));
       this.total_attendance = data["data"].total_attendance;
       console.log(this.total_attendance)
 
@@ -245,6 +246,23 @@ export class StaffAttendanceComponent implements OnInit {
             }
           });
       });
+  }
+
+  dynamicSort(property) {
+    var sortOrder = 1;
+
+    if (property[0] === "-") {
+      sortOrder = -1;
+      property = property.substr(1);
+    }
+
+    return function (a, b) {
+      if (sortOrder == -1) {
+        return b[property].localeCompare(a[property]);
+      } else {
+        return a[property].localeCompare(b[property]);
+      }
+    }
   }
 
   getClock() {

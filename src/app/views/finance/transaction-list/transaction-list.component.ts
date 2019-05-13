@@ -80,6 +80,7 @@ export class TransactionListComponent implements OnInit {
     this.FinanceService.getRecurings().subscribe((data: any[]) => {
       var res = data['data'];
       this.finance = res;
+      this.financepdf = res;
       this.total_recuring_payment = data["total_recuring_payment"];
       this.total_unpaid = data["unpaid"];
       this.edc = data['edc'];
@@ -249,137 +250,139 @@ export class TransactionListComponent implements OnInit {
         //console.log(res);
         // location.reload();
 
-        this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
-          var res = data['data'];
-          console.log(res)
-          setTimeout(() => {
-            $(".totrec").text("IDR " + data["recuring_payment"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
-            $(".totun").text("IDR " + data["unpaid"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
-          }, 200);
-          $.each(res, function (i, item) {
-            var newthis = [
-              item.date,
-              item.member_name,
-              item.credit_card_name,
-              item.credit_card_number,
-              item.credit_card_exp_month + '/' + item.credit_card_exp_year,
-              item.recuring_date,
-              item.recuring_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-              item.unpaid.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-              item.finance_status,
-              !!item.finance_notes ? item.finance_notes : 'n/a',
-              !!item.bank_approval_code ? item.bank_approval_code : 'n/a',
-              !!item.bank_notes ? item.bank_notes : 'n/a',
-              !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              !!item.fo_status ? item.fo_status : 'n/a',
-              !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
-            ];
-            var newPrintThis = [
-              item.credit_card_number,
-              item.credit_card_name,
-              item.credit_card_exp_month + '/' + item.credit_card_exp_year,
-              item.credit_card_bank_name,
-              "-",
-              item.recuring_payment,
-              "-",
-            ];
-            itemprints.push(newPrintThis);
-            items.push(newthis);
-          });
+        // this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
+        //   var res = data['data'];
+        //   console.log(res)
+        //   setTimeout(() => {
+        //     $(".totrec").text("IDR " + data["recuring_payment"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+        //     $(".totun").text("IDR " + data["unpaid"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+        //   }, 200);
+        //   $.each(res, function (i, item) {
+        //     var newthis = [
+        //       item.date,
+        //       item.member_name,
+        //       item.credit_card_name,
+        //       item.credit_card_number,
+        //       item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+        //       item.recuring_date,
+        //       item.recuring_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+        //       item.unpaid.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+        //       item.finance_status,
+        //       !!item.finance_notes ? item.finance_notes : 'n/a',
+        //       !!item.bank_approval_code ? item.bank_approval_code : 'n/a',
+        //       !!item.bank_notes ? item.bank_notes : 'n/a',
+        //       !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
+        //       !!item.fo_status ? item.fo_status : 'n/a',
+        //       !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
+        //       '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+        //     ];
+        //     var newPrintThis = [
+        //       item.credit_card_number,
+        //       item.credit_card_name,
+        //       item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+        //       item.credit_card_bank_name,
+        //       "-",
+        //       item.recuring_payment,
+        //       "-",
+        //     ];
+        //     itemprints.push(newPrintThis);
+        //     items.push(newthis);
+        //   });
 
-          mod.table = $('#mytable').DataTable({
-            scrollX: true,
-            columns: [
-              { title: 'Date' },
-              { title: 'Member' },
-              { title: 'Name on Card' },
-              { title: 'CC Number' },
-              { title: 'EXP Date' },
-              { title: 'Recurring Date' },
-              { title: 'Recurring Payment' },
-              { title: 'Unpaid (IDR)' },
-              { title: 'Finance Status' },
-              { title: 'Finance Notes' },
-              { title: 'Bank Approval Code' },
-              { title: 'Bank Notes' },
-              { title: 'Bank Withdrawal' },
-              { title: 'FO Status' },
-              { title: 'FO Payment' },
-              { title: 'Action' },
-            ],
-            dom: 'Bfrtip',
-            buttons: {
-              dom: {
-                button: {
-                  className: 'btn '
-                }
-              },
-              buttons: [
-                { extend: 'excel', className: 'btn-warning', title: $filename },
-                { extend: 'csv', className: 'btn-warning', title: $filename }
-              ]
-            },
-            data: items,
-            initComplete: function () {
-              $('.ajax-update-btn').on('click', function (e) {
-                e.preventDefault();
-                var con = confirm('Are You Sure Want To Approve This Transaction ?');
+        //   mod.table = $('#mytable').DataTable({
+        //     scrollX: true,
+        //     columns: [
+        //       { title: 'Date' },
+        //       { title: 'Member' },
+        //       { title: 'Name on Card' },
+        //       { title: 'CC Number' },
+        //       { title: 'EXP Date' },
+        //       { title: 'Recurring Date' },
+        //       { title: 'Recurring Payment' },
+        //       { title: 'Unpaid (IDR)' },
+        //       { title: 'Finance Status' },
+        //       { title: 'Finance Notes' },
+        //       { title: 'Bank Approval Code' },
+        //       { title: 'Bank Notes' },
+        //       { title: 'Bank Withdrawal' },
+        //       { title: 'FO Status' },
+        //       { title: 'FO Payment' },
+        //       { title: 'Action' },
+        //     ],
+        //     dom: 'Bfrtip',
+        //     buttons: {
+        //       dom: {
+        //         button: {
+        //           className: 'btn '
+        //         }
+        //       },
+        //       buttons: [
+        //         { extend: 'excel', className: 'btn-warning', title: $filename },
+        //         { extend: 'csv', className: 'btn-warning', title: $filename }
+        //       ]
+        //     },
+        //     data: items,
+        //     initComplete: function () {
+        //       $('.ajax-update-btn').on('click', function (e) {
+        //         e.preventDefault();
+        //         var con = confirm('Are You Sure Want To Approve This Transaction ?');
 
-                if (con) {
-                  var update_id = $(this).data('update'); //get id
-                  mod.update(update_id);
-                } else {
-                  console.log(false);
-                }
-              });
+        //         if (con) {
+        //           var update_id = $(this).data('update'); //get id
+        //           mod.update(update_id);
+        //         } else {
+        //           console.log(false);
+        //         }
+        //       });
 
-              $(".download_sign").on("click", function (e) {
-                e.preventDefault();
+        //       $(".download_sign").on("click", function (e) {
+        //         e.preventDefault();
 
-                var itemid = $(this).data('itemid'); //get id
-                var itemimg = $(this).data('itemimg'); //get img
+        //         var itemid = $(this).data('itemid'); //get id
+        //         var itemimg = $(this).data('itemimg'); //get img
 
-                mod.memberpdf(itemid, itemimg);
-              });
+        //         mod.memberpdf(itemid, itemimg);
+        //       });
 
-              $(".refund-btn").on("click", function (e) {
-                e.preventDefault();
+        //       $(".refund-btn").on("click", function (e) {
+        //         e.preventDefault();
 
-                var refundid = $(this).data('refundid'); //get id
+        //         var refundid = $(this).data('refundid'); //get id
 
-                mod.refund(refundid);
-              });
-            }
-          });
+        //         mod.refund(refundid);
+        //       });
+        //     }
+        //   });
 
-          mod.printTable = $("#example-table").DataTable({
-            scrollX: true,
-            columns: [
-              { title: 'CC Number' },
-              { title: 'Card Name' },
-              { title: 'EXP Date' },
-              { title: 'Bank Name' },
-              { title: 'Description' },
-              { title: 'Amount' },
-              { title: 'Formula' },
-            ],
-            data: itemprints,
-          });
-          // console.log(res);
+        //   mod.printTable = $("#example-table").DataTable({
+        //     scrollX: true,
+        //     columns: [
+        //       { title: 'CC Number' },
+        //       { title: 'Card Name' },
+        //       { title: 'EXP Date' },
+        //       { title: 'Bank Name' },
+        //       { title: 'Description' },
+        //       { title: 'Amount' },
+        //       { title: 'Formula' },
+        //     ],
+        //     data: itemprints,
+        //   });
+        //   // console.log(res);
 
-          $.each(res, function (i, itm) {
+        //   $.each(res, function (i, itm) {
 
-            if (itm.progress == '1') {
-              $('.prog-1').attr('disabled', 'disabled');
-              $('.ref-1').removeAttr('disabled');
-            } else {
-              $('.prog-0').removeAttr('disabled');
-              $('.ref-0').attr('disabled', 'disabled');
-            }
+        //     if (itm.progress == '1') {
+        //       $('.prog-1').attr('disabled', 'disabled');
+        //       $('.ref-1').removeAttr('disabled');
+        //     } else {
+        //       $('.prog-0').removeAttr('disabled');
+        //       $('.ref-0').attr('disabled', 'disabled');
+        //     }
 
-          })
-        });
+        //   })
+        // });
+
+        location.reload();
       });
     } else {
       console.log(false);
@@ -410,141 +413,143 @@ export class TransactionListComponent implements OnInit {
     var items: any = [];
     var itemprints: any = [];
     this.FinanceService.updateRecuring(recuring_id, data).subscribe((data: any) => {
-      var res = data;
-      //console.log(res);
-      // location.reload();
+      // var res = data;
+      // //console.log(res);
+      // // location.reload();
 
-      this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
-        var res = data['data'];
-        console.log(res)
-        setTimeout(() => {
-          $(".totrec").text("IDR " + data["recuring_payment"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
-          $(".totun").text("IDR " + data["unpaid"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
-        }, 200);
-        $.each(res, function (i, item) {
-          var newthis = [
-            item.date,
-            item.member_name,
-            item.credit_card_name,
-            item.credit_card_number,
-            item.credit_card_exp_month + '/' + item.credit_card_exp_year,
-            item.recuring_date,
-            item.recuring_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-            item.unpaid.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-            item.finance_status,
-            !!item.finance_notes ? item.finance_notes : 'n/a',
-            !!item.bank_approval_code ? item.bank_approval_code : 'n/a',
-            !!item.bank_notes ? item.bank_notes : 'n/a',
-            !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-            !!item.fo_status ? item.fo_status : 'n/a',
-            !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
-          ];
-          var newPrintThis = [
-            item.credit_card_number,
-            item.credit_card_name,
-            item.credit_card_exp_month + '/' + item.credit_card_exp_year,
-            item.credit_card_bank_name,
-            "-",
-            item.recuring_payment,
-            "-",
-          ];
-          itemprints.push(newPrintThis);
-          items.push(newthis);
-        });
+      // this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
+      //   var res = data['data'];
+      //   console.log(res)
+      //   setTimeout(() => {
+      //     $(".totrec").text("IDR " + data["recuring_payment"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+      //     $(".totun").text("IDR " + data["unpaid"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+      //   }, 200);
+      //   $.each(res, function (i, item) {
+      //     var newthis = [
+      //       item.date,
+      //       item.member_name,
+      //       item.credit_card_name,
+      //       item.credit_card_number,
+      //       item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+      //       item.recuring_date,
+      //       item.recuring_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+      //       item.unpaid.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+      //       item.finance_status,
+      //       !!item.finance_notes ? item.finance_notes : 'n/a',
+      //       !!item.bank_approval_code ? item.bank_approval_code : 'n/a',
+      //       !!item.bank_notes ? item.bank_notes : 'n/a',
+      //       !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
+      //       !!item.fo_status ? item.fo_status : 'n/a',
+      //       !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
+      //       '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+      //     ];
+      //     var newPrintThis = [
+      //       item.credit_card_number,
+      //       item.credit_card_name,
+      //       item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+      //       item.credit_card_bank_name,
+      //       "-",
+      //       item.recuring_payment,
+      //       "-",
+      //     ];
+      //     itemprints.push(newPrintThis);
+      //     items.push(newthis);
+      //   });
 
-        mod.table = $('#mytable').DataTable({
-          scrollX: true,
-          columns: [
-            { title: 'Date' },
-            { title: 'Member' },
-            { title: 'Name on Card' },
-            { title: 'CC Number' },
-            { title: 'EXP Date' },
-            { title: 'Recurring Date' },
-            { title: 'Recurring Payment' },
-            { title: 'Unpaid (IDR)' },
-            { title: 'Finance Status' },
-            { title: 'Finance Notes' },
-            { title: 'Bank Approval Code' },
-            { title: 'Bank Notes' },
-            { title: 'Bank Withdrawal' },
-            { title: 'FO Status' },
-            { title: 'FO Payment' },
-            { title: 'Action' },
-          ],
-          dom: 'Bfrtip',
-          buttons: {
-            dom: {
-              button: {
-                className: 'btn '
-              }
-            },
-            buttons: [
-              { extend: 'excel', className: 'btn-warning', title: $filename },
-              { extend: 'csv', className: 'btn-warning', title: $filename }
-            ]
-          },
-          data: items,
-          initComplete: function () {
-            $('.ajax-update-btn').on('click', function (e) {
-              e.preventDefault();
-              var con = confirm('Are You Sure Want To Approve This Transaction ?');
+      //   mod.table = $('#mytable').DataTable({
+      //     scrollX: true,
+      //     columns: [
+      //       { title: 'Date' },
+      //       { title: 'Member' },
+      //       { title: 'Name on Card' },
+      //       { title: 'CC Number' },
+      //       { title: 'EXP Date' },
+      //       { title: 'Recurring Date' },
+      //       { title: 'Recurring Payment' },
+      //       { title: 'Unpaid (IDR)' },
+      //       { title: 'Finance Status' },
+      //       { title: 'Finance Notes' },
+      //       { title: 'Bank Approval Code' },
+      //       { title: 'Bank Notes' },
+      //       { title: 'Bank Withdrawal' },
+      //       { title: 'FO Status' },
+      //       { title: 'FO Payment' },
+      //       { title: 'Action' },
+      //     ],
+      //     dom: 'Bfrtip',
+      //     buttons: {
+      //       dom: {
+      //         button: {
+      //           className: 'btn '
+      //         }
+      //       },
+      //       buttons: [
+      //         { extend: 'excel', className: 'btn-warning', title: $filename },
+      //         { extend: 'csv', className: 'btn-warning', title: $filename }
+      //       ]
+      //     },
+      //     data: items,
+      //     initComplete: function () {
+      //       $('.ajax-update-btn').on('click', function (e) {
+      //         e.preventDefault();
+      //         var con = confirm('Are You Sure Want To Approve This Transaction ?');
 
-              if (con) {
-                var update_id = $(this).data('update'); //get id
-                mod.update(update_id);
-              } else {
-                console.log(false);
-              }
-            });
+      //         if (con) {
+      //           var update_id = $(this).data('update'); //get id
+      //           mod.update(update_id);
+      //         } else {
+      //           console.log(false);
+      //         }
+      //       });
 
-            $(".download_sign").on("click", function (e) {
-              e.preventDefault();
+      //       $(".download_sign").on("click", function (e) {
+      //         e.preventDefault();
 
-              var itemid = $(this).data('itemid'); //get id
-              var itemimg = $(this).data('itemimg'); //get img
+      //         var itemid = $(this).data('itemid'); //get id
+      //         var itemimg = $(this).data('itemimg'); //get img
 
-              mod.memberpdf(itemid, itemimg);
-            });
+      //         mod.memberpdf(itemid, itemimg);
+      //       });
 
-            $(".refund-btn").on("click", function (e) {
-              e.preventDefault();
+      //       $(".refund-btn").on("click", function (e) {
+      //         e.preventDefault();
 
-              var refundid = $(this).data('refundid'); //get id
+      //         var refundid = $(this).data('refundid'); //get id
 
-              mod.refund(refundid);
-            });
-          }
-        });
+      //         mod.refund(refundid);
+      //       });
+      //     }
+      //   });
 
-        mod.printTable = $("#example-table").DataTable({
-          scrollX: true,
-          columns: [
-            { title: 'CC Number' },
-            { title: 'Card Name' },
-            { title: 'EXP Date' },
-            { title: 'Bank Name' },
-            { title: 'Description' },
-            { title: 'Amount' },
-            { title: 'Formula' },
-          ],
-          data: itemprints,
-        });
-        // console.log(res);
+      //   mod.printTable = $("#example-table").DataTable({
+      //     scrollX: true,
+      //     columns: [
+      //       { title: 'CC Number' },
+      //       { title: 'Card Name' },
+      //       { title: 'EXP Date' },
+      //       { title: 'Bank Name' },
+      //       { title: 'Description' },
+      //       { title: 'Amount' },
+      //       { title: 'Formula' },
+      //     ],
+      //     data: itemprints,
+      //   });
+      //   // console.log(res);
 
-        $.each(res, function (i, itm) {
+      //   $.each(res, function (i, itm) {
 
-          if (itm.progress == '1') {
-            $('.prog-1').attr('disabled', 'disabled');
-            $('.ref-1').removeAttr('disabled');
-          } else {
-            $('.prog-0').removeAttr('disabled');
-            $('.ref-0').attr('disabled', 'disabled');
-          }
+      //     if (itm.progress == '1') {
+      //       $('.prog-1').attr('disabled', 'disabled');
+      //       $('.ref-1').removeAttr('disabled');
+      //     } else {
+      //       $('.prog-0').removeAttr('disabled');
+      //       $('.ref-0').attr('disabled', 'disabled');
+      //     }
 
-        })
-      });
+      //   })
+      // });
+
+      location.reload();
     });
   }
 
@@ -571,7 +576,8 @@ export class TransactionListComponent implements OnInit {
       var itemprints: any = [];
       this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
         var res = data['data'];
-        console.log(res)
+        this.financepdf = res;
+        // console.log(res)
         setTimeout(() => {
           $(".totrec").text("IDR " + data["recuring_payment"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
           $(".totun").text("IDR " + data["unpaid"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
@@ -593,7 +599,7 @@ export class TransactionListComponent implements OnInit {
             !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
             !!item.fo_status ? item.fo_status : 'n/a',
             !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
           ];
           var newPrintThis = [
             item.credit_card_number,
@@ -659,8 +665,9 @@ export class TransactionListComponent implements OnInit {
 
               var itemid = $(this).data('itemid'); //get id
               var itemimg = $(this).data('itemimg'); //get img
+              var membername = $(this).data('membername'); //get img
 
-              mod.memberpdf(itemid, itemimg);
+              mod.memberpdf(itemid, itemimg, membername);
             });
 
             $(".refund-btn").on("click", function (e) {
@@ -705,7 +712,7 @@ export class TransactionListComponent implements OnInit {
   }
 
   testing(id, img) {
-    console.log(id, img)
+    // console.log(id, img)
   }
 
   // open(content) {
@@ -838,141 +845,143 @@ export class TransactionListComponent implements OnInit {
       this.printTable.destroy();
       this.table.destroy();
       this.FinanceService.refund(recuring_id).subscribe((data: any) => {
-        var res = data;
-        //console.log(res);
-        // location.reload();
+        // var res = data;
+        // //console.log(res);
+        // // location.reload();
 
-        this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
-          var res = data['data'];
-          console.log(res)
-          setTimeout(() => {
-            $(".totrec").text("IDR " + data["recuring_payment"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
-            $(".totun").text("IDR " + data["unpaid"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
-          }, 200);
-          $.each(res, function (i, item) {
-            var newthis = [
-              item.date,
-              item.member_name,
-              item.credit_card_name,
-              item.credit_card_number,
-              item.credit_card_exp_month + '/' + item.credit_card_exp_year,
-              item.recuring_date,
-              item.recuring_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-              item.unpaid.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
-              item.finance_status,
-              !!item.finance_notes ? item.finance_notes : 'n/a',
-              !!item.bank_approval_code ? item.bank_approval_code : 'n/a',
-              !!item.bank_notes ? item.bank_notes : 'n/a',
-              !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              !!item.fo_status ? item.fo_status : 'n/a',
-              !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
-            ];
-            var newPrintThis = [
-              item.credit_card_number,
-              item.credit_card_name,
-              item.credit_card_exp_month + '/' + item.credit_card_exp_year,
-              item.credit_card_bank_name,
-              "-",
-              item.recuring_payment,
-              "-",
-            ];
-            itemprints.push(newPrintThis);
-            items.push(newthis);
-          });
+        // this.FinanceService.searchRecuring(formValue).subscribe((data: any) => {
+        //   var res = data['data'];
+        //   console.log(res)
+        //   setTimeout(() => {
+        //     $(".totrec").text("IDR " + data["recuring_payment"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+        //     $(".totun").text("IDR " + data["unpaid"].toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'));
+        //   }, 200);
+        //   $.each(res, function (i, item) {
+        //     var newthis = [
+        //       item.date,
+        //       item.member_name,
+        //       item.credit_card_name,
+        //       item.credit_card_number,
+        //       item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+        //       item.recuring_date,
+        //       item.recuring_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+        //       item.unpaid.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,'),
+        //       item.finance_status,
+        //       !!item.finance_notes ? item.finance_notes : 'n/a',
+        //       !!item.bank_approval_code ? item.bank_approval_code : 'n/a',
+        //       !!item.bank_notes ? item.bank_notes : 'n/a',
+        //       !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
+        //       !!item.fo_status ? item.fo_status : 'n/a',
+        //       !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
+        //       '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+        //     ];
+        //     var newPrintThis = [
+        //       item.credit_card_number,
+        //       item.credit_card_name,
+        //       item.credit_card_exp_month + '/' + item.credit_card_exp_year,
+        //       item.credit_card_bank_name,
+        //       "-",
+        //       item.recuring_payment,
+        //       "-",
+        //     ];
+        //     itemprints.push(newPrintThis);
+        //     items.push(newthis);
+        //   });
 
-          mod.table = $('#mytable').DataTable({
-            scrollX: true,
-            columns: [
-              { title: 'Date' },
-              { title: 'Member' },
-              { title: 'Name on Card' },
-              { title: 'CC Number' },
-              { title: 'EXP Date' },
-              { title: 'Recurring Date' },
-              { title: 'Recurring Payment' },
-              { title: 'Unpaid (IDR)' },
-              { title: 'Finance Status' },
-              { title: 'Finance Notes' },
-              { title: 'Bank Approval Code' },
-              { title: 'Bank Notes' },
-              { title: 'Bank Withdrawal' },
-              { title: 'FO Status' },
-              { title: 'FO Payment' },
-              { title: 'Action' },
-            ],
-            dom: 'Bfrtip',
-            buttons: {
-              dom: {
-                button: {
-                  className: 'btn '
-                }
-              },
-              buttons: [
-                { extend: 'excel', className: 'btn-warning', title: $filename },
-                { extend: 'csv', className: 'btn-warning', title: $filename }
-              ]
-            },
-            data: items,
-            initComplete: function () {
-              $('.ajax-update-btn').on('click', function (e) {
-                e.preventDefault();
-                var con = confirm('Are You Sure Want To Approve This Transaction ?');
+        //   mod.table = $('#mytable').DataTable({
+        //     scrollX: true,
+        //     columns: [
+        //       { title: 'Date' },
+        //       { title: 'Member' },
+        //       { title: 'Name on Card' },
+        //       { title: 'CC Number' },
+        //       { title: 'EXP Date' },
+        //       { title: 'Recurring Date' },
+        //       { title: 'Recurring Payment' },
+        //       { title: 'Unpaid (IDR)' },
+        //       { title: 'Finance Status' },
+        //       { title: 'Finance Notes' },
+        //       { title: 'Bank Approval Code' },
+        //       { title: 'Bank Notes' },
+        //       { title: 'Bank Withdrawal' },
+        //       { title: 'FO Status' },
+        //       { title: 'FO Payment' },
+        //       { title: 'Action' },
+        //     ],
+        //     dom: 'Bfrtip',
+        //     buttons: {
+        //       dom: {
+        //         button: {
+        //           className: 'btn '
+        //         }
+        //       },
+        //       buttons: [
+        //         { extend: 'excel', className: 'btn-warning', title: $filename },
+        //         { extend: 'csv', className: 'btn-warning', title: $filename }
+        //       ]
+        //     },
+        //     data: items,
+        //     initComplete: function () {
+        //       $('.ajax-update-btn').on('click', function (e) {
+        //         e.preventDefault();
+        //         var con = confirm('Are You Sure Want To Approve This Transaction ?');
 
-                if (con) {
-                  var update_id = $(this).data('update'); //get id
-                  mod.update(update_id);
-                } else {
-                  console.log(false);
-                }
-              });
+        //         if (con) {
+        //           var update_id = $(this).data('update'); //get id
+        //           mod.update(update_id);
+        //         } else {
+        //           console.log(false);
+        //         }
+        //       });
 
-              $(".download_sign").on("click", function (e) {
-                e.preventDefault();
+        //       $(".download_sign").on("click", function (e) {
+        //         e.preventDefault();
 
-                var itemid = $(this).data('itemid'); //get id
-                var itemimg = $(this).data('itemimg'); //get img
+        //         var itemid = $(this).data('itemid'); //get id
+        //         var itemimg = $(this).data('itemimg'); //get img
 
-                mod.memberpdf(itemid, itemimg);
-              });
+        //         mod.memberpdf(itemid, itemimg);
+        //       });
 
-              $(".refund-btn").on("click", function (e) {
-                e.preventDefault();
+        //       $(".refund-btn").on("click", function (e) {
+        //         e.preventDefault();
 
-                var refundid = $(this).data('refundid'); //get id
+        //         var refundid = $(this).data('refundid'); //get id
 
-                mod.refund(refundid);
-              });
-            }
-          });
+        //         mod.refund(refundid);
+        //       });
+        //     }
+        //   });
 
-          mod.printTable = $("#example-table").DataTable({
-            scrollX: true,
-            columns: [
-              { title: 'CC Number' },
-              { title: 'Card Name' },
-              { title: 'EXP Date' },
-              { title: 'Bank Name' },
-              { title: 'Description' },
-              { title: 'Amount' },
-              { title: 'Formula' },
-            ],
-            data: itemprints,
-          });
-          // console.log(res);
+        //   mod.printTable = $("#example-table").DataTable({
+        //     scrollX: true,
+        //     columns: [
+        //       { title: 'CC Number' },
+        //       { title: 'Card Name' },
+        //       { title: 'EXP Date' },
+        //       { title: 'Bank Name' },
+        //       { title: 'Description' },
+        //       { title: 'Amount' },
+        //       { title: 'Formula' },
+        //     ],
+        //     data: itemprints,
+        //   });
+        //   // console.log(res);
 
-          $.each(res, function (i, itm) {
+        //   $.each(res, function (i, itm) {
 
-            if (itm.progress == '1') {
-              $('.prog-1').attr('disabled', 'disabled');
-              $('.ref-1').removeAttr('disabled');
-            } else {
-              $('.prog-0').removeAttr('disabled');
-              $('.ref-0').attr('disabled', 'disabled');
-            }
+        //     if (itm.progress == '1') {
+        //       $('.prog-1').attr('disabled', 'disabled');
+        //       $('.ref-1').removeAttr('disabled');
+        //     } else {
+        //       $('.prog-0').removeAttr('disabled');
+        //       $('.ref-0').attr('disabled', 'disabled');
+        //     }
 
-          })
-        });
+        //   })
+        // });
+
+        location.reload();
       });
     } else {
       console.log(false);
@@ -1016,7 +1025,8 @@ export class TransactionListComponent implements OnInit {
     });
   }
 
-  memberpdf($id, $img) {
+  memberpdf($id, $img, $member_name) {
+    // console.log($id + $img);
 
     // return console.log('test')
     var doc = new jsPDF('p', 'pt', 'letter');
@@ -1034,7 +1044,7 @@ export class TransactionListComponent implements OnInit {
       'useCORS': false,
       'elementHandlers': specialElementHandlers
     }, function (dispose) {
-      doc.save('autodebit-contract-' + $id + '.pdf');
+      doc.save('EFC-REC-' + $member_name + '.pdf');
     });
 
 
