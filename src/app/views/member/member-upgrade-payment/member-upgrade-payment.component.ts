@@ -406,20 +406,27 @@ export class MemberUpgradePaymentComponent implements OnInit {
       formValue["price"] = _price;
       formValue["credit_card_id"] = $("#card_id_text").val();
 
-      this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
-        if (data["status"] == "200") {
-          this.toastr.success(data["message"], "Saved", {
-            progressBar: true
-          });
-        } else {
-          setTimeout(() => {
-            $('.prevaja').trigger('click');
-          }, 30);
-          this.toastr.error(data["message"], "Not Saved", {
-            progressBar: true
-          });
-        }
-      });
+      if (_debit_sign == '') {
+        alert("Please Draw Signature");
+        setTimeout(() => {
+          $('.prevaja').trigger('click');
+        }, 50);
+      } else {
+        this.memberService.createAutoDebet(this.activatedRoute.snapshot.params["id"], formValue).subscribe((data: any) => {
+          if (data["status"] == "200") {
+            this.toastr.success(data["message"], "Saved", {
+              progressBar: true
+            });
+          } else {
+            setTimeout(() => {
+              $('.prevaja').trigger('click');
+            }, 30);
+            this.toastr.error(data["message"], "Not Saved", {
+              progressBar: true
+            });
+          }
+        });
+      }
     }
   }
 

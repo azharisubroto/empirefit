@@ -56,7 +56,7 @@ export class StaffFormComponent implements OnInit {
   // switch to next / previous / specific webcam; true/false: forward/backwards, string: deviceId
   private nextWebcam: Subject<boolean | string> = new Subject<
     boolean | string
-    >();
+  >();
 
   constructor(
     private fb: FormBuilder,
@@ -128,11 +128,9 @@ export class StaffFormComponent implements OnInit {
           if (data["data"].status == "Active") {
             $("#finger-status").text("Success");
             $("#staff_name").text(data["data"].name);
-            $("#btn-scan").addClass("disabled");
           } else {
             $("#staff-name").text(data["data"].name);
             $("#finger_status").text("Unverified");
-            $("#btn-scan").removeClass("disabled");
           }
         }, 2000);
 
