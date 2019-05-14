@@ -50,7 +50,6 @@ export class TransactionListComponent implements OnInit {
   total_unpaid;
   printTable;
   branches;
-  daterecuring;
   financepdf: any = [];
 
 
@@ -81,7 +80,6 @@ export class TransactionListComponent implements OnInit {
     this.FinanceService.getRecurings().subscribe((data: any[]) => {
       var res = data['data'];
       console.log(res);
-      this.daterecuring = res[0].date;
       this.finance = res;
       this.financepdf = res;
       this.total_recuring_payment = data["total_recuring_payment"];

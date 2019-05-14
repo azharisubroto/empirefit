@@ -115,34 +115,44 @@ export class MemberAutodebitComponent implements OnInit {
   }
 
   submit() {
-    if (this.receiptForm.invalid) {
-      this.loading = false;
-      return;
-    } else {
-      if (this.receiptForm.controls["payment_id"].value == 1 || this.receiptForm.controls["payment_id"].value == 2) {
-        if (this.receiptForm.controls["card_number"].value == "" || this.receiptForm.controls["trace_number"].value == "" || this.receiptForm.controls["bank_id"].value == 0) {
-          this.toastr.success("Please Complete Receipt Record", "Success!", {
-            progressBar: true
+    if (this.receiptForm.controls["payment_id"].value == 1 || this.receiptForm.controls["payment_id"].value == 2) {
+      if (this.receiptForm.controls["card_number"].value == "" || this.receiptForm.controls["trace_number"].value == "" || this.receiptForm.controls["bank_id"].value == 0) {
+        alert('Please completed receipt record');
+      } else {
+        this.loading = true;
+        this.memberService
+          .updatePayment(this.activatedRoute.snapshot.params["id"], this.receiptForm.value)
+          .subscribe((res: any) => {
+            if (res["status"] == "200") {
+              setTimeout(() => {
+                this.loading = false;
+
+                this.toastr.success(res["message"], "Success!", {
+                  progressBar: true
+                });
+
+                location.reload()
+              }, 1000);
+            }
           });
-        } else {
-          this.loading = true;
-          this.memberService
-            .updatePayment(this.activatedRoute.snapshot.params["id"], this.receiptForm.value)
-            .subscribe((res: any) => {
-              if (res["status"] == "200") {
-                setTimeout(() => {
-                  this.loading = false;
-
-                  this.toastr.success(res["message"], "Success!", {
-                    progressBar: true
-                  });
-
-                  location.reload()
-                }, 3000);
-              }
-            });
-        }
       }
+    } else {
+      this.loading = true;
+      this.memberService
+        .updatePayment(this.activatedRoute.snapshot.params["id"], this.receiptForm.value)
+        .subscribe((res: any) => {
+          if (res["status"] == "200") {
+            setTimeout(() => {
+              this.loading = false;
+
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+
+              this.router.navigateByUrl("dashboard/member/detail/" + this.activatedRoute.snapshot.params['id']);
+            }, 1000);
+          }
+        });
     }
   }
 
@@ -177,7 +187,7 @@ export class MemberAutodebitComponent implements OnInit {
 
               setTimeout(() => {
                 this.router.navigateByUrl("dashboard/member/detail/" + data["member_id"]);
-              }, 3000);
+              }, 1000);
             } else {
 
             }
