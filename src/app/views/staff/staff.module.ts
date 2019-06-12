@@ -19,6 +19,7 @@ import { StaffFormComponent } from './staff-form/staff-form.component';
 
 import { WebcamModule } from 'ngx-webcam';
 import { StaffAttendanceComponent } from './staff-attendance/staff-attendance.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,6 @@ import { StaffAttendanceComponent } from './staff-attendance/staff-attendance.co
     SharedComponentsModule,
     WebcamModule
   ],
-  declarations: [StaffListComponent, StaffRegistrationComponent, StaffFormComponent, StaffAttendanceComponent]
+  declarations: [StaffListComponent, StaffRegistrationComponent, StaffFormComponent, StaffAttendanceComponent, ResetPasswordComponent]
 })
 export class StaffModule {}

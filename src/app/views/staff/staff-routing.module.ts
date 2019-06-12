@@ -4,6 +4,7 @@ import { StaffListComponent } from "./staff-list/staff-list.component";
 import { StaffRegistrationComponent } from "./staff-registration/staff-registration.component";
 import { StaffFormComponent } from "./staff-form/staff-form.component";
 import { StaffAttendanceComponent } from "./staff-attendance/staff-attendance.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: "staff-attendance/:id",
     component: StaffAttendanceComponent
+  },
+  {
+    path: "reset-password",
+    component: ResetPasswordComponent
   }
 ];
 
