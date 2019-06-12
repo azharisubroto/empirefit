@@ -9,7 +9,7 @@ export class UserService {
   readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(private http: HttpClient, private store: LocalStoreService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -29,8 +29,8 @@ export class UserService {
     return this.http.get(this.apiURL + "/get_user", this.httpOptions);
   }
 
-  userCheckPassword( id, data ) {
-    return this.http.post(this.apiURL + "/check_password/"+id, data, this.httpOptions);
+  userCheckPassword(id, data) {
+    return this.http.post(this.apiURL + "/check_password/" + id, data, this.httpOptions);
   }
 
   updateUser(id, data) {
@@ -43,5 +43,9 @@ export class UserService {
 
   deleteUser(id) {
     return this.http.delete(this.apiURL + "/users/" + id, this.httpOptions);
+  }
+
+  resetPassword(data) {
+    return this.http.post(this.apiURL + "/reset_password", data, this.httpOptions);
   }
 }

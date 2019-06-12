@@ -14,6 +14,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
   user;
   photo;
   name;
+  id;
 
   constructor(
     private navService: NavigationService,
@@ -73,6 +74,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
         this.user = data["data"];
         this.photo = this.user.photo;
         this.name = this.user.name;
+        this.id = this.user.id;
         // console.log(this.user)
       }
     })
