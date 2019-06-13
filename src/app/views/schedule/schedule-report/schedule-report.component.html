@@ -28,7 +28,8 @@
                       (dateSelect)="changeDate($event, 'date')">
                     <input type="hidden" class="first_actualdate" formControlName="date">
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-secondary" style="height:41px;" (click)="date.toggle()" type="button">
+                      <button type="button" class="btn btn-secondary" style="height:41px;" (click)="date.toggle()"
+                        type="button">
                         <i class="icon-regular i-Calendar-4"></i>
                       </button>
                     </div>
@@ -44,13 +45,13 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                <div class="table table-responsive">
-                  <table id="mytable" class="table table-hover" cellspacing="0">
+                <div class="table">
+                  <table id="mytable" class="table table-responsive table-hover" cellspacing="0">
                     <thead>
                       <tr>
                         <th>Date</th>
-                        <th>Class Time</th>
-                        <th>Class Name</th>
+                        <th style="width: 50%">Class Time</th>
+                        <th style="width: 50%">Class Name</th>
                         <th>Total Participant</th>
                         <th>Action</th>
                       </tr>

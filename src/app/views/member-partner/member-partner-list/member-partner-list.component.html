@@ -24,7 +24,7 @@
             <input id="fd" class="form-control defaultstartdate" type="text" name="dp1" ngbDatepicker
               formControlName="date_first" #dp1="ngbDatepicker">
           </div>
-          <div class="col-1">
+          <div class="col-md-1 mt-2 mb-2">
             <button class="btn btn-secondary" (click)="dp1.toggle()" type="button">
               <i class="icon-regular i-Calendar-4"></i>
             </button>
@@ -35,7 +35,7 @@
             <input id="sd" class="form-control defaultseconddate" type="text" name="dp2" ngbDatepicker
               formControlName="date_second" #dp2="ngbDatepicker">
           </div>
-          <div class="col-1">
+          <div class="col-md-1 mt-2 mb-3">
             <button class="btn btn-secondary" (click)="dp2.toggle()" type="button">
               <i class="icon-regular i-Calendar-4"></i>
             </button>
@@ -51,11 +51,11 @@
     <hr>
     <div class="col-md-12">
       <div class="card o-hidden tablecard">
-        <div class="table table-responsive mt-4">
+        <div class="table mt-4">
           <div class="row">
             <div class="col-md-12">
               <div class="container">
-                <table id="mytable" class="table table-hover" cellspacing="0">
+                <table id="mytable" class="table table-responsive table-hover" cellspacing="0">
                   <thead class="text-center">
                     <tr>
                       <th>Partner</th>
@@ -69,7 +69,7 @@
                       <!-- <th>Email</th> -->
                       <th>Status</th>
                       <!-- <th>Verified By</th> -->
-                      <th>Action</th>
+                      <th style="width: 100%">Action</th>
                     </tr>
                   </thead>
                   <tbody class="text-center partners">

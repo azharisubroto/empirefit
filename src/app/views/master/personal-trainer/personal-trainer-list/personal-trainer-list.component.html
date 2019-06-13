@@ -18,20 +18,20 @@
     </div>
     <div class="col-md-12">
       <div class="card o-hidden">
-        <div class="table table-responsive mt-4">
+        <div class="table mt-4">
           <div class="row">
             <div class="col-md-12">
               <div class="container">
-                <table id="mytable" class="table table-hover" cellspacing="0">
+                <table id="mytable" class="table table-responsive table-hover" cellspacing="0">
                   <thead class="text-center">
                     <tr>
-                      <th>Name</th>
+                      <th style="width: 50%">Name</th>
                       <th>Quota</th>
                       <th>Remains</th>
                       <th>Price (IDR)</th>
                       <th>Status</th>
                       <th>Branch</th>
-                      <th>Action</th>
+                      <th style="width: 50%">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -42,12 +42,11 @@
                       <td class="text-right">{{ personaltrainer.price | number:0 }}</td>
                       <td class="text-center">{{ personaltrainer.state }}</td>
                       <td class="text-center">{{ personaltrainer.branch_name ? personaltrainer.branch_name : "-" }}</td>
-                      <td class="text-right">
+                      <td class="text-center">
                         <a href="#" [routerLink]="[
                             'pricing-pt-edit/',
                             personaltrainer.id
-                          ]"
-                          class="btn btn-sm btn-warning mr-2" title="Edit" triggers="mouseenter:mouseleave">
+                          ]" class="btn btn-sm btn-warning mr-2" title="Edit" triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>
                         </a>
                         <button class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, personaltrainer.id)">
@@ -61,7 +60,8 @@
                               Personal Trainer deletion
                             </h4>
                             <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
-                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                              aria-label="Close button" aria-describedby="modal-title"
+                              (click)="modal.dismiss('Cross click')">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
@@ -78,10 +78,12 @@
                             </p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
+                            <button type="button" class="btn btn-outline-secondary btn-rounded"
+                              (click)="modal.dismiss('cancel')">
                               Cancel
                             </button>
-                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
+                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded"
+                              (click)="modal.close('Ok')">
                               Ok
                             </button>
                           </div>

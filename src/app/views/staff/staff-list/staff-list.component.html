@@ -18,36 +18,37 @@
     </div>
     <div class="col-md-12">
       <div class="card o-hidden">
-        <div class="table table-responsive mt-4">
+        <div class="table mt-4">
           <div class="row">
             <div class="col-md-12">
               <div class="container">
-                <table id="mytable" class="table table-hover" cellspacing="0">
+                <table id="mytable" class="table table-responsive table-hover" cellspacing="0">
                   <thead class="text-center">
                     <tr>
-                      <th>Staff Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Date Of Birth</th>
-                      <th>Action</th>
+                      <th style="width: 20%">Staff Name</th>
+                      <th style="width: 20%">Email</th>
+                      <th style="width: 20%">Phone</th>
+                      <th style="width: 10%">Date Of Birth</th>
+                      <th style="width: 20%">Action</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center">
+                  <tbody>
                     <tr *ngFor="let staff of staffcomponents">
                       <td>{{ staff.name }}</td>
                       <td>{{ staff.email }}</td>
-                      <td>{{ staff.phone }}</td>
-                      <td>{{ staff.date_of_birth }}</td>
-                      <td>
+                      <td class="text-center">{{ staff.phone }}</td>
+                      <td class="text-center">{{ staff.date_of_birth }}</td>
+                      <td class="text-center">
                         <a href="#" [routerLink]="['staff-attendance/', staff.id]" class="btn btn-sm btn-dark mr-2"
                           title="Attendance" triggers="mouseenter:mouseleave">
                           <i class="i-Clock"></i>
                         </a>
-                        <a href="#" [routerLink]="['staff-edit/', staff.id]" class="btn btn-sm btn-warning mr-2" title="Edit"
-                          triggers="mouseenter:mouseleave">
+                        <a href="#" [routerLink]="['staff-edit/', staff.id]" class="btn btn-sm btn-warning mr-2"
+                          title="Edit" triggers="mouseenter:mouseleave">
                           <i class="i-Pen-5"></i>
                         </a>
-                        <button title="Delete" triggers="mouseenter:mouseleave" class="btn btn-sm btn-danger" (click)="confirm(modalConfirm, staff.id)">
+                        <button title="Delete" triggers="mouseenter:mouseleave" class="btn btn-sm btn-danger"
+                          (click)="confirm(modalConfirm, staff.id)">
                           <i class="i-Close-Window"></i>
                         </button>
                         <!-- <button
@@ -68,7 +69,8 @@
                               Staff deletion
                             </h4>
                             <button type="button" triggers="mouseenter:mouseleave" title="Show" class="close"
-                              aria-label="Close button" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                              aria-label="Close button" aria-describedby="modal-title"
+                              (click)="modal.dismiss('Cross click')">
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
@@ -85,10 +87,12 @@
                             </p>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modal.dismiss('cancel')">
+                            <button type="button" class="btn btn-outline-secondary btn-rounded"
+                              (click)="modal.dismiss('cancel')">
                               Cancel
                             </button>
-                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded" (click)="modal.close('Ok')">
+                            <button type="button" ngbAutofocus class="btn btn-danger btn-rounded"
+                              (click)="modal.close('Ok')">
                               Ok
                             </button>
                           </div>
