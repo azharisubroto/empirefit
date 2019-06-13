@@ -1,9 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ChangeDetectorRef } from "@angular/core";
 import { ProductService } from "src/app/shared/services/product.service";
 import { MemberService } from "src/app/shared/services/member.service";
 import { AuthService } from "src/app/shared/services/auth.service";
 import { FormControl } from "@angular/forms";
 import { debounceTime } from "rxjs/operators";
+import * as $ from "jquery";
+import "datatables.net";
+import "datatables.net-bs4";
 
 @Component({
   selector: "app-filter-table",
@@ -17,13 +20,16 @@ export class MemberComponent implements OnInit {
 
   constructor(
     private memberService: MemberService,
-    private authService: AuthService
+    private authService: AuthService,
+    private chRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
     this.memberService.getMember().subscribe((data: any[]) => {
       this.members = data["data"];
       this.filteredMembers = data["data"];
+      this.chRef.detectChanges();
+      $("#mytable").DataTable();
     });
 
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
