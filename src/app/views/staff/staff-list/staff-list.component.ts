@@ -7,6 +7,7 @@ import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
 import { StaffService } from "src/app/shared/services/staff.service";
+import { Utils } from "../../../shared/utils";
 
 @Component({
   selector: "app-filter-table",
@@ -26,13 +27,20 @@ export class StaffListComponent implements OnInit {
     private chRef: ChangeDetectorRef,
     private modalService: NgbModal,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.staffService.getStaffs().subscribe((data: any) => {
       this.staffcomponents = data["data"];
       this.chRef.detectChanges();
-      $("#mytable").DataTable();
+      var dt_options = {};
+      if (Utils.isMobile()) {
+        dt_options = {
+          scrollX: true,
+          autoWidth: true
+        }
+      }
+      $("#mytable").DataTable(dt_options);
     });
   }
 

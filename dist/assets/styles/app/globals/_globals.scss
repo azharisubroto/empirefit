@@ -325,3 +325,18 @@ body#registration {
     display:none;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .main-content-wrap {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: auto;
+  }
+  div.dataTables_wrapper div.dataTables_filter {
+  //div.dataTables_wrapper div.dataTables_length {
+    text-align:left!important;
+  }
+  div.dataTables_wrapper div.dataTables_length {
+    display:none;
+  }
+}
