@@ -20,6 +20,8 @@ import * as $ from "jquery";
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
 import 'datatables.net-buttons/js/buttons.html5.js';
+import { Utils } from "../../../shared/utils";
+
 
 @Component({
   selector: "app-filter-table",
@@ -68,6 +70,8 @@ export class MemberPartnerComponent implements OnInit {
       this.chRef.detectChanges();
       setTimeout(() => {
         this.table = $("#mytable").DataTable({
+          scrollX: true,
+          autoWidth: true,
           dom: 'Bfrtip',
           buttons: {
             dom: {
