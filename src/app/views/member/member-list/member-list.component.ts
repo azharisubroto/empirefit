@@ -28,10 +28,11 @@ export class MemberComponent implements OnInit {
     this.memberService.getMember().subscribe((data: any[]) => {
       this.members = data["data"];
       this.filteredMembers = data["data"];
-      //this.chRef.detectChanges();
-      // $("#mytable").DataTable({
-
-      // });
+      this.chRef.detectChanges();
+      $("#mytable").DataTable({
+        scrollX:true,
+        autoWidth:true
+      });
     });
 
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
