@@ -7,6 +7,7 @@ import { debounceTime } from "rxjs/operators";
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
+import { Utils } from "../../../shared/utils";
 
 @Component({
   selector: "app-filter-table",
@@ -22,14 +23,21 @@ export class MemberComponent implements OnInit {
     private memberService: MemberService,
     private authService: AuthService,
     private chRef: ChangeDetectorRef,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.memberService.getMember().subscribe((data: any[]) => {
       this.members = data["data"];
       this.filteredMembers = data["data"];
       this.chRef.detectChanges();
-      $("#mytable").DataTable();
+      var dt_options = {};
+      if (Utils.isMobile()) {
+        dt_options = {
+          scrollX: true,
+          autoWidth: true
+        }
+      }
+      $("#mytable").DataTable(dt_options);
     });
 
     this.searchControl.valueChanges.pipe(debounceTime(200)).subscribe(value => {
@@ -49,7 +57,7 @@ export class MemberComponent implements OnInit {
       return;
     }
 
-    const rows = this.members.filter(function(d) {
+    const rows = this.members.filter(function (d) {
       for (let i = 0; i <= columns.length; i++) {
         const column = columns[i];
         // console.log(d[column]);
