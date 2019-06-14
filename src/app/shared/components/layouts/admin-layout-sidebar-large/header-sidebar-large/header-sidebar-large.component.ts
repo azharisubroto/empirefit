@@ -91,7 +91,7 @@ export class HeaderSidebarLargeComponent implements OnInit {
     if (!state.sidenavOpen && !state.childnavOpen) {
       state.sidenavOpen = true;
       setTimeout(() => {
-        state.childnavOpen = true;
+        state.childnavOpen = false;
       }, 50);
     }
   }

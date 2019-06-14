@@ -53,6 +53,7 @@ export class NavigationService {
     {
       name: "Customer Search",
       type: "link",
+      tooltip: "Customer Search",
       icon: "i-Gey",
       state: "/",
       perm: "2",
