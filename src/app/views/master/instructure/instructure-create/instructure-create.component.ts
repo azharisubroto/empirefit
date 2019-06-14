@@ -9,7 +9,7 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { InstructureService } from "src/app/shared/services/instructure.service";
-import { UserService } from "src/app/shared/services/user.service";
+import { StaffService } from "src/app/shared/services/staff.service";
 
 @Component({
   selector: "app-basic-form",
@@ -24,24 +24,24 @@ export class InstructureCreateComponent implements OnInit {
   name;
   user_id;
   instructureForm: FormGroup;
-  users;
+  staffs;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
     private instructureService: InstructureService,
-    private userService: UserService
+    private staffService: StaffService
   ) {}
 
   ngOnInit() {
     this.instructureForm = this.fb.group({
       id: [""],
-      user_id: [Validators.required]
+      staff_id: [Validators.required]
     });
 
-    this.userService.getUsers().subscribe((data: any) => {
-      this.users = data["data"];
+    this.staffService.getStaffs().subscribe((data: any) => {
+      this.staffs = data["data"];
     });
   }
 
@@ -60,7 +60,7 @@ export class InstructureCreateComponent implements OnInit {
               this.toastr.success(res["message"], "Success!", {
                 progressBar: true
               });
-              this.router.navigateByUrl("master/instructure");
+              this.router.navigateByUrl("master/coach");
             } else {
               this.toastr.error(res["message"], "Error!", {
                 progressBar: true

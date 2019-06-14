@@ -9,7 +9,9 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
-import { InstructureService } from "src/app/shared/services/instructure.service";
+import { StaffService } from "src/app/shared/services/staff.service";
+import { BranchService } from "src/app/shared/services/branch.service";
+import { MemberTypeService } from "src/app/shared/services/member-type.service";
 
 @Component({
   selector: "app-basic-form",
@@ -28,7 +30,13 @@ export class ScheduleFormComponent implements OnInit {
   user_id;
   start_date;
   end_date;
+  days;
   instructures;
+  branches;
+  staffs;
+  getCoaches;
+  getMt;
+  member_types;
   scheduleForm: FormGroup;
 
   constructor(
@@ -37,37 +45,119 @@ export class ScheduleFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private scheduleService: ScheduleService,
-    private instructureService: InstructureService
-  ) {}
+    private staffService: StaffService,
+    private memberTypeService: MemberTypeService,
+    private branchService: BranchService
+  ) { }
 
   ngOnInit() {
     this.scheduleForm = this.fb.group({
       day: ["", Validators.required],
       time: ["", Validators.required],
-      instructure_id: ["", Validators.required],
+      delay_time: ["", Validators.required],
+      exercise: ["", Validators.required],
       start_date: ["", Validators.required],
-      end_date: ["", Validators.required]
+      end_date: ["", Validators.required],
+      branch_id: [1, Validators.required],
+      tag: [0, Validators.required],
     });
 
-    this.instructureService.getInstructures().subscribe((data: any) => {
-      this.instructures = data["data"];
+    this.memberTypeService.getMemberTypes().subscribe((data: any) => {
+      this.member_types = data["data"];
     });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branches = data["data"];
+    });
+
+    this.staffService.getStaffCoach().subscribe((data: any) => {
+      this.staffs = data["data"];
+    });
+
+    this.days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ];
+
+    this.scheduleService
+      .showCoach(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => { });
 
     this.scheduleService
       .showSchedule(this.activatedRoute.snapshot.params["id"])
       .subscribe((data: any) => {
-        console.log(data["data"][0]);
         this.scheduleForm.setValue({
-          day: data["data"][0].day,
-          time: data["data"][0].time,
-          instructure_id: data["data"][0].instructure_id,
-          start_date: data["data"][0].start_date,
-          end_date: data["data"][0].end_date
+          day: data["data"].day,
+          time: data["data"].time,
+          delay_time: data["data"].delay_time,
+          exercise: data["data"].exercise,
+          start_date: data["data"].start_date,
+          end_date: data["data"].end_date,
+          branch_id: data["data"].branch_id,
+          tag: data["data"].tag,
         });
+
+        setTimeout(() => {
+          this.getMt = data["data"].member_type_schedules;
+          $.each(this.getMt, function (i, item) {
+            $(
+              "input[name='member_type'][value=" + item.member_type_id + "]"
+            ).prop("checked", true);
+          });
+        }, 1000)
+
+        setTimeout(() => {
+          this.getCoaches = data["data"].group_schedules;
+          $.each(this.getCoaches, function (i, item) {
+            $("input[name='staff'][value=" + item.staff_id + "]").prop(
+              "checked",
+              true
+            );
+          });
+        }, 1000)
       });
   }
 
   submit() {
+    let dataStaff = [];
+    let dataMt = [];
+
+    $.each($("input[name='staff']:checked"), function () {
+      dataStaff.push($(this).val());
+    });
+    $(".staff-final").val(dataStaff);
+
+    $.each($("input[name='member_type']:checked"), function () {
+      dataMt.push($(this).val());
+    });
+    $(".member_type-final").val(dataMt);
+
+    let start_date = this.scheduleForm.controls["start_date"].value;
+    let end_date = this.scheduleForm.controls["end_date"].value;
+    let day = this.scheduleForm.controls["day"].value;
+    let time = this.scheduleForm.controls["time"].value;
+    let delay_time = this.scheduleForm.controls["delay_time"].value;
+    let exercise = this.scheduleForm.controls["exercise"].value;
+    let branch_id = this.scheduleForm.controls["branch_id"].value;
+    let tag = this.scheduleForm.controls["tag"].value;
+    let formValues = this.scheduleForm.value;
+
+    formValues["start_date"] = start_date;
+    formValues["end_date"] = end_date;
+    formValues["day"] = day;
+    formValues["time"] = time;
+    formValues["delay_time"] = delay_time;
+    formValues["exercise"] = exercise;
+    formValues["branch_id"] = branch_id;
+    formValues["tag"] = tag;
+    formValues["staff"] = dataStaff;
+    formValues["member_types"] = dataMt;
+
     if (this.scheduleForm.invalid) {
       this.loading = false;
       return;

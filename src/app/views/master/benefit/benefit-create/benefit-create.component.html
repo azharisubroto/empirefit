@@ -1,0 +1,50 @@
+<div class="breadcrumb">
+  <h1>Benefit</h1>
+  <ul>
+    <li>Create</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Create Benefit</div>
+        <form [formGroup]="benefitForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="benefit_name">Benefit Name</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control "
+                id="benefit_name"
+                placeholder="Enter member type "
+                formControlName="benefit_name"
+              />
+              <i
+                *ngIf="
+                  !benefitForm.get('benefit_name').valid &&
+                  benefitForm.get('benefit_name').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter benefit name</i
+              >
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

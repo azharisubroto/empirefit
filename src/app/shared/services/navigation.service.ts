@@ -14,6 +14,7 @@ export interface IMenuItem {
   sub?: IChildItem[]; // Dropdown items
   badges?: IBadge[];
   active?: boolean;
+  perm?: string;
 }
 export interface IChildItem {
   id?: string;
@@ -24,6 +25,7 @@ export interface IChildItem {
   icon?: string;
   sub?: IChildItem[];
   active?: boolean;
+  perm?: string;
 }
 
 interface IBadge {
@@ -40,77 +42,83 @@ interface ISidebarState {
   providedIn: "root"
 })
 export class NavigationService {
+  permission;
   public sidebarState: ISidebarState = {
     sidenavOpen: true,
     childnavOpen: false
   };
-  constructor() {}
+  constructor() { }
 
   defaultMenu: IMenuItem[] = [
     {
-      name: "Member",
+      name: "Customer Search",
       type: "link",
-      tooltip: "Member",
+      tooltip: "Customer Search",
       icon: "i-Gey",
-      state: "/"
+      state: "/",
+      perm: "2",
     },
     {
       name: "Member Partner",
       type: "link",
       tooltip: "Member Partner",
       icon: "i-Business-Mens",
-      state: "/member-partner"
+      state: "/member-partner",
+      perm: "3",
     },
     {
       name: "Staff",
-      description: "This is staff menu.",
-      type: "dropDown",
+      type: "link",
+      tooltip: "Staff",
       icon: "i-Conference",
-      sub: [
-        {
-          icon: "i-Find-User",
-          name: "List",
-          state: "/staff/list",
-          type: "link"
-        },
-        {
-          icon: "i-Add-User",
-          name: "Registration",
-          state: "/staff/registration",
-          type: "link"
-        }
-      ]
+      state: "/staff",
+      perm: "4",
     },
     {
-      name: "Schedules",
+      name: "Class Participants",
       type: "link",
-      tooltip: "Schedules",
+      tooltip: "Class Participants",
       icon: "i-Calendar",
-      state: "/schedule"
+      state: "/class-participants",
+      perm: "5",
+      // sub: [
+      // {
+      //   icon: "i-Library",
+      //   name: "Class list",
+      //   state: "/class-participants/class-list",
+      //   type: "link",
+      //   perm: "6",
+      // },
+      // {
+      //   icon: "i-Library",
+      //   name: "Class Report",
+      //   state: "/class-participants/class-report",
+      //   type: "link",
+      //   perm: "6",
+      // }
+      // ]
     },
     {
       name: "Finance",
       description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit.",
       type: "dropDown",
       icon: "i-Financial",
+      state: "/finance",
+      perm: "6",
       sub: [
         {
-          icon: "i-File-Horizontal-Text",
-          name: "Member List",
-          state: "/finance/member-list",
-          type: "link"
+          icon: "i-Library",
+          name: "Recurring Report",
+          state: "/finance/recurring-report",
+          type: "link",
+          perm: "6",
         },
         {
-          icon: "i-Management",
-          name: "Transactions",
-          state: "/finance/transaction-list",
-          type: "link"
-        },
-        {
-          icon: "i-File-Clipboard-File--Text",
-          name: "Report",
-          state: "/finance/report",
-          type: "link"
+          icon: "i-Library",
+          name: "Transaction Report",
+          state: "/finance/transaction-report",
+          type: "link",
+          perm: "6",
         }
       ]
     },
@@ -119,11 +127,13 @@ export class NavigationService {
       description: "This data master",
       type: "dropDown",
       icon: "i-Folders",
+      perm: "7",
       sub: [
         {
           name: "Users",
           type: "dropDown",
           icon: "i-Administrator",
+          perm: "8",
           sub: [
             {
               icon: "i-File-Horizontal-Text",
@@ -146,70 +156,101 @@ export class NavigationService {
           ]
         },
         {
-          icon: "i-Male-21",
-          name: "Personal Trainer",
-          state: "/master/personal-trainer",
-          type: "link"
+          icon: "i-Library",
+          name: "Branch",
+          state: "/master/branch",
+          type: "link",
+          perm: "9",
         },
         {
-          icon: "i-Male",
-          name: "Instructure",
-          state: "/master/instructure",
-          type: "link"
+          icon: "i-Money-2",
+          name: "Pricing PT",
+          state: "/master/pricing-pt",
+          type: "link",
+          perm: "10",
         },
+        {
+          icon: "i-Money-2",
+          name: "Pricing Non PT",
+          state: "/master/pricing-non-pt",
+          type: "link",
+          perm: "11",
+        },
+        // {
+        //   icon: "i-Male",
+        //   name: "Coach",
+        //   state: "/master/coach",
+        //   type: "link"
+        // },
         {
           icon: "i-Calendar",
           name: "Schedule",
           state: "/master/schedule",
-          type: "link"
+          type: "link",
+          perm: "12",
         },
         {
           icon: "i-Visa",
           name: "Payment Type",
           state: "/master/payment-type",
-          type: "link"
+          type: "link",
+          perm: "13",
         },
         {
-          icon: "i-Wallet",
-          name: "Package",
-          state: "/master/package",
-          type: "link"
+          icon: "i-Visa",
+          name: "Bank",
+          state: "/master/bank",
+          type: "link",
+          perm: "14",
         },
         {
           icon: "i-Geek",
           name: "Member Type",
           state: "/master/member-type",
-          type: "link"
-        },
-        {
-          icon: "i-Money-2",
-          name: "Price",
-          state: "/master/price",
-          type: "link"
+          type: "link",
+          perm: "15",
         },
         {
           icon: "i-Wallet",
           name: "Benefit",
           state: "/master/benefit",
-          type: "link"
-        },
-        {
-          icon: "i-Wallet",
-          name: "Club Benefit",
-          state: "/master/club-benefit",
-          type: "link"
-        },
-        {
-          icon: "i-Double-Tap",
-          name: "Dropin Type",
-          state: "/master/dropin-type",
-          type: "link"
+          type: "link",
+          perm: "16",
         },
         {
           icon: "i-Library",
           name: "Dropin Company",
           state: "/master/dropin-company",
-          type: "link"
+          type: "link",
+          perm: "17",
+        },
+        {
+          icon: "i-Library",
+          name: "Health Questions",
+          state: "/master/health-questions",
+          type: "link",
+          perm: "18",
+        },
+        {
+          icon: "i-Library",
+          name: "Positions",
+          state: "/master/position",
+          type: "link",
+          perm: "19",
+        },
+        {
+          icon: "i-Library",
+          name: "Devices",
+          state: "/master/device",
+          type: "link",
+          perm: "20",
+        },
+        {
+          icon: "i-Library",
+          name: "Edc",
+          state: "/master/edc",
+          type: "link",
+          perm: "21",
         }
       ]
     }

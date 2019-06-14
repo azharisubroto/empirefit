@@ -1,0 +1,66 @@
+<div class="">
+  <div class="breadcrumb">
+    <h1>{{ membername }}</h1>
+    <ul>
+      <li>Membership History</li>
+    </ul>
+  </div>
+
+  <div class="separator-breadcrumb border-top"></div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <button type="button" (click)="back()" class="btn btn-primary btn-rounded">
+          Back
+        </button>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card o-hidden">
+        <div class="table table-responsive mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>IDTRX</th>
+                      <th>Trace Number</th>
+                      <th>Payment Type</th>
+                      <th>Date</th>
+                      <th>Member Type</th>
+                      <th>Total Session</th>
+                      <th>Session Remains</th>
+                      <th>PT Name</th>
+                      <th>Price</th>
+                      <th>Autodebit</th>
+                      <th>Authorized</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let transaction of transactions">
+                      <td class="text-center">{{ transaction.idtrx }}</td>
+                      <td class="text-center">{{ transaction.trace_number }}</td>
+                      <td class="text-center">{{ transaction.payment_type }}</td>
+                      <td class="text-center">{{ transaction.period }}</td>
+                      <td>{{ transaction.member_type }}</td>
+                      <td class="text-center">{{ transaction.total_session ? transaction.total_session : "-" }}</td>
+                      <td class="text-center">{{ transaction.session_remains ? transaction.session_remains : "-" }}</td>
+                      <td>
+                        {{ transaction.member_type === '(03) PERSONAL TRAINER' ? transaction.personal_trainer_name : "-" }}
+                      </td>
+                      <td class="text-right">Rp. {{ transaction.idr | number:0 }}</td>
+                      <td class="text-center">{{ transaction.autodebit === 1 ? "Yes" : "No" }}</td>
+                      <td class="text-center">{{ transaction.authorized ? transaction.authorized : "-" }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

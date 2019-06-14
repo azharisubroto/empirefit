@@ -1,8 +1,8 @@
 <div class="">
   <div class="breadcrumb">
-    <h1>Dashboard</h1>
+    <h1>Member Partner</h1>
     <ul>
-      <li>Member</li>
+      <li>List</li>
     </ul>
   </div>
 
@@ -11,79 +11,103 @@
   <div class="row">
     <div class="col-md-4">
       <div class="form-group">
-        <input
-          id="email"
-          placeholder="Search By ID, Name or Phone"
-          [formControl]="searchControl"
-          class="form-control form-control-rounded"
-          type="email"
-        />
+        <a href="#" [routerLink]="['member-partner-create']" class="btn btn-primary py-2">
+          Create
+        </a>
       </div>
     </div>
-    <div class="col-md-12">
-      <div class="card  o-hidden">
-        <ngx-datatable
-          style="height: 500px; box-shadow: none"
-          class="material fullscreen"
-          [columnMode]="'force'"
-          [headerHeight]="50"
-          [footerHeight]="50"
-          [rowHeight]="60"
-          [scrollbarV]="true"
-          [rows]="filteredProducts"
-        >
-          <ngx-datatable-column name="name" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              ID
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="category" [width]="50">
-            <ng-template ngx-datatable-header-template>
-              Name
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="subtitle" [width]="50">
-            <ng-template ngx-datatable-header-template>
-              Phone
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="20">
-            <ng-template ngx-datatable-header-template>
-              State
-            </ng-template>
-          </ngx-datatable-column>
-          <ngx-datatable-column name="state" [width]="80">
-            <ng-template ngx-datatable-header-template>
-              Action
-            </ng-template>
-            <ng-template ngx-datatable-cell-template>
-              <div ngbDropdown>
-                <button
-                  class="btn btn-outline-primary"
-                  id="dropdownBasic1"
-                  ngbDropdownToggle
-                >
-                  Toggle dropdown
+    <hr>
+    <div class="col-md-8 mb-3">
+      <form [formGroup]="filterForm" (ngSubmit)="searchHistory()">
+        <div class="row mb-2">
+          <div class="col-md-4"></div>
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <input id="fd" class="form-control defaultstartdate" type="text" name="dp1" ngbDatepicker
+                formControlName="date_first" #dp1="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-secondary" style="height:41px;" (click)="dp1.toggle()" type="button">
+                  <i class="icon-regular i-Calendar-4"></i>
                 </button>
-                <div
-                  ngbDropdownMenu
-                  class="dropdown-menu"
-                  aria-labelledby="dropdownBasic1"
-                >
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Action - 1
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Another Action
-                  </button>
-                  <button class="dropdown-item" ngbDropdownItem>
-                    Something else is here
-                  </button>
-                </div>
               </div>
-            </ng-template>
-          </ngx-datatable-column>
-        </ngx-datatable>
+            </div>
+          </div>
+          <div class="col-md-3 mb-2">
+            <div class="input-group">
+              <input id="sd" class="form-control defaultseconddate" type="text" name="dp2" ngbDatepicker
+                formControlName="date_second" #dp2="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-secondary" style="height:41px;" (click)="dp2.toggle()" type="button">
+                  <i class="icon-regular i-Calendar-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary" style="height:41px; width: 100%" type="button"
+              (click)="searchHistory()">Filter</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-12">
+      <div class="card o-hidden tablecard">
+        <div class="table table-responsive mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0">
+                  <thead class="text-center">
+                    <tr>
+                      <th>Partner</th>
+                      <th>Class Date</th>
+                      <th>Class Time</th>
+                      <th>Class Name</th>
+                      <!-- <th>Booking Reference</th> -->
+                      <th>Name</th>
+                      <th>Phone Number</th>
+                      <th>Sign</th>
+                      <!-- <th>Email</th> -->
+                      <th>Status</th>
+                      <!-- <th>Verified By</th> -->
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-center partners">
+                    <tr *ngFor="let item of members">
+                      <td>{{ item.company }}</td>
+                      <td>{{ item.class_date }}</td>
+                      <td>{{ item.class_time }}</td>
+                      <td>{{ item.exercise }}</td>
+                      <!-- <td>{{ item.booking_referance }}</td> -->
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.phone }}</td>
+                      <td>{{ item.signed == 1 ? 'Signed' : 'Unsigned' }}</td>
+                      <td class="inistatus">{{ item.status === '1' ? 'Used' : 'Active' }}</td>
+                      <!-- <td>{{ !! item.updated_by != NULL ? item.updated_by : 'n/a' }}</td> -->
+                      <td>
+                        <button (click)="absencoy($event)" class="btn btn-sm btn-success absenbutton"
+                          [attr.data-id]="item.id" [attr.data-name]="item.name" [attr.data-email]="item.email"
+                          [attr.data-signed]="item.signed" [attr.data-phone]="item.phone"
+                          [attr.data-reference]="item.booking_referance"
+                          [attr.data-emaildatetime]="item.email_date_time" [attr.data-company]="item.company"
+                          [attr.data-class]="item.class_id" [attr.data-classdate]="item.class_date"
+                          [attr.data-classtime]="item.class_time" [attr.data-branch]="item.branch"
+                          [attr.data-status]="item.status" [attr.data-createdby]="user.id"><i
+                            class="i-Clock-Forward"></i></button>
+                        <a href="#" [routerLink]="['member-partner-edit/', item.id]" class="btn btn-sm btn-success ml-2"
+                          title="Edit" triggers="mouseenter:mouseleave">
+                          <i class="i-Pen-5"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

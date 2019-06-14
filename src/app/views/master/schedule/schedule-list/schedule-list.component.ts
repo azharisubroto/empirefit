@@ -21,6 +21,7 @@ export class ScheduleListComponent implements OnInit {
   schedules: any[];
   confirmResut;
   detail;
+  redirect;
 
   constructor(
     private scheduleService: ScheduleService,
@@ -36,6 +37,13 @@ export class ScheduleListComponent implements OnInit {
       this.chRef.detectChanges();
       $("#mytable").DataTable();
     });
+  }
+
+  gotoEdit(id) {
+    this.redirect = "master/schedule/schedule-edit/" + id;
+    window.location = this.redirect;
+
+    console.log(window.location);
   }
 
   confirm(content, id) {

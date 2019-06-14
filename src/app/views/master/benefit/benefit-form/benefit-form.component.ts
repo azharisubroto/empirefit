@@ -1,7 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { Router, ActivatedRoute } from "@angular/router";
+import { BenefitService } from "src/app/shared/services/benefit.service";
 
 @Component({
   selector: "app-basic-form",
@@ -11,30 +18,57 @@ import { ToastrService } from "ngx-toastr";
 export class BenefitFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  radioGroup: FormGroup;
+  benefit_name;
+  benefitForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private benefitService: BenefitService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.buildFormBasic();
-    this.radioGroup = this.fb.group({
-      radio: []
+    this.benefitForm = this.fb.group({
+      benefit_name: ["", Validators.required]
     });
-  }
 
-  buildFormBasic() {
-    this.formBasic = this.fb.group({
-      experience: []
-    });
+    this.benefitService
+      .showBenefit(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.benefitForm.setValue({
+          benefit_name: data["data"].benefit_name
+        });
+      });
   }
 
   submit() {
-    this.loading = true;
-    setTimeout(() => {
+    if (this.benefitForm.invalid) {
       this.loading = false;
-      this.toastr.success("Profile updated.", "Success!", {
-        progressBar: true
-      });
-    }, 3000);
+      return;
+    } else {
+      this.loading = true;
+      this.benefitService
+        .updateBenefit(
+          this.activatedRoute.snapshot.params["id"],
+          this.benefitForm.value
+        )
+        .subscribe((res: any) => {
+          setTimeout(() => {
+            this.loading = false;
+            if (res["status"] === "200") {
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+              this.router.navigateByUrl("master/benefit");
+            } else {
+              this.toastr.error(res["message"], "Error!", {
+                progressBar: true
+              });
+            }
+          }, 3000);
+        });
+    }
   }
 }

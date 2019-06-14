@@ -15,29 +15,32 @@
         <form [formGroup]="userForm" (ngSubmit)="submit()">
           <div class="row">
             <div class="col-md-6 form-group mb-3">
-              <label for="name">Name</label>
+              <label for="staff_name">Name</label>
               <input
+                readonly
                 type="text"
-                class="form-control form-control-rounded"
-                id="name"
-                placeholder="Enter your name"
-                formControlName="name"
+                class="form-control "
+                id="staff_name"
+                name="staff_name"
+                placeholder="Enter Staff"
+                formControlName="staff_name"
               />
-              <i
-                *ngIf="
-                  !userForm.get('name').valid && userForm.get('name').touched
-                "
-                class="i-Information text-danger"
-              >
-                Please enter user name</i
-              >
+              <input
+                type="hidden"
+                class="form-control "
+                id="staff_id"
+                name="staff_id"
+                placeholder="Enter Staff"
+                formControlName="staff_id"
+              />
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="email">Email address</label>
               <input
+                readonly
                 type="email"
-                class="form-control form-control-rounded"
+                class="form-control "
                 id="email"
                 aria-describedby="emailHelp"
                 placeholder="Enter email"
@@ -49,38 +52,42 @@
               <label for="password">Password</label>
               <input
                 type="password"
-                class="form-control form-control-rounded"
+                class="form-control "
                 name="password"
                 id="password"
                 placeholder="Confirm Password"
                 formControlName="password"
               />
+              <i
+                *ngIf="
+                  !userForm.get('password').valid &&
+                  userForm.get('password').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter password</i
+              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="password_confirmation">Password Confirmation</label>
               <input
                 type="password"
-                class="form-control form-control-rounded"
+                class="form-control "
                 name="password_confirmation"
                 id="password_confirmation"
                 placeholder="Confirm Password"
                 formControlName="password_confirmation"
               />
-            </div>
-
-            <div class="col-md-6 form-group mb-3">
-              <label for="branch">Branch</label>
-              <select
-                name="branch_id"
-                id="branch"
-                class="form-control form-control-rounded"
-                formControlName="branch_id"
+              <i
+                *ngIf="
+                  !userForm.get('password_confirmation').valid &&
+                  userForm.get('password_confirmation').touched
+                "
+                class="i-Information text-danger"
               >
-                <option [ngValue]="branch.id" *ngFor="let branch of branches">{{
-                  branch.branch_name
-                }}</option>
-              </select>
+                Please enter same password</i
+              >
             </div>
 
             <div class="col-md-6 form-group mb-3">
@@ -88,7 +95,7 @@
               <select
                 name="role"
                 id="role"
-                class="form-control form-control-rounded"
+                class="form-control "
                 formControlName="role"
               >
                 <option [ngValue]="role.name" *ngFor="let role of roles">{{

@@ -6,7 +6,7 @@ import { LocalStoreService } from "./local-store.service";
   providedIn: "root"
 })
 export class BranchService {
-  readonly apiURL = "http://45.118.132.77/api";
+  readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) {}
@@ -19,5 +19,25 @@ export class BranchService {
 
   getBranches() {
     return this.http.get(this.apiURL + "/branches/", this.httpOptions);
+  }
+
+  createBranch(data) {
+    return this.http.post(this.apiURL + "/branches", data, this.httpOptions);
+  }
+
+  deleteBranch(id) {
+    return this.http.delete(this.apiURL + "/branches/" + id, this.httpOptions);
+  }
+
+  showBranch(id) {
+    return this.http.get(this.apiURL + "/branches/" + id, this.httpOptions);
+  }
+
+  updateBranch(id, data) {
+    return this.http.put(
+      this.apiURL + "/branches/" + id,
+      data,
+      this.httpOptions
+    );
   }
 }

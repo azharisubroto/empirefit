@@ -1,0 +1,24 @@
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+  background: none;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .pleasescroll {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  /* .main-content-wrap {
+    height: auto!important;
+    overflow-y: initial;
+    overflow-x: initial;
+  } */
+  #mytable_filter {
+    text-align:left!important;
+  }
+}

@@ -9,7 +9,9 @@ import {
 import { ToastrService } from "ngx-toastr";
 import { Router } from "@angular/router";
 import { ScheduleService } from "src/app/shared/services/schedule.service";
-import { InstructureService } from "src/app/shared/services/instructure.service";
+import { BranchService } from "src/app/shared/services/branch.service";
+import { StaffService } from "src/app/shared/services/staff.service";
+import { MemberTypeService } from "src/app/shared/services/member-type.service";
 import { NgbDateParserFormatter } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
@@ -30,43 +32,92 @@ export class ScheduleCreateComponent implements OnInit {
   start_date;
   end_date;
   instructures;
+  days;
+  branches;
   scheduleForm: FormGroup;
+  staffs;
+  member_types;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private router: Router,
     private scheduleService: ScheduleService,
-    private instructureService: InstructureService,
-    private parserFormatter: NgbDateParserFormatter
-  ) {}
+    private parserFormatter: NgbDateParserFormatter,
+    private branchService: BranchService,
+    private memberTypeService: MemberTypeService,
+    private staffService: StaffService
+  ) { }
 
   ngOnInit() {
     this.scheduleForm = this.fb.group({
-      day: ["", Validators.required],
+      day: ["Monday", Validators.required],
       time: ["", Validators.required],
-      instructure_id: ["", Validators.required],
+      delay_time: ["", Validators.required],
+      exercise: ["", Validators.required],
       start_date: ["", Validators.required],
-      end_date: ["", Validators.required]
+      end_date: ["", Validators.required],
+      branch_id: [1, Validators.required],
+      tag: [0, Validators.required],
     });
 
-    this.instructureService.getInstructures().subscribe((data: any) => {
-      this.instructures = data["data"];
+    this.staffService.getStaffCoach().subscribe((data: any) => {
+      this.staffs = data["data"];
+    });
+
+    this.days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ];
+
+    this.memberTypeService.getMemberTypes().subscribe((data: any) => {
+      this.member_types = data["data"];
+    });
+
+    this.branchService.getBranches().subscribe((data: any) => {
+      this.branches = data["data"];
     });
   }
 
   submit() {
+    let dataStaff = [];
+    let dataMt = [];
+
+    $.each($("input[name='staff']:checked"), function () {
+      dataStaff.push($(this).val());
+    });
+    $(".staff-final").val(dataStaff);
+
+    $.each($("input[name='member_type']:checked"), function () {
+      dataMt.push($(this).val());
+    });
+    $(".member_type-final").val(dataMt);
+
     let start_date = this.scheduleForm.controls["start_date"].value;
     let end_date = this.scheduleForm.controls["end_date"].value;
     let day = this.scheduleForm.controls["day"].value;
     let time = this.scheduleForm.controls["time"].value;
-    let instructure_id = this.scheduleForm.controls["instructure_id"].value;
+    let delay_time = this.scheduleForm.controls["delay_time"].value;
+    let exercise = this.scheduleForm.controls["exercise"].value;
+    let branch_id = this.scheduleForm.controls["branch_id"].value;
+    let tag = this.scheduleForm.controls["tag"].value;
     let formValues = this.scheduleForm.value;
+
     formValues["start_date"] = this.parserFormatter.format(start_date);
     formValues["end_date"] = this.parserFormatter.format(end_date);
     formValues["day"] = day;
     formValues["time"] = time;
-    formValues["instructure_id"] = instructure_id;
+    formValues["delay_time"] = delay_time;
+    formValues["exercise"] = exercise;
+    formValues["branch_id"] = branch_id;
+    formValues["staff"] = dataStaff;
+    formValues["member_types"] = dataMt;
+    formValues["tag"] = tag;
     if (this.scheduleForm.invalid) {
       this.loading = false;
       return;

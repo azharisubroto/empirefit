@@ -1,0 +1,160 @@
+<div class="breadcrumb">
+  <h1>Price Personal Trainer</h1>
+  <ul>
+    <li>Update</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Update Price Personal Trainer</div>
+        <form [formGroup]="priceForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="personal_trainer_id">Personal Trainer</label>
+              <select
+                name="personal_trainer_id"
+                id="personal_trainer_id"
+                class="form-control "
+                formControlName="personal_trainer_id"
+              >
+                <option
+                  [ngValue]="personaltrainer.id"
+                  *ngFor="let personaltrainer of personaltrainers"
+                  >{{ personaltrainer.name }}</option
+                >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="payment_type_id">Payment Type</label>
+              <select
+                name="payment_type_id"
+                id="payment_type_id"
+                class="form-control "
+                formControlName="payment_type_id"
+              >
+                <option
+                  [ngValue]="paymenttype.id"
+                  *ngFor="let paymenttype of paymenttypes"
+                  >{{ paymenttype.payment_type_name }}</option
+                >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="member_type_id">Member Type</label>
+              <select
+                name="member_type_id"
+                id="member_type_id"
+                class="form-control "
+                formControlName="member_type_id"
+              >
+                <option
+                  [ngValue]="membertype.id"
+                  *ngFor="let membertype of membertypes"
+                  >{{ membertype.member_type_name }}</option
+                >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="package_id">Package Type</label>
+              <select
+                name="package_id"
+                id="package_id"
+                class="form-control "
+                formControlName="package_id"
+              >
+                <option
+                  [ngValue]="package.id"
+                  *ngFor="let package of packages"
+                  >{{ package.package_name }}</option
+                >
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="price">Price</label>
+              <input
+                type="text"
+                class="form-control "
+                id="price"
+                placeholder="Enter price"
+                formControlName="price"
+              />
+              <i
+                *ngIf="
+                  !priceForm.get('price').valid &&
+                  priceForm.get('price').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter price</i
+              >
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="periode">Periode</label>
+              <div class="row">
+                <div class="col-md-5">
+                  <input
+                    type="text"
+                    id="start_date"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="start_date"
+                    formControlName="start_date"
+                  />
+                  <!-- <div class="input-group-append">
+                    <button
+                      class="btn btn-secondary"
+                      (click)="start_date.toggle()"
+                      type="button"
+                    >
+                      <i class="icon-regular i-Calendar-4"></i>
+                    </button>
+                  </div> -->
+                </div>
+                <div class="col-md-1">
+                  -
+                </div>
+                <div class="col-md-5">
+                  <input
+                    type="text"
+                    id="end_date"
+                    class="form-control"
+                    placeholder="yyyy-mm-dd"
+                    name="end_date"
+                    formControlName="end_date"
+                  />
+                  <!-- <div class="input-group-append">
+                    <button
+                      class="btn btn-secondary"
+                      (click)="end_date.toggle()"
+                      type="button"
+                    >
+                      <i class="icon-regular i-Calendar-4"></i>
+                    </button>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

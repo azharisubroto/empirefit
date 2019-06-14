@@ -1,6 +1,6 @@
 <div class="">
   <div class="breadcrumb">
-    <h1>Instructure</h1>
+    <h1>Coach</h1>
     <ul>
       <li>List</li>
     </ul>
@@ -13,7 +13,7 @@
       <div class="form-group">
         <a
           href="#"
-          [routerLink]="['instructure-create']"
+          [routerLink]="['coach-create']"
           class="btn btn-primary btn-rounded"
         >
           Create
@@ -40,8 +40,8 @@
                         <a
                           href="#"
                           [routerLink]="[
-                            '/master/user/user-edit',
-                            instructure.user_id
+                            '/staff/staff-edit/',
+                            instructure.staff_id
                           ]"
                           class="btn btn-sm btn-warning mr-2"
                           title="Edit"
@@ -60,7 +60,7 @@
                         <ng-template #modalConfirm let-modal>
                           <div class="modal-header">
                             <h4 class="modal-title" id="modal-title">
-                              Personal Trainer deletion
+                              Coach deletion
                             </h4>
                             <button
                               type="button"
@@ -84,8 +84,8 @@
                               </strong>
                             </p>
                             <p>
-                              All information associated to this instructure
-                              will be permanently deleted.
+                              All information associated to this coach will be
+                              permanently deleted.
                               <span class="text-danger"
                                 >This operation can not be undone.</span
                               >

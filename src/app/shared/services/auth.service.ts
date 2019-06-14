@@ -3,7 +3,8 @@ import { LocalStoreService } from "./local-store.service";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { delay } from "rxjs/operators";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { PermissionService } from "./permission.service";
 
 @Injectable({
   providedIn: "root"
@@ -11,23 +12,32 @@ import { HttpClient } from "@angular/common/http";
 export class AuthService {
   //Only for demo purpose
   authenticated;
-  readonly apiURL = "http://45.118.132.77/api";
+  redirect;
+  readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
   constructor(
     private store: LocalStoreService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private permissionService: PermissionService
   ) {
     this.checkAuth();
+    this.getuser();
   }
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      Authorization: "Bearer " + this.store.getItem("access_token")
+    })
+  };
+
   checkAuth() {
-    return (this.authenticated = this.store.getItem("access_token"));
+    this.authenticated = this.store.getItem("access_token");
   }
 
   getuser() {
-    return of({});
+    return this.http.get(this.apiURL + "/get_user", this.httpOptions);
   }
 
   signin(credentials) {
@@ -37,5 +47,26 @@ export class AuthService {
   signout() {
     this.store.clear();
     this.router.navigateByUrl("/sessions/signin");
+  }
+
+  checkAccess() {
+    this.http
+      .get(this.apiURL + "/check_access", this.httpOptions)
+      .toPromise()
+      .then(res => res)
+      .catch(err => {
+        if (err.status === 401) {
+          this.store.clear();
+          this.router.navigateByUrl("sessions/signin");
+        }
+      });
+  }
+
+  getUser() {
+    return this.http.get(this.apiURL + "/get_user", this.httpOptions)
+  }
+
+  checkPermission(permission_id) {
+    return this.http.get(this.apiURL + "/check_permission/" + permission_id, this.httpOptions)
   }
 }

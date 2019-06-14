@@ -1,0 +1,50 @@
+<div class="breadcrumb">
+  <h1>Dropin Type</h1>
+  <ul>
+    <li>Create</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Create Dropin Type</div>
+        <form [formGroup]="dropinTypeForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="dropin_name">Dropin Type</label>
+              <input
+                autofocus
+                type="text"
+                class="form-control "
+                id="dropin_name"
+                placeholder="Enter dropin type "
+                formControlName="dropin_name"
+              />
+              <i
+                *ngIf="
+                  !dropinTypeForm.get('dropin_name').valid &&
+                  dropinTypeForm.get('dropin_name').touched
+                "
+                class="i-Information text-danger"
+              >
+                Please enter dropin type name</i
+              >
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading
+                btnClass="btn-primary btn-rounded"
+                [loading]="loading"
+                >Save</btn-loading
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

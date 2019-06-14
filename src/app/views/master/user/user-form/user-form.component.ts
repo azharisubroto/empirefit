@@ -10,7 +10,7 @@ import { ToastrService } from "ngx-toastr";
 import { UserService } from "src/app/shared/services/user.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { RoleService } from "src/app/shared/services/role.service";
-import { BranchService } from "src/app/shared/services/branch.service";
+import { StaffService } from "src/app/shared/services/staff.service";
 
 @Component({
   selector: "app-basic-form",
@@ -31,6 +31,7 @@ export class UserFormComponent implements OnInit {
   roles: any[];
   branches: any[];
   userForm: FormGroup;
+  staffs;
 
   constructor(
     private fb: FormBuilder,
@@ -39,17 +40,17 @@ export class UserFormComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private roleService: RoleService,
-    private branchService: BranchService
+    private staffService: StaffService
   ) {}
 
   ngOnInit() {
     this.userForm = this.fb.group({
       id: [""],
-      name: ["", Validators.required],
+      staff_id: ["", Validators.required],
+      staff_name: [],
       email: ["", Validators.required],
-      password: [""],
-      password_confirmation: [""],
-      branch_id: ["", Validators.required],
+      password: ["kosong"],
+      password_confirmation: ["kosong"],
       role: ["", Validators.required]
     });
 
@@ -58,11 +59,11 @@ export class UserFormComponent implements OnInit {
       .subscribe((data: any) => {
         this.userForm.setValue({
           id: data["data"].id,
-          name: data["data"].name,
+          staff_id: data["data"].staff_id,
+          staff_name: data["data"].name,
           email: data["data"].email,
-          password: "",
-          password_confirmation: "",
-          branch_id: data["data"].branch_id,
+          password: "kosong",
+          password_confirmation: "kosong",
           role: data["data"].role
         });
       });
@@ -71,8 +72,8 @@ export class UserFormComponent implements OnInit {
       this.roles = res["data"];
     });
 
-    this.branchService.getBranches().subscribe((res: any) => {
-      this.branches = res["data"];
+    this.staffService.getStaffs().subscribe((data: any) => {
+      this.staffs = data["data"];
     });
   }
 

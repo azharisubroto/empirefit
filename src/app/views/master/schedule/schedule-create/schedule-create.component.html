@@ -14,115 +14,129 @@
         <div class="card-title mb-3">Form Create Schedule</div>
         <form [formGroup]="scheduleForm" (ngSubmit)="submit()">
           <div class="row">
-            <div class="col-md-6 form-group mb-3">
-              <label for="instructure_id">Instructure</label>
-              <select
-                name="instructure_id"
-                id="instructure_id"
-                class="form-control form-control-rounded"
-                formControlName="instructure_id"
-              >
-                <option
-                  [ngValue]="instructure.id"
-                  *ngFor="let instructure of instructures"
-                  >{{ instructure.name }}</option
-                >
-              </select>
+            <div class="col-md-12 form-group mb-3">
+              <label for="exercise">Exercise</label>
+              <input type="text" class="form-control " id="exercise" placeholder="Enter exercise" formControlName="exercise" />
+              <i *ngIf="
+                  !scheduleForm.get('exercise').valid &&
+                  scheduleForm.get('exercise').touched
+                "
+                class="i-Information text-danger">
+                Please enter exercise</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="day">Day</label>
-              <select
-                name="day"
-                id="day"
-                class="form-control form-control-rounded"
-                formControlName="day"
-              >
-                <option value="Senin" [ngValue]="Senin">Senin</option>
-                <option value="Selasa" [ngValue]="Selasa">Selasa</option>
-                <option value="Rabu" [ngValue]="Rabu">Rabu</option>
-                <option value="Kamis" [ngValue]="Kamis">Kamis</option>
-                <option value="Jumat" [ngValue]="Jumat">Jumat</option>
-                <option value="Sabtu" [ngValue]="Sabtu">Sabtu</option>
-                <option value="Minggu" [ngValue]="Minggu">Minggu</option>
+              <select name="day" id="day" class="form-control " formControlName="day">
+                <option *ngFor="let item of days" [ngValue]="item">{{
+                  item
+                  }}</option>
               </select>
             </div>
 
-            <div class="col-md-12 form-group mb-3">
+            <div class="col-md-6 form-group mb-3">
               <label for="time">Time</label>
-              <input
-                type="text"
-                class="form-control form-control-rounded"
-                id="time"
-                placeholder="Enter time : 00:00"
-                formControlName="time"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="time" placeholder="Enter time : 00:00:00" formControlName="time" />
+              <i *ngIf="
                   !scheduleForm.get('time').valid &&
                   scheduleForm.get('time').touched
                 "
-                class="i-Information text-danger"
-              >
-                Please enter time : 00:00</i
-              >
+                class="i-Information text-danger">
+                Please enter time : 00:00</i>
+            </div>
+            <div class="col-md-6 form-group mb-3">
+              <label for="time">Delay Time</label>
+              <input type="text" class="form-control " id="delay_time" placeholder="Enter time : 00:00" formControlName="delay_time" />
+              <i *ngIf="!scheduleForm.get('delay_time').valid && scheduleForm.get('delay_time').touched" class="i-Information text-danger">
+                Please enter delay time : 00:00</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="periode">Periode</label>
               <div class="row">
                 <div class="col-md-5">
-                  <input
-                    id="start_date"
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp1"
-                    ngbDatepicker
-                    formControlName="start_date"
-                    #dp1="ngbDatepicker"
-                  />
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-secondary"
-                      (click)="dp1.toggle()"
-                      type="button"
-                    >
-                      <i class="icon-regular i-Calendar-4"></i>
-                    </button>
+                  <div class="row">
+                    <div class="col-9 col-md-10">
+                      <input id="start_date" class="form-control" placeholder="yyyy-mm-dd" name="dp1" ngbDatepicker
+                        formControlName="start_date" #dp1="ngbDatepicker" />
+                    </div>
+                    <div class="col-3 col-md-2">
+                      <button class="btn btn-secondary" (click)="dp1.toggle()" type="button">
+                        <i class="icon-regular i-Calendar-4"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-1">
                   -
                 </div>
                 <div class="col-md-5">
-                  <input
-                    id="end_date"
-                    class="form-control"
-                    placeholder="yyyy-mm-dd"
-                    name="dp"
-                    ngbDatepicker
-                    #dp="ngbDatepicker"
-                    formControlName="end_date"
-                  />
-                  <div class="input-group-append">
-                    <button
-                      class="btn btn-secondary"
-                      (click)="dp.toggle()"
-                      type="button"
-                    >
-                      <i class="icon-regular i-Calendar-4"></i>
-                    </button>
+                  <div class="row">
+                    <div class="col-9 col-md-10">
+                      <input id="end_date" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker"
+                        formControlName="end_date" />
+                    </div>
+                    <div class="col-3 col-md-2">
+                      <button class="btn btn-secondary" (click)="dp.toggle()" type="button">
+                        <i class="icon-regular i-Calendar-4"></i>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            <div class="col-md-6 form-group mb-3">
+              <label for="branch_id">Branch</label>
+              <select name="branch_id" id="branch_id" class="form-control " formControlName="branch_id">
+                <option *ngFor="let item of branches" [ngValue]="item.id">{{
+                  item.branch_name
+                  }}</option>
+              </select>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="tag">Reduce Session</label>
+              <select name="tag" id="tag" class="form-control " formControlName="tag">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+              </select>
+            </div>
+
+            <div class="container">
+              <hr />
+              <div class="row mb-3">
+                <div class="col-md-12">
+                  <h4>Coach :</h4>
+                </div>
+                <div class="col-md-6 mt-3" *ngFor="let staff of staffs">
+                  <label class="checkbox checkbox-secondary">
+                    <input checked type="checkbox" name="staff" value="{{ staff.id }}" />
+                    <span class="ml-3">{{ staff.name }}</span>
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <input type="hidden" class="staff-final" value="" />
+              </div>
+              <hr />
+              <div class="row">
+                <div class="col-md-12">
+                  <h4>Member Type :</h4>
+                </div>
+                <div class="col-md-6 mt-3" *ngFor="let member_type of member_types">
+                  <label class="checkbox checkbox-secondary">
+                    <input checked type="checkbox" name="member_type" value="{{ member_type.id }}" />
+                    <span class="ml-3">{{ member_type.member_type_name }}</span>
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <input type="hidden" class="member_type-final" value="" />
+              </div>
+              <hr />
+            </div>
+
             <div class="col-md-12">
-              <btn-loading
-                btnClass="btn-primary btn-rounded"
-                [loading]="loading"
-                >Save</btn-loading
-              >
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
             </div>
           </div>
         </form>

@@ -1,5 +1,5 @@
 <div class="breadcrumb">
-  <h1>Personal Trainer</h1>
+  <h1>Pricing PT</h1>
   <ul>
     <li>Create</li>
   </ul>
@@ -11,46 +11,62 @@
   <div class="col-md-12">
     <div class="card mb-4">
       <div class="card-body">
-        <div class="card-title mb-3">Form Create Personal Trainer</div>
+        <div class="card-title mb-3">Form Create Pricing PT</div>
         <form [formGroup]="ptForm" (ngSubmit)="submit()">
           <div class="row">
-            <div class="col-md-12 form-group mb-3">
-              <label for="user_id">Name</label>
-              <select
-                name="user_id"
-                id="user_id"
-                class="form-control form-control-rounded"
-                formControlName="user_id"
-              >
-                <option [ngValue]="user.id" *ngFor="let user of users">{{
-                  user.name
-                }}</option>
+            <div class="col-md-6 form-group mb-3">
+              <label for="staff_id">Name</label>
+              <select name="staff_id" id="staff_id" class="form-control" formControlName="staff_id">
+                <option [ngValue]="staff.id" *ngFor="let staff of staffs">{{
+                  staff.name
+                  }}</option>
               </select>
+              <i *ngIf="
+                  !ptForm.get('staff_id').valid &&
+                  ptForm.get('staff_id').touched
+                " class="i-Information text-danger">
+                Please choose personal trainer</i>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="branch_id">Branch</label>
+              <select name="branch_id" id="branch_id" class="form-control" formControlName="branch_id">
+                <option *ngFor="let item of branch" [ngValue]="branch.id">{{branch.branch_name}}</option>
+              </select>
+              <i *ngIf="!ptForm.get('branch_id').valid && ptForm.get('branch_id').touched"
+                class="i-Information text-danger">
+                Please choose Branch</i>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="session">Session</label>
+              <select name="session" id="session" class="form-control" formControlName="session">
+                <option value="1">1</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+              </select>
+              <i *ngIf="
+                  !ptForm.get('session').valid && ptForm.get('session').touched
+                " class="i-Information text-danger">
+                Please choose session</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="quota">Quota</label>
-              <input
-                type="text"
-                class="form-control form-control-rounded"
-                id="quota"
-                placeholder="Enter quota min 1"
-                formControlName="quota"
-              />
-              <i
-                *ngIf="
+              <input type="text" class="form-control " id="quota" placeholder="Enter quota min 1"
+                formControlName="quota" />
+              <i *ngIf="
                   !ptForm.get('quota').valid && ptForm.get('quota').touched
-                "
-                class="i-Information text-danger"
-              >
-                Please enter total quota</i
-              >
+                " class="i-Information text-danger">
+                Please enter total quota</i>
             </div>
-            <div class="col-md-6 form-group mb-3">
+            <!-- <div class="col-md-6 form-group mb-3">
               <label for="remains">Remains</label>
               <input
                 type="text"
-                class="form-control form-control-rounded"
+                class="form-control "
                 id="remains"
                 placeholder="Enter remains min 0"
                 formControlName="remains"
@@ -63,14 +79,20 @@
               >
                 Please enter total remains min 0</i
               >
+            </div> -->
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="price">Price</label>
+              <input type="text" class="form-control " id="price" placeholder="Enter price min 0"
+                formControlName="price" />
+              <i *ngIf="
+                  !ptForm.get('price').valid && ptForm.get('price').touched
+                " class="i-Information text-danger">
+                Please enter total price min 0</i>
             </div>
 
             <div class="col-md-12">
-              <btn-loading
-                btnClass="btn-primary btn-rounded"
-                [loading]="loading"
-                >Save</btn-loading
-              >
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
             </div>
           </div>
         </form>

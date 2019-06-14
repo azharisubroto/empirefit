@@ -1,0 +1,85 @@
+<div class="breadcrumb">
+  <h1>F&B</h1>
+  <ul>
+    <li>{{member.name}}</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="col-md-12">
+  <div class="fancy-head"><span>Form Pay</span></div>
+  <form [formGroup]="fnbForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="text-small">Total F&B Unpaid</div>
+        <input readonly id="idr" class="form-control" type="text">
+      </div>
+      <div class="col-md-2">
+        <div class="text-small">Payment Type</div>
+        <select required class="form-control" formControlName="type">
+          <option value="Cash">Cash</option>
+          <option value="Credit Card">Credit Card</option>
+          <option value="Debit Card">Debit Card</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <div class="text-small">Trace Code</div>
+        <input id="trace_number" class="form-control" type="text" formControlName="trace_number">
+      </div>
+      <div class="col-md-2">
+        <btn-loading [loading]="loading" btnClass="btn-primary pay-now btn-lg btn-block mt-3">Pay
+          Now</btn-loading>
+      </div>
+      <div class="col-md-2">
+        <button type="button" (click)="cancel()" class="btn btn-warning btn-lg btn-block mt-3">Cancel</button>
+      </div>
+    </div>
+  </form>
+  <hr>
+</div>
+
+<div class="container">
+  <div class="row" id="pdfsample">
+    <div class="col-md-12">
+      <div class="card o-hidden">
+        <div class="table mt-4">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="container">
+                <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
+                  <thead class="text-center">
+                    <tr>
+                      <td>Trx Datetime</td>
+                      <td>Paid Datetime</td>
+                      <td>Items</td>
+                      <td>Price</td>
+                      <td>Trx Verification</td>
+                      <td>Paid</td>
+                      <td>Type</td>
+                      <td>Trace Code</td>
+                      <td>Paid Verification</td>
+                    </tr>
+                  </thead>
+                  <tbody class="partners">
+                    <tr *ngFor="let res of fnball">
+                      <td class="text-center">{{ res.trx_date }}</td>
+                      <td class="text-center">{{ res.paid_date ? res.paid_date : '-' }}</td>
+                      <td class="text-center">{{ res.item }}</td>
+                      <td class="text-right">{{ res.idr ? res.idr : '0' }}</td>
+                      <td class="text-center">{{ res.trx_verification }}</td>
+                      <td class="text-center">{{ res.paid === '0' ? 'No' : 'Yes' }}</td>
+                      <td class="text-center">{{ res.type ? res.type : '-' }}</td>
+                      <td class="text-center">{{ res.trace_number ? res.trace_number : '-' }}</td>
+                      <td class="text-center">{{ res.paid_verification ? res.paid_verification : '-' }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { Router, ActivatedRoute } from "@angular/router";
+import { PaymentTypeService } from "src/app/shared/services/payment-type.service";
 
 @Component({
   selector: "app-basic-form",
@@ -11,30 +18,57 @@ import { ToastrService } from "ngx-toastr";
 export class PaymentTypeFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  radioGroup: FormGroup;
+  payment_type_name;
+  paymentTypeForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private paymentTypeService: PaymentTypeService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.buildFormBasic();
-    this.radioGroup = this.fb.group({
-      radio: []
+    this.paymentTypeForm = this.fb.group({
+      payment_type_name: ["", Validators.required]
     });
-  }
 
-  buildFormBasic() {
-    this.formBasic = this.fb.group({
-      experience: []
-    });
+    this.paymentTypeService
+      .showPaymentType(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.paymentTypeForm.setValue({
+          payment_type_name: data["data"].payment_type_name
+        });
+      });
   }
 
   submit() {
-    this.loading = true;
-    setTimeout(() => {
+    if (this.paymentTypeForm.invalid) {
       this.loading = false;
-      this.toastr.success("Profile updated.", "Success!", {
-        progressBar: true
-      });
-    }, 3000);
+      return;
+    } else {
+      this.loading = true;
+      this.paymentTypeService
+        .updatePaymentType(
+          this.activatedRoute.snapshot.params["id"],
+          this.paymentTypeForm.value
+        )
+        .subscribe((res: any) => {
+          setTimeout(() => {
+            this.loading = false;
+            if (res["status"] === "200") {
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+              this.router.navigateByUrl("master/payment-type");
+            } else {
+              this.toastr.error(res["message"], "Error!", {
+                progressBar: true
+              });
+            }
+          }, 3000);
+        });
+    }
   }
 }

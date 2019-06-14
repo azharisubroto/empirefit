@@ -6,10 +6,10 @@ import { LocalStoreService } from "./local-store.service";
   providedIn: "root"
 })
 export class PersonaltrainerService {
-  readonly apiURL = "http://45.118.132.77/api";
+  readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) {}
+  constructor(private http: HttpClient, private store: LocalStoreService) { }
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -47,6 +47,20 @@ export class PersonaltrainerService {
     return this.http.put(
       this.apiURL + "/personaltrainers/" + id,
       data,
+      this.httpOptions
+    );
+  }
+
+  personalTrainerMember(id) {
+    return this.http.get(
+      this.apiURL + "/personal_trainer_members/" + id,
+      this.httpOptions
+    );
+  }
+
+  fingerPt(id, vc) {
+    return this.http.get(
+      this.apiURL + "/get_url_finger_pt/" + id + "/" + vc,
       this.httpOptions
     );
   }

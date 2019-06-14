@@ -1,16 +1,15 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { LocalStoreService } from "./local-store.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class PermissionService {
-
-  readonly apiURL = "http://45.118.132.77/api";
+  readonly apiURL = "https://api.empirefit.club/api";
   // readonly apiURL = "http://localhost/efc/api";
 
-  constructor(private http: HttpClient, private store: LocalStoreService) { }
+  constructor(private http: HttpClient, private store: LocalStoreService) {}
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,7 +26,10 @@ export class PermissionService {
   }
 
   deletePermission(id) {
-    return this.http.delete(this.apiURL + "/permissions/" + id, this.httpOptions);
+    return this.http.delete(
+      this.apiURL + "/permissions/" + id,
+      this.httpOptions
+    );
   }
 
   showPermission(id) {
@@ -35,10 +37,25 @@ export class PermissionService {
   }
 
   updatePermission(id, data) {
-    return this.http.put(this.apiURL + "/permissions/" + id, data, this.httpOptions);
+    return this.http.put(
+      this.apiURL + "/permissions/" + id,
+      data,
+      this.httpOptions
+    );
   }
 
-  createPermissionRole(id) {
-    return this.http.get(this.apiURL + "/store_permission_role/" + id, this.httpOptions);
+  createPermissionRole(id, data) {
+    return this.http.post(
+      this.apiURL + "/store_permission_role/" + id,
+      data,
+      this.httpOptions
+    );
+  }
+
+  permission_role(id) {
+    return this.http.get(
+      this.apiURL + "/permission_role/" + id,
+      this.httpOptions
+    );
   }
 }

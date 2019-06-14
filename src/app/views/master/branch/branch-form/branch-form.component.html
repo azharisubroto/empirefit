@@ -1,0 +1,65 @@
+<div class="breadcrumb">
+  <h1>Branch</h1>
+  <ul>
+    <li>Update</li>
+  </ul>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="card-title mb-3">Form Update Branch</div>
+        <form [formGroup]="branchForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-md-6 form-group mb-3">
+              <label for="branch_name">Branch Name</label>
+              <input autofocus type="text" class="form-control " id="branch_name" placeholder="Enter branch name "
+                formControlName="branch_name" />
+              <i *ngIf="
+                  !branchForm.get('branch_name').valid &&
+                  branchForm.get('branch_name').touched
+                "
+                class="i-Information text-danger">
+                Please enter branch name</i>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="branch_code">Branch Code</label>
+              <input readonly type="text" class="form-control " id="branch_code" placeholder="Enter branch name "
+                formControlName="branch_code" />
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="address">Address</label>
+              <textarea rows="5" type="text" class="form-control " id="address" placeholder="Enter Address "
+                formControlName="address"></textarea>
+              <i *ngIf="!branchForm.get('address').valid && branchForm.get('address').touched" class="i-Information text-danger">
+                Please enter branch name</i>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="email">Email</label>
+              <input type="text" class="form-control " id="email" placeholder="Enter email " formControlName="email" />
+              <i *ngIf="!branchForm.get('email').valid && branchForm.get('email').touched" class="i-Information text-danger">
+                Please enter email</i>
+            </div>
+
+            <div class="col-md-6 form-group mb-3">
+              <label for="phone">Phone</label>
+              <input type="text" class="form-control " id="phone" placeholder="Enter phone " formControlName="phone" />
+              <i *ngIf="!branchForm.get('phone').valid && branchForm.get('phone').touched" class="i-Information text-danger">
+                Please enter phone</i>
+            </div>
+
+            <div class="col-md-12">
+              <btn-loading btnClass="btn-primary btn-rounded" [loading]="loading">Save</btn-loading>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

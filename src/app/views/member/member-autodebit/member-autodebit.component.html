@@ -1,0 +1,248 @@
+<div class="">
+    <div class="breadcrumb">
+        <h1>CC Autodebit Payment</h1>
+        <ul>
+            <li>{{ member.name }}</li>
+        </ul>
+    </div>
+    <div class="separator-breadcrumb border-top"></div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <!-- MEMBERSHIP AND RECURRINGS -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <!-- MEMBERSHIP -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="fancy-head">
+                                <span>Membership</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Type</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ member.member_type_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Price</span>
+                                <div class="text-medium text-primary mt-1">
+                                    IDR {{ auto_debits.recuring_payment | number:0 }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end membership -->
+
+                    <!-- Recurring details -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="fancy-head">
+                                <span>Recurrings Detail</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Type</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ member.payment_type_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Auto Debit</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ !! member.auto_debet === false ? "No" : "Yes" }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Recurring Date</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ auto_debits.recuring_date }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Payment Unpaid</span>
+                                <div class="text-medium text-primary mt-1">
+                                    IDR {{ auto_debits.unpaid | number:0 }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end recurring details -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <button type="button" (click)="open(deactivate)" class="btn btn-lg btn-block btn-primary py-3">Deactivate
+                                Auto Debit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CREDIT CARD INFORMATION -->
+            <div class="card">
+                <div class="card-body">
+                    <div class="fancy-head">
+                        <span>Credit Card Information</span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Card Number</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ creditcards.card_number }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Name on Card</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ creditcards.card_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Exp. Date</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ creditcards.exp_month }}/{{ creditcards.exp_year }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                                <span class="text-muted mb-0">Bank Name</span>
+                                <div class="text-medium text-primary mt-1">
+                                    {{ creditcards.bank_name }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="#" routerLink="/dashboard/member/change-cc/{{ member.id }}" class="btn btn-lg btn-block btn-primary py-3">
+                                Change CC
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3 mb-md-0">
+            <div class="card">
+                <div class="card-body">
+                    <div class="fancy-head">
+                        <span>Receipt Record</span>
+                    </div>
+                    <form [formGroup]="receiptForm" (ngSubmit)="submit()">
+                        <div class="row mb-3">
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="mb-3">
+                                    <span class="text-muted mb-0">Type</span>
+                                    <div class="text-medium text-primary mt-1">
+                                        <select formControlName="payment_id" class="form-control">
+                                            <option *ngFor="let payment of payments" [value]="payment.id">{{
+                                                payment.payment_type_name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="mb-3">
+                                    <span class="text-muted mb-0">Bank</span>
+                                    <div class="text-medium text-primary mt-1">
+                                        <select formControlName="bank_id" class="form-control">
+                                            <option [value]="0">Select Bank</option>
+                                            <option *ngFor="let bank of banks" [value]="bank.id">{{ bank.bank_name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="mb-3">
+                                    <span class="text-muted mb-0">Card Number</span>
+                                    <div class="text-medium text-primary mt-1">
+                                        <input formControlName="card_number" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="mb-3">
+                                    <span class="text-muted mb-0">Trace Number</span>
+                                    <div class="text-medium text-primary mt-1">
+                                        <input formControlName="trace_number" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <div class="mb-3">
+                                    <span class="text-muted mb-0">Total Payment</span>
+                                    <div class="text-medium text-primary mt-1">
+                                        <input formControlName="price" type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6 mb-3 mb-md-0">
+                                <div class="mb-3">
+                                    <span class="text-muted mb-0">Date &amp; Time</span>
+                                    <div class="text-medium text-primary mt-1">
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <btn-loading btnClass="btn btn-lg btn-block btn-primary py-3" [loading]="loading">Submit</btn-loading>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<ng-template #deactivate let-modal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Deactivate Process</h4>
+        <button type="button" class="close" aria-label="Close" (click)="c('Close')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <div class="px-4 py-3 border border-light rounded align-items-center">
+                    <span class="text-muted mb-0">Front Officer</span>
+                    <div class="text-medium text-primary mt-1">
+                        {{ !!user.name ? user.name : user.role }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <form [formGroup]="userForm" (ngSubmit)="deactivatedCc()">
+                    <label class="text-muted mb-0">Your Password</label>
+                    <input type="password" name="password" formControlName="password" placeholder="..." class="form-control mb-3" />
+                    <input type="hidden" name="user_id" formControlName="user_id" placeholder="..." class="form-control mb-3" />
+                    <btn-loading btnClass="btn btn-outline-dark btn-rounded btn-block" [loading]="loading">Proceed</btn-loading>
+                </form>
+            </div>
+        </form>
+    </div>
+</ng-template>

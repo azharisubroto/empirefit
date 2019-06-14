@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule, ErrorHandler } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -9,6 +9,8 @@ import { InMemoryWebApiModule } from "angular-in-memory-web-api";
 import { InMemoryDataService } from "./shared/inmemory-db/inmemory-db.service";
 import { HttpClientModule } from "@angular/common/http";
 import { DataTablesModule } from "angular-datatables";
+import { WebcamModule } from 'ngx-webcam';
+import { SignaturePadModule } from "angular2-signaturepad";
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,12 +18,14 @@ import { DataTablesModule } from "angular-datatables";
     BrowserModule,
     SharedModule,
     HttpClientModule,
+    SignaturePadModule,
     DataTablesModule,
     BrowserAnimationsModule,
     InMemoryWebApiModule.forRoot(InMemoryDataService, {
       passThruUnknownUrl: true
     }),
-    AppRoutingModule
+    AppRoutingModule,
+    WebcamModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -52,6 +52,10 @@ export class WizardComponent implements AfterContentInit {
     return this.activeStepIndex < this.steps.length - 1;
   }
 
+  get hasSkipStep(): boolean {
+    return this.activeStepIndex == 1;
+  }
+
   get hasPrevStep(): boolean {
     return this.activeStepIndex > 0;
   }
@@ -68,6 +72,15 @@ export class WizardComponent implements AfterContentInit {
       this.activeStep.onNext.emit();
       nextStep.isDisabled = false;
       this.activeStep = nextStep;
+    }
+  }
+
+  public skip(): void {
+    if (this.hasSkipStep) {
+      const skipStep: WizardStepComponent = this.steps[this.activeStepIndex + 1];
+      this.activeStep.onNext.emit();
+      skipStep.isDisabled = false;
+      this.activeStep = skipStep;
     }
   }
 

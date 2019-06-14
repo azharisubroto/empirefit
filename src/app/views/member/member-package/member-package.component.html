@@ -1,0 +1,265 @@
+<div class="breadcrumb">
+  <h1>Select Member Package</h1>
+</div>
+
+<div class="separator-breadcrumb border-top"></div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form-wizard>
+      <wizard-step id="Membership" [title]="'Membership'" (onNext)="onStep1Next()">
+        <div class="card mb-4">
+          <div class="card-body">
+            <form #paymentForm="ngForm" [formGroup]="membershipForm">
+
+              <div class="row">
+                <div class="col-6">
+                  <div class="row">
+                    <div class="col-12">
+                      <h4 class="fancy-head"><span>Membership</span></h4>
+                    </div>
+                    <div class="col-12">
+                      <!-- <div class="row mb-4">
+                        <div class="form-group col-md-12 mb-3">
+                          <label for="branch_id">Branch</label>
+                          <select name="branch_id" id="branch_id" class="form-control" formControlName="branch_id">
+                            <option *ngFor="let item of branch" [value]="branch.id">{{branch.branch_name}}</option>
+                          </select>
+                        </div>
+                      </div> -->
+                      <div class="row mb-4">
+                        <div class="form-group col-md-12 mb-3">
+                          <label for="member_type_id">Type</label>
+                          <select id="member_type" (change)="getPriceNonPt()" required name="member_type_id"
+                            formControlName="member_type_id" class="form-control">
+                            <option *ngFor="let title of type" [value]="title.id">
+                              {{title.member_type_name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3 d-none" id="isptselect">
+                        <div class="col-md-12">
+                          <h4 class="fancy-head"><span>Trainer</span></h4>
+
+                          <table id="mytable" class="table table-hover table-bordered" cellspacing="0">
+                            <thead class="text-center">
+                              <tr>
+                                <th>Trainer Name</th>
+                                <th>Status</th>
+                                <th>Session</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-center">
+                              <tr *ngFor="let trainer of trainers; let i = index">
+                                <td>{{ trainer.name }}</td>
+                                <td>{{ trainer.state }}</td>
+                                <td>{{ trainer.session }}</td>
+                                <td>
+                                  <button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)"
+                                    (click)="getSession(trainer.session)" class="btn btn-primary personal-trainer">Select</button>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <input type="hidden" name="session" id="session" class="form-control">
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="expiry_in">Expiry In</label>
+                          <input readonly type="text" name="expiry_in" id="expiry_in" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12">
+                          <h4 class="fancy-head"><span>Payment Method</span></h4>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card">Type</label>
+                          <select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id"
+                            class="form-control">
+                            <option class="pm" *ngFor="let pa of paymenttype" [value]="pa.id">
+                              {{pa.payment_type_name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card">Bank</label>
+                          <select formControlName="bank_id" name="bank_id" class="form-control">
+                            <option [value]=""></option>
+                            <option *ngFor="let bank of banks" [value]="bank.id">
+                              {{bank.bank_name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card_number">Card</label>
+                          <input formControlName="card_number" type="text" name="card_number" class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="card_name">Card Name</label>
+                          <input formControlName="card_name" type="text" name="card_name" class="form-control">
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="exp_date">Exp Date</label>
+                          <div class="clearfix"></div>
+                          <input type="text" placeholder="dd" formControlName="exp_month" name="mm" class="form-control d-inline-block"
+                            style="width:100px">
+                          /
+                          <input type="text" placeholder="yyyy" formControlName="exp_year" name="yy" class="form-control d-inline-block"
+                            style="width:100px">
+                        </div>
+                        <div class="col-md-12 mb-3 form-group">
+                          <label for="auto_debit">Auto Debit</label>
+                          <select (change)="getAutodebitPrice()" formControlName="auto_debet" name="auto_debit" class="form-control">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <h4 class="fancy-head"><span>Total Payment</span></h4>
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
+                      <label for="price">Amount</label>
+                      <input readonly class="form-control" type="text" name="price" id="price">
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-12">
+                      <h4 class="fancy-head"><span>Receipt Record</span></h4>
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
+                      <label for="edc_id">EDC</label>
+                      <select formControlName="edc_id" name="edc_id" class="form-control">
+                        <option *ngFor="let edc of edcs" [value]="edc.id">{{edc.bank_name}}</option>
+                      </select>
+                    </div>
+                    <div class="col-md-12 mb-3 form-group">
+                      <label for="traceNumber">Trace Number</label>
+                      <input formControlName="traceNumber" class="form-control" type="text" name="traceNumber" id="traceNumber">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </wizard-step>
+
+      <wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep2Next()">
+        <div class="mt-0 mb-4">
+          <p>I <strong>{{ membername }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong class="show-price"></strong>
+            from my credit card in order to pay the monthly
+            subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount
+            of
+            money will be automatically deducted unless I instructed them other wise.</p>
+          <p>Terms &amp; Condition.</p>
+          <ul>
+            <li>Within the 2 months of initial sign up the members are not encouraged to stop the monthly subscription.
+              (stopping within two months will result on IDR 200.000 process fee)</li>
+            <li>Members are allowed to cancel the automatic payment anytime after the initial 2 months after the sign
+              up</li>
+            <li>The Member are allowed to freeze the account for the minimum of 15 days and maximum of 3 months</li>
+            <li>To freeze or stop the membership, the member will have to notify 2 weeks prior.</li>
+            <li>Empire has the right to stop the membership or auto deduction at anytime they see fit.</li>
+          </ul>
+
+          <div class="row">
+            <div class="col-md-7 mb-4 mb-md-0">
+              <div class="px-4 py-3 border border-light rounded align-items-center">
+                <div class="row mb-3">
+                  <div class="col-3">
+                    Name on Card
+                  </div>
+                  <div class="col-9">
+                    <div class="boxvalue" id="card_name_text">
+                      {{!! cc_name ? cc_name : "-"}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-3">
+                    Card Number
+                  </div>
+                  <div class="col-9">
+                    <div class="boxvalue" id="card_number_text">
+                      {{!! cc_card ? cc_card : "-"}}
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-3">
+                    EXP Date
+                  </div>
+                  <div class="col-9">
+                    <div class="boxvalue d-inline-block">
+                      <label for="" id="card_month_text">{{!! cc_month ? cc_month : "-"}}</label>
+                      <label for=""> / </label>
+                      <label for="" id="card_year_text">{{!! cc_year ? cc_year : "-"}}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="col-3">
+                    Date
+                  </div>
+                  <div class="col-9">
+                    <div class="boxvalue" id="card_date_text">
+                      {{!! cc_date ? cc_date : "-"}}
+                    </div>
+                    <input id="card_id_text" class="form-control" type="hidden">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <form [formGroup]="debitGroup">
+                <button type="button" (click)="openLg(signaturetiga)" class="btn btn-primary">Put Signature</button>
+                <button class="btn btn-success d-none ml-3 isSuccessAutodebitSign" disabled>Success</button>
+                <ng-template #signaturetiga let-modal let-c="close" let-d="dismiss">
+                  <div class="modal-header">
+                    <h4 class="modal-title"><strong><span class="text-capitalize">Autodebit Signature</span></strong></h4>
+                    <button type="button" class="close" aria-label="Close" (click)="c('close')">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>
+                    <input formControlName="debit_sign" type="hidden" id="debit-sign" value="">
+                    <div class="text-left">
+                      <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
+                      <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="memberautodebitsign(debit_sign)">Submit</button>
+                    </div>
+                  </div>
+                </ng-template>
+              </form>
+            </div>
+          </div>
+        </div>
+      </wizard-step>
+
+      <wizard-step [title]="'Final'" (onComplete)="onComplete($event)">
+        <div class="p5 text-center mt-5">
+          <i class="text-50 i-Checked-User text-success"></i>
+
+          <h2 class="mt-5">Transaction Success</h2>
+        </div>
+      </wizard-step>
+    </form-wizard>
+  </div>
+</div>

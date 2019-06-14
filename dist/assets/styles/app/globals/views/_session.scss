@@ -36,7 +36,7 @@
 @media (max-width: 767px) {
     .auth-layout-wrap {
         .auth-content {
-            padding: 15px;
+            min-width: 300px;
         }
     }
     .auth-right {

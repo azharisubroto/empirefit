@@ -4,10 +4,11 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgxPaginationModule } from "ngx-pagination";
 
 import { FinanceRoutingModule } from "./finance-routing.module";
-import { MemberListComponent } from "./member-list/member-list.component";
 import { TransactionListComponent } from "./transaction-list/transaction-list.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { TransactionFormComponent } from './transaction-form/transaction-form.component';
+import { TransactionReportComponent } from './transaction-report/transaction-report.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
     NgbModule,
     FinanceRoutingModule
   ],
-  declarations: [MemberListComponent, TransactionListComponent]
+  declarations: [TransactionListComponent, TransactionFormComponent, TransactionReportComponent]
 })
-export class FinanceModule {}
+export class FinanceModule { }

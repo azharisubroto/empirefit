@@ -1,0 +1,39 @@
+ul.list {
+    margin: 0;
+    padding: 0;
+    li {
+        margin: 0 0 20px 0;
+        padding: 20px;
+        border: 1px solid #e5e5e5;
+
+        .switch {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.boxvalue {
+    background: #f6f6f6;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.p-list {
+    margin: 0;
+    padding: 0;
+    li {
+        margin-bottom: 20px;
+        &:last-of-type {
+            margin: 0;
+        }
+    }
+}
+
+.card-footer {
+    position:relative;
+    // &:before {
+    //     content:"";
+    //     position: absolute;
+    // }
+}

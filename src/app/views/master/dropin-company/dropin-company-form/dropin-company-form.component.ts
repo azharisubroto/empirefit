@@ -1,7 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { CustomValidators } from "ng2-validation";
-import { FormGroup, FormBuilder, FormControl } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  FormControl,
+  Validators
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
+import { Router, ActivatedRoute } from "@angular/router";
+import { DropinCompanyService } from "src/app/shared/services/dropin-company.service";
 
 @Component({
   selector: "app-basic-form",
@@ -11,30 +18,57 @@ import { ToastrService } from "ngx-toastr";
 export class DropinCompanyFormComponent implements OnInit {
   formBasic: FormGroup;
   loading: boolean;
-  radioGroup: FormGroup;
+  partner_name;
+  dropinCompanyForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private router: Router,
+    private dropinCompanyService: DropinCompanyService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.buildFormBasic();
-    this.radioGroup = this.fb.group({
-      radio: []
+    this.dropinCompanyForm = this.fb.group({
+      partner_name: ["", Validators.required]
     });
-  }
 
-  buildFormBasic() {
-    this.formBasic = this.fb.group({
-      experience: []
-    });
+    this.dropinCompanyService
+      .showDropinCompany(this.activatedRoute.snapshot.params["id"])
+      .subscribe((data: any) => {
+        this.dropinCompanyForm.setValue({
+          partner_name: data["data"].partner_name
+        });
+      });
   }
 
   submit() {
-    this.loading = true;
-    setTimeout(() => {
+    if (this.dropinCompanyForm.invalid) {
       this.loading = false;
-      this.toastr.success("Profile updated.", "Success!", {
-        progressBar: true
-      });
-    }, 3000);
+      return;
+    } else {
+      this.loading = true;
+      this.dropinCompanyService
+        .updateDropinCompany(
+          this.activatedRoute.snapshot.params["id"],
+          this.dropinCompanyForm.value
+        )
+        .subscribe((res: any) => {
+          setTimeout(() => {
+            this.loading = false;
+            if (res["status"] === "200") {
+              this.toastr.success(res["message"], "Success!", {
+                progressBar: true
+              });
+              this.router.navigateByUrl("master/dropin-company");
+            } else {
+              this.toastr.error(res["message"], "Error!", {
+                progressBar: true
+              });
+            }
+          }, 3000);
+        });
+    }
   }
 }
