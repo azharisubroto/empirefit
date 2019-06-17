@@ -5,10 +5,6 @@ table.dataTable thead .sorting_desc {
   text-align: center;
 }
 
-th, td {
-  white-space: nowrap;
-}
-
 @media screen and (max-width: 768px) {
   .pleasescroll {
     height: 100vh;
@@ -23,6 +19,6 @@ th, td {
     overflow-x: initial;
   } */
   #mytable_filter {
-    text-align:left!important;
+    text-align: left !important;
   }
 }

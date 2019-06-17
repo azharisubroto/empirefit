@@ -5,6 +5,24 @@ table.dataTable thead .sorting_desc {
   text-align: center;
 }
 
+@media screen and (max-width: 768px) {
+  .pleasescroll {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+  /* .main-content-wrap {
+    height: auto!important;
+    overflow-y: initial;
+    overflow-x: initial;
+  } */
+  #mytable_filter {
+    text-align:left!important;
+  }
+}
+
 /* .tablecard {
   position:relative;
   z-index: 0;
