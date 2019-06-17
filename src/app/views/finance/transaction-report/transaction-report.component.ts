@@ -26,6 +26,7 @@ import 'xlsx';
 import 'jspdf-autotable';
 import 'tableexport';
 import html2canvas from 'html2canvas';
+import { Utils } from "../../../shared/utils";
 
 
 
@@ -89,9 +90,17 @@ export class TransactionReportComponent implements OnInit {
       this.transactions = res;
       setTimeout(() => {
         this.printTable = $("#example-table").DataTable();
+        if( Utils.isMobile() ) {
+          var autowidth = true;
+          var scrollx = true;
+        } else {
+          var autowidth = false;
+          var scrollx = false;
+        }
         this.table = $("#mytable").DataTable({
           // scrollX: true,
-          autoWidth: true,
+          autoWidth: autowidth,
+          scrollX: scrollx,
           dom: 'Bfrtip',
           buttons: {
             dom: {
