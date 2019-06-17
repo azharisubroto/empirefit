@@ -53,10 +53,17 @@ export class ScheduleReportComponent implements OnInit {
       this.classregistrations = data["data"];
       this.chRef.detectChanges();
       setTimeout(() => {
-        this.viewtabledata = $("#viewtable").DataTable()
+        this.viewtabledata = $("#viewtable").DataTable();
+        if( Utils.isMobile() ) {
+          var scroll = true;
+          var autowidth = true;
+        } else {
+          var scroll = false;
+          var autowidth = false;
+        }
         this.table = $("#mytable").DataTable({
-          scrollX: true,
-          autoWidth: true,
+          scrollX: scroll,
+          autoWidth: autowidth,
           dom: 'Bfrtip',
           buttons: {
             dom: {
