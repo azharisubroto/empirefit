@@ -69,9 +69,16 @@ export class MemberPartnerComponent implements OnInit {
 
       this.chRef.detectChanges();
       setTimeout(() => {
+        if( Utils.isMobile() ) {
+          var scrollx = true;
+          var autoWidth = true;
+        } else {
+          var scrollx = false;
+          var autoWidth = false;
+        }
         this.table = $("#mytable").DataTable({
-          scrollX: true,
-          autoWidth: true,
+          scrollX: scrollx,
+          autoWidth: autoWidth,
           dom: 'Bfrtip',
           buttons: {
             dom: {
