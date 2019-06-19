@@ -19,6 +19,7 @@ import * as $ from "jquery";
 // import "datatables.net-bs4";
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
+import 'datatables.net-responsive';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
@@ -98,9 +99,7 @@ export class TransactionReportComponent implements OnInit {
           var scrollx = false;
         }
         this.table = $("#mytable").DataTable({
-          // scrollX: true,
-          autoWidth: autowidth,
-          scrollX: scrollx,
+          responsive: true,
           dom: 'Bfrtip',
           buttons: {
             dom: {
@@ -224,6 +223,7 @@ export class TransactionReportComponent implements OnInit {
 
         mod.table = $('#mytable').DataTable({
           // scrollX: true,
+          responsive: true,
           dom: 'Bfrtip',
           buttons: {
             dom: {

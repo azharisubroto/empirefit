@@ -15,7 +15,7 @@
           <form [formGroup]="searchForm" (submit)="submit()">
             <div class="container">
               <div class="row">
-                <div class="col-md-2 form-group mb-3">
+                <div class="col-md-4 col-xl-2 form-group mb-3">
                   <label for="branch_id">Branch</label>
                   <select formControlName="branch_id" class="form-control">
                     <option *ngFor="let branch of branches" [value]="branch.id">{{branch.branch_name}}</option>

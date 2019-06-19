@@ -19,6 +19,7 @@ import * as $ from "jquery";
 // import "datatables.net-bs4";
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
+import 'datatables.net-responsive';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import { Utils } from "../../../shared/utils";
 
@@ -77,8 +78,7 @@ export class MemberPartnerComponent implements OnInit {
           var autoWidth = false;
         }
         this.table = $("#mytable").DataTable({
-          scrollX: scrollx,
-          autoWidth: autoWidth,
+          responsive: true,
           dom: 'Bfrtip',
           buttons: {
             dom: {
@@ -284,6 +284,7 @@ export class MemberPartnerComponent implements OnInit {
       });
       setTimeout(() => {
         mod.table = $('#mytable').DataTable({
+          responsive: true,
           dom: 'Bfrtip',
           buttons: {
             dom: {
