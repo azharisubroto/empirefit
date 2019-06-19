@@ -39,19 +39,19 @@
       <div class="fancy-head"><span>Search</span></div>
       <form [formGroup]="userForm" (ngSubmit)="submit()">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3 col-xl-2">
             <div class="text-small">Branch</div>
             <select class="form-control" formControlName="branch_id">
               <option *ngFor="let brn of branches" value="{{brn.id}}">{{brn.branch_name}}</option>
             </select>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3 col-xl-2">
             <div class="text-small">EDC Machine</div>
             <select class="form-control" formControlName="edc_id">
               <option *ngFor="let edc of edcs" value="{{edc.id}}">{{edc.bank_name}}</option>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-6 col-xl-4">
             <div class="text-small">Date</div>
             <div class="row">
               <div class="col mb-3 mb-md-0">
@@ -82,13 +82,13 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-5 mt-3 mt-xl-0 col-xl-3">
             <div class="text-small mb-3">Finance Status</div>
             <input type="radio" checked value="1" formControlName="progress"> Done
             <input class="ml-2" type="radio" checked value="0" formControlName="progress"> Undone
             <input class="ml-2" type="radio" checked value="ALL" formControlName="progress"> All
           </div>
-          <div class="col-md-1">
+          <div class="col-md-7 mt-3 mt-xl-0 col-xl-1">
             <div class="text-small">&nbsp;</div>
             <button class="btn btn-warning btn-block py-2">Search</button>
           </div>
@@ -105,8 +105,9 @@
             <div class="col-md-12">
               <div class="container">
                 <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
-                  <thead class="text-center tocpy">
+                  <thead class="tocpy">
                     <tr>
+                      <th width="30%">Action</th>
                       <th>Date</th>
                       <th>Member</th>
                       <th>Name on Card</th>
@@ -122,11 +123,24 @@
                       <th>Bank Withdrawal</th>
                       <th>FO Status</th>
                       <th>FO Payment</th>
-                      <th width="30%">Action</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center partners">
+                  <tbody class="partners">
                     <tr *ngFor="let item of finance">
+                      <td class="text-center">
+                        <button class="btn prog-{{item.progress}} btn-sm btn-warning mr-2 ajax-update-btn"
+                          (click)="dialogconfirm($event, item.id)"><i class="i-Yes"></i></button>
+                        <a routerLink="/finance/recurring-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i
+                            class="i-Pen-4"></i></a>
+                        <button class="btn btn-sm btn-warning mr-2 download_sign"
+                          (click)="memberpdf(item.id, item.signature_base, item.member_name)">
+                          <i class="i-Download"></i>
+                        </button>
+                        <button class="btn ref-{{item.progress}} btn-sm btn-warning mr-2 refund-btn"
+                          (click)="refund(item.id)">
+                          <i class="i-Token-"></i>
+                        </button>
+                      </td>
                       <td>{{ item.date }}</td>
                       <td>{{ item.member_name }}</td>
                       <td>{{ item.credit_card_name }}</td>
@@ -142,20 +156,6 @@
                       <td>{{ !! item.bank_withdrawal ? item.bank_withdrawal : 'n/a' }}</td>
                       <td>{{ !! item.fo_status ? item.fo_status : 'n/a' }}</td>
                       <td>{{ !! item.fo_payment ? item.fo_payment : 'n/a' }}</td>
-                      <td>
-                        <button class="btn prog-{{item.progress}} btn-sm btn-warning mr-2 ajax-update-btn"
-                          (click)="dialogconfirm($event, item.id)"><i class="i-Yes"></i></button>
-                        <a routerLink="/finance/recurring-form/{{ item.id }}" class="btn btn-sm mr-2 btn-warning"><i
-                            class="i-Pen-4"></i></a>
-                        <button class="btn btn-sm btn-warning mr-2 download_sign"
-                          (click)="memberpdf(item.id, item.signature_base, item.member_name)">
-                          <i class="i-Download"></i>
-                        </button>
-                        <button class="btn ref-{{item.progress}} btn-sm btn-warning mr-2 refund-btn"
-                          (click)="refund(item.id)">
-                          <i class="i-Token-"></i>
-                        </button>
-                      </td>
                     </tr>
                   </tbody>
                 </table>

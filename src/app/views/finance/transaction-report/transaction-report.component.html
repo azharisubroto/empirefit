@@ -39,14 +39,14 @@
       <div class="fancy-head"><span>Search</span></div>
       <form [formGroup]="userForm" (ngSubmit)="submit()">
         <div class="row">
-          <div class="col-md-2">
+          <div class="col-md-3 col-xl-2">
             <div class="text-small">Branch</div>
             <select class="form-control" formControlName="branch_id">
               <option value="ALL">All</option>
               <option *ngFor="let brn of branches" value="{{brn.id}}">{{brn.branch_name}}</option>
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-9 col-xl-4">
             <div class="text-small">Date</div>
             <div class="row">
               <div class="col mb-3 mb-md-0">
@@ -75,7 +75,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-3">
+          <div class="col-md-3 mt-3 mt-xl-0 col-xl-3">
             <div class="text-small">Trx Type</div>
             <select class="form-control" formControlName="payment_type">
               <option value="ALL">All</option>
@@ -83,7 +83,7 @@
               <option value="0">Non-Autodebit</option>
             </select>
           </div>
-          <div class="col-md-1">
+          <div class="col-md-9 mt-3 mt-xl-0 col-xl-1">
             <div class="text-small">&nbsp;</div>
             <button class="btn btn-warning btn-block py-2">Search</button>
           </div>
@@ -100,7 +100,7 @@
             <div class="col-md-12">
               <div class="container">
                 <table id="mytable" class="table table-hover" cellspacing="0" style="min-width: 100px;">
-                  <thead class="text-center tocpy">
+                  <thead class="tocpy">
                     <tr>
                       <th>IDTRX</th>
                       <th>Trace Number</th>
@@ -114,7 +114,7 @@
                       <th>Amount (IDR)</th>
                     </tr>
                   </thead>
-                  <tbody class="text-center partners">
+                  <tbody class="partners">
                     <tr *ngFor="let item of transactions">
                       <td>{{ item.idtrx }}</td>
                       <td>{{ item.trace_number }}</td>

@@ -91,7 +91,7 @@ export class MemberActivationComponent implements OnInit {
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
     canvasWidth: 1250,
-    canvasHeight: 650
+    canvasHeight: 500
     //onEnd: this.saveimg(),
     // canvasWeight: 250,
     // canvasHeight: 150
@@ -102,7 +102,7 @@ export class MemberActivationComponent implements OnInit {
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
     canvasWidth: 1250,
-    canvasHeight: 650
+    canvasHeight: 500
   }
 
   public debitsign = {
@@ -110,7 +110,7 @@ export class MemberActivationComponent implements OnInit {
     penColor: 'rgb(0,0,0)',
     backgroundColor: '#f5f5f5',
     canvasWidth: 1250,
-    canvasHeight: 650
+    canvasHeight: 500
   }
 
   public showWebcam = true;

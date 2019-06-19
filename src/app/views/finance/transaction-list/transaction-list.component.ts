@@ -19,6 +19,7 @@ import * as $ from "jquery";
 // import "datatables.net-bs4";
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
+import 'datatables.net-responsive';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
@@ -97,7 +98,7 @@ export class TransactionListComponent implements OnInit {
         var $filename = 'EFC-RECURRING' + $filedate + "-EDC-" + this.edc.bank_name + "-MID-" + this.edc.mid + "-TID-" + this.edc.tid;
         this.printTable = $("#example-table").DataTable();
         this.table = $("#mytable").DataTable({
-          scrollX: true,
+          responsive: true,
           dom: 'Bfrtip',
           buttons: {
             dom: {
@@ -110,7 +111,40 @@ export class TransactionListComponent implements OnInit {
               { extend: 'csv', className: 'btn-warning', title: $filename }
             ]
           },
-          autoWidth: true
+          autoWidth: true,
+          initComplete: function () {
+            $('.ajax-update-btn').on('click', function (e) {
+              e.preventDefault();
+              var con = confirm('Are You Sure Want To Approve This Transaction ?');
+
+              if (con) {
+                var update_id = $(this).data('update'); //get id
+                mod.update(update_id);
+              } else {
+                console.log(false);
+              }
+            });
+
+            setTimeout(() => {
+              $(".download_sign").on("click", function (e) {
+                e.preventDefault();
+  
+                var itemid = $(this).data('itemid'); //get id
+                var itemimg = $(this).data('itemimg'); //get img
+                var membername = $(this).data('membername'); //get img
+  
+                mod.memberpdf(itemid, itemimg, membername);
+              });
+            }, 1000);
+
+            $(".refund-btn").on("click", function (e) {
+              e.preventDefault();
+
+              var refundid = $(this).data('refundid'); //get id
+
+              mod.refund(refundid);
+            });
+          }
           //dom: '<"toolbar">frtip'
         });
 
@@ -291,7 +325,7 @@ export class TransactionListComponent implements OnInit {
           });
 
           mod.table = $('#mytable').DataTable({
-            scrollX: true,
+            responsive: true,
             columns: [
               { title: 'Date' },
               { title: 'Member' },
@@ -357,7 +391,7 @@ export class TransactionListComponent implements OnInit {
           });
 
           mod.printTable = $("#example-table").DataTable({
-            scrollX: true,
+            responsive: true,
             columns: [
               { title: 'CC Number' },
               { title: 'Card Name' },
@@ -459,7 +493,7 @@ export class TransactionListComponent implements OnInit {
         });
 
         mod.table = $('#mytable').DataTable({
-          scrollX: true,
+          responsive: true,
           columns: [
             { title: 'Date' },
             { title: 'Member' },
@@ -525,7 +559,7 @@ export class TransactionListComponent implements OnInit {
         });
 
         mod.printTable = $("#example-table").DataTable({
-          scrollX: true,
+          responsive: true,
           columns: [
             { title: 'CC Number' },
             { title: 'Card Name' },
@@ -549,7 +583,7 @@ export class TransactionListComponent implements OnInit {
             $('.ref-0').attr('disabled', 'disabled');
           }
 
-        })
+        });
       });
 
       // location.reload();
@@ -618,7 +652,7 @@ export class TransactionListComponent implements OnInit {
         });
 
         mod.table = $('#mytable').DataTable({
-          scrollX: true,
+          responsive: true,
           columns: [
             { title: 'Date' },
             { title: 'Member' },
@@ -684,7 +718,7 @@ export class TransactionListComponent implements OnInit {
         });
 
         mod.printTable = $("#example-table").DataTable({
-          scrollX: true,
+          responsive: true,
           columns: [
             { title: 'CC Number' },
             { title: 'Card Name' },
@@ -781,7 +815,7 @@ export class TransactionListComponent implements OnInit {
           });
 
           mod.table = $('#mytable').DataTable({
-            scrollX: true,
+            responsive: true,
             columns: [
               { title: 'Date' },
               { title: 'Member' },
@@ -847,7 +881,7 @@ export class TransactionListComponent implements OnInit {
           });
 
           mod.printTable = $("#example-table").DataTable({
-            scrollX: true,
+            responsive: true,
             columns: [
               { title: 'CC Number' },
               { title: 'Card Name' },
