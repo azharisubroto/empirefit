@@ -22,7 +22,7 @@
           </div>
           <div class="col-md-9">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="mb-4">
                   <span class="text-muted mb-0">Name</span>
                   <div class="text-medium text-primary mt-1">
@@ -36,7 +36,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
+              <div class="col-lg-6">
                 <div class="mb-4">
                   <span class="text-muted mb-0">Club / Member ID</span>
                   <div class="text-medium text-primary mt-1">
@@ -120,7 +120,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Type</span>
               <div class="text-medium text-primary mt-1">
@@ -134,7 +134,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Session Remains</span>
               <div class="text-medium text-primary mt-1">
@@ -151,31 +151,31 @@
         </div>
 
         <div class="row mt-2">
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <button id="btn-membership" type="button" (click)="disabledMenu()" (click)="open(choice)"
               class="btn btn-primary btn-lg btn-block py-3">Membership
               Update</button>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <button (click)="open(leave)" id="btn-membership-leave"
               class="btn btn-primary btn-lg btn-block py-3">Leave</button>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <a id="btn-membership-history" routerLink="/dashboard/member/membership-history/{{ member.id }}"
               class="btn btn-primary btn-lg btn-block py-3">Membership
               History</a>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <button id="btn-membership-leave-history" (click)="openLg(leaveHistory)"
               class="btn btn-primary btn-lg btn-block py-3">Leave
               History</button>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <button (click)="downloadbio(id_card_number)" id="pdf-bio" class="btn btn-primary btn-lg btn-block py-3">Bio
               &amp;
               Liability (PDF)</button>
           </div>
-          <div class="col-md-6 mb-3">
+          <div class="col-lg-6 mb-3">
             <a id="btn-ptsession" routerLink="/dashboard/member/pt-session/{{ member.id }}"
               class="btn btn-primary btn-lg btn-block py-3">PT
               Session</a>
@@ -263,12 +263,12 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-md-6 mb-3 mb-md-0">
+          <div class="col-md-12 col-lg-6 mb-3 mb-lg-0">
             <a id="btn-membership" routerLink="/dashboard/member/fnb-transaction/{{ member.id }}"
               class="btn btn-primary btn-lg btn-block py-3">Create
               Transaction</a>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12 col-lg-6">
             <a id="btn-membership" routerLink="/dashboard/member/fnb-transaction/pay/{{ member.id }}"
               class="btn btn-primary btn-lg btn-block py-3">Pay
               Now</a>
@@ -305,7 +305,7 @@
           <span>Fingerprint Status</span>
         </div>
         <div class="row mb-4">
-          <div class="col-md-6 mb-4 mb-md-0">
+          <div class="col-lg-6 mb-4 mb-lg-0">
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Fingerprint Name</span>
               <div class="text-medium text-primary mt-1">
@@ -313,7 +313,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6 mb-4 mb-md-0">
+          <div class="col-lg-6 mb-4 mb-lg-0">
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Customer Fingerprint</span>
               <div class="text-medium text-primary mt-1">
@@ -360,11 +360,11 @@
           </div>
         </div>
         <div class="row mt-4">
-          <div class="col-md-6 mb-3 mb-md-0">
+          <div class="col-lg-6 mb-4 mb-lg-0">
             <button id="btn-manualreg" class="btn btn-primary btn-lg btn-block py-3" (click)="open(manualClass)">Manual
               Register</button>
           </div>
-          <div class="col-md-6">
+          <div class="col-lg-6">
             <button id="btn-classhis" class="btn btn-primary btn-lg btn-block py-3" (click)="openLg(classHistory)">Class
               History</button>
           </div>
