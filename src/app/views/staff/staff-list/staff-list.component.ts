@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
+import "datatables.net-responsive";
 import { StaffService } from "src/app/shared/services/staff.service";
 import { Utils } from "../../../shared/utils";
 
@@ -34,12 +35,11 @@ export class StaffListComponent implements OnInit {
       this.staffcomponents = data["data"];
       this.chRef.detectChanges();
       var dt_options = {};
-      if (Utils.isMobile()) {
+
         dt_options = {
-          scrollX: true,
-          autoWidth: true
+          responsive: true
         }
-      }
+
       $("#mytable").DataTable(dt_options);
     });
   }
