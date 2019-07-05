@@ -8,7 +8,7 @@
   <p>Terms &amp; Condition.</p>
   <ul style="list-style: none">
     <li>1. 1-year contract*</li>
-    <li>2. Early contract termination: 2 months cancellation fee</li>
+    <li>2. Early contract termination: 1 month cancellation fee</li>
     <li>3. Maximum 1x freeze (admin fee IDR 300,000):</li>
     <li> &nbsp;&nbsp;&nbsp;a.) Must provide doctor's note</li>
     <li> &nbsp;&nbsp;&nbsp;b.) Must provide travel itinerary for travel 2 weeks and more</li>
@@ -92,7 +92,8 @@
             <input formControlName="debit_sign" type="hidden" id="debit-sign" value="">
             <div class="text-left">
               <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
-              <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="memberautodebitsign(debit_sign)">Submit</button>
+              <button type="button" class="btn btn-primary py-2 px-5 mr-3"
+                (click)="memberautodebitsign(debit_sign)">Submit</button>
             </div>
           </div>
         </ng-template>

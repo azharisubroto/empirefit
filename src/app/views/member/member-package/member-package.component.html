@@ -58,8 +58,9 @@
                                 <td>{{ trainer.state }}</td>
                                 <td>{{ trainer.session }}</td>
                                 <td>
-                                  <button type="button" name="personal_trainer" (click)="getPtId(trainer.id)" (click)="getPricePt(trainer.price)"
-                                    (click)="getSession(trainer.session)" class="btn btn-primary personal-trainer">Select</button>
+                                  <button type="button" name="personal_trainer" (click)="getPtId(trainer.id)"
+                                    (click)="getPricePt(trainer.price)" (click)="getSession(trainer.session)"
+                                    class="btn btn-primary personal-trainer">Select</button>
                                 </td>
                               </tr>
                             </tbody>
@@ -84,8 +85,8 @@
                       <div class="row mb-3">
                         <div class="col-md-12 mb-3 form-group">
                           <label for="card">Type</label>
-                          <select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id" name="payment_id"
-                            class="form-control">
+                          <select (change)="getPriceNonPt()" formControlName="payment_id" required id="payment_id"
+                            name="payment_id" class="form-control">
                             <option class="pm" *ngFor="let pa of paymenttype" [value]="pa.id">
                               {{pa.payment_type_name}}
                             </option>
@@ -111,15 +112,16 @@
                         <div class="col-md-12 mb-3 form-group">
                           <label for="exp_date">Exp Date</label>
                           <div class="clearfix"></div>
-                          <input type="text" placeholder="dd" formControlName="exp_month" name="mm" class="form-control d-inline-block"
-                            style="width:100px">
+                          <input type="text" placeholder="dd" formControlName="exp_month" name="mm"
+                            class="form-control d-inline-block" style="width:100px">
                           /
-                          <input type="text" placeholder="yyyy" formControlName="exp_year" name="yy" class="form-control d-inline-block"
-                            style="width:100px">
+                          <input type="text" placeholder="yyyy" formControlName="exp_year" name="yy"
+                            class="form-control d-inline-block" style="width:100px">
                         </div>
                         <div class="col-md-12 mb-3 form-group">
                           <label for="auto_debit">Auto Debit</label>
-                          <select (change)="getAutodebitPrice()" formControlName="auto_debet" name="auto_debit" class="form-control">
+                          <select (change)="getAutodebitPrice()" formControlName="auto_debet" name="auto_debit"
+                            class="form-control">
                             <option value="1">Yes</option>
                             <option value="0">No</option>
                           </select>
@@ -150,7 +152,8 @@
                     </div>
                     <div class="col-md-12 mb-3 form-group">
                       <label for="traceNumber">Trace Number</label>
-                      <input formControlName="traceNumber" class="form-control" type="text" name="traceNumber" id="traceNumber">
+                      <input formControlName="traceNumber" class="form-control" type="text" name="traceNumber"
+                        id="traceNumber">
                     </div>
                   </div>
                 </div>
@@ -163,22 +166,23 @@
 
       <wizard-step id="Autodebet" [title]="'Autodebet'" (onNext)="onStep2Next()">
         <div class="mt-0 mb-4">
-          <p>I <strong>{{ membername }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong class="show-price"></strong>
+          <p>I <strong>{{ membername }}</strong> Have agreed to allow Empire Fit Club to deduct IDR <strong
+              class="show-price"></strong>
             from my credit card in order to pay the monthly
             subscriptions. I understand that this payment process is a reoccurringpaymentprocess and the agreed amount
             of
             money will be automatically deducted unless I instructed them other wise.</p>
           <p>Terms &amp; Condition.</p>
           <ul style="list-style: none">
-						<li>1. 1-year contract*</li>
-						<li>2. Early contract termination: 2 months cancellation fee</li>
-						<li>3. Maximum 1x freeze (admin fee IDR 300,000):</li>
-						<li> &nbsp;&nbsp;&nbsp;a.) Must provide doctor's note</li>
-						<li> &nbsp;&nbsp;&nbsp;b.) Must provide travel itinerary for travel 2 weeks and more</li>
-						<li>*: Contract subjected to review are pregnancy, accident (car accident/extreme accident), and
-							critical illness-related
-							cases with a certified physician’s note</li>
-					</ul>
+            <li>1. 1-year contract*</li>
+            <li>2. Early contract termination: 1 month cancellation fee</li>
+            <li>3. Maximum 1x freeze (admin fee IDR 300,000):</li>
+            <li> &nbsp;&nbsp;&nbsp;a.) Must provide doctor's note</li>
+            <li> &nbsp;&nbsp;&nbsp;b.) Must provide travel itinerary for travel 2 weeks and more</li>
+            <li>*: Contract subjected to review are pregnancy, accident (car accident/extreme accident), and
+              critical illness-related
+              cases with a certified physician’s note</li>
+          </ul>
 
           <div class="row">
             <div class="col-md-7 mb-4 mb-md-0">
@@ -234,7 +238,8 @@
                 <button class="btn btn-success d-none ml-3 isSuccessAutodebitSign" disabled>Success</button>
                 <ng-template #signaturetiga let-modal let-c="close" let-d="dismiss">
                   <div class="modal-header">
-                    <h4 class="modal-title"><strong><span class="text-capitalize">Autodebit Signature</span></strong></h4>
+                    <h4 class="modal-title"><strong><span class="text-capitalize">Autodebit Signature</span></strong>
+                    </h4>
                     <button type="button" class="close" aria-label="Close" (click)="c('close')">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -243,8 +248,10 @@
                     <signature-pad [options]="debitsign" id="debit" #debit_sign></signature-pad>
                     <input formControlName="debit_sign" type="hidden" id="debit-sign" value="">
                     <div class="text-left">
-                      <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="debit_sign.clear()">Clear</button>
-                      <button type="button" class="btn btn-primary py-2 px-5 mr-3" (click)="memberautodebitsign(debit_sign)">Submit</button>
+                      <button type="button" class="btn btn-primary py-2 px-5 mr-3"
+                        (click)="debit_sign.clear()">Clear</button>
+                      <button type="button" class="btn btn-primary py-2 px-5 mr-3"
+                        (click)="memberautodebitsign(debit_sign)">Submit</button>
                     </div>
                   </div>
                 </ng-template>
