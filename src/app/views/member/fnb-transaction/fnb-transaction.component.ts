@@ -18,6 +18,7 @@ import * as $ from "jquery";
 // import "datatables.net-bs4";
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
+import 'datatables.net-responsive';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
@@ -65,6 +66,7 @@ export class FnbTransactionComponent implements OnInit {
         this.chRef.detectChanges();
         this.table = $("#mytable").DataTable({
           dom: 'Bfrtip',
+          responsive: true,
           buttons: {
             dom: {
               button: {

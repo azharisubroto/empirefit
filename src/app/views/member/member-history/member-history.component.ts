@@ -18,6 +18,7 @@ import * as $ from "jquery";
 // import "datatables.net-bs4";
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
+import 'datatables.net-responsive';
 import 'datatables.net-buttons/js/buttons.html5.js';
 
 @Component({
@@ -61,6 +62,7 @@ export class MemberHistoryComponent implements OnInit {
         let filename = 'EFC-HIS-' + this.membername;
         this.table = $("#mytable").DataTable({
           dom: 'Bfrtip',
+          responsive:true,
           buttons: {
             dom: {
               button: {

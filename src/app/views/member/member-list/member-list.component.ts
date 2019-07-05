@@ -7,6 +7,7 @@ import { debounceTime } from "rxjs/operators";
 import * as $ from "jquery";
 import "datatables.net";
 import "datatables.net-bs4";
+import 'datatables.net-responsive';
 import { Utils } from "../../../shared/utils";
 
 @Component({
@@ -31,12 +32,9 @@ export class MemberComponent implements OnInit {
       this.filteredMembers = data["data"];
       this.chRef.detectChanges();
       var dt_options = {};
-      if (Utils.isMobile()) {
         dt_options = {
-          scrollX: true,
-          autoWidth: true
+          responsive: true
         }
-      }
       $("#mytable").DataTable(dt_options);
     });
 

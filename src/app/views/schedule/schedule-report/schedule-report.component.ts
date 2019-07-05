@@ -17,6 +17,7 @@ import * as $ from "jquery";
 // import "datatables.net-bs4";
 import 'datatables.net-buttons';
 import 'datatables.net-buttons-bs4';
+import 'datatables.net-responsive';
 import 'datatables.net-buttons/js/buttons.html5.js';
 import { Utils } from "../../../shared/utils";
 
@@ -53,17 +54,9 @@ export class ScheduleReportComponent implements OnInit {
       this.classregistrations = data["data"];
       this.chRef.detectChanges();
       setTimeout(() => {
-        this.viewtabledata = $("#viewtable").DataTable();
-        if( Utils.isMobile() ) {
-          var scroll = true;
-          var autowidth = true;
-        } else {
-          var scroll = false;
-          var autowidth = false;
-        }
+        //this.viewtabledata = $("#viewtable").DataTable();
         this.table = $("#mytable").DataTable({
-          scrollX: scroll,
-          autoWidth: autowidth,
+          responsive: true,
           dom: 'Bfrtip',
           buttons: {
             dom: {

@@ -22,6 +22,7 @@ import { interval } from "rxjs/observable/interval";
 import 'rxjs/Rx';
 import * as $ from "jquery";
 import "datatables.net";
+import "datatables.net-responsive";
 import "datatables.net-bs4";
 import jsPDF from 'jspdf';
 import { saveAs } from 'file-saver';
@@ -675,7 +676,11 @@ export class MemberAttendanceComponent implements OnInit {
     this.modalService.open(content, { windowClass: "big-modal" });
     setTimeout(() => {
       this.chRef.detectChanges();
-      $("#mytable").DataTable();
+      $('table.table').each(function(){
+        $(this).DataTable({
+          responsive: true
+        });
+      });
     }, 1000);
   }
 
