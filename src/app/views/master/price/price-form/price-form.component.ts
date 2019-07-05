@@ -25,7 +25,7 @@ export class PriceFormComponent implements OnInit {
   membertypes;
   packages;
   paymenttypes;
-  branch;
+  branches;
   priceForm: FormGroup;
 
   constructor(
@@ -51,7 +51,7 @@ export class PriceFormComponent implements OnInit {
     });
 
     this.branchService.getBranches().subscribe((data: any) => {
-      this.branch = data["data"];
+      this.branches = data["data"];
     });
 
     this.memberTypeService.getMemberTypes().subscribe((data: any) => {

@@ -22,7 +22,7 @@
             <div class="col-md-6 form-group mb-3">
               <label for="branch_id">Branch</label>
               <select name="branch_id" id="branch_id" class="form-control" formControlName="branch_id">
-                <option *ngFor="let item of branch" [ngValue]="branch.id">{{branch.branch_name}}</option>
+                <option *ngFor="let item of branch" [ngValue]="item.id">{{item.branch_name}}</option>
               </select>
               <i *ngIf="!ptForm.get('branch_id').valid && ptForm.get('branch_id').touched"
                 class="i-Information text-danger">

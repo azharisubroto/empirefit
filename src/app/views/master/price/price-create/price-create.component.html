@@ -17,15 +17,17 @@
             <div class="col-md-6 form-group mb-3">
               <label for="branch_id">Branch</label>
               <select name="branch_id" id="branch_id" class="form-control" formControlName="branch_id">
-                <option *ngFor="let item of branch" [ngValue]="branch.id">{{branch.branch_name}}</option>
+                <option *ngFor="let branch of branches" [ngValue]="branch.id">{{branch.branch_name}}</option>
               </select>
-              <i *ngIf="!priceForm.get('branch_id').valid && priceForm.get('branch_id').touched" class="i-Information text-danger">
+              <i *ngIf="!priceForm.get('branch_id').valid && priceForm.get('branch_id').touched"
+                class="i-Information text-danger">
                 Please choose Branch</i>
             </div>
 
             <div class="col-md-6 form-group mb-3">
               <label for="payment_type_id">Payment Type</label>
-              <select name="payment_type_id" id="payment_type_id" class="form-control " formControlName="payment_type_id">
+              <select name="payment_type_id" id="payment_type_id" class="form-control "
+                formControlName="payment_type_id">
                 <option [ngValue]="paymenttype.id" *ngFor="let paymenttype of paymenttypes">{{
                   paymenttype.payment_type_name }}</option>
               </select>
@@ -53,8 +55,7 @@
               <i *ngIf="
                   !priceForm.get('price').valid &&
                   priceForm.get('price').touched
-                "
-                class="i-Information text-danger">
+                " class="i-Information text-danger">
                 Please enter price</i>
             </div>
 
