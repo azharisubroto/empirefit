@@ -95,17 +95,17 @@ export class SigninComponent implements OnInit {
     } else {
       this.loading = true;
       this.loadingText = "Signing in...";
-      this.auth.signin(this.signinForm.value).subscribe((data: any) => {
-        if (data.status == "200") {
-          this.store.setItem("access_token", data.access_token);
-          this.redirect = "";
-          window.location = this.redirect;
-        } else {
-          this.store.clear();
-          this.loading = false;
-        }
+      this.auth.signin(this.signinForm.value).toPromise().then(res => {
+        this.store.setItem("access_token", res['access_token']);
+        this.redirect = "";
         this.loading = false;
-      });
+        window.location = this.redirect;
+      }).catch(err => {
+        this.store.clear();
+        alert('Login Failed, Server Error');
+        this.loading = false;
+        console.log(err);
+      })
     }
   }
 }
