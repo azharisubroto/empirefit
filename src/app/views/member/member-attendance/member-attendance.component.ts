@@ -268,7 +268,7 @@ export class MemberAttendanceComponent implements OnInit {
               }
             }
 
-            if (data["data"].member_type_id == 3) {
+            if (data["member_type_id"] == 3 || data["member_type_id"] == 15 || data["member_type_id"] == 16 || data["member_type_id"] == 17 || data["member_type_id"] == 18) {
               this.personalTrainerService.personalTrainerMember(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
                 this.personaltrainername = data["data"].personal_trainer_name ? data["data"].personal_trainer_name : "-";
               })

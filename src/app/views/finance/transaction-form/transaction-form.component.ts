@@ -71,7 +71,7 @@ export class TransactionFormComponent implements OnInit {
   submit() {
     $('#saving').html('Saving...');
     if (this.userForm.invalid) {
-      return;
+      return alert('Please completed form');
     } else {
       // return console.log(this.userForm.value)
       this.FinanceService.updateRecuringManual(this.activatedRoute.snapshot.params["id"], this.userForm.value).subscribe((res: any) => {

@@ -213,7 +213,7 @@ export class MemberPackageComponent implements OnInit {
     ].value;
     data["payment_id"] = this.membershipForm.controls["payment_id"].value;
 
-    if (data["member_type_id"] == 3) {
+    if (data["member_type_id"] == 3 || data["member_type_id"] == 15 || data["member_type_id"] == 16 || data["member_type_id"] == 17 || data["member_type_id"] == 18) {
       this.priceService.getPriceNonPt(data).subscribe((data: any) => {
         setTimeout(() => {
           $("#isptselect").removeClass('d-none');
