@@ -243,7 +243,7 @@ export class MemberPackageComponent implements OnInit {
     ].value;
     data["payment_id"] = this.membershipForm.controls["payment_id"].value;
     data["auto_debet"] = this.membershipForm.controls["auto_debet"].value;
-    if (data["member_type_id"] != 3) {
+    if (data["member_type_id"] != 3 || data["member_type_id"] != 15 || data["member_type_id"] != 16 || data["member_type_id"] != 17 || data["member_type_id"] != 18) {
       if (data["payment_id"] == 1) {
         this.priceService.getPriceNonPt(data).subscribe((data: any) => {
           console.log(data);
