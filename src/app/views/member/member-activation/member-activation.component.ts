@@ -181,7 +181,7 @@ export class MemberActivationComponent implements OnInit {
       card_number: [null],
       exp_month: [null],
       exp_year: [null],
-      auto_debet: ["1"],
+      auto_debet: ["0"],
       traceNumber: [],
       card_name: [],
       session_remains: [],
