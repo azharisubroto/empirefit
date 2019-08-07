@@ -34,7 +34,9 @@ export class StaffListComponent implements OnInit {
     this.staffService.getStaffs().subscribe((data: any) => {
       this.staffcomponents = data["data"];
       this.chRef.detectChanges();
-      $("#mytable").DataTable();
+      setTimeout(() => {
+        $("#mytable").DataTable();
+      }, 200);
     });
   }
 
