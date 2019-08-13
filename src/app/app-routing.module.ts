@@ -125,6 +125,16 @@ const routes: Routes = [
   },
   {
     path: "",
+    component: AdminLayoutSidebarLargeComponent,
+    children: [
+      {
+        path: "reset-password",
+        loadChildren: "./views/reset-password/reset-password.module#ResetPasswordModule"
+      }
+    ]
+  },
+  {
+    path: "",
     component: BlankLayoutComponent,
     children: [
       {
