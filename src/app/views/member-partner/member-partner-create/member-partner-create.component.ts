@@ -55,7 +55,7 @@ export class MemberPartnerCreateComponent implements OnInit {
       email: ["", Validators.required],
       phone: ["", Validators.required],
       reference: ["", Validators.required],
-      email_date_time: ["", Validators.required],
+      email_date_time: [""],
       company: ["", Validators.required],
       class: ["", Validators.required],
       class_date: ["", Validators.required],
