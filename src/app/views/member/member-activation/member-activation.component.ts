@@ -683,6 +683,10 @@ export class MemberActivationComponent implements OnInit {
             this.toastr.error(data["message"], "Not Saved", {
               progressBar: true
             });
+
+            setTimeout(() => {
+              $('.prevaja').trigger('click');
+            }, 50);
           }
         });
       } else {
@@ -691,6 +695,9 @@ export class MemberActivationComponent implements OnInit {
     }
   }
   onComplete(e) {
+    $('.prevaja').hide();
+    $('.nav .nav-item').toggleClass('enabled disabled');
+    
     let formValue: ({
       test: ""
     });
