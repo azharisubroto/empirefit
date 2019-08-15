@@ -388,12 +388,19 @@ export class MemberPackageComponent implements OnInit {
           this.toastr.error(data["message"], "Not Saved", {
             progressBar: true
           });
+
+          setTimeout(() => {
+            $('.prevaja').trigger('click');
+          }, 50);
         }
       });
     }
   }
 
   onComplete(e) {
+    $('.prevaja').hide();
+    $('.nav .nav-item').toggleClass('enabled disabled');
+
     this.router.navigateByUrl(
       "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
     );

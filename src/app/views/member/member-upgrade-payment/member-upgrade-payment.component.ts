@@ -431,6 +431,9 @@ export class MemberUpgradePaymentComponent implements OnInit {
   }
 
   onComplete(e) {
+    $('.prevaja').hide();
+    $('.nav .nav-item').toggleClass('enabled disabled');
+    
     this.router.navigateByUrl(
       "dashboard/member/detail/" + this.activatedRoute.snapshot.params["id"]
     );
