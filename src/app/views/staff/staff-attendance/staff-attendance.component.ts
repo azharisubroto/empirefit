@@ -154,12 +154,13 @@ export class StaffAttendanceComponent implements OnInit {
         this.iscoach = false;
       }
 
-      setTimeout(() => {
-        $.each(this.attendanceHistory, function (i, item) {
-          $("#" + item.schedule_id + "").attr("checked", "checked");
-          $("#" + item.schedule_id + "").attr("disabled", "disabled");
-        })
-      }, 500);
+      // setTimeout(() => {
+      //   $.each(this.attendanceHistory, function (i, item) {
+          
+      //     $("#" + item.schedule_id + "").attr("checked", "checked");
+      //     $("#" + item.schedule_id + "").attr("disabled", "disabled");
+      //   })
+      // }, 500);
 
       // Get single User
       this.UserService.getSingleUser().subscribe((data: any) => {
