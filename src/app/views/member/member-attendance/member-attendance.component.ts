@@ -341,84 +341,86 @@ export class MemberAttendanceComponent implements OnInit {
             var todayName = days[n];
             $('.class-loading').remove();
             $.each(obj, function (i, item) {
-              if (item.day == todayName) {
-                // console.log('jam ' + mod.getClock());
-                // console.log('jam item ' + item.delay_time);
-                // Print Jadwal
-                if (mod.hasmatch(item.log, "member_id", member.id)) {
-                  var logarray = item.log;
-                  var _index = logarray.findIndex(x => x.member_id == member.id),
-                    _iscanceled = item.log[_index].canceled,
-                    _logid = item.log[_index]["id"];
+              if (item.state != 'Inactive') {
+                if (item.day == todayName) {
+                  // console.log('jam ' + mod.getClock());
+                  // console.log('jam item ' + item.delay_time);
+                  // Print Jadwal
+                  if (mod.hasmatch(item.log, "member_id", member.id)) {
+                    var logarray = item.log;
+                    var _index = logarray.findIndex(x => x.member_id == member.id),
+                      _iscanceled = item.log[_index].canceled,
+                      _logid = item.log[_index]["id"];
 
-                  // if late 
-                  if (item.delay_time < mod.getClock()) {
-                    if (_iscanceled == 1) {
-                      var _checked = "checked";
-                      var _disabled = "disabled";
-                      var _cancelbtn = "";
-                      var _class = "notavailable";
-                      var _checkbox_class = "checkbox-secondary";
+                    // if late 
+                    if (item.delay_time < mod.getClock()) {
+                      if (_iscanceled == 1) {
+                        var _checked = "checked";
+                        var _disabled = "disabled";
+                        var _cancelbtn = "";
+                        var _class = "notavailable";
+                        var _checkbox_class = "checkbox-secondary";
+                      } else {
+                        var _class = "notavailable";
+                        var _disabled = "disabled";
+                        var _checkbox_class = "checkbox-success";
+                        var _checked = "checked";
+                        var _cancelbtn = "";
+                      }
+
+                      //belom lewat
                     } else {
-                      var _class = "notavailable";
-                      var _disabled = "disabled";
-                      var _checkbox_class = "checkbox-success";
-                      var _checked = "checked";
-                      var _cancelbtn = "";
+                      if (_iscanceled == 1) {
+                        var _class = "notyet";
+                        var _disabled = "";
+                        var _checkbox_class = "checkbox-success";
+                        var _checked = "";
+                        var _cancelbtn = "";
+                      } else {
+                        var _class = "notyet";
+                        var _disabled = "disabled";
+                        var _checkbox_class = "checkbox-success";
+                        var _checked = "checked";
+                        var _cancelbtn =
+                          '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
+                          _logid +
+                          '" style="color: #fff!important">Cancel</button>';
+                      }
                     }
-
-                    //belom lewat
-                  } else {
-                    if (_iscanceled == 1) {
-                      var _class = "notyet";
-                      var _disabled = "";
-                      var _checkbox_class = "checkbox-success";
-                      var _checked = "";
-                      var _cancelbtn = "";
-                    } else {
-                      var _class = "notyet";
-                      var _disabled = "disabled";
-                      var _checkbox_class = "checkbox-success";
-                      var _checked = "checked";
-                      var _cancelbtn =
-                        '<button class="delete_class ml-3 btn btn-danger btn-sm text-light" data-logid="' +
-                        _logid +
-                        '" style="color: #fff!important">Cancel</button>';
-                    }
-                  }
-                  // console.log(_checked);
-                } else {
-                  var _class = "notyet",
-                    _checked = "",
-                    _cancelbtn = "",
-                    _logid = null,
-                    _disabled = "disabled";
-
-                  if (item.delay_time < mod.getClock()) {
-                    var _class = "notavailble",
-                      _checked = "",
-                      _cancelbtn = "",
-                      _logid = null,
-                      _disabled = "disabled",
-                      _checkbox_class = "checkbox-success";
+                    // console.log(_checked);
                   } else {
                     var _class = "notyet",
                       _checked = "",
                       _cancelbtn = "",
                       _logid = null,
-                      _disabled = "",
-                      _checkbox_class = "checkbox-success";
-                  }
-                }
+                      _disabled = "disabled";
 
-                var markup =
-                  `<label class="checkbox ` + _checkbox_class + " " + _class + `" data-logstring="` + _logid + `">
-                    <input class="`+ _logid + `" name="schedulepick" type="checkbox" ` + _disabled + " " + _checked + ` value="` + item.schedule_id + `">
-                    <span>` + item.time + "-" + item.exercise + `</span>
-                    <span class="checkmark"></span> ` + _cancelbtn + `
-                  </label>`;
-                // Apend
-                $(".jadwal").append(markup);
+                    if (item.delay_time < mod.getClock()) {
+                      var _class = "notavailble",
+                        _checked = "",
+                        _cancelbtn = "",
+                        _logid = null,
+                        _disabled = "disabled",
+                        _checkbox_class = "checkbox-success";
+                    } else {
+                      var _class = "notyet",
+                        _checked = "",
+                        _cancelbtn = "",
+                        _logid = null,
+                        _disabled = "",
+                        _checkbox_class = "checkbox-success";
+                    }
+                  }
+
+                  var markup =
+                    `<label class="checkbox ` + _checkbox_class + " " + _class + `" data-logstring="` + _logid + `">
+                      <input class="`+ _logid + `" name="schedulepick" type="checkbox" ` + _disabled + " " + _checked + ` value="` + item.schedule_id + `">
+                      <span>` + item.time + "-" + item.exercise + `</span>
+                      <span class="checkmark"></span> ` + _cancelbtn + `
+                    </label>`;
+                  // Apend
+                  $(".jadwal").append(markup);
+                }
               }
             });
             setTimeout(() => {
