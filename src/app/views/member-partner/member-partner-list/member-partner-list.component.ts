@@ -265,10 +265,10 @@ export class MemberPartnerComponent implements OnInit {
     var items: any = [];
     this.MemberPartnerService.searchMemberPartner(formValues).subscribe((data: any) => {
       var res = data['data'];
-      //return console.log(res);
+      // return console.log(res);
 
       $.each(res, function (i, item) {
-        var rowbutton = '<button class="btn btn-sm btn-success absenbutton" data-id="' + item.id + '" data-name="' + item.name + '" data-email="' + item.email + '" data-phone="' + item.phone + '" data-reference="' + item.booking_referance + '" data-emaildatetime="' + item.email_date_time + '" data-company="' + item.company + '" data-class="' + item.class_id + '" data-classdate="' + item.class_date + '" data-classtime="' + item.class_time + '" data-branch="' + item.branch + '" data-status="' + item.status + '" data-createdby="' + mod.user.id + '"><i class="i-Clock-Forward"></i></button><a href="member-partner/member-partner-edit/' + item.id + '" class="btn btn-sm btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave"> <i class="i-Pen-5"></i></a>';
+        var rowbutton = '<button class="btn btn-sm btn-success absenbutton" data-id="' + item.id + '" data-name="' + item.name + '" data-email="' + item.email + '" data-signed="' + item.signed + '" data-status="' + item.status + '" data-phone="' + item.phone + '" data-reference="' + item.booking_referance + '" data-emaildatetime="' + item.email_date_time + '" data-company="' + item.company + '" data-class="' + item.class_id + '" data-classdate="' + item.class_date + '" data-classtime="' + item.class_time + '" data-branch="' + item.branch + '" data-status="' + item.status + '" data-createdby="' + mod.user.id + '"><i class="i-Clock-Forward"></i></button><a href="member-partner/member-partner-edit/' + item.id + '" class="btn btn-sm btn-success ml-2" title="Edit" triggers="mouseenter:mouseleave"> <i class="i-Pen-5"></i></a>';
         var newthis = [
           item.company,
           item.class_date,
@@ -277,7 +277,7 @@ export class MemberPartnerComponent implements OnInit {
           item.name,
           item.phone,
           item.signed == 1 ? 'Signed' : 'Unsigned',
-          item.status === '1' ? "Used" : "Expired",
+          item.status === '1' ? "Used" : "Actve",
           rowbutton
         ];
         items.push(newthis);
@@ -325,11 +325,14 @@ export class MemberPartnerComponent implements OnInit {
 
                   status = absenbutton.data('status'),
                   signed = absenbutton.data('signed');
+
+                  console.log(signed);
                 ini.find('td:nth-child(8)').addClass('inistatus');
                 // console.log('sekarang: ' + sekarang);
                 // console.log('class Date: ' + jadwal);
                 if (signed == '0') {
                   absenbutton.addClass('disabled btn-disabled').removeClass('btn-secondary').attr('disabled');
+                  absenbutton.addClass('disabled btn-disabled');
                 } else {
                   if (status == '1') {
                     mod.status = 'Used';
@@ -337,7 +340,8 @@ export class MemberPartnerComponent implements OnInit {
                     ini.addClass('bg-warning').css('color', '#fff');
                   }
                   // Belom dipake
-                  else if (status == '0') {
+                  else {
+                    console.log('ini status')
                     // kalo tanggal jadwal lebih dari sekarang
                     if (jadwal > sekarang) {
                       ini.find('.inistatus').html('Available');
