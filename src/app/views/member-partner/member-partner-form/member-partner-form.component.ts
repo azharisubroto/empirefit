@@ -191,7 +191,8 @@ export class MemberPartnerFormComponent implements OnInit {
 
   checkSign(phone) {
     let formdata = ({
-      email: this.userForm.controls['email'].value
+      email: this.userForm.controls['email'].value,
+      name: this.userForm.controls['name'].value
     });
     this.MemberPartnerService.checkSign(phone, formdata).subscribe((data: any) => {
       if (data["status"] == '200') {
