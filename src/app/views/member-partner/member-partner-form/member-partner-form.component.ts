@@ -37,8 +37,10 @@ export class MemberPartnerFormComponent implements OnInit {
   partnerdata;
   userForm: FormGroup;
   staffs;
+  branch;
   partners: any[];
   signed;
+  signedform;
 
   constructor(
     private fb: FormBuilder,
@@ -65,6 +67,7 @@ export class MemberPartnerFormComponent implements OnInit {
       branch: [""],
       status: [""],
       created_by: [""],
+      signedform: [""],
     });
 
     this.MemberPartnerService.getSingleMemberPartner(this.ActivatedRoute.snapshot.params["id"]).subscribe((data: any) => {
@@ -102,7 +105,8 @@ export class MemberPartnerFormComponent implements OnInit {
         },
         branch: 1,
         status: res.status,
-        created_by: res.created_by
+        created_by: res.created_by,
+        signedform : res.signed
       });
 
       $(".class_datedate").val(classdate);
@@ -141,6 +145,7 @@ export class MemberPartnerFormComponent implements OnInit {
       this.user = data["data"];
       var users = data["data"];
       this.userid = users['id'];
+      this.branch = users['branch_id'];
     });
   }
 
@@ -198,6 +203,19 @@ export class MemberPartnerFormComponent implements OnInit {
   }
 
   submit() {
+
+    if (this.signed == 'Unsigned') {
+      this.signedform = 0;
+      return alert('Please Signed Member');
+    }
+
+    this.userForm.patchValue({
+      created_by: this.userid,
+      branch: this.branch,
+      class_date: $(".class_datedate").val(),
+      signedform : 1
+    });
+
     $('#saving').html('Saving...');
     if (this.userForm.invalid) {
       $('#saving').html('Save');
