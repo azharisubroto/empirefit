@@ -55,16 +55,16 @@ export class MemberPartnerFormComponent implements OnInit {
     this.partnerdata = { make: "" };
     this.userForm = this.fb.group({
       name: ["", Validators.required],
-      email: ["", Validators.required],
-      phone: ["", Validators.required],
-      reference: ["", Validators.required],
+      email: [""],
+      phone: [""],
+      reference: [""],
       email_date_time: [""],
       company: ["", Validators.required],
       class: ["", Validators.required],
       class_date: ["", Validators.required],
-      branch: ["", Validators.required],
-      status: ["", Validators.required],
-      created_by: ["", Validators.required],
+      branch: [""],
+      status: [""],
+      created_by: [""],
     });
 
     this.MemberPartnerService.getSingleMemberPartner(this.ActivatedRoute.snapshot.params["id"]).subscribe((data: any) => {
