@@ -294,6 +294,7 @@ export class TransactionListComponent implements OnInit {
           }, 200);
           $.each(res, function (i, item) {
             var newthis = [
+              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
               item.date,
               item.member_name,
               item.credit_card_name,
@@ -308,8 +309,7 @@ export class TransactionListComponent implements OnInit {
               !!item.bank_notes ? item.bank_notes : 'n/a',
               !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
               !!item.fo_status ? item.fo_status : 'n/a',
-              !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+              !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a'
             ];
             var newPrintThis = [
               item.credit_card_number,
@@ -327,6 +327,7 @@ export class TransactionListComponent implements OnInit {
           mod.table = $('#mytable').DataTable({
             responsive: true,
             columns: [
+              { title: 'Action' },
               { title: 'Date' },
               { title: 'Member' },
               { title: 'Name on Card' },
@@ -342,7 +343,6 @@ export class TransactionListComponent implements OnInit {
               { title: 'Bank Withdrawal' },
               { title: 'FO Status' },
               { title: 'FO Payment' },
-              { title: 'Action' },
             ],
             dom: 'Bfrtip',
             buttons: {
@@ -462,6 +462,7 @@ export class TransactionListComponent implements OnInit {
         }, 200);
         $.each(res, function (i, item) {
           var newthis = [
+            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
             item.date,
             item.member_name,
             item.credit_card_name,
@@ -476,8 +477,7 @@ export class TransactionListComponent implements OnInit {
             !!item.bank_notes ? item.bank_notes : 'n/a',
             !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
             !!item.fo_status ? item.fo_status : 'n/a',
-            !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+            !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a'
           ];
           var newPrintThis = [
             item.credit_card_number,
@@ -495,6 +495,7 @@ export class TransactionListComponent implements OnInit {
         mod.table = $('#mytable').DataTable({
           responsive: true,
           columns: [
+            { title: 'Action' },
             { title: 'Date' },
             { title: 'Member' },
             { title: 'Name on Card' },
@@ -510,7 +511,6 @@ export class TransactionListComponent implements OnInit {
             { title: 'Bank Withdrawal' },
             { title: 'FO Status' },
             { title: 'FO Payment' },
-            { title: 'Action' },
           ],
           dom: 'Bfrtip',
           buttons: {
@@ -621,6 +621,7 @@ export class TransactionListComponent implements OnInit {
         }, 200);
         $.each(res, function (i, item) {
           var newthis = [
+            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
             item.date,
             item.member_name,
             item.credit_card_name,
@@ -635,8 +636,7 @@ export class TransactionListComponent implements OnInit {
             !!item.bank_notes ? item.bank_notes : 'n/a',
             !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
             !!item.fo_status ? item.fo_status : 'n/a',
-            !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+            !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a'
           ];
           var newPrintThis = [
             item.credit_card_number,
@@ -654,6 +654,7 @@ export class TransactionListComponent implements OnInit {
         mod.table = $('#mytable').DataTable({
           responsive: true,
           columns: [
+            { title: 'Action' },
             { title: 'Date' },
             { title: 'Member' },
             { title: 'Name on Card' },
@@ -668,8 +669,7 @@ export class TransactionListComponent implements OnInit {
             { title: 'Bank Notes' },
             { title: 'Bank Withdrawal' },
             { title: 'FO Status' },
-            { title: 'FO Payment' },
-            { title: 'Action' },
+            { title: 'FO Payment' }
           ],
           dom: 'Bfrtip',
           buttons: {
@@ -711,6 +711,8 @@ export class TransactionListComponent implements OnInit {
               e.preventDefault();
 
               var refundid = $(this).data('refundid'); //get id
+
+              console.log(refundid);
 
               mod.refund(refundid);
             });
@@ -784,6 +786,7 @@ export class TransactionListComponent implements OnInit {
           }, 200);
           $.each(res, function (i, item) {
             var newthis = [
+              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
               item.date,
               item.member_name,
               item.credit_card_name,
@@ -798,8 +801,7 @@ export class TransactionListComponent implements OnInit {
               !!item.bank_notes ? item.bank_notes : 'n/a',
               !!item.bank_withdrawal ? item.bank_withdrawal.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
               !!item.fo_status ? item.fo_status : 'n/a',
-              !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a',
-              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>'
+              !!item.fo_payment ? item.fo_payment.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : 'n/a'
             ];
             var newPrintThis = [
               item.credit_card_number,
@@ -817,6 +819,7 @@ export class TransactionListComponent implements OnInit {
           mod.table = $('#mytable').DataTable({
             responsive: true,
             columns: [
+              { title: 'Action' },
               { title: 'Date' },
               { title: 'Member' },
               { title: 'Name on Card' },
@@ -832,7 +835,6 @@ export class TransactionListComponent implements OnInit {
               { title: 'Bank Withdrawal' },
               { title: 'FO Status' },
               { title: 'FO Payment' },
-              { title: 'Action' },
             ],
             dom: 'Bfrtip',
             buttons: {
