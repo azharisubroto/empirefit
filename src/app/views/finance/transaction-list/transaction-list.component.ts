@@ -327,7 +327,7 @@ export class TransactionListComponent implements OnInit {
           mod.table = $('#mytable').DataTable({
             responsive: true,
             columns: [
-              { title: 'Action' },
+              { title: 'Action', width: '10%' },
               { title: 'Date' },
               { title: 'Member' },
               { title: 'Name on Card' },
@@ -495,7 +495,7 @@ export class TransactionListComponent implements OnInit {
         mod.table = $('#mytable').DataTable({
           responsive: true,
           columns: [
-            { title: 'Action' },
+            { title: 'Action', width: '10%' },
             { title: 'Date' },
             { title: 'Member' },
             { title: 'Name on Card' },
@@ -654,7 +654,7 @@ export class TransactionListComponent implements OnInit {
         mod.table = $('#mytable').DataTable({
           responsive: true,
           columns: [
-            { title: 'Action' },
+            { title: 'Action', width: '10%' },
             { title: 'Date' },
             { title: 'Member' },
             { title: 'Name on Card' },
@@ -819,7 +819,7 @@ export class TransactionListComponent implements OnInit {
           mod.table = $('#mytable').DataTable({
             responsive: true,
             columns: [
-              { title: 'Action' },
+              { title: 'Action', width: '10%' },
               { title: 'Date' },
               { title: 'Member' },
               { title: 'Name on Card' },
