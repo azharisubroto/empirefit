@@ -99,6 +99,9 @@ export class TransactionListComponent implements OnInit {
         this.printTable = $("#example-table").DataTable();
         this.table = $("#mytable").DataTable({
           responsive: true,
+          scrollY: "500px",
+          scrollCollapse: true,
+          paging: false,
           dom: 'Bfrtip',
           buttons: {
             dom: {
@@ -462,7 +465,7 @@ export class TransactionListComponent implements OnInit {
         }, 200);
         $.each(res, function (i, item) {
           var newthis = [
-            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
+            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 mt-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
             item.date,
             item.member_name,
             item.credit_card_name,
@@ -494,8 +497,11 @@ export class TransactionListComponent implements OnInit {
 
         mod.table = $('#mytable').DataTable({
           responsive: true,
+          scrollY: "500px",
+          scrollCollapse: true,
+          paging: false,
           columns: [
-            { title: 'Action', width: '10%' },
+            { title: 'Action', width: '50%' },
             { title: 'Date' },
             { title: 'Member' },
             { title: 'Name on Card' },
@@ -621,7 +627,7 @@ export class TransactionListComponent implements OnInit {
         }, 200);
         $.each(res, function (i, item) {
           var newthis = [
-            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
+            '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mt-2 mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
             item.date,
             item.member_name,
             item.credit_card_name,
@@ -653,8 +659,11 @@ export class TransactionListComponent implements OnInit {
 
         mod.table = $('#mytable').DataTable({
           responsive: true,
+          scrollY: "500px",
+          scrollCollapse: true,
+          paging: false,
           columns: [
-            { title: 'Action', width: '10%' },
+            { title: 'Action', width: "50%" },
             { title: 'Date' },
             { title: 'Member' },
             { title: 'Name on Card' },
@@ -786,7 +795,7 @@ export class TransactionListComponent implements OnInit {
           }, 200);
           $.each(res, function (i, item) {
             var newthis = [
-              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
+              '<button class="btn prog-' + item.progress + ' btn-warning btn-sm mr-2 ajax-update-btn" data-update="' + item.id + '"><i class="i-Yes"></i></button><a href="/finance/recurring-form/' + item.id + '" class="btn mr-2 btn-sm btn-warning"><i class="i-Pen-4"></i></a><button data-membername="' + item.member_name + '" data-itemid="' + item.id + '" data-itemimg="' + item.signature_base + '" class="btn btn-sm mr-2 btn-warning download_sign"><i class="i-Download"></i></button><button data-refundid="' + item.id + '" class="btn btn-sm mr-2 mt-2 btn-warning ref-' + item.progress + ' refund-btn"><i class="i-Token-"></i></button>',
               item.date,
               item.member_name,
               item.credit_card_name,
@@ -818,8 +827,11 @@ export class TransactionListComponent implements OnInit {
 
           mod.table = $('#mytable').DataTable({
             responsive: true,
+            scrollY: "500px",
+            scrollCollapse: true,
+            paging: false,
             columns: [
-              { title: 'Action', width: '10%' },
+              { title: 'Action', width: '50%' },
               { title: 'Date' },
               { title: 'Member' },
               { title: 'Name on Card' },
