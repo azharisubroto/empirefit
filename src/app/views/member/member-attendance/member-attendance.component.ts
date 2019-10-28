@@ -792,7 +792,7 @@ export class MemberAttendanceComponent implements OnInit {
               }, 1000);
 
             } else {
-              this.toastr.error('ClassRegistration Failed', "Error!", {
+              this.toastr.error('Membership expired / No sessions left', "Warning!", {
                 progressBar: true
               });
             }
