@@ -325,7 +325,8 @@ export class MemberPackageComponent implements OnInit {
 
     console.log(formValue);
 
-    if (this.membershipForm.invalid || $("#price").val() == "" || $("#price").val() == "0") {
+    // if (this.membershipForm.invalid || $("#price").val() == "" || $("#price").val() == "0") {
+    if (this.membershipForm.invalid) {
       setTimeout(() => {
         $('.prevaja').trigger('click');
       }, 50);

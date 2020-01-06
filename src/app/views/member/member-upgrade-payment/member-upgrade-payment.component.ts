@@ -351,7 +351,8 @@ export class MemberUpgradePaymentComponent implements OnInit {
 
     // console.log(formValue);
 
-    if (this.membershipForm.invalid || $("#price").val() == "" || $("#price").val() == "0" || $("#final_price").val() == "" || $("#final_price").val() == "0") {
+    // if (this.membershipForm.invalid || $("#price").val() == "" || $("#price").val() == "0" || $("#final_price").val() == "" || $("#final_price").val() == "0") {
+    if (this.membershipForm.invalid) {
       setTimeout(() => {
         $('.prevaja').trigger('click');
       }, 50);
