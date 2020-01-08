@@ -31,6 +31,7 @@ export class PersonalTrainerCreateComponent implements OnInit {
   staffs;
   member_types;
   branch;
+  sessions;
 
   constructor(
     private fb: FormBuilder,
@@ -54,6 +55,10 @@ export class PersonalTrainerCreateComponent implements OnInit {
 
     this.branchService.getBranches().subscribe((data: any) => {
       this.branch = data["data"];
+    });
+
+    this.personalTrainerService.getPersonalTrainerService().subscribe((data: any) => {
+      this.sessions = data["data"];
     });
 
     this.memberTypeService.memberTypePt().subscribe((data: any) => {
