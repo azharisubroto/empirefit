@@ -51,6 +51,7 @@ import { DeviceCreateComponent } from "./finger/device-create/device-create.comp
 import { EdcCreateComponent } from "./edc/edc-create/edc-create.component";
 import { DeviceListComponent } from "./finger/device-list/device-list.component";
 import { EdcListComponent } from "./edc/edc-list/edc-list.component";
+import { LogListComponent } from "./log/log-list/log-list.component";
 
 const routes: Routes = [
   {
@@ -256,7 +257,11 @@ const routes: Routes = [
   {
     path: "edc/edc-edit/:id",
     component: EdcFormComponent
-  }
+  },
+  {
+    path: "logs",
+    component: LogListComponent
+  },
 ];
 
 @NgModule({

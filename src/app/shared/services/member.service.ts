@@ -8,7 +8,7 @@ import { LocalStoreService } from "./local-store.service";
 })
 export class MemberService {
   readonly apiURL = "https://api.empirefit.club/api";
-  readonly localurl = "http://localhost/efc_api/api";
+  readonly localurl = "http://localhost/empire-fit-club/efc_api/api";
   //readonly apiURL = "http://localhost/efc_api/api";
 
   constructor(private http: HttpClient, private store: LocalStoreService) { }
@@ -141,5 +141,13 @@ export class MemberService {
 
   downloadBioLiability(member_id, data) {
     return this.http.put(this.apiURL + "/download_bio_liability/" + member_id, data, this.httpOptions);
+  }
+
+  updateDataMember(member_id, data) {
+    return this.http.put(
+      this.apiURL + "/update_member/" + member_id,
+      data,
+      this.httpOptions
+    );
   }
 }

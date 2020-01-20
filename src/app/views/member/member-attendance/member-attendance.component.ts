@@ -1076,4 +1076,28 @@ export class MemberAttendanceComponent implements OnInit {
   close() {
     $(".modal-header .close").trigger("click");
   }
+
+  // Edit Member
+  editMember() {
+    var form = {
+      expairy_date: $("#expairyDate").val(),
+      session_remains: $("#sessionRemains").val(),
+    }
+    this.memberService.updateDataMember(
+      this.activatedRoute.snapshot.params["id"],
+      form
+    ).subscribe((data: any) => {
+      console.log(data)
+      var pass = data;
+      if (pass != null && pass["status"] == 200) {
+        this.toastr.success("Berhasil Mengupdate.", "Success!", {
+          progressBar: true
+        });
+      } else {
+        this.toastr.error("Terjadi Kesalahan Saat Menyimpan.", "Error!", {
+          progressBar: true
+        });
+      }
+    });
+  }
 }

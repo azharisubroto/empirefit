@@ -251,6 +251,13 @@ export class NavigationService {
           state: "/master/edc",
           type: "link",
           perm: "21",
+        },
+        {
+          icon: "i-Clock-Forward",
+          name: "Log",
+          state: "/master/logs",
+          type: "link",
+          perm: "22",
         }
       ]
     }

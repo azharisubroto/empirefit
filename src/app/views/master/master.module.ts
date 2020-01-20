@@ -62,6 +62,7 @@ import { DeviceCreateComponent } from './finger/device-create/device-create.comp
 import { EdcListComponent } from './edc/edc-list/edc-list.component';
 import { EdcCreateComponent } from './edc/edc-create/edc-create.component';
 import { EdcFormComponent } from './edc/edc-form/edc-form.component';
+import { LogListComponent } from './log/log-list/log-list.component';
 
 @NgModule({
   imports: [
@@ -127,7 +128,8 @@ import { EdcFormComponent } from './edc/edc-form/edc-form.component';
     DeviceCreateComponent,
     EdcListComponent,
     EdcCreateComponent,
-    EdcFormComponent
+    EdcFormComponent,
+    LogListComponent
   ]
 })
 export class MasterModule {}

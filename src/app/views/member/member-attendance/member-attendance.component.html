@@ -130,7 +130,8 @@
             <div class="px-4 py-3 border border-light rounded align-items-center">
               <span class="text-muted mb-0">Expiry Date</span>
               <div class="text-medium text-primary mt-1">
-                {{ !! member.expairy_date ? member.expairy_date : "-" }}
+                <!-- {{ !! member.expairy_date ? member.expairy_date : "-" }} -->
+                <input (change)="editMember()" id="expairyDate" style="border: none;" type="text" [attr.value]="!!member.expairy_date ? member.expairy_date : '-'" />
               </div>
             </div>
           </div>
@@ -138,7 +139,8 @@
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Session Remains</span>
               <div class="text-medium text-primary mt-1">
-                {{ !!member.session_remains ? member.session_remains : "-" }}
+                <!-- {{ !!member.session_remains ? member.session_remains : "-" }} -->
+                <input (change)="editMember()" id="sessionRemains" style="border: none;" type="text" [attr.value]="!!member.session_remains ? member.session_remains : '-'" />
               </div>
             </div>
             <div class="px-4 py-3 border border-light rounded align-items-center">
