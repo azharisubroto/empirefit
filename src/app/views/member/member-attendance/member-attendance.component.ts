@@ -306,7 +306,7 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-membership-leave").attr("disabled", "disabled");
               $("#btn-membership-leave-history").attr("disabled", "disabled");
             }
-
+            
             if (this.status == "Expired" || this.status == "Inactive" || this.status == "Unpaid") {
               $("#btn-manualreg").attr("disabled", "disabled");
               $("#btn-manualattendance").attr("disabled", "disabled");
@@ -452,8 +452,11 @@ export class MemberAttendanceComponent implements OnInit {
               $("#btn-ptsession").addClass("disabled");
             } else {
               $("#btn-fingerscan").addClass('disabled');
-              $("#btn-autoreg").removeClass('disabled');
-              $("#btn-manualreg").removeAttr('disabled');
+
+              if (this.status != 'Expired') {
+                $("#btn-autoreg").removeClass('disabled');
+                $("#btn-manualreg").removeAttr('disabled');
+              }
               $("#btn-ptsession").removeClass("disabled");
             }
           }
