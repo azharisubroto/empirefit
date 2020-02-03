@@ -33,7 +33,8 @@ export class MemberComponent implements OnInit {
       this.chRef.detectChanges();
       var dt_options = {};
         dt_options = {
-          responsive: true
+          responsive: true,
+          bDestroy: true
         }
       $("#mytable").DataTable(dt_options);
     });
