@@ -254,7 +254,7 @@ export class MemberAttendanceComponent implements OnInit {
             }
 
             // 10 Pass Membership
-            if (data["data"].member_type_id == 4 || data["data"].member_type_id == 6 || data["data"].member_type_id == 8 || data["data"].member_type_id == 9 || data["data"].member_type_id == 10 || data["data"].member_type_id == 11 || data["data"].member_type_id == 12 || data["data"].member_type_id == 13) {
+            if (data["data"].session_remains) {
               if (data["data"].session_remains == 0) {
                 $("#btn-manualreg").attr("disabled", "disabled");
                 $("#btn-manualattendance").attr("disabled", "disabled");
