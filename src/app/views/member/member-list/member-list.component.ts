@@ -136,12 +136,69 @@ export class MemberComponent implements OnInit {
   }
 
   clearFormSearch() {
+    var vm = this;
+    $("#all-state").prop('checked', false)
+    $("#all-membership").prop('checked', false)
     $("input[name='state']").prop('checked', false)
     $("input[name='member_type_id']").prop('checked', false)
 
     this.searchForm.setValue({
       join_date: "",
       expairy_date: ""
+    });
+
+    this.memberService.getMember().subscribe((data: any[]) => {
+      var res = data['data'];
+
+      var items: any = [];
+      if (res.length > 0) {
+        vm.table.destroy();
+        $.each(res, function (i, item) {
+          var newthis = [
+            item.member_code,
+            item.name,
+            item.nickname ? item.nickname : '-',
+            item.member_type_name ? item.member_type_name : '-',
+            item.phone,
+            item.state,
+            `<a
+              href="member/detail/` + item.id + `"
+              class="btn btn-primary"
+              title="Detail"
+              triggers="mouseenter:mouseleave"
+            >Detail</a>`
+          ];
+          items.push(newthis);
+        });
+
+        vm.table = $('#mytable').DataTable({
+          responsive: true,
+          dom: 'Bfrtip',
+          buttons: {
+            dom: {
+              button: {
+                className: 'btn '
+              }
+            },
+            buttons: [
+              { extend: 'excel', className: 'btn-warning', title: 'MEMBER-REPORT' },
+              { extend: 'csv', className: 'btn-warning', title: 'MEMBER-REPORT' }
+            ]
+          },
+          columns: [
+            { title: 'Member Code' },
+            { title: 'Name' },
+            { title: 'Nickname' },
+            { title: 'Member Type' },
+            { title: 'Phone' },
+            { title: 'Status' },
+            { title: 'Action' },
+          ],
+          data: items,
+        });
+      } else {
+        alert('Data not found')
+      }
     });
   }
 
@@ -185,7 +242,7 @@ export class MemberComponent implements OnInit {
         vm.table.destroy();
         $.each(res, function (i, item) {
           var newthis = [
-            item.id_card_number,
+            item.member_code,
             item.name,
             item.nickname ? item.nickname : '-',
             item.member_type_name ? item.member_type_name : '-',
@@ -216,7 +273,7 @@ export class MemberComponent implements OnInit {
             ]
           },
           columns: [
-            { title: 'ID Card' },
+            { title: 'Member Code' },
             { title: 'Name' },
             { title: 'Nickname' },
             { title: 'Member Type' },
