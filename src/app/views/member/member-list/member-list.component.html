@@ -18,7 +18,7 @@
                 <table id="mytable" class="table table-hover" cellspacing="0">
                   <thead class="text-center">
                     <tr>
-                      <th>ID Card</th>
+                      <th>Member Code</th>
                       <th>Name</th>
                       <th>Nickname</th>
                       <th>Phone</th>
@@ -28,7 +28,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let member of filteredMembers">
-                      <td>{{ member.id_card_number }}</td>
+                      <td>{{ member.member_code }}</td>
                       <td>{{ member.name }}</td>
                       <td>{{ member.nickname ? member.nickname : '-' }}</td>
                       <td>{{ member.phone }}</td>
