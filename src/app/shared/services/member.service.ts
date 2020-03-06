@@ -150,4 +150,12 @@ export class MemberService {
       this.httpOptions
     );
   }
+
+  filter(data) {
+    return this.http.post(
+      this.apiURL + "/search-member",
+      data,
+      this.httpOptions
+    );
+  }
 }

@@ -267,8 +267,9 @@ export class MemberAttendanceComponent implements OnInit {
                 $("#btn-ptsession").addClass("disabled");
               }
             }
-
-            if (data["data"].member_type_id == 3 || data["data"].member_type_id == 15 || data["data"].member_type_id == 16 || data["data"].member_type_id == 17 || data["data"].member_type_id == 18) {
+            
+            // if membership personal trainer
+            if (data["data"].is_personal_trainer) {
               this.personalTrainerService.personalTrainerMember(this.activatedRoute.snapshot.params["id"]).subscribe((data: any) => {
                 this.personaltrainername = data["data"].personal_trainer_name ? data["data"].personal_trainer_name : "-";
                 // console.log(this.personaltrainername)
@@ -283,7 +284,7 @@ export class MemberAttendanceComponent implements OnInit {
               this.personaltrainername = null;
             }
 
-            if (data["data"].member_type_id == 1 || data["data"].member_type_id == 5) {
+            if (data["data"].leave_available) {
               if (data["data"].auto_debet == 1) {
                 if (this.status_leave) {
                   $("#btn-membership-leave").removeAttr("disabled");

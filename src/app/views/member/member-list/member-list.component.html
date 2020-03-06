@@ -9,6 +9,135 @@
   <div class="separator-breadcrumb border-top"></div>
 
   <div class="row">
+    <div class="col-md-12 mb-2">
+      <div class="fancy-head"><span>Search</span></div>
+    
+      <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-3">
+        <ngb-panel title="Filter">
+          <ng-template ngbPanelContent>
+            <div class="row">
+              <div class="col-12">
+                <form [formGroup]="searchForm" (ngSubmit)="submit()">
+                  <div class="row mb-4 mt-5 align-items-center">
+                    <div class="col-md-12">Status : </div>
+                    <div class="col-md-2 mt-3">
+                      <label class="switch switch-warning mr-3">
+                        <span>ALL</span>
+                        <input (click)="allState()" id="all-state" type="checkbox" value="ALL">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="switch switch-warning mr-3">
+                        <span>Active</span>
+                        <input type="checkbox" value="Active" name="state">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="switch switch-warning mr-3">
+                        <span>Expired</span>
+                        <input type="checkbox" value="Expired" name="state">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="switch switch-warning mr-3">
+                        <span>Unverified</span>
+                        <input type="checkbox" value="Unverified" name="state">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                    <div class="col-md-2">
+                      <label class="switch switch-warning mr-3">
+                        <span>Leave</span>
+                        <input type="checkbox" value="Leave" name="state">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div style="margin-top: -10px !important" class="row mb-4 mt-5 align-items-center">
+                    <div class="col-md-12">Membership : </div>
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12 mb-2 mt-3">
+                          <label class="switch switch-warning mr-3">
+                            <span>ALL</span>
+                            <input (click)="allMembership()" id="all-membership" type="checkbox" value="ALL">
+                            <span class="slider"></span>
+                          </label>
+                        </div>
+                        <div *ngFor="let mt of membertypes" class="col-md-6 mb-2">
+                          <label class="switch switch-warning mr-3">
+                            <span>{{mt.member_type_name}}</span>
+                            <input type="checkbox" value="{{mt.id}}" name="member_type_id">
+                            <span class="slider"></span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <!-- <div class="col-md-3 mb-3 col-xl-2">
+                                <select class="form-control" formControlName="state">
+                                  <option value="">Choose Status</option>
+                                  <option value="ALL">ALL</option>
+                                  <option value="Active">Active</option>
+                                  <option value="Expired">Expired</option>
+                                  <option value="Unverified">Unverified</option>
+                                  <option value="Leave">Leave</option>
+                                </select>
+                              </div> -->
+                    <!-- <div class="col-md-4 mb-3 col-xl-3">
+                                <div class="text-small">Membership</div>
+                                <select class="form-control" formControlName="member_type_id">
+                                  <option value="">Choose Member Type</option>
+                                  <option value="ALL">ALL</option>
+                                  <option *ngFor="let mt of membertypes" value="{{mt.id}}">{{mt.member_type_name}}</option>
+                                </select>
+                              </div> -->
+                    <div class="col-md-4 mb-3 col-xl-3">
+                      <div class="text-small">Join Date</div>
+                      <div class="row">
+                        <div class="col mb-md-0">
+                          <div class="input-group">
+                            <input type="month" class="form-control" formControlName="join_date">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4 col-xl-3">
+                      <div class="text-small">Expiry Date</div>
+                      <div class="row">
+                        <div class="col mb-md-0">
+                          <div class="input-group">
+                            <input type="month" class="form-control" formControlName="expairy_date">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-7 mt-xl-0 col-xl-3">
+                      <div class="text-small">&nbsp;</div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <button (click)="clearFormSearch()" class="btn btn-warning mr-3 py-2 btn-block">Clear</button>
+                        </div>
+                        <div class="col-md-6">
+                          <button class="btn btn-warning mr-3 py-2 btn-block">Search</button>
+                        </div>
+                      </div>
+    
+    
+                      <!-- <a id="btn-scan" [href]="finger" (click)="checkFinger()" class="btn btn-warning py-2">Finger</a> -->
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
     <div class="col-md-12">
       <div class="card o-hidden">
         <div class="table table-responsive mt-4">
@@ -22,6 +151,7 @@
                       <th>Name</th>
                       <th>Nickname</th>
                       <th>Phone</th>
+                      <th>Member Type</th>
                       <th>State</th>
                       <th>Action</th>
                     </tr>
@@ -32,6 +162,7 @@
                       <td>{{ member.name }}</td>
                       <td>{{ member.nickname ? member.nickname : '-' }}</td>
                       <td>{{ member.phone }}</td>
+                      <td>{{ member.member_type_name ? member.member_type_name : '-' }}</td>
                       <td>{{ member.state }}</td>
                       <td>
                         <a href="#" routerLink="member/detail/{{ member.id }}" class="btn btn-primary" title="Detail"
