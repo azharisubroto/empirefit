@@ -1097,6 +1097,7 @@ export class MemberAttendanceComponent implements OnInit {
         this.toastr.success("Berhasil Mengupdate.", "Success!", {
           progressBar: true
         });
+        location.reload();
       } else {
         this.toastr.error("Terjadi Kesalahan Saat Menyimpan.", "Error!", {
           progressBar: true
