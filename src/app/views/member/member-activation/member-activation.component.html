@@ -244,7 +244,7 @@
 								</ul>
 							</ng-template>
 						</ngb-panel>
-						<ngb-panel title="Signature">
+						<!-- <ngb-panel title="Signature">
 							<ng-template ngbPanelContent>
 								<div class="row">
 									<div class="col-md-6">
@@ -255,11 +255,11 @@
 									</div>
 								</div>
 							</ng-template>
-						</ngb-panel>
+						</ngb-panel> -->
 
 					</ngb-accordion>
 
-					<div class="row mt-5">
+					<div class="row mt-5 d-none">
 						<div class="form-group col-md-6 mb-3">
 							<label for="firstName" class="d-block mb-2 text-medium"><strong>Member
 									Signature</strong></label>
@@ -336,13 +336,13 @@
 						</div>
 					</div>
 
-					<div class="row">
+					<div class="row d-none">
 						<div class="col-md-12">
 							<h4 class="fancy-head"><span>Photo</span></h4>
 						</div>
 					</div>
 
-					<div class="row">
+					<div class="row d-none">
 						<div class="col-md-3">
 							<webcam [height]="250" [width]="250" [trigger]="triggerObservable"
 								(imageCapture)="handleImage($event)" *ngIf="showWebcam" [videoOptions]="videoOptions"
@@ -361,7 +361,7 @@
 							</div>
 						</ng-template>
 					</div>
-					<div class="row">
+					<div class="row d-none">
 						<!-- <div class="col-md-2">
 						              <img src="https://via.placeholder.com/150" alt="" />
 						            </div> -->

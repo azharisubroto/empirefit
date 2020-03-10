@@ -537,7 +537,7 @@ export class MemberActivationComponent implements OnInit {
 
   onStep1Next() {
     // return console.log(this.liabilityForm.value);
-    let formValue = this.liabilityForm.value;
+    /* let formValue = this.liabilityForm.value;
 
     if (this.member.liability_signature || this.member.liability_user_signature) {
       console.log("Signature exist");
@@ -559,11 +559,11 @@ export class MemberActivationComponent implements OnInit {
           }
         });
       }
-    }
+    } */
   }
   onStep2Next(e) {
     console.log("clicked")
-    let formValue = ({
+    /* let formValue = ({
       photo: this.photo,
     });
 
@@ -581,7 +581,7 @@ export class MemberActivationComponent implements OnInit {
           progressBar: true
         });
       }
-    }
+    } */
   }
   onStep3Next(e) {
     if (this.membershipForm.controls["auto_debet"].value == "0") {
