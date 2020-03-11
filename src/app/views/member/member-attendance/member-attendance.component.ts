@@ -198,13 +198,13 @@ export class MemberAttendanceComponent implements OnInit {
         let today = this.todayDate.replace(/\//g, '-'),
           sekarang = new Date(today);
 
-        if (this.status != "Unverified") {
-          if (date < sekarang) {
-            this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
-              this.status = data["status_member"];
-            });
-          }
-        }
+        // if (this.status != "Unverified") {
+        //   if (date < sekarang) {
+        //     this.memberService.updateStatus(this.activatedRoute.snapshot.params["id"], this.status).subscribe((data: any) => {
+        //       this.status = data["status_member"];
+        //     });
+        //   }
+        // }
 
         if (this.status_leave) {
           if (active_date < sekarang) {
