@@ -119,7 +119,76 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 mb-3">
+          <div *ngIf="status_unverified">
+            <div class="container mb-3">
+              <div class="row">
+                <div class="col-12">
+                  <div class="container">
+                    <div class="row bg-danger border border-light rounded">
+                      <div class="col-12 mb-3">
+                        <div class="fancy-head bg-danger text-white"><span class="bg-danger text-white">Membership
+                            Inactive</span></div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                          <span class="text-white mb-0">Reason</span>
+                          <div class="text-white mt-1">
+                            <strong class="text-white">Unverified</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center">
+                          <span class="text-white mb-0">Registration Date</span>
+                          <div class="text-white mt-1">
+                            <strong class="text-white">{{ !! member.join_date ? member.join_date : "-" }}</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12 mb-3">
+                        <a (click)="close()" id="btn-membership" routerLink="/dashboard/member/activation/{{ member.id }}"
+                          class="btn btn-primary btn-lg btn-block py-3">First
+                          Registration</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="status_expired">
+            <div class="container mb-3">
+              <div class="row">
+                <div class="col-12">
+                  <div class="container">
+                    <div class="row bg-danger border border-light rounded">
+                      <div class="col-12 mb-3">
+                        <div class="fancy-head bg-danger text-white"><span class="bg-danger text-white">Membership
+                            Inactive</span></div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
+                          <span class="text-white mb-0">Reason</span>
+                          <div class="text-white mt-1">
+                            <strong class="text-white">Expired</strong>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mb-3">
+                        <div class="px-4 py-3 border border-light rounded align-items-center">
+                          <span class="text-white mb-0">Expiry Date</span>
+                          <div class="text-white mt-1">
+                            <strong class="text-white">{{ !! member.expairy_date ? member.expairy_date : "-" }}</strong>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 mb-3" *ngIf="!status_unverified">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Type</span>
               <div class="text-medium text-primary mt-1">
@@ -134,7 +203,7 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6 mb-3">
+          <div class="col-lg-6 mb-3" *ngIf="!status_unverified">
             <div class="px-4 py-3 border border-light rounded align-items-center mb-4">
               <span class="text-muted mb-0">Session Remains</span>
               <div class="text-medium text-primary mt-1">
@@ -849,11 +918,11 @@
     <div class="form-group">
       <div class="px-4 py-3 rounded align-items-center">
         <div class="row">
-          <div class="col-md-12 mb-2">
+          <!-- <div class="col-md-12 mb-2">
             <a (click)="close()" id="btn-membership" routerLink="/dashboard/member/activation/{{ member.id }}"
               class="btn btn-primary btn-lg btn-block py-3">First
               Registration</a>
-          </div>
+          </div> -->
           <div class="col-md-12 mb-2">
             <a id="btn-selectPackage" (click)="close()" routerLink="/dashboard/member/select-package/{{ member.id }}"
               class="btn btn-primary btn-lg btn-block py-3">Select

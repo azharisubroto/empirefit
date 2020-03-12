@@ -93,9 +93,11 @@ export class ScheduleReportComponent implements OnInit {
     this.searchForm = this.fb.group({
       branch_id: ["1", Validators.required],
       date: [newtoday, Validators.required],
+      seconddate: [newtoday, Validators.required],
     });
 
     $(".class-date").val(newtoday);
+    $(".class-date-second").val(newtoday);
   }
 
   changeDate(event: any, $target) {
@@ -103,12 +105,27 @@ export class ScheduleReportComponent implements OnInit {
     var year = event['year'];
     var month = event['month'];
     var day = event['day'];
-    var tosend = year + '-' + this.pad(month) + '-' + this.pad(day);
+    var tosend = year + '-' + mod.pad(month) + '-' + mod.pad(day);
     console.log($target + ' is: ' + tosend);
     //$('.classes-list').html('Loading...');
     if ($target == 'date') {
       this.searchForm.patchValue({
         date: tosend
+      });
+    }
+  }
+
+  changeSecondDate(event: any, $target) {
+    var mod = this;
+    var year = event['year'];
+    var month = event['month'];
+    var day = event['day'];
+    var tosend = year + '-' + mod.pad(month) + '-' + mod.pad(day);
+    console.log($target + ' is: ' + tosend);
+    //$('.classes-list').html('Loading...');
+    if ($target == 'date') {
+      mod.searchForm.patchValue({
+        seconddate: tosend
       });
     }
   }

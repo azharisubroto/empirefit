@@ -40,6 +40,7 @@
                       <th scope="col">Member ID</th>
                       <th scope="col">Dropin Partner</th>
                       <th scope="col">Member Name</th>
+                      <th scope="col">Member Type</th>
                       <th scope="col">Scan Time</th>
                       <th scope="col">Canceled</th>
                     </tr>
@@ -49,6 +50,7 @@
                       <td>{{ res.member_code ? res.member_code : 'Member Partner' }}</td>
                       <td>{{ res.partner_name }}</td>
                       <td>{{ res.member_name }}</td>
+                      <td>{{ res.member_type ? res.member_type : '-' }}</td>
                       <td>{{ res.checkin_time }}</td>
                       <td>{{ res.canceled == '1' ? 'Yes' : 'No' }}</td>
                     </tr>

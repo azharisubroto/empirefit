@@ -21,12 +21,25 @@
                     <option *ngFor="let branch of branches" [value]="branch.id">{{branch.branch_name}}</option>
                   </select>
                 </div>
-                <div class="col-md-4 form-group mb-3">
-                  <label for="date">Class Date</label>
+                <div class="col-md-3 form-group mb-3">
+                  <label for="date">Class Date From</label>
                   <div class="input-group">
                     <input class="form-control class-date" placeholder="yyyy-mm-dd" ngbDatepicker #date="ngbDatepicker"
                       (dateSelect)="changeDate($event, 'date')">
                     <input type="hidden" class="first_actualdate" formControlName="date">
+                    <div class="input-group-append">
+                      <button type="button" class="btn btn-secondary" style="height:41px;" (click)="date.toggle()" type="button">
+                        <i class="icon-regular i-Calendar-4"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 form-group mb-3">
+                  <label for="date">Class Date To</label>
+                  <div class="input-group">
+                    <input class="form-control class-date-second" placeholder="yyyy-mm-dd" ngbDatepicker #date="ngbDatepicker"
+                      (dateSelect)="changeSecondDate($event, 'seconddate')">
+                    <input type="hidden" class="second_actualdate" formControlName="seconddate">
                     <div class="input-group-append">
                       <button type="button" class="btn btn-secondary" style="height:41px;" (click)="date.toggle()" type="button">
                         <i class="icon-regular i-Calendar-4"></i>

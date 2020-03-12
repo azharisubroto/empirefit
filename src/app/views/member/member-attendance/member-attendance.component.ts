@@ -79,6 +79,8 @@ export class MemberAttendanceComponent implements OnInit {
   cc_autodebit_payment: boolean = false;
   status_leave: boolean = false;
   status_unpaid: boolean = false;
+  status_unverified: boolean = false;
+  status_expired: boolean = false;
   finance_notes;
   healthquestions;
   recuring_payment;
@@ -157,6 +159,18 @@ export class MemberAttendanceComponent implements OnInit {
           this.status_leave = true;
         } else {
           this.status_leave = false;
+        }
+
+        if (this.member.state == "Unverified") {
+          this.status_unverified = true;
+        } else {
+          this.status_unverified = false;
+        }
+
+        if (this.member.state == "Expired") {
+          this.status_expired = true;
+        } else {
+          this.status_expired = false;
         }
 
         if (this.member.state == "Unpaid") {
