@@ -463,14 +463,14 @@ export class MemberAttendanceComponent implements OnInit {
             if (data['status_finger'] == '0') {
               $("#btn-fingerscan").removeClass('disabled');
               $("#btn-autoreg").addClass('disabled');
-              $("#btn-manualreg").attr('disabled', 'disabled');
+              // $("#btn-manualreg").attr('disabled', 'disabled');
               $("#btn-ptsession").addClass("disabled");
             } else {
               $("#btn-fingerscan").addClass('disabled');
 
               if (this.status != 'Expired') {
                 $("#btn-autoreg").removeClass('disabled');
-                $("#btn-manualreg").removeAttr('disabled');
+                // $("#btn-manualreg").removeAttr('disabled');
               }
               $("#btn-ptsession").removeClass("disabled");
             }
