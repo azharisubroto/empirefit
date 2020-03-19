@@ -37,11 +37,11 @@
                 <div class="col-md-3 form-group mb-3">
                   <label for="date">Class Date To</label>
                   <div class="input-group">
-                    <input class="form-control class-date-second" placeholder="yyyy-mm-dd" ngbDatepicker #date="ngbDatepicker"
+                    <input class="form-control class-date-second" placeholder="yyyy-mm-dd" ngbDatepicker #seconddate="ngbDatepicker"
                       (dateSelect)="changeSecondDate($event, 'seconddate')">
                     <input type="hidden" class="second_actualdate" formControlName="seconddate">
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-secondary" style="height:41px;" (click)="date.toggle()" type="button">
+                      <button type="button" class="btn btn-secondary" style="height:41px;" (click)="seconddate.toggle()" type="button">
                         <i class="icon-regular i-Calendar-4"></i>
                       </button>
                     </div>

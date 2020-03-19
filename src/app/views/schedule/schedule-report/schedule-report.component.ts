@@ -123,7 +123,7 @@ export class ScheduleReportComponent implements OnInit {
     var tosend = year + '-' + mod.pad(month) + '-' + mod.pad(day);
     console.log($target + ' is: ' + tosend);
     //$('.classes-list').html('Loading...');
-    if ($target == 'date') {
+    if ($target == 'seconddate') {
       mod.searchForm.patchValue({
         seconddate: tosend
       });
