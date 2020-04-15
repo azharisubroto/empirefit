@@ -152,6 +152,8 @@
                       <th>Nickname</th>
                       <th>Phone</th>
                       <th>Member Type</th>
+                      <th>Email</th>
+                      <th>Last Visit</th>
                       <th>State</th>
                       <th>Action</th>
                     </tr>
@@ -163,6 +165,8 @@
                       <td>{{ member.nickname ? member.nickname : '-' }}</td>
                       <td>{{ member.phone }}</td>
                       <td>{{ member.member_type_name ? member.member_type_name : '-' }}</td>
+                      <td>{{ member.email ? member.email : '-' }}</td>
+                      <td>{{ member.last_visit ? member.last_visit : '-' }}</td>
                       <td>{{ member.state }}</td>
                       <td>
                         <a href="#" routerLink="member/detail/{{ member.id }}" class="btn btn-primary" title="Detail"
