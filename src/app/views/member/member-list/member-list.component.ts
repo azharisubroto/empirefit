@@ -155,18 +155,20 @@ export class MemberComponent implements OnInit {
         vm.table.destroy();
         $.each(res, function (i, item) {
           var newthis = [
+            `<a
+              href="member/detail/` + item.id + `"
+              class="btn btn-primary"
+              title="Detail"
+              triggers="mouseenter:mouseleave"
+            >Detail</a>`,
             item.member_code,
             item.name,
             item.nickname ? item.nickname : '-',
             item.member_type_name ? item.member_type_name : '-',
             item.phone,
             item.state,
-            `<a
-              href="member/detail/` + item.id + `"
-              class="btn btn-primary"
-              title="Detail"
-              triggers="mouseenter:mouseleave"
-            >Detail</a>`
+            item.date_of_birth,
+            item.address,
           ];
           items.push(newthis);
         });
@@ -186,13 +188,15 @@ export class MemberComponent implements OnInit {
             ]
           },
           columns: [
+            { title: 'Action' },
             { title: 'Member Code' },
             { title: 'Name' },
             { title: 'Nickname' },
             { title: 'Member Type' },
             { title: 'Phone' },
             { title: 'Status' },
-            { title: 'Action' },
+            { title: 'Date of birth' },
+            { title: 'Address' },
           ],
           data: items,
         });
